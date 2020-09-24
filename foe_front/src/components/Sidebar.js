@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react"
 
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 
 function Sidebar(props) {
 
+    
     return (
-        <div className='sidebar'>
+        <div className="sidebar">
             <Link to="/">Home</Link><br/>
             <br />
             {props.Application.state.currentUser ? // if user is logged in

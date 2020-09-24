@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react"
 
 function Pin(props) {
 
+    
     return(
         <div>
             In the pin component

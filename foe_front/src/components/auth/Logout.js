@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react"
 
-const axios = require('axios').default
+const axios = require("axios").default
 
 function Logout(props) {
 
@@ -9,9 +9,10 @@ function Logout(props) {
             ...props.Application.state,
             currentUser: null
         })
-        axios.defaults.headers.common['Authentication'] = ""
+        axios.defaults.headers.common["Authentication"] = ""
     }, [])
 
+    
     return (
         <div className="main">
             Successfully logged out!
