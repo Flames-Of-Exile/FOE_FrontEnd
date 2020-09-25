@@ -18,25 +18,19 @@ class Login extends React.Component {
     })
 
     handleSubmit = async () => {
-
-        this.state.Application.setState({
-            ...this.state.Application.state,
-            currentUser: true,
-        })
-
-        // try {
-        //     const response = await axios.post("/api/users/login", JSON.stringify({
-        //         username: this.state.username,
-        //         password: this.state.password,
-        //     }))
-        //     axios.defaults.headers.common["Authentication"] = response.data.token
-        //     this.state.Application.setState({
-        //         ...this.state.Application.state,
-        //         currentUser: response.data.user,
-        //     })
-        // } catch (error) {
-        //     console.log("Failed to login -", error.message)
-        // }
+        try {
+            const response = await axios.post("/api/users/login", JSON.stringify({
+                username: this.state.username,
+                password: this.state.password,
+            }))
+            axios.defaults.headers.common["Authentication"] = `Bearer ${response.data.token}`
+            this.state.Application.setState({
+                ...this.state.Application.state,
+                currentUser: response.data.id,
+            })
+        } catch (error) {
+            console.log("Failed to login -", error.message)
+        }
     }
 
     
