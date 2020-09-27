@@ -2,13 +2,15 @@ import React from "react"
 
 const axios = require("axios").default
 
-class Login extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super()
         this.state = {
             Application: props.Application,
             username: "",
-            password: "",
+            password1: "",
+            password2: "",
+            email: "",
         }
     }
 
@@ -18,10 +20,15 @@ class Login extends React.Component {
     })
 
     handleSubmit = async () => {
+        if (this.state.password1 !== this.state.password2) {
+            alert("passwords don't match")
+            return
+        }
         try {
-            const response = await axios.post("/api/users/login", JSON.stringify({
+            const response = await axios.post("/api/users", JSON.stringify({
                 username: this.state.username,
-                password: this.state.password,
+                password: this.state.password1,
+                email: this.state.email
             }))
             axios.defaults.headers.common["Authentication"] = `Bearer ${response.data.token}`
             this.state.Application.setState({
@@ -29,7 +36,7 @@ class Login extends React.Component {
                 currentUser: response.data.user,
             })
         } catch (error) {
-            console.log("Failed to login -", error.message)
+            console.log("Failed to register -", error.message)
         }
     }
 
@@ -38,11 +45,13 @@ class Login extends React.Component {
         return (
             <div>
                 <input type="text" name="username" onChange={this.handleChange}/>
-                <input type="password" name="password" onChange={this.handleChange}/>
+                <input type="password" name="password1" onChange={this.handleChange}/>
+                <input type="password" name="password2" onChange={this.handleChange}/>
+                <input type="text" name="email" onChange={this.handleChange}/>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         )
     }
 }
 
-export default Login
+export default Register

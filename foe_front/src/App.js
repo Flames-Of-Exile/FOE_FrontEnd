@@ -12,6 +12,7 @@ import World from "./components/intel/World"
 
 import Login from "./components/auth/Login"
 import Logout from "./components/auth/Logout"
+import Register from "./components/auth/Register"
 
 import Home from "./components/Home"
 import Sidebar from "./components/Sidebar"
@@ -51,6 +52,7 @@ class App extends React.Component {
             : // else user is not logged in
             <div className="main">
               <Switch>
+                <Route exact path="/register" render={props => <Register {...props} Application={this} />} />
                 <Route path="/" render={props => <Login {...props} Application={this} />} />
               </Switch>
             </div>
