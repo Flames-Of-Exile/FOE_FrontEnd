@@ -16,6 +16,8 @@ function Sidebar(props) {
             </div>
             : // else user is not logged in
             <div>
+                <Link to="/login">Login</Link><br/>
+                <Link to="/register">Register</Link>
                 {/* Links/info for not logged in users here */}
             </div>
             /* end if user is logged in*/}
