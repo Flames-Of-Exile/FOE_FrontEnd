@@ -7,6 +7,7 @@ import {
 import "./staticfiles/App.css"
 
 import Campaign from "./components/intel/Campaign"
+import NewCampaign from "./components/intel/NewCampaign"
 import PinHistory from "./components/intel/PinHistory"
 import World from "./components/intel/World"
 
@@ -44,6 +45,7 @@ class App extends React.Component {
             <div className="main">
               <Switch>
                 <Route exact path="/" render={props => <Home {...props} Application={this} />}/>
+                <Route exact path="/campaign/new" render={props => <NewCampaign {...props} Application={this} />}/>
                 <Route exact path="/campaign/:id" render={props => <Campaign {...props} Application={this} />}/>
                 <Route exact path="/pin/:id" render={props => <PinHistory {...props} Application={this} />}/>
                 <Route exact path="/world/:id" render={props => <World {...props} Application={this} />}/>
