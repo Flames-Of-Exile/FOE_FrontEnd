@@ -30,7 +30,7 @@ class Register extends React.Component {
                 password: this.state.password1,
                 email: this.state.email
             }))
-            axios.defaults.headers.common["Authentication"] = `Bearer ${response.data.token}`
+            axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`
             this.state.Application.setState({
                 ...this.state.Application.state,
                 currentUser: response.data.user,
