@@ -23,7 +23,7 @@ class Login extends React.Component {
                 username: this.state.username,
                 password: this.state.password,
             }))
-            axios.defaults.headers.common["Authentication"] = `Bearer ${response.data.token}`
+            axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`
             this.state.Application.setState({
                 ...this.state.Application.state,
                 currentUser: response.data.user,

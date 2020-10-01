@@ -9,7 +9,7 @@ function Logout(props) {
             ...props.Application.state,
             currentUser: null
         })
-        axios.defaults.headers.common["Authentication"] = ""
+        axios.defaults.headers.common["Authorization"] = ""
     }, [])
 
     
