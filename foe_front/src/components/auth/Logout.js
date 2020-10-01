@@ -7,7 +7,7 @@ function Logout(props) {
     useEffect(() => {
         props.Application.setState({
             ...props.Application.state,
-            currentUser: null
+            currentUser: {}
         })
         axios.defaults.headers.common["Authorization"] = ""
     }, [])

@@ -18,7 +18,9 @@ import Logout from "./components/auth/Logout"
 import Register from "./components/auth/Register"
 
 import Home from "./components/Home"
+import Profile from "./components/Profile"
 import Sidebar from "./components/Sidebar"
+import Theme from "./components/Theme"
 
 const axios = require("axios").default
 const url = process.env.REACT_APP_BACKEND || "http://localhost:5000/"
@@ -31,7 +33,7 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      currentUser: null,
+      currentUser: {},
     }
   }
 
@@ -39,14 +41,15 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
+        <Theme Application={this} />
           <Sidebar Application={this} />
-
           <Switch>
             <Route exact path="/logout" render={props => <Logout {...props} Application={this} />} />
-            {this.state.currentUser ? // if a user is logged in 
+            {this.state.currentUser.id ? // if a user is logged in 
             <div className="main">
               <Switch>
                 <Route exact path="/" render={props => <Home {...props} Application={this} />}/>
+                <Route exact path="/profile" render={props => <Profile {...props} Application={this} />} />
                 <Route exact path="/campaign/new" render={props => <NewCampaign {...props} Application={this} />} />
                 <Route exact path="/campaign/:id" render={props => <Campaign {...props} Application={this} />} />
                 <Route exact path="/pin/new" render={props => <NewPin {...props} Application={this} />} />
