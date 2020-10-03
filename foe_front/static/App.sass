@@ -33,13 +33,13 @@ $secondary-lnk-color: var(--secondary-lnk-color)
   background-color: $secondary-bg-color
   color: $secondary-txt-color
 
-.sidebar a
-  font-size: 22px
-  color: $secondary-lnk-color
+  a
+    font-size: 22px
+    color: $secondary-lnk-color
 
-.sidebar a:hover
-  filter: brightness(85%)
-  text-decoration: none
+  a:hover
+    filter: brightness(85%)
+    text-decoration: none
 
 a
   color: $primary-lnk-color
@@ -67,7 +67,6 @@ input
   border-radius: 10px
   outline: none
 
-
 button
   width: 200px
   height: 40px
@@ -84,8 +83,27 @@ button
   margin-right: 0px
 
 button:hover
-  filter: brightness(85%);
-  cursor: pointer;
+  filter: brightness(85%)
+  cursor: pointer
 
 button:active
-  filter: brightness(70%);
+  filter: brightness(70%)
+
+.user-list
+  align-self: center
+  margin: 25px
+  padding: 5px
+  background-color: $secondary-bg-color
+  width: 1000px
+  height: 400px
+  overflow: auto
+  text-align: justify
+
+.user-entry
+  margin: .25em
+  padding: .5em
+  list-style-type: none
+  background-color: $primary-bg-color
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4)
+  border-style: 1px solid $primary-bg-color
+  border-radius: 3px
