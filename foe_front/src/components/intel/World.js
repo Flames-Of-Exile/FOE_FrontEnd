@@ -1,4 +1,5 @@
 import React from "react"
+import Pin from './Pin.js'
 
 const axios = require("axios").default
 
@@ -25,6 +26,14 @@ class World extends React.Component {
             <div>
                 <p>{this.state.world.name}</p>
                 <img src={this.state.world.image} />
+                {response.data.pins.map(point => (
+                    <Pin key={point.id}
+                         x = {point.x}
+                         y = {point.y}
+                         type = {point.type}
+                         details = {point.details}
+                    />
+                ))}
             </div>
         )
     }
