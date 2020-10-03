@@ -14,7 +14,13 @@ function Sidebar(props) {
                 <Link to="/">Home</Link><br/>
                 <Link to="/profile">Edit Profile</Link><br />
                 <Link to="/logout">Logout</Link>
-                {/* Links/info for logged in users here */}
+                {props.Application.state.currentUser.role === "admin" ? // if user is admin
+                <div>
+                    <br /><Link to="/admin">Admin</Link>
+                </div>
+                : // else
+                    ""
+                /*end if user is admin*/}
             </div>
             : // else user is not logged in
             <div>
