@@ -1,5 +1,10 @@
 import React from "react"
 
+//Function needs a few things to be included in props
+// a type that we can add a few different imgs to for different colored pins
+// x and y locations
+// details    this will be any text notes that should be displayed with the pin
+
 function Pin(props) {
 
     function setVis() {
