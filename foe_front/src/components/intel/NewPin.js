@@ -1,4 +1,5 @@
 import React from "react"
+import Pin from './Pin.js'
 
 const axios = require("axios").default
 
@@ -7,8 +8,8 @@ class NewPin extends React.Component {
         super()
         this.state = {
             Application: props.Application,
-            position_x: 0,
-            position_y: 0,
+            position_x: props.position_x,
+            position_y: props.position_y,
             symbol: "",
             details: "",
             world_id: 0,

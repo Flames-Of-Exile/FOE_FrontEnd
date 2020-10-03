@@ -1,5 +1,6 @@
 import React from "react"
 import Pin from './Pin.js'
+import NewPin from './NewPin.js'
 
 const axios = require("axios").default
 
@@ -20,10 +21,19 @@ class World extends React.Component {
             world: response.data,
         })
     }
+
+    addNewPin(e) {
+        let world = document.getElementById('worldImg')
+        let worldLoc = world.getBoundingClientRect()
+        let clickPoint = <NewPin position_x = {e.clientX - worldLoc.left}
+                                 position_y = {e.clientY - worldLoc.top}
+                         />
+        world.appendChild(clickPoint)
+    }
     
     render() {
         return(
-            <div>
+            <div id = 'worldImg'>
                 <p>{this.state.world.name}</p>
                 <img src={this.state.world.image} />
                 {response.data.pins.map(point => (
