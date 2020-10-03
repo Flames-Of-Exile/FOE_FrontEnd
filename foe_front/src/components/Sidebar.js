@@ -7,10 +7,12 @@ function Sidebar(props) {
 
     return (
         <div className="sidebar">
-            <Link to="/">Home</Link><br/>
-            <br />
-            {props.Application.state.currentUser ? // if user is logged in
+            <p>Welcome to the Flames of Exile</p>
+            {props.Application.state.currentUser.id ? // if user is logged in
             <div>
+                <p>{props.Application.state.currentUser.username}</p>
+                <Link to="/">Home</Link><br/>
+                <Link to="/profile">Edit Profile</Link><br />
                 <Link to="/logout">Logout</Link>
                 {/* Links/info for logged in users here */}
             </div>
