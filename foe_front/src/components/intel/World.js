@@ -44,6 +44,7 @@ class World extends React.Component {
                          details = {point.details}
                     />
                 ))}
+                {document.getElementById('worldImg').addEventListener('click', this.addNewPin)}
             </div>
         )
     }
