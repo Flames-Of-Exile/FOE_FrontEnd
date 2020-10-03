@@ -15,16 +15,16 @@ function Pin(props) {
         details.style.visibility = 'hidden'
     }
     
-    const type = props.type
-    const x = props.x + 'px'
-    const y = props.y + 'px'
+    const symbol = props.symbol
+    const x = props.position_x + 'px'
+    const y = props.position_y + 'px'
     let pin = document.createElement('div')
     pin.style.position = 'absolute'
     pin.style.top = y
     pin.style.left = x
     
     let pinPoint = document.createElement('img')
-    pinPoint.src = type + '.jpg'
+    pinPoint.src = symbol + '.jpg'
     pin.appendChild(pinPoint)
 
     let details = document.createElement('div')
