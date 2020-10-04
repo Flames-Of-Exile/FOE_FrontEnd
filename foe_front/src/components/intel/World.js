@@ -36,7 +36,7 @@ class World extends React.Component {
             <div id = 'worldImg'>
                 <p>{this.state.world.name}</p>
                 <img src={this.state.world.image} />
-                {response.data.pins.map(point => (
+                {this.state.world.data.pins.map(point => (
                     <Pin key={point.id}
                          x = {point.position_x}
                          y = {point.position_y}
