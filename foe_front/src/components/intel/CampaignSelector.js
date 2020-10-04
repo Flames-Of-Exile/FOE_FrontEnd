@@ -21,22 +21,27 @@ class CampaignSelector extends React.Component {
         })
     }
 
-    handleChange(value) {
+    handleChange() {
         this.setState({
             ...this.state,
-            activeCampaign:value,
+            activeCampaign:document.getElementById('selector').value,
         })
     }
+
 
     render() {
         return(
             <div>
-                <input type='select' name='campaigns' onChange={this.handleChange(value)}>
-                    {this.state.campaigns.map( campaign => (
-                        <option value={campaign}>{campaign.match.params.name}</option>
-                    ))}
-                </input>
-                {this.state.activeCampaign ? <Campaign match = {this.state.activeCampaign}/>:<div/>}
+                {this.state.activeCampaign ?
+                 <div>
+                    <input type='select' name='campaigns' id='selector' onChange={this.handleChange()}>
+                        {this.state.campaigns.map( campaign => (
+                            <option value={campaign}>{campaign.match.params.name}</option>
+                        ))}
+                    </input>
+                    {this.state.activeCampaign ? <Campaign match = {this.state.activeCampaign}/>:<div/>}
+                </div> : <div/>
+                }
             </div>
         )
     }
