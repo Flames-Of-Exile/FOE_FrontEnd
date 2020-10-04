@@ -24,7 +24,7 @@ function Pin(props) {
     pin.style.left = x
     
     let pinPoint = document.createElement('img')
-    pinPoint.src = symbol + '.jpg'
+    pinPoint.src = './icons/' + symbol + '.png'
     pin.appendChild(pinPoint)
 
     let details = document.createElement('div')
