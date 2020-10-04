@@ -10,7 +10,7 @@ class World extends React.Component {
         this.state = {
             Application: props.Application,
             id: props.match.params.id,
-            world: {}
+            world: {pins: []}
         }
     }
 
@@ -22,7 +22,7 @@ class World extends React.Component {
         })
     }
 
-    addNewPin(e) {
+    addNewPin = (e) => {
         let world = document.getElementById('worldImg')
         let worldLoc = world.getBoundingClientRect()
         let clickPoint = <NewPin position_x = {e.clientX - worldLoc.left}
@@ -33,10 +33,10 @@ class World extends React.Component {
     
     render() {
         return(
-            <div id = 'worldImg'>
+            <div id = 'worldImg' onClick={this.addNewPin}>
                 <p>{this.state.world.name}</p>
                 <img src={this.state.world.image} />
-                {this.state.world.data.pins.map(point => (
+                {this.state.world.pins.map(point => (
                     <Pin key={point.id}
                          x = {point.position_x}
                          y = {point.position_y}
@@ -44,7 +44,6 @@ class World extends React.Component {
                          details = {point.details}
                     />
                 ))}
-                {document.getElementById('worldImg').addEventListener('click', this.addNewPin)}
             </div>
         )
     }

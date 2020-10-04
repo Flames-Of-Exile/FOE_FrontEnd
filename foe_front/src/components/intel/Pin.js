@@ -7,12 +7,12 @@ import React from "react"
 
 function Pin(props) {
 
-    function setVis() {
-        details.style.visibility = 'visible'
+    function setVis(event) {
+        event.target.style.visibility = 'visible'
     }
 
-    function setInvis() {
-        details.style.visibility = 'hidden'
+    function setInvis(event) {
+        event.target.style.visibility = 'hidden'
     }
     
     const symbol = props.symbol
@@ -22,6 +22,7 @@ function Pin(props) {
     pin.style.position = 'absolute'
     pin.style.top = y
     pin.style.left = x
+    document.getElementById("pinholder").appendChild(pin)
     
     let pinPoint = document.createElement('img')
     pinPoint.src = './icons/' + symbol + '.png'
@@ -39,9 +40,7 @@ function Pin(props) {
 
     
     return(
-        <div>
-               {pin}
-        </div>
+        <div id="pinholder" />
     )
 }
 
