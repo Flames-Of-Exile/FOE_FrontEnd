@@ -42,7 +42,7 @@ class NewPin extends React.Component {
             <div>
                 <input type="number" name="position_x" onChange={this.handleChange}/>
                 <input type="number" name="position_y" onChange={this.handleChange}/>
-                <input type="select" name="symbol" onChange={this.handleChange}/>
+                <input type="select" name="symbol" onChange={this.handleChange}>
                     <option value='stone'>Stone</option>
                     <option value='stoneML'>Stone Motherload</option>
                     <option value='ore'>Ore</option>
@@ -57,6 +57,7 @@ class NewPin extends React.Component {
                     <option value='tacFire'>Tachtical Fire</option>
                     <option value='tacFish'>Tachtical Fish</option>
                     <option value='tacHouse'>Tachtical House</option>
+                </input>
                 <input type="text" name="details" onChange={this.handleChange}/>
                 <input type="number" name="world_id" onChange={this.handleChange}/>
                 <button onClick={this.handleSubmit}>Submit</button>
