@@ -10,7 +10,9 @@ class World extends React.Component {
         this.state = {
             Application: props.Application,
             id: props.match.params.id,
-            world: {pins: []}
+            world: {pins: []},
+            newPin: false,
+            newPinPosition: [0,0]
         }
     }
 
@@ -25,10 +27,11 @@ class World extends React.Component {
     addNewPin = (e) => {
         let world = document.getElementById('worldImg')
         let worldLoc = world.getBoundingClientRect()
-        let clickPoint = <NewPin position_x = {e.clientX - worldLoc.left}
-                                 position_y = {e.clientY - worldLoc.top}
-                         />
-        world.appendChild(clickPoint)
+        this.setState({
+            ...this.state,
+            newPin: true,
+            newPinPosition: [e.clientX - worldLoc.left, e.clientY - worldLoc.top]
+        })
     }
     
     render() {
@@ -44,6 +47,14 @@ class World extends React.Component {
                          details = {point.details}
                     />
                 ))}
+                {this.state.newPin ? // if a new pin is being made
+                    <NewPin position_x={this.state.newPinPosition[0]} 
+                            position_y={this.state.newPinPosition[1]}
+                            world_id={this.state.id}
+                    />
+                : // else
+                    ""
+                /*end if new pin is being made*/}
             </div>
         )
     }

@@ -22,15 +22,14 @@ function Pin(props) {
     pin.style.position = 'absolute'
     pin.style.top = y
     pin.style.left = x
-    document.getElementById("pinholder").appendChild(pin)
     
     let pinPoint = document.createElement('img')
     pinPoint.src = './icons/' + symbol + '.png'
     pin.appendChild(pinPoint)
 
     let details = document.createElement('div')
-    details.style.backgroundColor('#FFFFFF')
-    details.style.color('#000000')
+    details.style.backgroundColor = '#FFFFFF'
+    details.style.color = '#000000'
     details.innerHTML = '<p>' + props.details + '</p>'
     details.style.visibility = 'hidden'
     pin.appendChild(details)
@@ -40,7 +39,9 @@ function Pin(props) {
 
     
     return(
-        <div id="pinholder" />
+        <div>
+               {pin}
+        </div>
     )
 }
 
