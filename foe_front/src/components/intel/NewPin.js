@@ -10,9 +10,13 @@ class NewPin extends React.Component {
             Application: props.Application,
             position_x: props.position_x,
             position_y: props.position_y,
-            symbol: "",
-            details: "",
-            world_id: 0,
+            world_id: props.world_id,
+            symbol: "stone",
+            notes: "",
+            name: "",
+            rank: 0,
+            amount: 0,
+            respawn: 0,
         }
     }
 
@@ -22,13 +26,18 @@ class NewPin extends React.Component {
     })
 
     handleSubmit = async () => {
+        console.log(this.state)
         try {
             const response = await axios.post("/api/pins", JSON.stringify({
                 position_x: this.state.position_x,
                 position_y: this.state.position_y,
                 symbol: this.state.symbol,
-                details: this.state.details,
+                notes: this.state.notes,
                 world_id: this.state.world_id,
+                name: this.state.name,
+                rank: this.state.rank,
+                amount: this.state.amount,
+                respawn: this.state.respawn
             }))
             console.log(response)
         } catch (error) {
@@ -40,9 +49,9 @@ class NewPin extends React.Component {
     render() {
         return (
             <div>
-                <input type="number" name="position_x" onChange={this.handleChange}/>
-                <input type="number" name="position_y" onChange={this.handleChange}/>
-                <input type="select" name="symbol" onChange={this.handleChange}>
+                <input type="number" name="position_x" value={this.state.position_x} onChange={this.handleChange}/>
+                <input type="number" name="position_y" value={this.state.position_y} onChange={this.handleChange}/>
+                <select name="symbol" value={this.state.symbol} onChange={this.handleChange}>
                     <option value='stone'>Stone</option>
                     <option value='stoneML'>Stone Motherload</option>
                     <option value='ore'>Ore</option>
@@ -57,9 +66,12 @@ class NewPin extends React.Component {
                     <option value='tacFire'>Tachtical Fire</option>
                     <option value='tacFish'>Tachtical Fish</option>
                     <option value='tacHouse'>Tachtical House</option>
-                </input>
-                <input type="text" name="details" onChange={this.handleChange}/>
-                <input type="number" name="world_id" onChange={this.handleChange}/>
+                </select>
+                <input type="text" name="notes" onChange={this.handleChange}/>
+                <input type="text" name="name" onChange={this.handleChange}/>
+                <input type="number" name="rank" onChange={this.handleChange}/>
+                <input type="number" name="amount" onChange={this.handleChange}/>
+                <input type="number" name="respawn" onChange={this.handleChange}/>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         )

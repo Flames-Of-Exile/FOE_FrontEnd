@@ -9,7 +9,7 @@ class CampaignSelector extends React.Component {
         this.state = {
             Application: props.Application,
             campaigns: [],
-            activeCampaign: ''
+            activeCampaign: {}
         }
     }
 
@@ -17,14 +17,15 @@ class CampaignSelector extends React.Component {
         const response = await axios.get(`/api/campaigns`)
         this.setState({
             ...this.state,
-            campaigns:response.data,
+            campaigns: response.data,
+            activeCampaign: response.data[0]
         })
     }
 
-    handleChange() {
+    handleChange = (event) => {
         this.setState({
             ...this.state,
-            activeCampaign:document.getElementById('selector').value,
+            [event.target.name]: event.target.value,
         })
     }
 
@@ -32,16 +33,12 @@ class CampaignSelector extends React.Component {
     render() {
         return(
             <div>
-                {this.state.activeCampaign ?
-                 <div>
-                    <input type='select' name='campaigns' id='selector' onChange={this.handleChange()}>
-                        {this.state.campaigns.map( campaign => (
-                            <option value={campaign}>{campaign.match.params.name}</option>
-                        ))}
-                    </input>
-                    {this.state.activeCampaign ? <Campaign match = {this.state.activeCampaign}/>:<div/>}
-                </div> : <div/>
-                }
+                <select name='activeCampaign' id='selector' value={this.state.activeCampaign} onChange={this.handleChange}>
+                    {this.state.campaigns.map( campaign => (
+                        <option value={campaign}>{campaign.name}</option>
+                    ))}
+                </select>
+                {this.state.activeCampaign ? <Campaign campaign = {this.state.activeCampaign}/>:<div/>}
             </div>
         )
     }

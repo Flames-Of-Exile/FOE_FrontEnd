@@ -7,12 +7,12 @@ import React from "react"
 
 function Pin(props) {
 
-    function setVis() {
-        details.style.visibility = 'visible'
+    function setVis(event) {
+        event.target.style.visibility = 'visible'
     }
 
-    function setInvis() {
-        details.style.visibility = 'hidden'
+    function setInvis(event) {
+        event.target.style.visibility = 'hidden'
     }
     
     const symbol = props.symbol
@@ -28,8 +28,8 @@ function Pin(props) {
     pin.appendChild(pinPoint)
 
     let details = document.createElement('div')
-    details.style.backgroundColor('#FFFFFF')
-    details.style.color('#000000')
+    details.style.backgroundColor = '#FFFFFF'
+    details.style.color = '#000000'
     details.innerHTML = '<p>' + props.details + '</p>'
     details.style.visibility = 'hidden'
     pin.appendChild(details)
