@@ -22,7 +22,7 @@ class Campaign extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await axios.get(`/api/campaigns/${this.state.campaign.id}`)
+        const response = await axios.get(`/api/worlds/campaign/${this.state.campaign.id}`)
         this.setState({
             ...this.state,
             campaign: response.data,
@@ -34,11 +34,11 @@ class Campaign extends React.Component {
             <div>
                 <p>{this.state.campaign.name}</p>
                 <img src={this.state.campaign.image} />
-                {this.state.campaign.worlds.map( w => (
+                {/* {this.state.campaign.worlds.map( w => (
                     <World key={w.id}
                            id={w.id}
                     ></World>
-                ))}
+                ))} */}
             </div>
         )
     }
