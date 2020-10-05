@@ -18,6 +18,7 @@ function Sidebar(props) {
                 <div>
                     <br /><Link to="/admin">Admin</Link>
                     <br /><Link to='/campaign/new'>Add Campaign</Link>
+                    <br /><Link to='/world/new'>Add World</Link>
                 </div>
                 : // else
                     ""

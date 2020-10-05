@@ -23,6 +23,7 @@ class CampaignSelector extends React.Component {
     }
 
     handleChange = (event) => {
+        console.log(event.target)
         this.setState({
             ...this.state,
             [event.target.name]: event.target.value,
@@ -33,12 +34,15 @@ class CampaignSelector extends React.Component {
     render() {
         return(
             <div>
-                <select name='activeCampaign' id='selector' value={this.state.activeCampaign} onChange={this.handleChange}>
-                    {this.state.campaigns.map( campaign => (
-                        <option value={campaign}>{campaign.name}</option>
+                <select name='activeCampaign' id='selector'placeholder='Please Choose a Campaign' onChange={this.handleChange}>
+                    <option value='none'>Please Choose a Campaign</option>
+                    {this.state.campaigns.map( campaign => ( 
+                        <option key={campaign.id} value={campaign.id-1}>{campaign.name}</option>
                     ))}
+                    {console.log(this.state.activeCampagn)}
+                    {console.log(this.state.campaigns)}
                 </select>
-                {this.state.activeCampaign ? <Campaign campaign = {this.state.activeCampaign}/>:<div/>}
+                {this.state.campaigns[this.state.activeCampaign] ? <Campaign campaign = {this.state.campaigns[this.state.activeCampaign]}/>:<div/>}
             </div>
         )
     }
