@@ -6,6 +6,7 @@ const axios = require('axios').default
 class CampaignSelector extends React.Component {
     constructor(props) {
         super()
+        this.campaignElement = React.createRef()
         this.state = {
             Application: props.Application,
             campaigns: [],
@@ -23,26 +24,24 @@ class CampaignSelector extends React.Component {
     }
 
     handleChange = (event) => {
-        console.log(event.target)
+        //console.log(event.target)
         this.setState({
             ...this.state,
-            [event.target.name]: event.target.value,
+            [event.target.name]: this.state.campaigns[event.target.value],
         })
     }
-
 
     render() {
         return(
             <div>
                 <select name='activeCampaign' id='selector'placeholder='Please Choose a Campaign' onChange={this.handleChange}>
                     <option value='none'>Please Choose a Campaign</option>
-                    {this.state.campaigns.map( campaign => ( 
-                        <option key={campaign.id} value={campaign.id-1}>{campaign.name}</option>
+                    {this.state.campaigns.map( (campaign, index) => ( 
+                        <option key={index} value={index}>{campaign.name}</option>
                     ))}
-                    {console.log(this.state.activeCampagn)}
-                    {console.log(this.state.campaigns)}
                 </select>
-                {this.state.campaigns[this.state.activeCampaign] ? <Campaign campaign = {this.state.campaigns[this.state.activeCampaign]}/>:<div/>}
+                <div id='campaignPlacement' />
+                <Campaign campaign = {this.state.activeCampaign}/>
             </div>
         )
     }
