@@ -24,6 +24,21 @@ class World extends React.Component {
         })
     }
 
+    async componentDidUpdate(prevProps) {
+        if (this.props.id !== prevProps.id) {
+            this.setState({
+                ...this.state,
+                id:this.props.id
+            })
+            const response = await axios.get(`/api/worlds/${this.state.id}`)
+            this.setState({
+                ...this.state,
+                world: response.data,
+            })
+        }
+
+    }
+
     addNewPin = (e) => {
         let world = document.getElementById('worldImg')
         let worldLoc = world.getBoundingClientRect()
