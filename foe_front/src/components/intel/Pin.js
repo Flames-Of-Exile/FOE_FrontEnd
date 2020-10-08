@@ -5,44 +5,72 @@ import React from "react"
 // x and y locations
 // details    this will be any text notes that should be displayed with the pin
 
-function Pin(props) {
+class Pin extends React.Component {
+    constructor(props) {
+        super()
+        this.state = {
+            position_x:props.x,
+            position_y:props.y,
+            symbol:null,
+            details:props.details,
+            loaded: false,
+            id:props.id
+        }
+        console.log(this.state)
+    }
 
-    function setVis(event) {
+    setVis(event) {
         event.target.style.visibility = 'visible'
     }
 
-    function setInvis(event) {
+    setInvis(event) {
         event.target.style.visibility = 'hidden'
     }
-    
-    const symbol = props.symbol
-    const x = props.position_x + 'px'
-    const y = props.position_y + 'px'
-    let pin = document.createElement('div')
-    pin.style.position = 'absolute'
-    pin.style.top = y
-    pin.style.left = x
-    
-    let pinPoint = document.createElement('img')
-    pinPoint.src = './icons/' + symbol + '.png'
-    pin.appendChild(pinPoint)
 
-    let details = document.createElement('div')
-    details.style.backgroundColor = '#FFFFFF'
-    details.style.color = '#000000'
-    details.innerHTML = '<p>' + props.details + '</p>'
-    details.style.visibility = 'hidden'
-    pin.appendChild(details)
+    async componentDidMount() {
+        await this.props.position_x
+        this.setState({
+            ...this.state,
+            position_x:this.props.x,
+            position_y:this.props.y,
+            symbol:this.props.symbol,
+            details:this.props.details,
+            loaded: true,
+            id:this.props.id,
+            pinStyle:{
+                position: 'absolute',
+                top: this.state.position_y + 'px',
+                left: this.state.position_x + 'px'
+            },
+            detailsStyle:{
+                backgroundColor: '#FFFFFF',
+                color: '#000000',
+                visibility: 'hidden'
+            },
 
-    details.addEventListener('mouseover', setVis)
-    details.addEventListener('mouseout', setInvis)
+        })
+    }
 
+
+    content() {
+        return (
+            <div id= {'pin' + this.state.id}>
+                {console.log(this.state)}
+                <img src= {'./icons/' + this.state.symbol + '.png'} style={this.state.pinStyle}/>
+                <div id={toString(this.state.id)} style={this.state.detailsStyle}>{this.state.details}</div>
+                {document.getElementById(toString(this.state.id)).addEventListener('mouseover', this.setVis)}
+                {document.getElementById(toString(this.state.id)).addEventListener('mouseout', this.setInvis)}
+            </div>
+        )
+    }
     
-    return(
-        <div>
-               {pin}
-        </div>
-    )
+    render() {
+        return(
+            <div>
+                {this.state.loaded ? this.content() : null}
+            </div>
+        )
+    }
 }
 
 export default Pin
