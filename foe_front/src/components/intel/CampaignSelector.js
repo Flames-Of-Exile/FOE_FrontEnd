@@ -40,7 +40,6 @@ class CampaignSelector extends React.Component {
                         <option key={index} value={index}>{campaign.name}</option>
                     ))}
                 </select>
-                <div id='campaignPlacement' />
                 <Campaign campaign = {this.state.activeCampaign}/>
             </div>
         )

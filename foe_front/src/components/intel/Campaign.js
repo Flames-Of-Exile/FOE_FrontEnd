@@ -18,18 +18,25 @@ class Campaign extends React.Component {
             })
         }
     }
+    content() {
+        return(
+            <div>
+            <p>{this.state.campaign.name}</p>
+            <p>The campaign ID is {this.state.campaign.id}</p>
+            <img src={this.state.campaign.image} alt='Faled to Load Campaign'/>
+            {this.state.loaded ? this.state.campaign.worlds.map( (world) => (
+            <World key={world.id}
+                    id={world.id}
+                    world={world}/>
+            )): null}
+        </div>
+        )
+    }
 
     render() {
         return(
             <div>
-                <p>{this.state.campaign.name}</p>
-                <img src={this.state.campaign.image} />
-                {console.log(this.state.campaign.worlds)}
-                <div id='placeWorldsGo'></div>
-                {this.state.loaded ? this.state.campaign.worlds.map( (world) => (
-                <World key={world.id}
-                        id={world.id}/>
-                )): null}
+            {this.state.campaign ? this.content(): null}
             </div>
         )
     }

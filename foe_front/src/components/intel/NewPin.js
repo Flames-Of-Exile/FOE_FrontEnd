@@ -67,11 +67,11 @@ class NewPin extends React.Component {
                     <option value='tacFish'>Tachtical Fish</option>
                     <option value='tacHouse'>Tachtical House</option>
                 </select>
-                <input type="text" name="notes" onChange={this.handleChange}/>
-                <input type="text" name="name" onChange={this.handleChange}/>
-                <input type="number" name="rank" onChange={this.handleChange}/>
-                <input type="number" name="amount" onChange={this.handleChange}/>
-                <input type="number" name="respawn" onChange={this.handleChange}/>
+                <input type="text" name="notes" placeholder='notes' onChange={this.handleChange}/>
+                <input type="text" name="name" placeholder='name' onChange={this.handleChange}/>
+                <input type="number" name="rank" placeholder='rank' onChange={this.handleChange}/>
+                <input type="number" name="amount" placeholder='amount' onChange={this.handleChange}/>
+                <input type="number" name="respawn" placeholder='respawn' onChange={this.handleChange}/>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         )

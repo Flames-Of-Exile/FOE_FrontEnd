@@ -9,65 +9,55 @@ class Pin extends React.Component {
     constructor(props) {
         super()
         this.state = {
-            position_x:props.x,
-            position_y:props.y,
-            symbol:null,
+            symbol:props.symbol,
             details:props.details,
-            loaded: false,
-            id:props.id
-        }
-        console.log(this.state)
-    }
-
-    setVis(event) {
-        event.target.style.visibility = 'visible'
-    }
-
-    setInvis(event) {
-        event.target.style.visibility = 'hidden'
-    }
-
-    async componentDidMount() {
-        await this.props.position_x
-        this.setState({
-            ...this.state,
-            position_x:this.props.x,
-            position_y:this.props.y,
-            symbol:this.props.symbol,
-            details:this.props.details,
-            loaded: true,
-            id:this.props.id,
+            id: props.id,
+            imgID: 'pinimg' + props.id,
+            detailsID: 'pindets' + props.id,
+            worldName: props.worldName,
+            containerStyle:{
+                position: 'relitive',
+                top: props.y + 'px',
+                left: props.x + 'px',
+                zindex: 10
+            },
             pinStyle:{
-                position: 'absolute',
-                top: this.state.position_y + 'px',
-                left: this.state.position_x + 'px'
+                height:'200px',
+                width:'75px'
             },
             detailsStyle:{
                 backgroundColor: '#FFFFFF',
                 color: '#000000',
                 visibility: 'hidden'
-            },
+            }
+        }
+        console.log(this.state)
+    }
 
+    async componentDidMount() {
+        await this.props.x
+        this.setState({
+            ...this.state,
+            id:this.props.id
         })
     }
 
-
-    content() {
-        return (
-            <div id= {'pin' + this.state.id}>
-                {console.log(this.state)}
-                <img src= {'./icons/' + this.state.symbol + '.png'} style={this.state.pinStyle}/>
-                <div id={toString(this.state.id)} style={this.state.detailsStyle}>{this.state.details}</div>
-                {document.getElementById(toString(this.state.id)).addEventListener('mouseover', this.setVis)}
-                {document.getElementById(toString(this.state.id)).addEventListener('mouseout', this.setInvis)}
-            </div>
-        )
+    setVis() {
+        console.log(this.state.uniqueId)
+        document.getElementById(this.state.detailsID).visibility = 'visible'
     }
-    
+
+    setInvis() {
+        document.getElementById(this.state.detailsID).visibility = 'hidden'
+    }
+   
     render() {
         return(
-            <div>
-                {this.state.loaded ? this.content() : null}
+            <div style={this.state.containerStyle}>
+                <img id={this.state.imgID} src={'/icons/' + this.state.symbol + '.png'} style={this.state.pinStyle} alt=''/>
+                <div id={this.state.detailsID} style={this.state.detailsStyle}>{this.state.details}</div>
+                {/* {document.getElementById(this.state.imgID).addEventListener('onMouseOver', this.setVis)}
+                {document.getElementById(this.state.imgID).addEventListener('onMouseOut', this.setInvis)} */}
             </div>
         )
     }
