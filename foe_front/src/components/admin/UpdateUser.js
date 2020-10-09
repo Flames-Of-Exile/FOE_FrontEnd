@@ -42,12 +42,17 @@ class Admin extends React.Component {
     })
 
     handleSubmit = async () => {
-        const response = await axios.put(`/api/users/${this.state.id}`, JSON.stringify({
-            password: this.state.password,
-            role: this.state.role,
-            is_active: this.state.is_active,
-            email: this.state.email,
-        }))
+        try {
+            await axios.put(`/api/users/${this.state.id}`, JSON.stringify({
+                password: this.state.password,
+                role: this.state.role,
+                is_active: this.state.is_active,
+                email: this.state.email,
+            }))
+        } catch (error) {
+            console.log("Failed to update user -", error.message)
+        }
+        
     }
     
     render() {

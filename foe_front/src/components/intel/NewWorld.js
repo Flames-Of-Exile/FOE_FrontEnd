@@ -32,8 +32,7 @@ class NewWorld extends React.Component {
             let config = { headers: {
                 "Content-Type": "multipart/form-data"
             } }
-            const response = await axios.post("/api/worlds", formData, config)
-            console.log(response)
+            await axios.post("/api/worlds", formData, config)
         } catch (error) {
             console.log("Failed to create world -", error.message)
         }
@@ -43,8 +42,8 @@ class NewWorld extends React.Component {
     render() {
         return (
             <div>
-                <input type="text" name="name" onChange={this.handleChange}/>
-                <input type="number" name="campaign_id" onChange={this.handleChange}/>
+                <input type="text" name="name" placeholder='World Name' onChange={this.handleChange}/>
+                <input type="number" name="campaign_id" placeholder='campaign id' onChange={this.handleChange}/>
                 <input type="file" name="file" onChange={this.handleSelect}/>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
