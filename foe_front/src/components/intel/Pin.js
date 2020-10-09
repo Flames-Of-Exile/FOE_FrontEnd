@@ -11,24 +11,27 @@ class Pin extends React.Component {
         super()
         this.state = {
             symbol:props.symbol,
-            details:'props.details',
+            details:props.details,
             id: props.id,
             imgID: 'pinimg' + props.id,
             detailsID: 'pindets' + props.id,
             worldName: props.worldName,
             containerStyle:{
-                position: 'relitive',
-                top: props.y + 'px',
-                left: props.x + 'px',
-                zindex: 10
+                position:'absolute',
+                bottom: props.y + '%',
+                left: props.x + '%',
+                zindex: 10,
+                height:'8.33%',
+                width:'2.6%',
             },
             pinStyle:{
-                height:'200px',
-                width:'75px'
+                height:'100%',
+                width:'100%'
+
             },
             detailsStyle:{
-                backgroundColor: '#FFFFFF',
-                color: '#000000',
+                backgroundColor: '#000000',
+                color: '#ffffff',
                 visibility: 'hidden'
             }
         }

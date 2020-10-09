@@ -13,7 +13,17 @@ class World extends React.Component {
             newPin: false,
             newPinPosition: [0,0],
             loaded: false,
-            uniqueID: 'world' + props.id
+            uniqueID: 'world' + props.id,
+            worldStyle: {
+                zindex:0,
+                position:'relative',
+                width:'70%',
+                height:'auto',
+            },
+            imgStyle: {
+                width:'100%',
+                height:'auto'
+            }
         }
     }
 
@@ -44,27 +54,38 @@ class World extends React.Component {
     }
 
     addNewPin = (e) => {
-
+        var worldLoc = this.getWorldLoc()
+        var leftOffsetAbs = e.clientX - worldLoc.left
+        var bottomOffsetAbs = worldLoc.bottom - e.clientY
+        const leftPercent = (leftOffsetAbs)/(worldLoc.right - worldLoc.left)*100-1.3
+        const bottomPercent = (bottomOffsetAbs)/(worldLoc.bottom - worldLoc.top)*100
+        const placePin = [leftPercent, bottomPercent]
         this.setState({
             ...this.state,
             newPin: true,
-            newPinPosition: [e.clientX - this.getWorldLoc().left, e.clientY - this.getWorldLoc().top]
+            newPinPosition: placePin
         })
+        console.log(this.state.newPinPosition)
+        console.log('bottom' +worldLoc.bottom)
+        console.log('top ' + worldLoc.top)
+        console.log('topoffsetAbs ' + bottomOffsetAbs)
+        console.log('click Y loc' + e.clientY)
     }
     
     content() {
         return(
-            <div id={this.state.uniqueID} onClick={this.addNewPin}>
+            <div>
                 <p>{this.state.world.name}</p>
-                <div>
-                <img id={this.state.uniqueID} src={this.state.world.image} alt='World Failed to load you should refresh the application' />
+                <div style={this.state.worldStyle} onClick={this.addNewPin}>
+                <img id={this.state.uniqueID} style={this.state.imgStyle}  src={this.state.world.image} alt='World Failed to load you should refresh the application' />
+                {console.log(this.state.newPinPosition)}
                 {this.state.world.pins.map(point => (
                     <Pin key={point.id.toString()}
                         id = {point.id}
                         x = {point.position_x}
                         y = {point.position_y}
                         symbol = {point.symbol}
-                        details = {point.details}
+                        details = {point.notes}
                         worldName = {this.state.uniqueID}
 
                     />

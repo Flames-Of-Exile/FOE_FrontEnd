@@ -44,7 +44,6 @@ class NewPin extends React.Component {
             console.log("Failed to create pin -", error.message)
         }
     }
-
     
     render() {
         return (
