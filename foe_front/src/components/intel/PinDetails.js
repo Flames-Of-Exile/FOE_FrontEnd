@@ -2,7 +2,7 @@ import React from "react"
 
 function PinDetails(props) {
     return (
-        <div style={props.style}>
+        <div style={{visibility: props.visibility}}>
             {props.details}
         </div>
     )

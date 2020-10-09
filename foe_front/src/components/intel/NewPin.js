@@ -1,5 +1,4 @@
 import React from "react"
-import Pin from './Pin.js'
 
 const axios = require("axios").default
 
@@ -26,9 +25,8 @@ class NewPin extends React.Component {
     })
 
     handleSubmit = async () => {
-        console.log(this.state)
         try {
-            const response = await axios.post("/api/pins", JSON.stringify({
+            await axios.post("/api/pins", JSON.stringify({
                 position_x: this.state.position_x,
                 position_y: this.state.position_y,
                 symbol: this.state.symbol,
@@ -39,7 +37,6 @@ class NewPin extends React.Component {
                 amount: this.state.amount,
                 respawn: this.state.respawn
             }))
-            console.log(response)
         } catch (error) {
             console.log("Failed to create pin -", error.message)
         }

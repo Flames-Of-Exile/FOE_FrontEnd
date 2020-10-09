@@ -23,8 +23,12 @@ class PinHistory extends React.Component {
     }
 
     delete = async () => {
-        const response = await axios.delete(`/api/pins/${this.state.id}`)
-        console.log(response)
+        try {
+            await axios.delete(`/api/pins/${this.state.id}`)
+        } catch (error) {
+            console.log("Failed to delete pin -", error.message)
+        }
+        
     }
     
     render() {

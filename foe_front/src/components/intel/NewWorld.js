@@ -32,8 +32,7 @@ class NewWorld extends React.Component {
             let config = { headers: {
                 "Content-Type": "multipart/form-data"
             } }
-            const response = await axios.post("/api/worlds", formData, config)
-            console.log(response)
+            await axios.post("/api/worlds", formData, config)
         } catch (error) {
             console.log("Failed to create world -", error.message)
         }

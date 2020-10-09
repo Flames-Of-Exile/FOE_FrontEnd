@@ -24,7 +24,6 @@ class CampaignSelector extends React.Component {
     }
 
     handleChange = (event) => {
-        //console.log(event.target)
         this.setState({
             ...this.state,
             [event.target.name]: this.state.campaigns[event.target.value],
