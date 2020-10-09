@@ -31,8 +31,7 @@ class NewCampaign extends React.Component {
             let config = { headers: {
                 "Content-Type": "multipart/form-data"
             } }
-            const response = await axios.post("/api/campaigns", formData, config)
-            console.log(response)
+            await axios.post("/api/campaigns", formData, config)
         } catch (error) {
             console.log("Failed to create campaign -", error.message)
         }
