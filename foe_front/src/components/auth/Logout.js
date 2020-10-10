@@ -1,21 +1,32 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 const axios = require("axios").default
 
 function Logout(props) {
+    const [state, setState] = useState({
+        loading: true
+    })
 
     useEffect(() => {
-        props.Application.setState({
-            ...props.Application.state,
-            currentUser: {}
-        })
-        axios.defaults.headers.common["Authorization"] = ""
+        async function apiLogout() {
+            await axios.get('/api/users/logout')
+            setState({
+                loading: false
+            })
+            props.Application.syncLogout()
+            localStorage.setItem('logout', Date.now())
+        }
+        apiLogout()
     }, [])
 
     
     return (
         <div className="main">
-            Successfully logged out!
+            {state.loading ? 
+                "Logging out..."
+            :
+                "Successfully logged out!"
+            }
         </div>
     )
 }
