@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "node-sass static/ -o src/staticfiles/"
+    "sass": "node-sass static/ -o src/staticfiles/",
+    "collectstatic": "rm -r ./src/staticfiles/icons & cp -r ./static/icons ./src/staticfiles"
   },
   "eslintConfig": {
     "extends": "react-app"
