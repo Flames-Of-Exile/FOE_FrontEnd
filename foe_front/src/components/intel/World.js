@@ -30,15 +30,12 @@ class World extends React.Component {
     render() {
         return (
             <div>
-                <p>{this.state.world.name}</p>
+                <p className='banner'>{this.state.world.name}</p>
                 <div className='world' onClick={this.addNewPin}>
                     <img src={this.state.world.image} alt='World Failed to load you should refresh the application' />
                     {this.state.world.pins.map(point => (
                         <Pin key={point.id.toString()}
-                            x = {point.position_x}
-                            y = {point.position_y}
-                            symbol = {point.symbol}
-                            details = {point.notes}
+                            pin = {point}
                         />
                     ))}
                 </div>

@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.pindetails {
+  color: white;
+  text-align: left;
+  background-color: black;
+  border: white;
+  border-style: ridge;
+  border-radius: 0 20% 0 20%;
+  padding: 0 3px 1px 3px;
+  position: relative;
+  float: left;
+  white-space: nowrap;
+
+}
+
+.world {
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.campaign {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sidebar {
+  width:auto
+}

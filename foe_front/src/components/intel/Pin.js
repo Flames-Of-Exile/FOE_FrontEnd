@@ -10,13 +10,16 @@ class Pin extends React.Component {
     constructor(props) {
         super()
         this.state = {
-            symbol: props.symbol,
-            details: props.details,
+            symbol: props.pin.symbol,
             containerStyle:{
-                bottom: props.y + '%',
-                left: props.x + '%',
+                bottom: props.pin.position_y + '%',
+                left: props.pin.position_x + '%',
             },
-            visibility: 'hidden'
+            visibility: 'hidden',
+            amount: props.pin.amount,
+            id: props.pin.id,
+            name: props.pin.name,
+            details: props.pin
         }
     }
 
@@ -33,7 +36,7 @@ class Pin extends React.Component {
     render() {
         return(
             <div className='pin' style={this.state.containerStyle}>
-                <img src={'/staticfiles/icons/' + this.state.symbol + '.png'} alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}/>
+                <img src={require('./icons/' + this.state.symbol + '.png')} alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}/>
                 <PinDetails visibility={this.state.visibility} details={this.state.details} />
             </div>
         )
