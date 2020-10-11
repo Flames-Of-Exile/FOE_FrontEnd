@@ -28,6 +28,7 @@ class Login extends React.Component {
                 ...this.state.Application.state,
                 currentUser: response.data.user,
             })
+            setTimeout(this.state.Application.refresh, 27000, this.state.Application)
         } catch (error) {
             console.log("Failed to login -", error.message)
         }

@@ -39,6 +39,34 @@ class App extends React.Component {
     }
   }
 
+  componentWillMount() {
+    window.addEventListener('storage', this.syncLogout)
+    this.refresh(this)
+  }
+
+  syncLogout = () => {
+    axios.defaults.headers.common["Authorization"] = ''
+      this.setState({
+        ...this.state,
+        currentUser: {},
+      })
+  }
+
+  async refresh(Application) {
+    try {
+      const response = await axios.get('/api/users/refresh')
+      axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`
+      Application.setState({
+        ...Application.state,
+        currentUser: response.data.user,
+      })
+      setTimeout(Application.refresh, 270000, Application) // token is good for 5 minutes - refresh every 4 minutes, 30 seconds
+    } catch (error) {
+      Application.syncLogout()
+      console.log("failed to refresh session -", error.message)
+    }
+  }
+
   render() {
     return (
       <Router>
