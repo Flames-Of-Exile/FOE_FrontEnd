@@ -15,7 +15,9 @@ jobs:
       with:
         node-version: 12
     - name: yarn install
-      run: yarn install
+      run: |
+        - yarn install
+        - yarn install eslint
     - name: eslint
       uses: icrawl/action-eslint@v1
       with:
