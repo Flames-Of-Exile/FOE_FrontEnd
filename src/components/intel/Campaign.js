@@ -32,7 +32,7 @@ class Campaign extends React.Component {
                     world={world}/>
             )): null}
         </div>
-        )
+        );
     }
 
     render() {

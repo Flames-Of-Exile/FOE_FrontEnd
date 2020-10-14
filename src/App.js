@@ -33,7 +33,7 @@ axios.defaults.headers.patch["Content-Type"] = "application/json";
 
 class App extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       currentUser: {},
     };

@@ -16,7 +16,7 @@ function EditProfile(props) {
         } catch (error) {
             console.log("failed to update profile -", error.message);
         }
-    }
+    };
 
 
     return (

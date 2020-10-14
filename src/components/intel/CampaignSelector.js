@@ -6,7 +6,7 @@ const axios = require('axios').default;
 class CampaignSelector extends React.Component {
     constructor(props) {
         super();
-        this.campaignElement = React.createRef()
+        this.campaignElement = React.createRef();
         this.state = {
             Application: props.Application,
             campaigns: [],
