@@ -16,5 +16,7 @@ jobs:
         node-version: 12
     - name: install eslint
       run: yarn add eslint
+    - name: install babel-eslint
+      run: yarn add babel-eslint
     - name: eslint
       uses: icrawl/action-eslint@v1

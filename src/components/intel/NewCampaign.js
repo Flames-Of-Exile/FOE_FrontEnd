@@ -1,39 +1,39 @@
-import React from "react"
+import React from "react";
 
-const axios = require("axios").default
+const axios = require("axios").default;
 
 class NewCampaign extends React.Component {
     constructor(props) {
-        super()
+        super();
         this.state = {
             Application: props.Application,
             name: "",
             file: null,
-        }
+        };
     }
 
     handleChange = (event) => this.setState({
         ...this.state,
         [event.target.name]: event.target.value,
-    })
+    });
 
     handleSelect = (event) => this.setState({
         ...this.state,
         [event.target.name]: event.target.files[0],
-    })
+    });
 
     handleSubmit = async () => {
-        const formData = new FormData()
-        formData.append("file", this.state.file, this.state.file.name)
-        formData.append("name", this.state.name)
-        formData.append("is_default", true)
+        const formData = new FormData();
+        formData.append("file", this.state.file, this.state.file.name);
+        formData.append("name", this.state.name);
+        formData.append("is_default", true);
         try {
             let config = { headers: {
                 "Content-Type": "multipart/form-data"
-            } }
-            await axios.post("/api/campaigns", formData, config)
+            } };
+            await axios.post("/api/campaigns", formData, config);
         } catch (error) {
-            console.log("Failed to create campaign -", error.message)
+            console.log("Failed to create campaign -", error.message);
         }
     }
 
@@ -45,8 +45,8 @@ class NewCampaign extends React.Component {
                 <input type="file" name="file" onChange={this.handleSelect}/>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
-        )
+        );
     }
 }
 
-export default NewCampaign
+export default NewCampaign;

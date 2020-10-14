@@ -3,67 +3,67 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from "react-router-dom"
-import "./staticfiles/App.css"
+} from "react-router-dom";
+import "./staticfiles/App.css";
 
-import Campaign from "./components/intel/Campaign"
-import NewCampaign from "./components/intel/NewCampaign"
-import PinHistory from "./components/intel/PinHistory"
-import NewPin from "./components/intel/NewPin"
-import World from "./components/intel/World"
-import NewWorld from "./components/intel/NewWorld"
+import Campaign from "./components/intel/Campaign";
+import NewCampaign from "./components/intel/NewCampaign";
+import PinHistory from "./components/intel/PinHistory";
+import NewPin from "./components/intel/NewPin";
+import World from "./components/intel/World";
+import NewWorld from "./components/intel/NewWorld";
 
-import Login from "./components/auth/Login"
-import Logout from "./components/auth/Logout"
-import Register from "./components/auth/Register"
+import Login from "./components/auth/Login";
+import Logout from "./components/auth/Logout";
+import Register from "./components/auth/Register";
 
-import Home from "./components/Home"
-import Profile from "./components/Profile"
-import Sidebar from "./components/Sidebar"
-import Theme from "./components/Theme"
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import Sidebar from "./components/Sidebar";
+import Theme from "./components/Theme";
 
-import Admin from "./components/admin/Admin"
+import Admin from "./components/admin/Admin";
 
-const axios = require("axios").default
-const url = process.env.REACT_APP_BACKEND || "http://localhost:5000/"
-axios.defaults.baseURL = url
-axios.defaults.headers.post["Content-Type"] = "application/json"
-axios.defaults.headers.put["Content-Type"] = "application/json"
-axios.defaults.headers.patch["Content-Type"] = "application/json"
+const axios = require("axios").default;
+const url = process.env.REACT_APP_BACKEND || "http://localhost:5000/";
+axios.defaults.baseURL = url;
+axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.headers.put["Content-Type"] = "application/json";
+axios.defaults.headers.patch["Content-Type"] = "application/json";
 
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
       currentUser: {},
-    }
+    };
   }
 
   componentWillMount() {
-    window.addEventListener('storage', this.syncLogout)
-    this.refresh(this)
+    window.addEventListener('storage', this.syncLogout);
+    this.refresh(this);
   }
 
   syncLogout = () => {
-    axios.defaults.headers.common["Authorization"] = ''
+    axios.defaults.headers.common["Authorization"] = '';
       this.setState({
         ...this.state,
         currentUser: {},
-      })
+      });
   }
 
   async refresh(Application) {
     try {
-      const response = await axios.get('/api/users/refresh')
-      axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`
+      const response = await axios.get('/api/users/refresh');
+      axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
       Application.setState({
         ...Application.state,
         currentUser: response.data.user,
-      })
-      setTimeout(Application.refresh, 270000, Application) // token is good for 5 minutes - refresh every 4 minutes, 30 seconds
+      });
+      setTimeout(Application.refresh, 270000, Application);  // token is good for 5 minutes - refresh every 4 minutes, 30 seconds
     } catch (error) {
-      Application.syncLogout()
-      console.log("failed to refresh session -", error.message)
+      Application.syncLogout();
+      console.log("failed to refresh session -", error.message);
     }
   }
 
@@ -104,7 +104,7 @@ class App extends React.Component {
           </Switch>
         </div>
       </Router>
-    )
+    );
   }
 }
 

@@ -1,20 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-const axios = require('axios').default
+const axios = require('axios').default;
 
 function EditProfile(props) {
 
     const handleSelect = async (event) => {
-        let user = props.Application.state.currentUser
-        user.theme = event.target.value
+        let user = props.Application.state.currentUser;
+        user.theme = event.target.value;
         props.Application.setState({
             ...props.Application.state,
             currentUser: user,
-        })
+        });
         try {
-           await axios.patch(`/api/users/${user.id}`, JSON.stringify(user)) 
+           await axios.patch(`/api/users/${user.id}`, JSON.stringify(user));
         } catch (error) {
-            console.log("failed to update profile -", error.message)
+            console.log("failed to update profile -", error.message);
         }
     }
 
@@ -30,7 +30,7 @@ function EditProfile(props) {
                 <option value="seabreeze">Seabreeze</option>
             </select>
         </div>
-    )
+    );
 }
 
-export default EditProfile
+export default EditProfile;

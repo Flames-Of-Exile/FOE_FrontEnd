@@ -1,5 +1,5 @@
-import React from 'react'
-import CampaignSelector from './intel/CampaignSelector.js'
+import React from 'react';
+import CampaignSelector from './intel/CampaignSelector.js';
 
 function Home(props) {
 
@@ -8,7 +8,7 @@ function Home(props) {
         <div>
             <CampaignSelector/>
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;

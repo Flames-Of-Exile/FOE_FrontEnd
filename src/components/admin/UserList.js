@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-import User from "./User"
+import User from "./User";
 
 function UserList(props) {
     
@@ -8,7 +8,7 @@ function UserList(props) {
         <div className="user-list">
             {props.users.map(user => <User user={user} Application={props.Application}/>)}
         </div>
-    )
+    );
 }
 
-export default UserList
+export default UserList;
