@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function Sidebar(props) {
 
@@ -32,7 +32,7 @@ function Sidebar(props) {
             </div>
             /* end if user is logged in*/}
         </div>
-    )
+    );
 }
 
-export default Sidebar
+export default Sidebar;

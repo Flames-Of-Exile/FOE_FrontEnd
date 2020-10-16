@@ -1,23 +1,25 @@
-import React from "react"
-import World from './World.js'
+import React from "react";
+import World from './World.js';
 
 class Campaign extends React.Component {
     constructor(props) {
-        super()
+        super();
         this.state = {
             campaign: props.campaign,
             loaded: false
-        }
+        };
     }
+
     componentDidUpdate(prevProps) {
         if (this.props.campaign !== prevProps.campaign) {
             this.setState({
                 ...this.state,
                 campaign:this.props.campaign,
                 loaded:true,
-            })
+            });
         }
     }
+
     content() {
         return(
             <div>
@@ -30,7 +32,7 @@ class Campaign extends React.Component {
                     world={world}/>
             )): null}
         </div>
-        )
+        );
     }
 
     render() {
@@ -38,8 +40,8 @@ class Campaign extends React.Component {
             <div>
             {this.state.campaign ? this.content(): null}
             </div>
-        )
+        );
     }
 }
 
-export default Campaign
+export default Campaign;

@@ -21,9 +21,6 @@
     "eject": "react-scripts eject",
     "sass": "node-sass static/ -o src/staticfiles/"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

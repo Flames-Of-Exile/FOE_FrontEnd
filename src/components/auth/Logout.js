@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
-const axios = require("axios").default
+const axios = require("axios").default;
 
 function Logout(props) {
     const [state, setState] = useState({
         loading: true
-    })
+    });
 
     useEffect(() => {
         async function apiLogout() {
-            await axios.get('/api/users/logout')
+            await axios.get('/api/users/logout');
             setState({
                 loading: false
-            })
-            props.Application.syncLogout()
-            localStorage.setItem('logout', Date.now())
+            });
+            props.Application.syncLogout();
+            localStorage.setItem('logout', Date.now());
         }
-        apiLogout()
-    }, [])
+        apiLogout();
+    }, []);
 
     
     return (
@@ -28,7 +28,7 @@ function Logout(props) {
                 "Successfully logged out!"
             }
         </div>
-    )
+    );
 }
 
-export default Logout
+export default Logout;

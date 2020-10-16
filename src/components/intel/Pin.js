@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-import PinDetails from "./PinDetails"
+import PinDetails from "./PinDetails";
 
 //Function needs a few things to be included in props
 // a type that we can add a few different imgs to for different colored pins
@@ -8,7 +8,7 @@ import PinDetails from "./PinDetails"
 // details    this will be any text notes that should be displayed with the pin
 class Pin extends React.Component {
     constructor(props) {
-        super()
+        super();
         this.state = {
             symbol: props.symbol,
             details: props.details,
@@ -17,18 +17,18 @@ class Pin extends React.Component {
                 left: props.x + '%',
             },
             visibility: 'hidden'
-        }
+        };
     }
 
     setVis = () => this.setState({
         ...this.state,
         visibility: 'visible',
-    })
+    });
 
     setInvis = () => this.setState({
         ...this.state,
         visibility: 'hidden',
-    })
+    });
    
     render() {
         return(
@@ -36,8 +36,8 @@ class Pin extends React.Component {
                 <img src={'/staticfiles/icons/' + this.state.symbol + '.png'} alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}/>
                 <PinDetails visibility={this.state.visibility} details={this.state.details} />
             </div>
-        )
+        );
     }
 }
 
-export default Pin
+export default Pin;

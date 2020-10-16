@@ -1,5 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
 function User(props) {
 
@@ -9,7 +9,7 @@ function User(props) {
                 <span>{props.user.username}</span>
             </li>
         </Link>
-    )
+    );
 }
 
-export default User
+export default User;

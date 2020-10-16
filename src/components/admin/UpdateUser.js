@@ -1,10 +1,10 @@
-import React from "react"
+import React from "react";
 
-const axios = require("axios").default
+const axios = require("axios").default;
 
 class Admin extends React.Component {
     constructor(props) {
-        super()
+        super();
         this.state = {
             Application: props.Application,
             id: props.match.params.id,
@@ -13,33 +13,33 @@ class Admin extends React.Component {
             password: "",
             role: "guest",
             is_active: false,
-        }
+        };
     }
 
     async componentDidMount() {
         try {
-            const response = await axios.get(`/api/users/${this.state.id}`)
+            const response = await axios.get(`/api/users/${this.state.id}`);
             this.setState({
                 ...this.state,
                 username: response.data.username,
                 email: response.data.email,
                 role: response.data.role,
                 is_active: response.data.is_active,
-            })
+            });
         } catch (error) {
-            console.log("failed to fetch user -", error.message)
+            console.log("failed to fetch user -", error.message);
         }
     }
 
     handleChange = async (event) => this.setState({
         ...this.state,
         [event.target.name]: event.target.value
-    })
+    });
 
     handleCheck = async (event) => this.setState({
         ...this.state,
         [event.target.name]: event.target.checked
-    })
+    });
 
     handleSubmit = async () => {
         try {
@@ -48,11 +48,10 @@ class Admin extends React.Component {
                 role: this.state.role,
                 is_active: this.state.is_active,
                 email: this.state.email,
-            }))
+            }));
         } catch (error) {
-            console.log("Failed to update user -", error.message)
+            console.log("Failed to update user -", error.message);
         }
-        
     }
     
     render() {
@@ -70,8 +69,8 @@ class Admin extends React.Component {
                 </select>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
-        )
+        );
     }
 }
 
-export default Admin
+export default Admin;

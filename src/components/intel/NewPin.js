@@ -1,10 +1,10 @@
-import React from "react"
+import React from "react";
 
-const axios = require("axios").default
+const axios = require("axios").default;
 
 class NewPin extends React.Component {
     constructor(props) {
-        super()
+        super();
         this.state = {
             Application: props.Application,
             position_x: props.position_x,
@@ -16,13 +16,13 @@ class NewPin extends React.Component {
             rank: 0,
             amount: 0,
             respawn: 0,
-        }
+        };
     }
 
     handleChange = (event) => this.setState({
         ...this.state,
         [event.target.name]: event.target.value,
-    })
+    });
 
     handleSubmit = async () => {
         try {
@@ -36,9 +36,9 @@ class NewPin extends React.Component {
                 rank: this.state.rank,
                 amount: this.state.amount,
                 respawn: this.state.respawn
-            }))
+            }));
         } catch (error) {
-            console.log("Failed to create pin -", error.message)
+            console.log("Failed to create pin -", error.message);
         }
     }
     
@@ -70,8 +70,8 @@ class NewPin extends React.Component {
                 <input type="number" name="respawn" placeholder='respawn' onChange={this.handleChange}/>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
-        )
+        );
     }
 }
 
-export default NewPin
+export default NewPin;
