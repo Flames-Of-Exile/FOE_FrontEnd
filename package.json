@@ -22,9 +22,6 @@
     "sass": "node-sass static/ -o src/staticfiles/",
     "collectstatic": "rm -r ./src/staticfiles/icons & cp -r ./static/icons ./src/staticfiles"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

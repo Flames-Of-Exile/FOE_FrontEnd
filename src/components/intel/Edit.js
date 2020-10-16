@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function Edit(props) {
 
@@ -8,7 +8,7 @@ function Edit(props) {
             <p>{props.edit.date_time}</p>
             <p>{props.edit.user.username}</p>
         </div>
-    )
+    );
 }
 
-export default Edit
+export default Edit;

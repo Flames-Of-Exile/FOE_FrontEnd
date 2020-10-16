@@ -1,29 +1,29 @@
-import React from "react"
-import Pin from './Pin.js'
-import NewPin from './NewPin.js'
+import React from "react";
+import Pin from './Pin.js';
+import NewPin from './NewPin.js';
 
 class World extends React.Component {
     constructor(props) {
-        super()
+        super();
         this.state = {
             world: props.world,
             newPin: false,
             newPinPosition: [0,0]
-        }
+        };
     }
 
     addNewPin = (e) => {
-        var worldLoc = e.target.getBoundingClientRect()
-        var leftOffsetAbs = e.clientX - worldLoc.left
-        var bottomOffsetAbs = worldLoc.bottom - e.clientY
-        const leftPercent = (leftOffsetAbs)/(worldLoc.right - worldLoc.left)*100-1.3
-        const bottomPercent = (bottomOffsetAbs)/(worldLoc.bottom - worldLoc.top)*100
-        const placePin = [leftPercent, bottomPercent]
+        var worldLoc = e.target.getBoundingClientRect();
+        var leftOffsetAbs = e.clientX - worldLoc.left;
+        var bottomOffsetAbs = worldLoc.bottom - e.clientY;
+        const leftPercent = (leftOffsetAbs)/(worldLoc.right - worldLoc.left)*100-1.3;
+        const bottomPercent = (bottomOffsetAbs)/(worldLoc.bottom - worldLoc.top)*100;
+        const placePin = [leftPercent, bottomPercent];
         this.setState({
             ...this.state,
             newPin: true,
             newPinPosition: placePin
-        })
+        });
     }
     
 
@@ -50,8 +50,8 @@ class World extends React.Component {
                 : null// else
                 /*end if new pin is being made*/}
             </div>
-        )
+        );
     }
 }
 
-export default World
+export default World;
