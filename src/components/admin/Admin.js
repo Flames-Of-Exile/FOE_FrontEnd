@@ -4,7 +4,8 @@ import {
     Route
 } from 'react-router-dom';
 
-import UserList from "./UserList";
+import GuildList from "./GuildList";
+import UpdateGuild from "./UpdateGuild";
 import UpdateUser from "./UpdateUser";
 
 const axios = require("axios").default;
@@ -14,28 +15,43 @@ class Admin extends React.Component {
         super();
         this.state = {
             Application: props.Application,
-            users: []
+            guilds: [],
+            loaded: false,
         };
     }
 
     async componentDidMount() {
         try {
-            const response = await axios.get(`/api/users`);
+            const response = await axios.get(`/api/guilds`);
             this.setState({
                 ...this.state,
-                users: response.data,
+                guilds: response.data,
+                loaded: true,
             });
         } catch (error) {
-            console.log("failed to fetch users -", error.message);
+            console.log("failed to fetch guilds -", error.message);
         }
     }
     
     render() {
         return(
-            <Switch>
-                <Route exact path="/admin/user/:id" render={props => <UpdateUser {...props} Application={this.state.Application} />} />
-                <Route path="/admin" render={props => <UserList {...props} users={this.state.users} Application={this.state.Application} />} />
-            </Switch>
+            <div>
+                {this.state.loaded ?
+                    <Switch>
+                        <Route exact path="/admin/guild/:name" render={props => <UpdateGuild {...props}
+                                                                                guilds={this.state.guilds}
+                                                                                Application={this.state.Application}
+                                                                                adminPanel={this} />} />
+                        <Route exact path="/admin/guild/user/:id" render={props => <UpdateUser {...props} 
+                                                                                    guilds={this.state.guilds}
+                                                                                    Application={props.Application}
+                                                                                    adminPanel={this} />} />
+                        <Route path="/admin" render={props => <GuildList {...props} guilds={this.state.guilds} Application={this.state.Application} />} />
+                    </Switch>
+                :
+                    "loading..."
+                } 
+            </div>
         );
     }
 }

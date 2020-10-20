@@ -7,12 +7,15 @@ class Admin extends React.Component {
         super();
         this.state = {
             Application: props.Application,
+            adminPanel: props.adminPanel,
             id: props.match.params.id,
             username: "",
             email: "",
             password: "",
             role: "guest",
             is_active: false,
+            guild: "",
+            guildList: props.guilds,
         };
     }
 
@@ -25,6 +28,7 @@ class Admin extends React.Component {
                 email: response.data.email,
                 role: response.data.role,
                 is_active: response.data.is_active,
+                guild: response.data.guild.id,
             });
         } catch (error) {
             console.log("failed to fetch user -", error.message);
@@ -48,7 +52,13 @@ class Admin extends React.Component {
                 role: this.state.role,
                 is_active: this.state.is_active,
                 email: this.state.email,
+                guild_id: this.state.guild,
             }));
+            const response = await axios.get('/api/guilds');
+            this.state.adminPanel.setState({
+                ...this.state.adminPanel.state,
+                guilds: response.data,
+            });
         } catch (error) {
             console.log("Failed to update user -", error.message);
         }
@@ -64,8 +74,11 @@ class Admin extends React.Component {
                 <input type="checkbox" name="is_active" checked={this.state.is_active} onChange={this.handleCheck}/>
                 <select name="role" value={this.state.role} onChange={this.handleChange}>
                     <option value="guest">Guest</option>
-                    <option value="member">Member</option>
+                    <option value="verified">Verified</option>
                     <option value="admin">Admin</option>
+                </select>
+                <select name="guild" value={this.state.guild} onChange={this.handleChange}>
+                    {this.state.guildList.map(guild => <option value={guild.id}>{guild.name}</option>)}
                 </select>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
