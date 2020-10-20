@@ -17,12 +17,12 @@ class Register extends React.Component {
     }
 
     async componentWillMount() {
-        const response = await axios.get("/api/guilds")
+        const response = await axios.get("/api/guilds");
         this.setState({
             ...this.state,
             guildList: response.data,
             guild: response.data[0].id,
-        })
+        });
     }
 
     handleChange = (event) => this.setState({
