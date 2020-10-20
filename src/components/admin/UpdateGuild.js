@@ -2,7 +2,7 @@ import React from "react";
 
 import UserList from "./UserList";
 
-const axios = require('axios').default
+const axios = require('axios').default;
 
 
 class UpdateGuild extends React.Component {
@@ -14,7 +14,7 @@ class UpdateGuild extends React.Component {
             adminPanel: props.adminPanel,
             guild: this_guild,
             guildName: "",
-        }
+        };
     }
 
     handleToggle = async () => {
@@ -22,18 +22,18 @@ class UpdateGuild extends React.Component {
             const patchResponse = await axios.patch(`/api/guilds/${this.state.guild.id}`, JSON.stringify({
                 "name": this.state.guild.name,
                 "is_active": !this.state.guild.is_active
-            }))
+            }));
             this.setState({
                 ...this.state,
                 guild: patchResponse.data,
-            })
-            const getResponse = await axios.get("/api/guilds")
+            });
+            const getResponse = await axios.get("/api/guilds");
             this.state.adminPanel.setState({
                 ...this.state.adminPanel.state,
                 guilds: getResponse.data,
-            })
+            });
         } catch (error) {
-            console.log("failed to update guild access -", error.message)
+            console.log("failed to update guild access -", error.message);
         }
     }
 
@@ -47,19 +47,19 @@ class UpdateGuild extends React.Component {
             const patchResponse = await axios.patch(`/api/guilds/${this.state.guild.id}`, JSON.stringify({
                 "name": this.state.guildName,
                 "is_active": this.state.guild.is_active
-            }))
+            }));
             this.setState({
                 ...this.state,
                 guild: patchResponse.data,
-            })
-            const getResponse = await axios.get("/api/guilds")
+            });
+            const getResponse = await axios.get("/api/guilds");
             await this.state.adminPanel.setState({
                 ...this.state.adminPanel.state,
                 guilds: getResponse.data,
-            })
-            this.props.history.goBack()
+            });
+            this.props.history.goBack();
         } catch (error) {
-            console.log("failed to update guild name -", error.message)
+            console.log("failed to update guild name -", error.message);
         }
     }
 
@@ -71,7 +71,7 @@ class UpdateGuild extends React.Component {
                 <input type="text" name="guildName" onChange={this.handleChange} />
                 <button onClick={this.handleSubmit}>Change Name</button>
             </div>
-        )
+        );
     }
 }
 

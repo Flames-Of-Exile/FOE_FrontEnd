@@ -23,11 +23,11 @@ class GuildList extends React.Component {
         try {
             const response = await axios.post('/api/guilds', JSON.stringify({
                 name: this.state.guildName,
-            }))
+            }));
             this.setState({
                 ...this.state,
                 guilds: [...this.state.guilds, response.data]
-            })
+            });
         } catch (error) {
             console.log("failed to create new guild -", error.message);
         }
