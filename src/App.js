@@ -39,7 +39,7 @@ class App extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     window.addEventListener('storage', this.syncLogout);
     this.refresh(this);
   }
