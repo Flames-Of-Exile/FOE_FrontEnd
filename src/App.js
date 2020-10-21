@@ -13,9 +13,11 @@ import NewPin from "./components/intel/NewPin";
 import World from "./components/intel/World";
 import NewWorld from "./components/intel/NewWorld";
 
+import Confirm from "./components/auth/Confirm";
 import Login from "./components/auth/Login";
 import Logout from "./components/auth/Logout";
 import Register from "./components/auth/Register";
+import Unconfirmed from "./components/auth/Unconfirmed";
 
 import Home from "./components/Home";
 import Profile from "./components/Profile";
@@ -78,19 +80,28 @@ class App extends React.Component {
             {this.state.currentUser.id ? // if a user is logged in 
             <div className="main">
               <Switch>
+                <Route exact path="/profile" render={props => <Profile {...props} Application={this} />} />
                 {this.state.currentUser.role === "admin" ? // if user is admin
                   <Route path="/admin" render={props => <Admin {...props} Application={this} />} />
                 : // else user is not an admin
                   ""
                 /*end if user is admin*/}
-                <Route exact path="/profile" render={props => <Profile {...props} Application={this} />} />
-                <Route exact path="/campaign/new" render={props => <NewCampaign {...props} Application={this} />} />
-                <Route exact path="/campaign/:id" render={props => <Campaign {...props} Application={this} />} />
-                <Route exact path="/pin/new" render={props => <NewPin {...props} Application={this} />} />
-                <Route exact path="/pin/:id" render={props => <PinHistory {...props} Application={this} />} />
-                <Route exact path="/world/new" render={props => <NewWorld {...props} Application={this} />} />
-                <Route exact path="/world/:id" render={props => <World {...props} Application={this} />} />
-                <Route path="/" render={props => <Home {...props} Application={this} />}/>
+                {this.state.currentUser.email_confirmed ? //if user has confirmed their email
+                  <Switch>
+                    <Route exact path="/campaign/new" render={props => <NewCampaign {...props} Application={this} />} />
+                    <Route exact path="/campaign/:id" render={props => <Campaign {...props} Application={this} />} />
+                    <Route exact path="/pin/new" render={props => <NewPin {...props} Application={this} />} />
+                    <Route exact path="/pin/:id" render={props => <PinHistory {...props} Application={this} />} />
+                    <Route exact path="/world/new" render={props => <NewWorld {...props} Application={this} />} />
+                    <Route exact path="/world/:id" render={props => <World {...props} Application={this} />} />
+                    <Route path="/" render={props => <Home {...props} Application={this} />} />
+                  </Switch>
+                : // else user has not confirmed their email
+                  <Switch>
+                    <Route exact path="/confirm/:token" render={props => <Confirm {...props} Application={this} />} />
+                    <Route path="/" render={props => <Unconfirmed {...props} Application={this} />} />
+                  </Switch>
+                /*end if user has confirmed their email*/}
               </Switch>
             </div>
             : // else user is not logged in
