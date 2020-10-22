@@ -13,7 +13,6 @@ import NewPin from "./components/intel/NewPin";
 import World from "./components/intel/World";
 import NewWorld from "./components/intel/NewWorld";
 
-import Confirm from "./components/auth/Confirm";
 import Login from "./components/auth/Login";
 import Logout from "./components/auth/Logout";
 import Register from "./components/auth/Register";
@@ -86,7 +85,7 @@ class App extends React.Component {
                 : // else user is not an admin
                   ""
                 /*end if user is admin*/}
-                {this.state.currentUser.email_confirmed ? //if user has confirmed their email
+                {this.state.currentUser.discord_confirmed ? //if user has confirmed their discord
                   <Switch>
                     <Route exact path="/campaign/new" render={props => <NewCampaign {...props} Application={this} />} />
                     <Route exact path="/campaign/:id" render={props => <Campaign {...props} Application={this} />} />
@@ -96,12 +95,9 @@ class App extends React.Component {
                     <Route exact path="/world/:id" render={props => <World {...props} Application={this} />} />
                     <Route path="/" render={props => <Home {...props} Application={this} />} />
                   </Switch>
-                : // else user has not confirmed their email
-                  <Switch>
-                    <Route exact path="/confirm/:token" render={props => <Confirm {...props} Application={this} />} />
-                    <Route path="/" render={props => <Unconfirmed {...props} Application={this} />} />
-                  </Switch>
-                /*end if user has confirmed their email*/}
+                : // else user has not confirmed their discord
+                  <Route path="/" render={props => <Unconfirmed {...props} Application={this} />} />
+                /*end if user has confirmed their discord*/}
               </Switch>
             </div>
             : // else user is not logged in
