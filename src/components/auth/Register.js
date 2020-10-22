@@ -11,7 +11,18 @@ class Register extends React.Component {
             password1: "",
             password2: "",
             email: "",
+            guild: "",
+            guildList: [],
         };
+    }
+
+    async componentWillMount() {
+        const response = await axios.get("/api/guilds");
+        this.setState({
+            ...this.state,
+            guildList: response.data,
+            guild: response.data[0].id,
+        });
     }
 
     handleChange = (event) => this.setState({
@@ -28,7 +39,8 @@ class Register extends React.Component {
             const response = await axios.post("/api/users", JSON.stringify({
                 username: this.state.username,
                 password: this.state.password1,
-                email: this.state.email
+                email: this.state.email,
+                guild_id: this.state.guild,
             }));
             axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
             this.state.Application.setState({
@@ -49,6 +61,9 @@ class Register extends React.Component {
                 <input type="password" name="password1" placeholder='password' onChange={this.handleChange}/>
                 <input type="password" name="password2" placeholder='retype password' onChange={this.handleChange}/>
                 <input type="text" name="email" placeholder='email' onChange={this.handleChange}/>
+                <select name="guild" onChange={this.handleChange} value={this.state.guild}>
+                    {this.state.guildList.map(guild => <option value={guild.id}>{guild.name}</option>)}
+                </select>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         );
