@@ -23,7 +23,7 @@ class Campaign extends React.Component {
     content() {
         return(
             <div>
-            <p>{this.state.campaign.name}</p>
+            <p className='banner'>{this.state.campaign.name}</p>
             <p>The campaign ID is {this.state.campaign.id}</p>
             <img src={this.state.campaign.image} alt='Faled to Load Campaign'/>
             {this.state.loaded ? this.state.campaign.worlds.map( (world) => (
