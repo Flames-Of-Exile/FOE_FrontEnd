@@ -1,5 +1,6 @@
 import React, {
     useEffect,
+    useRef,
     useState
 } from 'react';
 
@@ -11,7 +12,7 @@ function Unconfirmed(props) {
         token: "",
     });
 
-    var tokenSpan;
+    const textArea = useRef(null);
 
     useEffect(() => {
         async function fetchToken() {
@@ -30,16 +31,16 @@ function Unconfirmed(props) {
         });
     }
 
-    const handleCopy = () => {
-        tokenSpan.select()
-        document.execCommand("copy")
+    const handleCopy = (event) => {
+        textArea.current.select();
+        document.execCommand("copy");
     }
 
     return (
         <div>
             <p>Thank you for registering, please link your account to discord.</p>
-            <p>1. Copy the following token, it is good for 1 hour: {state.token}</p>
-            <span ref={span => tokenSpan = span}><a onClick={handleCopy}>Copy</a></span>
+            <p>1. Copy the following token, it is good for 1 hour:</p>
+            <textarea ref={textArea} value={state.token} /> <a onClick={handleCopy}>Copy</a>
             <p>2. Please join our <a href="https://discord.gg/HPDCnAn">discord</a>.</p>
             <p>3. Type !register</p>
             <p>4. Follow the instructions given by the bot.</p>
