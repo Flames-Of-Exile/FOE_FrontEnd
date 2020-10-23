@@ -49,19 +49,19 @@ class NewPin extends React.Component {
                 <input type="number" name="position_y" value={this.state.position_y} onChange={this.handleChange}/>
                 <select name="symbol" value={this.state.symbol} onChange={this.handleChange}>
                     <option value='stone'>Stone</option>
-                    <option value='stoneML'>Stone Motherload</option>
+                    <option value='stone-motherlode'>Stone Motherload</option>
                     <option value='ore'>Ore</option>
-                    <option value='oreML'>Ore Motherload</option>
+                    <option value='ore-motherlode'>Ore Motherload</option>
                     <option value='wood'>Wood</option>
                     <option value='animal'>Animal</option>
-                    <option value='animalBoss'>Animal Boss</option>
-                    <option value='camp'>Camp</option>
-                    <option value='Boss'>Boss</option>
+                    <option value='animal-boss'>Animal Boss</option>
+                    <option value='mob'>Camp</option>
+                    <option value='mob-boss'>Boss</option>
                     <option value='well'>Well</option>
                     <option value='grave'>Grave</option>
-                    <option value='tacFire'>Tachtical Fire</option>
-                    <option value='tacFish'>Tachtical Fish</option>
-                    <option value='tacHouse'>Tachtical House</option>
+                    <option value='tactical-fire'>Tactical Fire</option>
+                    <option value='tactical-fish'>Tactical Fish</option>
+                    <option value='tactical-house'>Tactical House</option>
                 </select>
                 <input type="text" name="notes" placeholder='notes' onChange={this.handleChange}/>
                 <input type="text" name="name" placeholder='name' onChange={this.handleChange}/>
