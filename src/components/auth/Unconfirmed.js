@@ -4,7 +4,7 @@ import React, {
     useState
 } from 'react';
 
-const axios = require('axios').default
+const axios = require('axios').default;
 
 function Unconfirmed(props) {
 
@@ -19,7 +19,7 @@ function Unconfirmed(props) {
             const response = await axios.get('/api/users/discord-token');
             setState({
                 token: response.data.token,
-            })
+            });
         }
         fetchToken();
     }, []);
@@ -29,12 +29,12 @@ function Unconfirmed(props) {
         setState({
             token: response.data.token,
         });
-    }
+    };
 
-    const handleCopy = (event) => {
+    const handleCopy = () => {
         textArea.current.select();
         document.execCommand("copy");
-    }
+    };
 
     return (
         <div>
