@@ -16,6 +16,8 @@ class NewPin extends React.Component {
             rank: 0,
             amount: 0,
             respawn: 0,
+            resource: 'granite',
+            resourceList: ['Granite','Limestone','Travertine','Slate','Marble']
         };
     }
 
@@ -35,11 +37,43 @@ class NewPin extends React.Component {
                 name: this.state.name,
                 rank: this.state.rank,
                 amount: this.state.amount,
-                respawn: this.state.respawn
+                respawn: this.state.respawn,
+                resource: this.state.resource
             }));
         } catch (error) {
             console.log("Failed to create pin -", error.message);
         }
+    }
+
+    resourceSelector() {
+        let symbol = this.state.symbol
+        let selectList = ''
+        if (symbol in ['stone','sone-motherlode']) {
+            selectList = ['Granite','Limestone','Travertine','Slate','Marble']
+        }
+        else if (symbol in ['ore','ore-motherlode']) {
+            selectList = ['Copper', 'Tin', 'Iron', 'Silver', 'Aurelium']
+        }
+        else if (symbol = 'wood') {
+            selectList = ['Yew','Birch','Ash','Oak','Spruce']
+        }
+        else if (symbol in ['animal', 'animal-boss']) {
+            selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf']
+        }
+        else {
+            selectList = ['Human', 'Elven', 'Monster', 'Stoneborn', 'Guinecian']
+        }
+        return selectList
+    }
+
+
+    componentDidUpdate() {
+        let selectList = this.resourceSelector()
+        if (selectList != this.state.resourceList) {
+            this.setState({
+                ...this.state,
+                resourceList:selectList
+        })}
     }
     
     render() {
@@ -62,6 +96,11 @@ class NewPin extends React.Component {
                     <option value='tactical-fire'>Tactical Fire</option>
                     <option value='tactical-fish'>Tactical Fish</option>
                     <option value='tactical-house'>Tactical House</option>
+                </select>
+                <select name='resource' value={this.state.symbol} onChange={this.handleChange}>
+                    {this.state.resourceList.map(choice => (
+                        <option value={choice.toLowerCase()}>{choice}</option>
+                    ))}
                 </select>
                 <input type="text" name="notes" placeholder='notes' onChange={this.handleChange}/>
                 <input type="text" name="name" placeholder='name' onChange={this.handleChange}/>

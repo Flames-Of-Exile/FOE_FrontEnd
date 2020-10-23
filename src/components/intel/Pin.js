@@ -14,12 +14,17 @@ class Pin extends React.Component {
             containerStyle:{
                 bottom: props.pin.position_y + '%',
                 left: props.pin.position_x + '%',
+                sepia: 1,
+                saturate: 1000,
+                invert: 0,
+                contrast: 1,
             },
             visibility: 'hidden',
             amount: props.pin.amount,
             id: props.pin.id,
             name: props.pin.name,
-            details: props.pin
+            details: props.pin,
+            resource: props.pin.resource
         };
     }
 
@@ -32,6 +37,37 @@ class Pin extends React.Component {
         ...this.state,
         visibility: 'hidden',
     });
+
+    componentDidMount() {
+        let resource = this.state.resource
+        let color = 0
+        if (resource in ['yew','copper','granite','spider','human']) {
+            color = 52
+        } 
+        else if (resource in ['birch', 'tin', 'limestone', 'pig', 'elven']) {
+            color = 104
+        }
+        else if (resource in ['ash', 'iron', 'travertine', 'cat', 'monster']){
+            color = 156
+        } 
+        else if (resource in ['oak', 'silver', 'slate', 'auroch', 'stoneborn']) {
+            color = 208
+        } 
+        else if (resource in ['spruce', 'aurelium', 'marble', 'elk', 'guinecian']) {
+            color = 260
+        } 
+        else if (resource in ['wolf']) {
+            color = 312
+        } 
+        let container = this.state.containerStyle
+        container.hue = color
+
+        this.setState({
+            ...this.state,
+            containerStyle: container
+        })
+
+    }
    
     render() {
         return(
