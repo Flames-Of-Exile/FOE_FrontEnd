@@ -40,6 +40,7 @@ class NewPin extends React.Component {
                 respawn: this.state.respawn,
                 resource: this.state.resource
             }));
+            this.props.onSubmit()
         } catch (error) {
             console.log("Failed to create pin -", error.message);
         }
@@ -48,29 +49,36 @@ class NewPin extends React.Component {
     resourceSelector() {
         let symbol = this.state.symbol
         let selectList = ''
-        if (symbol in ['stone','sone-motherlode']) {
+        if (['stone','sone-motherlode'].includes(symbol)) {
             selectList = ['Granite','Limestone','Travertine','Slate','Marble']
         }
-        else if (symbol in ['ore','ore-motherlode']) {
+        else if (['ore','ore-motherlode'].includes(symbol)) {
             selectList = ['Copper', 'Tin', 'Iron', 'Silver', 'Aurelium']
         }
-        else if (symbol = 'wood') {
+        else if (symbol == 'wood') {
             selectList = ['Yew','Birch','Ash','Oak','Spruce']
         }
-        else if (symbol in ['animal', 'animal-boss']) {
+        else if (['animal', 'animal-boss'].includes(symbol)) {
             selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf']
         }
-        else {
+        else if (symbol =='grave'){
             selectList = ['Human', 'Elven', 'Monster', 'Stoneborn', 'Guinecian']
+        }
+        else {
+            selectList = ['NA']
         }
         return selectList
     }
 
 
-    componentDidUpdate() {
+    async componentDidUpdate() {
+        console.log(this.state.symbol)
         let selectList = this.resourceSelector()
-        if (selectList != this.state.resourceList) {
-            this.setState({
+        console.log(selectList)
+        console.log(this.state.resourceList)
+        if (selectList[0] != this.state.resourceList[0]) {
+            console.log('they are different')
+            await this.setState({
                 ...this.state,
                 resourceList:selectList
         })}

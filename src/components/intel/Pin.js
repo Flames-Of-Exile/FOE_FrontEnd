@@ -14,11 +14,9 @@ class Pin extends React.Component {
             containerStyle:{
                 bottom: props.pin.position_y + '%',
                 left: props.pin.position_x + '%',
-                sepia: 1,
-                saturate: 1000,
-                invert: 0,
-                contrast: 1,
+
             },
+
             visibility: 'hidden',
             amount: props.pin.amount,
             id: props.pin.id,
@@ -38,38 +36,38 @@ class Pin extends React.Component {
         visibility: 'hidden',
     });
 
-    componentDidMount() {
-        let resource = this.state.resource
-        let color = 0
-        if (resource in ['yew','copper','granite','spider','human']) {
-            color = 52
-        } 
-        else if (resource in ['birch', 'tin', 'limestone', 'pig', 'elven']) {
-            color = 104
-        }
-        else if (resource in ['ash', 'iron', 'travertine', 'cat', 'monster']){
-            color = 156
-        } 
-        else if (resource in ['oak', 'silver', 'slate', 'auroch', 'stoneborn']) {
-            color = 208
-        } 
-        else if (resource in ['spruce', 'aurelium', 'marble', 'elk', 'guinecian']) {
-            color = 260
-        } 
-        else if (resource in ['wolf']) {
-            color = 312
-        } 
-        let container = this.state.containerStyle
-        container.hue = color
+    // componentDidMount() {
+    //     let resource = this.state.resource
+    //     let color = 0
+    //     if (resource in ['yew','copper','granite','spider','human']) {
+    //         color = 52
+    //     } 
+    //     else if (resource in ['birch', 'tin', 'limestone', 'pig', 'elven']) {
+    //         color = 104
+    //     }
+    //     else if (resource in ['ash', 'iron', 'travertine', 'cat', 'monster']){
+    //         color = 156
+    //     } 
+    //     else if (resource in ['oak', 'silver', 'slate', 'auroch', 'stoneborn']) {
+    //         color = 208
+    //     } 
+    //     else if (resource in ['spruce', 'aurelium', 'marble', 'elk', 'guinecian']) {
+    //         color = 260
+    //     } 
+    //     else if (resource in ['wolf']) {
+    //         color = 312
+    //     } 
+    //     let container = this.state.filter
+    //     container.hue= color
 
-        this.setState({
-            ...this.state,
-            containerStyle: container
-        })
-
-    }
+    //     this.setState({
+    //         ...this.state,
+    //         filter: container
+    //     })
+    // }
    
     render() {
+        console.log(this.props.pin)
         return(
             <div className='pin' style={this.state.containerStyle}>
                 <img src={'/staticfiles/icons/' + this.state.symbol + '.png'} alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}/>
