@@ -40,7 +40,19 @@ class NewPin extends React.Component {
                 respawn: this.state.respawn,
                 resource: this.state.resource
             }));
-            this.props.onSubmit()
+            let tempPin = {
+                position_x: this.state.position_x,
+                position_y: this.state.position_y,
+                symbol: this.state.symbol,
+                notes: this.state.notes,
+                world_id: this.state.world_id,
+                name: this.state.name,
+                rank: this.state.rank,
+                amount: this.state.amount,
+                respawn: this.state.respawn,
+                resource: this.state.resource,
+                id: -1}
+                this.props.onSubmit(tempPin)
         } catch (error) {
             console.log("Failed to create pin -", error.message);
         }
@@ -49,19 +61,22 @@ class NewPin extends React.Component {
     resourceSelector() {
         let symbol = this.state.symbol
         let selectList = ''
-        if (['stone','sone-motherlode'].includes(symbol)) {
+        if (['stone','stone-motherlode'].includes(symbol)) {
             selectList = ['Granite','Limestone','Travertine','Slate','Marble']
         }
         else if (['ore','ore-motherlode'].includes(symbol)) {
             selectList = ['Copper', 'Tin', 'Iron', 'Silver', 'Aurelium']
         }
-        else if (symbol == 'wood') {
+        else if (symbol === 'wood') {
             selectList = ['Yew','Birch','Ash','Oak','Spruce']
         }
         else if (['animal', 'animal-boss'].includes(symbol)) {
             selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf']
         }
-        else if (symbol =='grave'){
+        else if (['camp', 'boss'].includes(symbol)) {
+            selectList = ['NA']
+        }
+        else if (symbol === 'grave'){
             selectList = ['Human', 'Elven', 'Monster', 'Stoneborn', 'Guinecian']
         }
         else {
@@ -71,17 +86,24 @@ class NewPin extends React.Component {
     }
 
 
-    async componentDidUpdate() {
+    async componentDidUpdate(prevProps) {
         console.log(this.state.symbol)
         let selectList = this.resourceSelector()
         console.log(selectList)
         console.log(this.state.resourceList)
-        if (selectList[0] != this.state.resourceList[0]) {
+        if (selectList[0] !== this.state.resourceList[0]) {
             console.log('they are different')
             await this.setState({
                 ...this.state,
                 resourceList:selectList
         })}
+        if (this.props.position_x !== prevProps.position_x) {
+            this.setState({
+                ...this.state,
+                position_x: this.props.position_x,
+                position_y: this.props.position_y,
+            })
+        }
     }
     
     render() {
@@ -116,6 +138,7 @@ class NewPin extends React.Component {
                 <input type="number" name="amount" placeholder='amount' onChange={this.handleChange}/>
                 <input type="number" name="respawn" placeholder='respawn' onChange={this.handleChange}/>
                 <button onClick={this.handleSubmit}>Submit</button>
+                <button onClick={this.props.onCancel}>Cancel</button>
             </div>
         );
     }

@@ -1,13 +1,14 @@
 import React from "react";
 import Pin from './Pin.js';
 import NewPin from './NewPin.js';
-import Axios from "axios";
 
 const axios = require('axios').default;
 
 class World extends React.Component {
     constructor(props) {
         super();
+        this.reloadPins = this.reloadPins.bind(this);
+        this.cancelPin = this.cancelPin.bind(this);
         this.state = {
             world: props.world,
             newPin: false,
@@ -29,20 +30,24 @@ class World extends React.Component {
         });
     }
 
-    async reloadPins() {
-        try {
-            let refreshedWorld = await axios.get('api/worlds/' + this.state.world.id)
-            console.log(refreshedWorld)
-            this.setState({
-                ...this.state,
-                world:refreshedWorld
-            })
-        }
-        catch (error) {
-            console.log('Failed to refresh world - ', error)
-        }
+    reloadPins(newPin) {
+        console.log(newPin)
+        console.log(this.state.world)
+        let newWorld = this.state.world
+        newWorld.pins.push(newPin)
+        this.setState({
+            ...this.state,
+            world:newWorld,
+            newPin: false
+        })
     }
-    
+
+    cancelPin() {
+        this.setState({
+            ...this.state,
+            newPin:false
+        })
+    }
 
     render() {
         return (
@@ -60,7 +65,8 @@ class World extends React.Component {
                     <NewPin position_x={this.state.newPinPosition[0]} 
                             position_y={this.state.newPinPosition[1]}
                             world_id={this.state.world.id}
-                            onSubmit={this.reloadPins.bind(this)}
+                            onSubmit={this.reloadPins}
+                            onCancel={this.cancelPin}
                     />
                 : null// else
                 /*end if new pin is being made*/}
