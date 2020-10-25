@@ -51,58 +51,58 @@ class NewPin extends React.Component {
                 amount: this.state.amount,
                 respawn: this.state.respawn,
                 resource: this.state.resource,
-                id: -1}
-                this.props.onSubmit(tempPin)
+                id: -1};
+                this.props.onSubmit(tempPin);
         } catch (error) {
             console.log("Failed to create pin -", error.message);
         }
     }
 
     resourceSelector() {
-        let symbol = this.state.symbol
-        let selectList = ''
+        let symbol = this.state.symbol;
+        let selectList = '';
         if (['stone','stone-motherlode'].includes(symbol)) {
-            selectList = ['Granite','Limestone','Travertine','Slate','Marble']
+            selectList = ['Granite','Limestone','Travertine','Slate','Marble'];
         }
         else if (['ore','ore-motherlode'].includes(symbol)) {
-            selectList = ['Copper', 'Tin', 'Iron', 'Silver', 'Aurelium']
+            selectList = ['Copper', 'Tin', 'Iron', 'Silver', 'Aurelium'];
         }
         else if (symbol === 'wood') {
-            selectList = ['Yew','Birch','Ash','Oak','Spruce']
+            selectList = ['Yew','Birch','Ash','Oak','Spruce'];
         }
         else if (['animal', 'animal-boss'].includes(symbol)) {
-            selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf']
+            selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf'];
         }
         else if (['camp', 'boss'].includes(symbol)) {
-            selectList = ['NA']
+            selectList = ['NA'];
         }
         else if (symbol === 'grave'){
-            selectList = ['Human', 'Elven', 'Monster', 'Stoneborn', 'Guinecian']
+            selectList = ['Human', 'Elven', 'Monster', 'Stoneborn', 'Guinecian'];
         }
         else {
-            selectList = ['NA']
+            selectList = ['NA'];
         }
-        return selectList
+        return selectList;
     }
 
 
     async componentDidUpdate(prevProps) {
-        console.log(this.state.symbol)
-        let selectList = this.resourceSelector()
-        console.log(selectList)
-        console.log(this.state.resourceList)
+        console.log(this.state.symbol);
+        let selectList = this.resourceSelector();
+        console.log(selectList);
+        console.log(this.state.resourceList);
         if (selectList[0] !== this.state.resourceList[0]) {
-            console.log('they are different')
+            console.log('they are different');
             await this.setState({
                 ...this.state,
                 resourceList:selectList
-        })}
+        })};
         if (this.props.position_x !== prevProps.position_x) {
             this.setState({
                 ...this.state,
                 position_x: this.props.position_x,
                 position_y: this.props.position_y,
-            })
+            });
         }
     }
     

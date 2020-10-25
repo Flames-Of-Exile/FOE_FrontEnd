@@ -29,22 +29,22 @@ class World extends React.Component {
     }
 
     reloadPins(newPin) {
-        console.log(newPin)
-        console.log(this.state.world)
-        let newWorld = this.state.world
-        newWorld.pins.push(newPin)
+        console.log(newPin);
+        console.log(this.state.world);
+        let newWorld = this.state.world;
+        newWorld.pins.push(newPin);
         this.setState({
             ...this.state,
             world:newWorld,
             newPin: false
-        })
+        });
     }
 
     cancelPin() {
         this.setState({
             ...this.state,
             newPin:false
-        })
+        });
     }
 
     render() {
