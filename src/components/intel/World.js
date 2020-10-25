@@ -29,8 +29,6 @@ class World extends React.Component {
     }
 
     reloadPins(newPin) {
-        console.log(newPin);
-        console.log(this.state.world);
         let newWorld = this.state.world;
         newWorld.pins.push(newPin);
         this.setState({
