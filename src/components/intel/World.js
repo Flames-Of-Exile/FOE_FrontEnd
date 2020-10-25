@@ -5,6 +5,8 @@ import NewPin from './NewPin.js';
 class World extends React.Component {
     constructor(props) {
         super();
+        this.reloadPins = this.reloadPins.bind(this);
+        this.cancelPin = this.cancelPin.bind(this);
         this.state = {
             world: props.world,
             newPin: false,
@@ -25,14 +27,32 @@ class World extends React.Component {
             newPinPosition: placePin
         });
     }
-    
+
+    reloadPins(newPin) {
+        console.log(newPin);
+        console.log(this.state.world);
+        let newWorld = this.state.world;
+        newWorld.pins.push(newPin);
+        this.setState({
+            ...this.state,
+            world:newWorld,
+            newPin: false
+        });
+    }
+
+    cancelPin() {
+        this.setState({
+            ...this.state,
+            newPin:false
+        });
+    }
 
     render() {
         return (
             <div>
                 <p className='banner'>{this.state.world.name}</p>
-                <div className='world' onClick={this.addNewPin}>
-                    <img src={this.state.world.image} alt='World Failed to load you should refresh the application' />
+                <div className='world' >
+                    <img src={this.state.world.image} onClick={this.addNewPin} alt='World Failed to load you should refresh the application' />
                     {this.state.world.pins.map(point => (
                         <Pin key={point.id.toString()}
                             pin={point}
@@ -43,6 +63,8 @@ class World extends React.Component {
                     <NewPin position_x={this.state.newPinPosition[0]} 
                             position_y={this.state.newPinPosition[1]}
                             world_id={this.state.world.id}
+                            onSubmit={this.reloadPins}
+                            onCancel={this.cancelPin}
                     />
                 : null// else
                 /*end if new pin is being made*/}
