@@ -96,7 +96,7 @@ class NewPin extends React.Component {
             await this.setState({
                 ...this.state,
                 resourceList:selectList
-        })};
+        });}
         if (this.props.position_x !== prevProps.position_x) {
             this.setState({
                 ...this.state,
