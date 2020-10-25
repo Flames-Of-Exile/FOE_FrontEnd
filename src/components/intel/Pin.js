@@ -15,11 +15,13 @@ class Pin extends React.Component {
                 bottom: props.pin.position_y + '%',
                 left: props.pin.position_x + '%',
             },
+
             visibility: 'hidden',
             amount: props.pin.amount,
             id: props.pin.id,
             name: props.pin.name,
-            details: props.pin
+            details: props.pin,
+            resource: props.pin.resource
         };
     }
 
@@ -32,12 +34,14 @@ class Pin extends React.Component {
         ...this.state,
         visibility: 'hidden',
     });
+
+
    
     render() {
         return(
             <div className='pin' style={this.state.containerStyle}>
-                <img src={'/staticfiles/icons/' + this.state.symbol + '.png'} alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}/>
                 <PinDetails visibility={this.state.visibility} details={this.state.details} />
+                <img src={'/staticfiles/icons/' + this.state.symbol + '.png'} alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}/>
             </div>
         );
     }
