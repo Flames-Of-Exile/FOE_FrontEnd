@@ -41,7 +41,7 @@ class Pin extends React.Component {
         return(
             <div className='pin' style={this.state.containerStyle}>
                 <PinDetails visibility={this.state.visibility} details={this.state.details} />
-                <img src={'/staticfiles/icons/' + this.state.symbol + '.png'} color='red' alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}/>
+                <img src={'/staticfiles/icons/' + this.state.symbol + '.png'} alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}/>
             </div>
         );
     }
