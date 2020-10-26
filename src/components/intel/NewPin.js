@@ -17,7 +17,9 @@ class NewPin extends React.Component {
             amount: 0,
             respawn: 0,
             resource: 'granite',
-            resourceList: ['Granite','Limestone','Travertine','Slate','Marble']
+            resourceList: ['Granite','Limestone','Travertine','Slate','Marble'],
+            x_cord: null,
+            y_cord: null
         };
     }
 
@@ -38,7 +40,10 @@ class NewPin extends React.Component {
                 rank: this.state.rank,
                 amount: this.state.amount,
                 respawn: this.state.respawn,
-                resource: this.state.resource
+                resource: this.state.resource,
+                x_cord: this.state.x_cord,
+                y_cord: this.state.y_cord
+
             }));
             let tempPin = {
                 position_x: this.state.position_x,
@@ -109,8 +114,8 @@ class NewPin extends React.Component {
     render() {
         return (
             <div>
-                <input type="number" name="position_x" value={this.state.position_x} onChange={this.handleChange}/>
-                <input type="number" name="position_y" value={this.state.position_y} onChange={this.handleChange}/>
+                <input type="number" name="x_cord" placeholder='X coordinant' value={this.state.x_cord} onChange={this.handleChange}/>
+                <input type="number" name="y_cord" placeholder='Y coordinant' value={this.state.y_cord} onChange={this.handleChange}/>
                 <select name="symbol" value={this.state.symbol} onChange={this.handleChange}>
                     <option value='stone'>Stone</option>
                     <option value='stone-motherlode'>Stone Motherload</option>
