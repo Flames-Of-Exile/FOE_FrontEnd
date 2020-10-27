@@ -15,7 +15,7 @@ class Register extends React.Component {
         };
     }
 
-    async UNSAFE_componentWillMount() {
+    async componentDidMount() {
         const response = await axios.get("/api/guilds");
         this.setState({
             ...this.state,
