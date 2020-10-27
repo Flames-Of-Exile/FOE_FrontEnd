@@ -29,7 +29,7 @@ class GuildList extends React.Component {
                 guilds: [...this.state.guilds, response.data]
             });
         } catch (error) {
-            console.log("failed to create new guild -", error.message);
+            alert("failed to create new guild -", error.message);
         }
     }
 
@@ -37,7 +37,7 @@ class GuildList extends React.Component {
         return(
             <div>
                 <div className="user-list">
-                    {this.state.guilds.map(guild => <Guild guild={guild} Application={this.state.Application}/>)}
+                    {this.state.guilds.map(guild => <Guild guild={guild} key={guild} Application={this.state.Application}/>)}
                 </div>
                 <input type="text" name="guildName" onChange={this.handleChange} />
                 <button onClick={this.handleSubmit}>Add Guild</button>

@@ -29,7 +29,7 @@ class Admin extends React.Component {
                 loaded: true,
             });
         } catch (error) {
-            console.log("failed to fetch guilds -", error.message);
+            alert("failed to fetch guilds -", error.message);
         }
     }
     
@@ -46,7 +46,9 @@ class Admin extends React.Component {
                                                                                     guilds={this.state.guilds}
                                                                                     Application={props.Application}
                                                                                     adminPanel={this} />} />
-                        <Route path="/admin" render={props => <GuildList {...props} guilds={this.state.guilds} Application={this.state.Application} />} />
+                        <Route path="/admin" render={props => 
+                            <GuildList {...props} guilds={this.state.guilds} Application={this.state.Application} />
+                            }/>
                     </Switch>
                 :
                     "loading..."

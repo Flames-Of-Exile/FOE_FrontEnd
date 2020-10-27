@@ -29,7 +29,7 @@ class Admin extends React.Component {
                 guild: response.data.guild.id,
             });
         } catch (error) {
-            console.log("failed to fetch user -", error.message);
+            alert("failed to fetch user -", error.message);
         }
     }
 
@@ -57,7 +57,7 @@ class Admin extends React.Component {
                 guilds: response.data,
             });
         } catch (error) {
-            console.log("Failed to update user -", error.message);
+            alert("Failed to update user -", error.message);
         }
     }
     
@@ -74,7 +74,7 @@ class Admin extends React.Component {
                     <option value="admin">Admin</option>
                 </select>
                 <select name="guild" value={this.state.guild} onChange={this.handleChange}>
-                    {this.state.guildList.map(guild => <option value={guild.id}>{guild.name}</option>)}
+                    {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
                 </select>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>

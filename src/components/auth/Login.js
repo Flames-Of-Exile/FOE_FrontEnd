@@ -30,7 +30,7 @@ class Login extends React.Component {
             });
             setTimeout(this.state.Application.refresh, 27000, this.state.Application);
         } catch (error) {
-            console.log("Failed to login -", error.message);
+            alert("Failed to login -", error.message);
         }
     }
 
@@ -44,8 +44,20 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <input type="text" name="username" placeholder='username' onChange={this.handleChange} onKeyDown={this.keyDown}/>
-                <input type="password" name="password" placeholder='password' onChange={this.handleChange} onKeyDown={this.keyDown}/>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder='username'
+                    onChange={this.handleChange} 
+                    onKeyDown={this.keyDown}
+                />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder='password'
+                    onChange={this.handleChange}
+                    onKeyDown={this.keyDown}
+                />
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         );

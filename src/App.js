@@ -61,10 +61,10 @@ class App extends React.Component {
         ...Application.state,
         currentUser: response.data.user,
       });
-      setTimeout(Application.refresh, 270000, Application);  // token is good for 5 minutes - refresh every 4 minutes, 30 seconds
+      // token is good for 5 minutes - refresh every 4 minutes, 30 seconds
+      setTimeout(Application.refresh, 270000, Application);
     } catch (error) {
       Application.syncLogout();
-      console.log("failed to refresh session -", error.message);
     }
   }
 

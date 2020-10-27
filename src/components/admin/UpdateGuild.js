@@ -33,7 +33,7 @@ class UpdateGuild extends React.Component {
                 guilds: getResponse.data,
             });
         } catch (error) {
-            console.log("failed to update guild access -", error.message);
+            alert("failed to update guild access -", error.message);
         }
     }
 
@@ -59,7 +59,7 @@ class UpdateGuild extends React.Component {
             });
             this.props.history.goBack();
         } catch (error) {
-            console.log("failed to update guild name -", error.message);
+            alert("failed to update guild name -", error.message);
         }
     }
 

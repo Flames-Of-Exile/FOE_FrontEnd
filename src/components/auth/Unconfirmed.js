@@ -6,7 +6,7 @@ import React, {
 
 const axios = require('axios').default;
 
-function Unconfirmed(props) {
+function Unconfirmed() {
 
     const [state, setState] = useState({
         token: "",

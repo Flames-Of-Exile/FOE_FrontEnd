@@ -12,6 +12,13 @@
         "plugin:react/recommended"
     ],
     "rules": {
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "no-console": "warn",
+        "max-len": ["error", { "code": 127 }]
+    },
+    "env": {
+        "amd": true,
+        "browser": true,
+        "node": true
     }
 }

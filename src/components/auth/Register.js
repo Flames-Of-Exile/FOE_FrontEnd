@@ -15,7 +15,7 @@ class Register extends React.Component {
         };
     }
 
-    async componentWillMount() {
+    async UNSAFE_componentWillMount() {
         const response = await axios.get("/api/guilds");
         this.setState({
             ...this.state,
@@ -47,7 +47,7 @@ class Register extends React.Component {
             });
             setTimeout(this.state.Application.refresh, 27000, this.state.Application);
         } catch (error) {
-            console.log("Failed to register -", error.message);
+            alert("Failed to register -", error.message);
         }
     }
 
@@ -59,7 +59,7 @@ class Register extends React.Component {
                 <input type="password" name="password1" placeholder='password' onChange={this.handleChange}/>
                 <input type="password" name="password2" placeholder='retype password' onChange={this.handleChange}/>
                 <select name="guild" onChange={this.handleChange} value={this.state.guild}>
-                    {this.state.guildList.map(guild => <option value={guild.id}>{guild.name}</option>)}
+                    {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
                 </select>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
