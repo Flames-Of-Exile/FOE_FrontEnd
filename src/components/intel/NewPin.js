@@ -59,7 +59,7 @@ class NewPin extends React.Component {
                 id: -1};
                 this.props.onSubmit(tempPin);
         } catch (error) {
-            console.log("Failed to create pin -", error.message);
+            alert("Failed to create pin -", error.message);
         }
     }
 
@@ -92,12 +92,8 @@ class NewPin extends React.Component {
 
 
     async componentDidUpdate(prevProps) {
-        console.log(this.state.symbol);
         let selectList = this.resourceSelector();
-        console.log(selectList);
-        console.log(this.state.resourceList);
         if (selectList[0] !== this.state.resourceList[0]) {
-            console.log('they are different');
             await this.setState({
                 ...this.state,
                 resourceList:selectList
@@ -114,8 +110,21 @@ class NewPin extends React.Component {
     render() {
         return (
             <div>
-                <input type="number" name="x_cord" placeholder='X coordinant' value={this.state.x_cord} onChange={this.handleChange}/>
-                <input type="number" name="y_cord" placeholder='Y coordinant' value={this.state.y_cord} onChange={this.handleChange}/>
+                <input
+                    type="number"
+                    name="x_cord"
+                    placeholder='X coordinant'
+                    value={this.state.x_cord}
+                    onChange={this.handleChange}
+                />
+                <input
+                    type="number"
+                    name="y_cord"
+                    placeholder='Y
+                    coordinant'
+                    value={this.state.y_cord}
+                    onChange={this.handleChange}
+                />
                 <select name="symbol" value={this.state.symbol} onChange={this.handleChange}>
                     <option value='stone'>Stone</option>
                     <option value='stone-motherlode'>Stone Motherload</option>
@@ -134,7 +143,7 @@ class NewPin extends React.Component {
                 </select>
                 <select name='resource' value={this.state.symbol} onChange={this.handleChange}>
                     {this.state.resourceList.map(choice => (
-                        <option value={choice.toLowerCase()}>{choice}</option>
+                        <option key={choice} value={choice.toLowerCase()}>{choice}</option>
                     ))}
                 </select>
                 <input type="text" name="notes" placeholder='notes' onChange={this.handleChange}/>

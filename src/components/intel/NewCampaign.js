@@ -33,7 +33,7 @@ class NewCampaign extends React.Component {
             } };
             await axios.post("/api/campaigns", formData, config);
         } catch (error) {
-            console.log("Failed to create campaign -", error.message);
+            alert("Failed to create campaign -", error.message);
         }
     }
 

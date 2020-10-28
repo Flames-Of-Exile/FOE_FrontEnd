@@ -14,7 +14,7 @@ function EditProfile(props) {
         try {
            await axios.patch(`/api/users/${user.id}`, JSON.stringify(user));
         } catch (error) {
-            console.log("failed to update profile -", error.message);
+            alert("failed to update profile -", error.message);
         }
     };
 

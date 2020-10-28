@@ -6,7 +6,7 @@ function UserList(props) {
     
     return(
         <div className="user-list">
-            {props.users.map(user => <User user={user} Application={props.Application}/>)}
+            {props.users.map(user => <User key={user} user={user} Application={props.Application}/>)}
         </div>
     );
 }

@@ -7,7 +7,18 @@
             "jsx": true
         }
     },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
     "rules": {
-        "semi": "error"
+        "react/prop-types": "off",
+        "no-console": "warn",
+        "max-len": ["error", { "code": 127 }]
+    },
+    "env": {
+        "amd": true,
+        "browser": true,
+        "node": true
     }
 }

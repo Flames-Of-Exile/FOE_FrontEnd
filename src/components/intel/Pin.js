@@ -1,10 +1,8 @@
 import React from 'react';
 
-import PinDetails from './PinDetails.js';
 import Animal from './pins/Animal.js';
 import AnimalBoss from './pins/AnimalBoss.js';
 import Grave from './pins/Grave.js';
-import Mob from './pins/Mob.js';
 import MobBoss from './pins/MobBoss.js';
 import Ore from './pins/Ore.js';
 import OreMotherlode from './pins/OreMotherlode.js';
@@ -41,7 +39,7 @@ class Pin extends React.Component{
                 fill:'#ffffff'
             },
         };
-    };
+    }
 
     setVis = () => this.setState({
         ...this.state,
@@ -56,29 +54,93 @@ class Pin extends React.Component{
     choseSVG() {
         switch(this.state.symbol) {
             case 'animal-boss':
-                return <AnimalBoss iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <AnimalBoss
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'animal':
-                return <Animal iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details} />;
+                return <Animal
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'grave':
-                return <Grave iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <Grave
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'mob-boss':
-                return <MobBoss iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <MobBoss
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'ore-motherlode':
-                return <OreMotherlode iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <OreMotherlode
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'ore':
-                return <Ore iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <Ore
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'stone-motherlode':
-                return <StoneMotherlode iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <StoneMotherlode
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'stone':
-                return <Stone iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <Stone
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'well':
-                return <Well iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <Well
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             case 'wood':
-                return <Wood iconStyle={this.state.iconStyle} boarderStyle={this.state.boarderStyle} cutoutStyle={this.state.cutoutStyle} visibility={this.state.visibility} details={this.state.details}/>;
+                return <Wood
+                            iconStyle={this.state.iconStyle}
+                            boarderStyle={this.state.boarderStyle}
+                            cutoutStyle={this.state.cutoutStyle}
+                            visibility={this.state.visibility}
+                            details={this.state.details}
+                        />;
             default:
                 return<div className='pin' style={this.state.containerStyle}>
-                        <img src={'/staticfiles/icons/' + this.state.symbol + '.png'} alt='' onMouseEnter={this.setVis} onMouseLeave={this.setInvis}>
-                        </img>
+                        <img
+                            src={'/staticfiles/icons/' + this.state.symbol + '.png'}
+                            alt=''
+                            onMouseEnter={this.setVis}
+                            onMouseLeave={this.setInvis}
+                        />
                     </div>;
         }
     }
