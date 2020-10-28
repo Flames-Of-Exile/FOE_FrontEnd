@@ -48,7 +48,7 @@ class NewCampaign extends React.Component {
             <div>
                 <input type="text" name="name" placeholder="campaign name" onChange={this.handleChange}/>
                 <input type="file" name="file" id="file" onChange={this.handleSelect}/>
-                <label for="file">{this.state.filename}</label>
+                <label htmlFor="file">{this.state.filename}</label>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         );

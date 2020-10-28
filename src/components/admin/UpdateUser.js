@@ -96,7 +96,7 @@ class Admin extends React.Component {
             <div>
                 <p>{this.state.username}</p>
                 <form className="grid-2">
-                    <label for="password">New Password</label>
+                    <label htmlFor="password">New Password</label>
                     <input type="password" name="password" placeholder="password" onChange={this.handleChange}/>
                 </form>
                 <button onClick={this.handleChangePassword}>Change Password</button>
@@ -104,15 +104,15 @@ class Admin extends React.Component {
                 <br />
                 <br />
                 <form className="grid-2">
-                    <label for="is_active">Account Enabled</label>
+                    <label htmlFor="is_active">Account Enabled</label>
                     <input type="checkbox" name="is_active" checked={this.state.is_active} onChange={this.handleCheck}/>
-                    <label for="role">Access Level</label>
+                    <label htmlFor="role">Access Level</label>
                     <select name="role" value={this.state.role} onChange={this.handleChange}>
                         <option value="guest">Guest</option>
                         <option value="verified">Verified</option>
                         <option value="admin">Admin</option>
                     </select>
-                    <label for="guild">Guild</label>
+                    <label htmlFor="guild">Guild</label>
                     <select name="guild" value={this.state.guild} onChange={this.handleChange}>
                         {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
                     </select>

@@ -84,13 +84,13 @@ class Register extends React.Component {
                 </div>
                 <br />
                 <form className="grid-2">
-                    <label for="username">Username</label>
+                    <label htmlFor="username">Username</label>
                     <input type="text" name="username" placeholder='user name' onChange={this.handleChange}/>
-                    <label for="password1">Password</label>
+                    <label htmlFor="password1">Password</label>
                     <input type="password" name="password1" placeholder='password' onChange={this.handleChange}/>
-                    <label for="password2">Retype Password</label>
+                    <label htmlFor="password2">Retype Password</label>
                     <input type="password" name="password2" placeholder='retype password' onChange={this.handleChange}/>
-                    <label for="guild">Guild</label>
+                    <label htmlFor="guild">Guild</label>
                     <select name="guild" onChange={this.handleChange} value={this.state.guild}>
                         {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
                     </select>

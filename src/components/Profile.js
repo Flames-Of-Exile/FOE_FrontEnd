@@ -58,7 +58,7 @@ function EditProfile(props) {
     return (
         <div>
             <form className="grid-2">
-                <label for="theme-selector">Theme</label>
+                <label htmlFor="theme-selector">Theme</label>
                 <select className="theme-selector" onChange={handleSelect} value={props.Application.state.currentUser.theme}>
                     <option value="default">Default</option>
                     <option value="blue_raspberry">Blue Raspberry</option>
@@ -69,9 +69,9 @@ function EditProfile(props) {
                 </select>
                 <div className="row-2 column-1-2" />
                 <div className="row-3 column-1-2" />
-                <label for="password1">New Password</label>
+                <label htmlFor="password1">New Password</label>
                 <input type="password" name="password1" placeholder="password" onChange={handleChange} />
-                <label for="password2">Retype Password</label>
+                <label htmlFor="password2">Retype Password</label>
                 <input type="password" name="password2" placeholder="retype password" onChange={handleChange} />
             </form>
             <button onClick={handleSubmit}>Change Password</button>
