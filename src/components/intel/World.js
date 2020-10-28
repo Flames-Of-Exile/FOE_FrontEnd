@@ -1,5 +1,6 @@
 import React from "react";
 import Pin from './Pin.js';
+import PinDetails from './PinDetails.js';
 import NewPin from './NewPin.js';
 
 class World extends React.Component {
@@ -10,7 +11,8 @@ class World extends React.Component {
         this.state = {
             world: props.world,
             newPin: false,
-            newPinPosition: [0,0]
+            newPinPosition: [0,0],
+            Application: props.Application
         };
     }
 
@@ -52,9 +54,17 @@ class World extends React.Component {
                 <div className='world' >
                     <img src={this.state.world.image} onClick={this.addNewPin} alt='World Failed to load you should refresh the application' />
                     {this.state.world.pins.map(point => (
-                        <Pin key={point.id.toString()}
-                            pin={point}
-                        />
+                        <>
+                            <Pin key={point.id.toString() + 'pin'}
+                                pin={point}
+                                Application={this.state.Application}
+                            />
+                            <PinDetails key={point.id.toString() + 'details'}
+                                details={point}
+                                Application={this.state.Application}
+                            />
+                        </>
+
                     ))}
                 </div>
                 {this.state.newPin ? // if a new pin is being made

@@ -19,6 +19,7 @@ class Pin extends React.Component{
     constructor(props) {
         super();
         this.state = {
+            Application: props.Application,
             symbol: props.pin.symbol,
             containerStyle:{
                 bottom: props.pin.position_y + '%',
@@ -45,7 +46,10 @@ class Pin extends React.Component{
 
     setVis = () => this.setState({
         ...this.state,
-        visibility: 'visible',
+        Application: {
+            ...this.state.Application,
+            // TODO: add visibility to application 
+        }
     });
 
     setInvis = () => this.setState({
@@ -131,7 +135,7 @@ class Pin extends React.Component{
 
     render() {
         return(
-            <div className='pin' style={this.state.containerStyle}>
+            <div className='pin' style={this.state.containerStyle} onMouseOver={this.setVis} onMouseOut={this.setInvis}>
                 {this.choseSVG()}
             </div>
         );

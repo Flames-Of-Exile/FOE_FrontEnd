@@ -6,7 +6,8 @@ class Campaign extends React.Component {
         super();
         this.state = {
             campaign: props.campaign,
-            loaded: false
+            loaded: false,
+            Application: props.Application
         };
     }
 
@@ -29,7 +30,8 @@ class Campaign extends React.Component {
             {this.state.loaded ? this.state.campaign.worlds.map( (world) => (
             <World key={world.id}
                     id={world.id}
-                    world={world}/>
+                    world={world}
+                    Application={this.state.Application}/>
             )): null}
         </div>
         );
