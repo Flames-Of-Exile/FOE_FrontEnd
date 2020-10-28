@@ -31,3 +31,4 @@ jobs:
         push: true
         file: ./dockerfile.prod
         tags: ${{ steps.prep.outputs.tags }}
+        build-args: REACT_APP_BACKEND=https://flamesofexile.com
