@@ -1,5 +1,7 @@
 import React from "react";
 
+import swal from "sweetalert";
+
 const axios = require("axios").default;
 
 class NewWorld extends React.Component {
@@ -10,6 +12,7 @@ class NewWorld extends React.Component {
             name: "",
             file: null,
             campaign_id: 0,
+            filename: "choose a file",
         };
     }
 
@@ -21,9 +24,22 @@ class NewWorld extends React.Component {
     handleSelect = (event) => this.setState({
         ...this.state,
         [event.target.name]: event.target.files[0],
+        filename: event.target.value.split('\\').pop()
     });
 
     handleSubmit = async () => {
+        if (this.state.name === "") {
+            swal("Error", "Please enter the name of the world.", "error");
+            return;
+        }
+        if (this.state.campaign_id < 1) {
+            swal("Error", "Please enter the campaign id.", "error");
+            return;
+        }
+        if (this.state.file === null) {
+            swal("Error", "Please upload a file.", "error");
+            return;
+        }
         const formData = new FormData();
         formData.append("file", this.state.file, this.state.file.name);
         formData.append("name", this.state.name);
@@ -33,8 +49,13 @@ class NewWorld extends React.Component {
                 "Content-Type": "multipart/form-data"
             } };
             await axios.post("/api/worlds", formData, config);
+            swal("Success", "World created!", "success");
         } catch (error) {
-            alert("Failed to create world -", error.message);
+            if (error.response.data.includes(`(campaign_id)=(${this.state.campaign_id}) is not present`)) {
+                swal("Error", `Campaign with id '${this.state.campaign_id}' not found.`, "error");
+                return;
+            }
+            swal("Error", error.response.data, "error");
         }
     }
 
@@ -44,7 +65,8 @@ class NewWorld extends React.Component {
             <div>
                 <input type="text" name="name" placeholder='World Name' onChange={this.handleChange}/>
                 <input type="number" name="campaign_id" placeholder='campaign id' onChange={this.handleChange}/>
-                <input type="file" name="file" onChange={this.handleSelect}/>
+                <input type="file" name="file" id="file" onChange={this.handleSelect}/>
+                <label for="file">{this.state.filename}</label>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         );

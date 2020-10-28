@@ -1,5 +1,7 @@
 import React from "react";
 
+import swal from "sweetalert";
+
 import Edit from './Edit';
 
 const axios = require("axios").default;
@@ -26,7 +28,7 @@ class PinHistory extends React.Component {
         try {
             await axios.delete(`/api/pins/${this.state.id}`);
         } catch (error) {
-            alert("Failed to delete pin -", error.message);
+            swal("Error", error.response.data, "error");
         }
         
     }

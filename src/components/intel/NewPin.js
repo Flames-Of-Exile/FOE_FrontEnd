@@ -1,5 +1,7 @@
 import React from "react";
 
+import swal from "sweetalert";
+
 const axios = require("axios").default;
 
 class NewPin extends React.Component {
@@ -59,7 +61,7 @@ class NewPin extends React.Component {
                 id: -1};
                 this.props.onSubmit(tempPin);
         } catch (error) {
-            alert("Failed to create pin -", error.message);
+            swal("Error", error.response.data, "error");
         }
     }
 

@@ -1,5 +1,7 @@
 import React from "react";
 
+import swal from "sweetalert";
+
 const axios = require("axios").default;
 
 class NewCampaign extends React.Component {
@@ -9,6 +11,7 @@ class NewCampaign extends React.Component {
             Application: props.Application,
             name: "",
             file: null,
+            filename: "choose a file",
         };
     }
 
@@ -20,6 +23,7 @@ class NewCampaign extends React.Component {
     handleSelect = (event) => this.setState({
         ...this.state,
         [event.target.name]: event.target.files[0],
+        filename: event.target.value.split('\\').pop()
     });
 
     handleSubmit = async () => {
@@ -32,8 +36,9 @@ class NewCampaign extends React.Component {
                 "Content-Type": "multipart/form-data"
             } };
             await axios.post("/api/campaigns", formData, config);
+            swal("Success", "Campaign posted!", "success");
         } catch (error) {
-            alert("Failed to create campaign -", error.message);
+            swal("Error", error.response.data, "error");
         }
     }
 
@@ -41,8 +46,9 @@ class NewCampaign extends React.Component {
     render() {
         return (
             <div>
-                <input type="text" name="name" onChange={this.handleChange}/>
-                <input type="file" name="file" onChange={this.handleSelect}/>
+                <input type="text" name="name" placeholder="campaign name" onChange={this.handleChange}/>
+                <input type="file" name="file" id="file" onChange={this.handleSelect}/>
+                <label for="file">{this.state.filename}</label>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         );
