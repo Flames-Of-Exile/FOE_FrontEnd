@@ -1,5 +1,9 @@
 import React from "react";
 
+import swal from "sweetalert";
+
+import validatePassword from "../../helper_functions/ValidatePassword"
+
 const axios = require("axios").default;
 
 class Admin extends React.Component {
@@ -15,6 +19,7 @@ class Admin extends React.Component {
             is_active: false,
             guild: "",
             guildList: props.guilds,
+            user: {},
         };
     }
 
@@ -23,13 +28,14 @@ class Admin extends React.Component {
             const response = await axios.get(`/api/users/${this.state.id}`);
             this.setState({
                 ...this.state,
+                user: response.data,
                 username: response.data.username,
                 role: response.data.role,
                 is_active: response.data.is_active,
                 guild: response.data.guild.id,
             });
         } catch (error) {
-            alert("failed to fetch user -", error.message);
+            swal("Error", error.response.data, "error");
         }
     }
 
@@ -45,19 +51,42 @@ class Admin extends React.Component {
 
     handleSubmit = async () => {
         try {
-            await axios.put(`/api/users/${this.state.id}`, JSON.stringify({
-                password: this.state.password,
+            const putResponse = await axios.put(`/api/users/${this.state.id}`, JSON.stringify({
                 role: this.state.role,
                 is_active: this.state.is_active,
                 guild_id: this.state.guild,
             }));
-            const response = await axios.get('/api/guilds');
+            this.setState({
+                ...this.state,
+                user: putResponse.data,
+            })
+            const getResponse = await axios.get('/api/guilds');
             this.state.adminPanel.setState({
                 ...this.state.adminPanel.state,
-                guilds: response.data,
+                guilds: getResponse.data,
             });
+            swal("Success", `${this.state.username} updated!`, "success");
         } catch (error) {
-            alert("Failed to update user -", error.message);
+            swal("Error", error.response.data, "error");
+        }
+    }
+
+    handleChangePassword = async () => {
+        let errors = validatePassword(this.state.password);
+        if (errors.length > 0) {
+            swal("Error", errors.join('\n'), "error");
+            return
+        }
+        try {
+            await axios.put(`/api/users/${this.state.id}`, JSON.stringify({
+                password: this.state.password,
+                role: this.state.user.role,
+                is_active: this.state.user.is_active,
+                guild_id: this.state.user.guild.id,
+            }))
+            swal("Success", "Password updated.", "success");
+        } catch (error) {
+            swal("Error", error.response.data, "error");
         }
     }
     
@@ -66,17 +95,29 @@ class Admin extends React.Component {
         return(
             <div>
                 <p>{this.state.username}</p>
-                <input type="password" name="password" placeholder="password" onChange={this.handleChange}/>
-                <input type="checkbox" name="is_active" checked={this.state.is_active} onChange={this.handleCheck}/>
-                <select name="role" value={this.state.role} onChange={this.handleChange}>
-                    <option value="guest">Guest</option>
-                    <option value="verified">Verified</option>
-                    <option value="admin">Admin</option>
-                </select>
-                <select name="guild" value={this.state.guild} onChange={this.handleChange}>
-                    {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
-                </select>
-                <button onClick={this.handleSubmit}>Submit</button>
+                <form className="grid-2">
+                    <label htmlFor="password">New Password</label>
+                    <input type="password" name="password" placeholder="password" onChange={this.handleChange}/>
+                </form>
+                <button onClick={this.handleChangePassword}>Change Password</button>
+                <br />
+                <br />
+                <br />
+                <form className="grid-2">
+                    <label htmlFor="is_active">Account Enabled</label>
+                    <input type="checkbox" name="is_active" checked={this.state.is_active} onChange={this.handleCheck}/>
+                    <label htmlFor="role">Access Level</label>
+                    <select name="role" value={this.state.role} onChange={this.handleChange}>
+                        <option value="guest">Guest</option>
+                        <option value="verified">Verified</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <label htmlFor="guild">Guild</label>
+                    <select name="guild" value={this.state.guild} onChange={this.handleChange}>
+                        {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
+                    </select>
+                </form>
+                <button onClick={this.handleSubmit}>Update User</button>
             </div>
         );
     }

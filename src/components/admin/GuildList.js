@@ -1,5 +1,7 @@
 import React from "react";
 
+import swal from "sweetalert";
+
 import Guild from "./Guild";
 
 const axios = require('axios').default;
@@ -20,6 +22,10 @@ class GuildList extends React.Component {
     });
 
     handleSubmit = async () => {
+        if (this.state.guildName === "") {
+            swal("Error", "Please enter a guild name.", "error");
+            return;
+        }
         try {
             const response = await axios.post('/api/guilds', JSON.stringify({
                 name: this.state.guildName,
@@ -28,8 +34,13 @@ class GuildList extends React.Component {
                 ...this.state,
                 guilds: [...this.state.guilds, response.data]
             });
+            swal("Success", `${this.state.guildName} created!`, "success")
         } catch (error) {
-            alert("failed to create new guild -", error.message);
+            if (error.response.data.includes(`(name)=(${this.state.guildName}) already exists`)) {
+                swal("Error", `Guild with name '${this.state.guildName}' already exists.`, "error");
+                return;
+            }
+            swal("Error", error.response.data, "error");
         }
     }
 
@@ -39,7 +50,7 @@ class GuildList extends React.Component {
                 <div className="user-list">
                     {this.state.guilds.map(guild => <Guild guild={guild} key={guild} Application={this.state.Application}/>)}
                 </div>
-                <input type="text" name="guildName" onChange={this.handleChange} />
+                <input type="text" name="guildName" placeholder="new guild name" onChange={this.handleChange} />
                 <button onClick={this.handleSubmit}>Add Guild</button>
             </div>
         );

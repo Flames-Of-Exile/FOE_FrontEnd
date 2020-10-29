@@ -1,5 +1,7 @@
 import React from "react";
 
+import swal from "sweetalert";
+
 import UserList from "./UserList";
 
 const axios = require('axios').default;
@@ -32,8 +34,10 @@ class UpdateGuild extends React.Component {
                 ...this.state.adminPanel.state,
                 guilds: getResponse.data,
             });
+            let access = this.state.guild.is_active ? "disabled" : "enabled";
+            swal("Success", `Access for '${this.state.guild.name}' ${access}.`, "success");
         } catch (error) {
-            alert("failed to update guild access -", error.message);
+            swal("Error", error.response.data, "error");
         }
     }
 
@@ -43,6 +47,10 @@ class UpdateGuild extends React.Component {
     })
 
     handleSubmit = async () => {
+        if (this.state.guildName === "") {
+            swal("Error", "Please enter a name.", "error");
+            return;
+        }
         try {
             const patchResponse = await axios.patch(`/api/guilds/${this.state.guild.id}`, JSON.stringify({
                 "name": this.state.guildName,
@@ -57,18 +65,26 @@ class UpdateGuild extends React.Component {
                 ...this.state.adminPanel.state,
                 guilds: getResponse.data,
             });
+            swal("Success", `${this.state.guildName} updated!`, "success");
             this.props.history.goBack();
         } catch (error) {
-            alert("failed to update guild name -", error.message);
+            if (error.response.data.includes(`(name)=(${this.state.guildName}) already exists`)) {
+                swal("Error", `Guild with name '${this.state.guildName}' already exists.`, "error");
+                return;
+            }
+            swal("Error", error.response.data, "error");
         }
     }
 
     render() {
         return (
             <div>
+                {this.state.guild.name}
                 <UserList users={this.state.guild ? this.state.guild.users : []} Application={this.state.Application} />
                 <button onClick={this.handleToggle}>{this.state.guild.is_active ? "Disable Access" : "Enable Access"}</button>
-                <input type="text" name="guildName" onChange={this.handleChange} />
+                <br />
+                <br />
+                <input type="text" name="guildName" placeholder="new guild name" onChange={this.handleChange} />
                 <button onClick={this.handleSubmit}>Change Name</button>
             </div>
         );
