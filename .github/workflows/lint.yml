@@ -18,5 +18,7 @@ jobs:
       run: yarn add eslint
     - name: install babel-eslint
       run: yarn add babel-eslint
+    - name: add eslint react plugin
+      run: yarn add eslint-plugin-react
     - name: eslint
       uses: icrawl/action-eslint@v1

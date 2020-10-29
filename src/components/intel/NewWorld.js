@@ -34,7 +34,7 @@ class NewWorld extends React.Component {
             } };
             await axios.post("/api/worlds", formData, config);
         } catch (error) {
-            console.log("Failed to create world -", error.message);
+            alert("Failed to create world -", error.message);
         }
     }
 

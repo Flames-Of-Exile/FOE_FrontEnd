@@ -10,7 +10,6 @@ class Admin extends React.Component {
             adminPanel: props.adminPanel,
             id: props.match.params.id,
             username: "",
-            email: "",
             password: "",
             role: "guest",
             is_active: false,
@@ -25,13 +24,12 @@ class Admin extends React.Component {
             this.setState({
                 ...this.state,
                 username: response.data.username,
-                email: response.data.email,
                 role: response.data.role,
                 is_active: response.data.is_active,
                 guild: response.data.guild.id,
             });
         } catch (error) {
-            console.log("failed to fetch user -", error.message);
+            alert("failed to fetch user -", error.message);
         }
     }
 
@@ -51,7 +49,6 @@ class Admin extends React.Component {
                 password: this.state.password,
                 role: this.state.role,
                 is_active: this.state.is_active,
-                email: this.state.email,
                 guild_id: this.state.guild,
             }));
             const response = await axios.get('/api/guilds');
@@ -60,7 +57,7 @@ class Admin extends React.Component {
                 guilds: response.data,
             });
         } catch (error) {
-            console.log("Failed to update user -", error.message);
+            alert("Failed to update user -", error.message);
         }
     }
     
@@ -70,7 +67,6 @@ class Admin extends React.Component {
             <div>
                 <p>{this.state.username}</p>
                 <input type="password" name="password" placeholder="password" onChange={this.handleChange}/>
-                <input type="text" name="email" value={this.state.email} onChange={this.handleChange}/>
                 <input type="checkbox" name="is_active" checked={this.state.is_active} onChange={this.handleCheck}/>
                 <select name="role" value={this.state.role} onChange={this.handleChange}>
                     <option value="guest">Guest</option>
@@ -78,7 +74,7 @@ class Admin extends React.Component {
                     <option value="admin">Admin</option>
                 </select>
                 <select name="guild" value={this.state.guild} onChange={this.handleChange}>
-                    {this.state.guildList.map(guild => <option value={guild.id}>{guild.name}</option>)}
+                    {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
                 </select>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>

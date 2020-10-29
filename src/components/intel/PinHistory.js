@@ -26,7 +26,7 @@ class PinHistory extends React.Component {
         try {
             await axios.delete(`/api/pins/${this.state.id}`);
         } catch (error) {
-            console.log("Failed to delete pin -", error.message);
+            alert("Failed to delete pin -", error.message);
         }
         
     }
@@ -37,7 +37,7 @@ class PinHistory extends React.Component {
                 <button onClick={this.delete}>Delete Pin</button>
                 <p>{this.state.pin.position_x} / {this.state.pin.position_y}</p>
                 <p>{this.state.pin.symbol}</p>
-                {this.state.pin.edits.map(edit => <Edit edit={edit} />)}
+                {this.state.pin.edits.map(edit => <Edit key={edit} edit={edit} />)}
             </div>
         );
     }

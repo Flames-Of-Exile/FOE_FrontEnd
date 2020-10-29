@@ -7,7 +7,10 @@ function Ore(props) {
         <svg viewBox='12 0 6 11 ' className='pinSVG'>
             <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
-                <path d='M 14.552083,10.985418 12.170833,5.9583333 V 3.3125 L 13.229167,0.93125 H 15.875 l 1.058333,2.38125 -1.1e-5,2.6458333 z'></path>
+                <path
+                    d={'M 14.552083,10.985418 12.170833,5.9583333 V 3.3125 ' +
+                        'L 13.229167,0.93125 H 15.875 l 1.058333,2.38125 -1.1e-5,2.6458333 z'}
+                />
             </g>
             <g className='icon' style={props.iconStyle}>
                 <path d='m 15.478124,3.5770833 0.79375,0.2204862 0.396875,1.1024304 h -1.5875 z'></path>
