@@ -37,14 +37,17 @@ function Unconfirmed() {
     };
 
     return (
-        <div>
-            <p>Thank you for registering, please link your account to discord.</p>
-            <p>1. Copy the following token, it is good for 1 hour:</p>
-            <textarea ref={textArea} value={state.token} /> <a onClick={handleCopy}>Copy</a>
-            <p>2. Please join our <a href="https://discord.gg/HPDCnAn">discord</a>.</p>
-            <p>3. Type !register</p>
-            <p>4. Follow the instructions given by the bot.</p>
-            <a onClick={handleRegenerate}>Regenerate token</a>
+        <div className="grid-3">
+            <p className="column-2">Thank you for registering, please link your account to discord.</p>
+            <ol type="1" className="row-2 column-2">
+                <li>Copy the following token, it is good for 1 hour:
+                    <textarea ref={textArea} value={state.token} /> <a onClick={handleCopy}>Copy</a>
+                </li>
+                <li>Please join our <a href="https://discord.gg/HPDCnAn">discord</a>.</li>
+                <li>Type !register</li>
+                <li>Follow the instructions given by the bot.</li>
+            </ol>
+            <a className="row-3 column-2" onClick={handleRegenerate}>Regenerate token</a>
         </div>
     );
 }

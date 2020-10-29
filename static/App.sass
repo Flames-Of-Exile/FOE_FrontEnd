@@ -1,10 +1,15 @@
+@import './Admin'
+@import './Generics'
+@import './Grid'
+@import './Intel'
+  
 $primary-bg-color: var(--primary-bg-color)
 $secondary-bg-color: var(--secondary-bg-color)
 $primary-txt-color: var(--primary-txt-color)
 $secondary-txt-color: var(--secondary-txt-color)
 $primary-lnk-color: var(--primary-lnk-color)
 $secondary-lnk-color: var(--secondary-lnk-color)
-    
+
 .App
   text-align: center
   background-color: $primary-bg-color
@@ -40,121 +45,3 @@ $secondary-lnk-color: var(--secondary-lnk-color)
   a:hover
     filter: brightness(85%)
     text-decoration: none
-
-a
-  color: $primary-lnk-color
-  text-decoration: none
-
-a:hover
-  cursor: pointer
-  filter: brightness(85%)
-
-select
-  width: 300px
-  height: 40px
-  border: none
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.4)
-  border-radius: 10px
-  outline: none
-  align-self: center
-
-input
-  align-self: center
-  width: 300px
-  height: 40px
-  border: none
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.4)
-  border-radius: 10px
-  outline: none
-
-button
-  width: 200px
-  height: 40px
-  background-color: $primary-lnk-color
-  color: $primary-txt-color
-  border: none
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.4)
-  border-radius: 10px
-  outline: none
-  align-self: center
-  margin-top: 10px
-  margin-left: 100px
-  margin-bottom: 10px
-  margin-right: 0px
-
-button:hover
-  filter: brightness(85%)
-  cursor: pointer
-
-button:active
-  filter: brightness(70%)
-
-.user-list
-  align-self: center
-  margin: 25px
-  padding: 5px
-  background-color: $secondary-bg-color
-  width: 1000px
-  height: 400px
-  overflow: auto
-  text-align: justify
-
-.user-entry
-  margin: .25em
-  padding: .5em
-  list-style-type: none
-  background-color: $primary-bg-color
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4)
-  border-style: 1px solid $primary-bg-color
-  border-radius: 3px
-
-.world
-  position: relative
-  width: 70%
-  height: auto
-  margin-left: auto
-  margin-right: auto
-
-  img
-    width: 100%
-    height: auto
-
-.pin
-  position: absolute
-  height: auto
-  width: 2.6%
-
-  img
-    height: 100%
-    width: 100%
-
-.pin-details
-  background-color: #000000
-  color: #FFFFFF
-  z-index: 10
-  text-align: left
-  border: white
-  border-style: ridge
-  padding: 0 3px 1px 3px
-  float: left
-  position: 
-  white-space: nowrap
-
-textarea
-  resize: none
-  white-space: nowrap
-  overflow: hidden
-
-.campaign 
-  margin-left: auto
-  margin-right: auto
-  width: 75%
-
-.pinSVG
-  stroke-width: .1
-
-.icon
-  stroke-width: .1
-
-.cutout
-  stroke-width: .1

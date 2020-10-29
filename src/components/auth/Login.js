@@ -1,5 +1,7 @@
 import React from "react";
 
+import swal from "sweetalert";
+
 const axios = require("axios").default;
 
 class Login extends React.Component {
@@ -30,7 +32,7 @@ class Login extends React.Component {
             });
             setTimeout(this.state.Application.refresh, 27000, this.state.Application);
         } catch (error) {
-            alert("Failed to login -", error.message);
+            swal("Error", error.response.data, "error");
         }
     }
 

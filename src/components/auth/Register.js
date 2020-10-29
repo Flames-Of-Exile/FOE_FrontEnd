@@ -1,5 +1,9 @@
 import React from "react";
 
+import swal from "sweetalert";
+
+import validatePassword from "../../helper_functions/ValidatePassword"
+
 const axios = require("axios").default;
 
 class Register extends React.Component {
@@ -30,9 +34,18 @@ class Register extends React.Component {
     });
 
     handleSubmit = async () => {
-        if (this.state.password1 !== this.state.password2) {
-            alert("passwords don't match");
+        if (this.state.username === "") {
+            swal("Error", "Please enter a username.", "error");
             return;
+        }
+        if (this.state.password1 !== this.state.password2) {
+            swal("Error", "Passwords don't match.", "error");
+            return;
+        }
+        let errors = validatePassword(this.state.password1)
+        if (errors.length > 0) {
+            swal("Error", errors.join('\n'), "error");
+            return
         }
         try {
             const response = await axios.post("/api/users", JSON.stringify({
@@ -47,7 +60,11 @@ class Register extends React.Component {
             });
             setTimeout(this.state.Application.refresh, 27000, this.state.Application);
         } catch (error) {
-            alert("Failed to register -", error.message);
+            if (error.response.data.includes(`(${this.state.username}) already exists`)) {
+                swal("Error", "Username already taken, please try another.", "error")
+                return;
+            }
+            swal("Error", error.response.data, "error");
         }
     }
 
@@ -55,12 +72,29 @@ class Register extends React.Component {
     render() {
         return (
             <div>
-                <input type="text" name="username" placeholder='user name' onChange={this.handleChange}/>
-                <input type="password" name="password1" placeholder='password' onChange={this.handleChange}/>
-                <input type="password" name="password2" placeholder='retype password' onChange={this.handleChange}/>
-                <select name="guild" onChange={this.handleChange} value={this.state.guild}>
-                    {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
-                </select>
+                <div className="grid-3">
+                    <span className="column-1-3">Password must meet the following requirements:</span>
+                    <ul className="row-2 column-2">
+                        <li>At least 8 characters in length</li>
+                        <li>At least 1 uppercase character</li>
+                        <li>At least 1 lowercase character</li>
+                        <li>At least 1 number</li>
+                        <li>At least 1 symbol</li>
+                    </ul>
+                </div>
+                <br />
+                <form className="grid-2">
+                    <label htmlFor="username">Username</label>
+                    <input type="text" name="username" placeholder='user name' onChange={this.handleChange}/>
+                    <label htmlFor="password1">Password</label>
+                    <input type="password" name="password1" placeholder='password' onChange={this.handleChange}/>
+                    <label htmlFor="password2">Retype Password</label>
+                    <input type="password" name="password2" placeholder='retype password' onChange={this.handleChange}/>
+                    <label htmlFor="guild">Guild</label>
+                    <select name="guild" onChange={this.handleChange} value={this.state.guild}>
+                        {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
+                    </select>
+                </form>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
         );

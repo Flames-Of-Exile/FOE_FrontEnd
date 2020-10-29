@@ -4,6 +4,8 @@ import {
     Route
 } from 'react-router-dom';
 
+import swal from "sweetalert";
+
 import GuildList from "./GuildList";
 import UpdateGuild from "./UpdateGuild";
 import UpdateUser from "./UpdateUser";
@@ -29,7 +31,7 @@ class Admin extends React.Component {
                 loaded: true,
             });
         } catch (error) {
-            alert("failed to fetch guilds -", error.message);
+            swal("Error", error.response.data, "error");
         }
     }
     
