@@ -2,7 +2,7 @@ import React from "react";
 
 import swal from "sweetalert";
 
-import validatePassword from "../../helper_functions/ValidatePassword"
+import validatePassword from "../../helper_functions/ValidatePassword";
 
 const axios = require("axios").default;
 
@@ -42,10 +42,10 @@ class Register extends React.Component {
             swal("Error", "Passwords don't match.", "error");
             return;
         }
-        let errors = validatePassword(this.state.password1)
+        let errors = validatePassword(this.state.password1);
         if (errors.length > 0) {
             swal("Error", errors.join('\n'), "error");
-            return
+            return;
         }
         try {
             const response = await axios.post("/api/users", JSON.stringify({
@@ -61,7 +61,7 @@ class Register extends React.Component {
             setTimeout(this.state.Application.refresh, 27000, this.state.Application);
         } catch (error) {
             if (error.response.data.includes(`(${this.state.username}) already exists`)) {
-                swal("Error", "Username already taken, please try another.", "error")
+                swal("Error", "Username already taken, please try another.", "error");
                 return;
             }
             swal("Error", error.response.data, "error");

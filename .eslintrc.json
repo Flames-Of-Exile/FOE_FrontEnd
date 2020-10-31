@@ -14,7 +14,8 @@
     "rules": {
         "react/prop-types": "off",
         "no-console": "warn",
-        "max-len": ["error", { "code": 127 }]
+        "max-len": ["error", { "code": 127 }],
+        "semi": "error"
     },
     "env": {
         "amd": true,

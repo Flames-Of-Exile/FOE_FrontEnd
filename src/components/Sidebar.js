@@ -17,8 +17,7 @@ function Sidebar(props) {
                 {props.Application.state.currentUser.role === "admin" ? // if user is admin
                 <div>
                     <br /><Link to="/admin">Admin</Link>
-                    <br /><Link to='/campaign/new'>Add Campaign</Link>
-                    <br /><Link to='/world/new'>Add World</Link>
+                    <br /><Link to='/campaigns/new'>Add Campaign</Link>
                 </div>
                 : // else
                     ""

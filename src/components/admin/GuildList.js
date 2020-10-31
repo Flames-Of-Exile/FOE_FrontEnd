@@ -34,7 +34,7 @@ class GuildList extends React.Component {
                 ...this.state,
                 guilds: [...this.state.guilds, response.data]
             });
-            swal("Success", `${this.state.guildName} created!`, "success")
+            swal("Success", `${this.state.guildName} created!`, "success");
         } catch (error) {
             if (error.response.data.includes(`(name)=(${this.state.guildName}) already exists`)) {
                 swal("Error", `Guild with name '${this.state.guildName}' already exists.`, "error");
