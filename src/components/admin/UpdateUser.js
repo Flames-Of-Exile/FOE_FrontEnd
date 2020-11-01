@@ -2,7 +2,7 @@ import React from "react";
 
 import swal from "sweetalert";
 
-import validatePassword from "../../helper_functions/ValidatePassword"
+import validatePassword from "../../helper_functions/ValidatePassword";
 
 const axios = require("axios").default;
 
@@ -59,7 +59,7 @@ class Admin extends React.Component {
             this.setState({
                 ...this.state,
                 user: putResponse.data,
-            })
+            });
             const getResponse = await axios.get('/api/guilds');
             this.state.adminPanel.setState({
                 ...this.state.adminPanel.state,
@@ -75,7 +75,7 @@ class Admin extends React.Component {
         let errors = validatePassword(this.state.password);
         if (errors.length > 0) {
             swal("Error", errors.join('\n'), "error");
-            return
+            return;
         }
         try {
             await axios.put(`/api/users/${this.state.id}`, JSON.stringify({
@@ -83,7 +83,7 @@ class Admin extends React.Component {
                 role: this.state.user.role,
                 is_active: this.state.user.is_active,
                 guild_id: this.state.user.guild.id,
-            }))
+            }));
             swal("Success", "Password updated.", "success");
         } catch (error) {
             swal("Error", error.response.data, "error");

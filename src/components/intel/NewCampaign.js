@@ -38,6 +38,10 @@ class NewCampaign extends React.Component {
             await axios.post("/api/campaigns", formData, config);
             swal("Success", "Campaign posted!", "success");
         } catch (error) {
+            if (error.response.data.includes('violates unique constraint "campaigns_image_key"')) {
+                swal("Error", "A file with that name has already been uploaded.", "error");
+                return;
+            }
             swal("Error", error.response.data, "error");
         }
     }

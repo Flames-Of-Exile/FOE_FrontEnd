@@ -3,17 +3,29 @@ import Pin from './Pin.js';
 import PinDetails from './PinDetails.js';
 import NewPin from './NewPin.js';
 
+const axios = require('axios').default;
+
 class World extends React.Component {
-    constructor(props) {
+    constructor() {
         super();
         this.reloadPins = this.reloadPins.bind(this);
         this.cancelPin = this.cancelPin.bind(this);
         this.state = {
-            world: props.world,
+            world: {pins: []},
             newPin: false,
             newPinPosition: [0,0],
             Application: props.Application
         };
+    }
+
+    async componentDidMount() {
+        let campaignName = this.props.match.params.campaign;
+        let worldName = this.props.match.params.world;
+        const response = await axios.get(`/api/worlds/q?campaign=${campaignName}&world=${worldName}`);
+        this.setState({
+            ...this.state,
+            world: response.data,
+        });
     }
 
     addNewPin = (e) => {

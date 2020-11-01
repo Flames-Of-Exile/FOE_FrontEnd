@@ -11,7 +11,6 @@ class NewWorld extends React.Component {
             Application: props.Application,
             name: "",
             file: null,
-            campaign_id: 0,
             filename: "choose a file",
         };
     }
@@ -43,7 +42,7 @@ class NewWorld extends React.Component {
         const formData = new FormData();
         formData.append("file", this.state.file, this.state.file.name);
         formData.append("name", this.state.name);
-        formData.append("campaign_id", this.state.campaign_id);
+        formData.append("campaign_id", this.props.campaign.id);
         try {
             let config = { headers: {
                 "Content-Type": "multipart/form-data"
@@ -51,10 +50,6 @@ class NewWorld extends React.Component {
             await axios.post("/api/worlds", formData, config);
             swal("Success", "World created!", "success");
         } catch (error) {
-            if (error.response.data.includes(`(campaign_id)=(${this.state.campaign_id}) is not present`)) {
-                swal("Error", `Campaign with id '${this.state.campaign_id}' not found.`, "error");
-                return;
-            }
             swal("Error", error.response.data, "error");
         }
     }
@@ -63,8 +58,10 @@ class NewWorld extends React.Component {
     render() {
         return (
             <div>
+                <br />
+                <br />
+                <p>Add world to {this.props.campaign.name}</p>
                 <input type="text" name="name" placeholder='World Name' onChange={this.handleChange}/>
-                <input type="number" name="campaign_id" placeholder='campaign id' onChange={this.handleChange}/>
                 <input type="file" name="file" id="file" onChange={this.handleSelect}/>
                 <label htmlFor="file">{this.state.filename}</label>
                 <button onClick={this.handleSubmit}>Submit</button>
