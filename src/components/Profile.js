@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import swal from "sweetalert";
 
-import validatePassword from "../helper_functions/ValidatePassword"
+import validatePassword from "../helper_functions/ValidatePassword";
 
 const axios = require('axios').default;
 
@@ -11,7 +11,7 @@ function EditProfile(props) {
     const [state, setState] = useState({
         password1: "",
         password2: "",
-    })
+    });
 
     const handleSelect = async (event) => {
         let user = props.Application.state.currentUser;
@@ -32,7 +32,7 @@ function EditProfile(props) {
             swal("Error", "Passwords don't match.", "error");
             return;
         }
-        let errors = validatePassword(state.password1)
+        let errors = validatePassword(state.password1);
         if (errors.length > 0) {
             swal("Error", errors.join('\n'), "error");
             return;
@@ -42,17 +42,17 @@ function EditProfile(props) {
             await axios.patch(`/api/users/${user.id}`, JSON.stringify({
                 'theme': user.theme,
                 'password': state.password1,
-            }))
+            }));
             swal("Success", "Password updated!", "success");
         } catch (error) {
             swal("Error", error.response.data, "error");
         }
-    }
+    };
 
     const handleChange = async (event) => setState({
         ...state,
         [event.target.name]: event.target.value,
-    })
+    });
 
 
     return (

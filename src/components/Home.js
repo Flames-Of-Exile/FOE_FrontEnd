@@ -1,12 +1,17 @@
-import React from 'react';
-import CampaignSelector from './intel/CampaignSelector.js';
+import React, { useEffect } from 'react';
 
-function Home() {
+import { Link } from "react-router-dom";
 
+function Home(props) {
+
+    useEffect(() => {
+        props.history.push('/campaigns');
+    },[]);
+    
     
     return(
         <div>
-            <CampaignSelector/>
+            <Link to="/campaigns">Campaign Maps</Link>
         </div>
     );
 }

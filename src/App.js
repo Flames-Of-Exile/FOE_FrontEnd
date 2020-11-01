@@ -6,12 +6,10 @@ import {
 } from "react-router-dom";
 import "./staticfiles/App.css";
 
-import Campaign from "./components/intel/Campaign";
+import CampaignSelector from "./components/intel/CampaignSelector";
 import NewCampaign from "./components/intel/NewCampaign";
 import PinHistory from "./components/intel/PinHistory";
 import NewPin from "./components/intel/NewPin";
-import World from "./components/intel/World";
-import NewWorld from "./components/intel/NewWorld";
 
 import Login from "./components/auth/Login";
 import Logout from "./components/auth/Logout";
@@ -87,12 +85,11 @@ class App extends React.Component {
                 /*end if user is admin*/}
                 {this.state.currentUser.discord_confirmed ? //if user has confirmed their discord
                   <Switch>
-                    <Route exact path="/campaign/new" render={props => <NewCampaign {...props} Application={this} />} />
-                    <Route exact path="/campaign/:id" render={props => <Campaign {...props} Application={this} />} />
+                    <Route exact path="/campaigns/new" render={props => <NewCampaign {...props} Application={this} />} />
+                    <Route path="/campaigns/:campaign" render={props => <CampaignSelector {...props} Application={this} />} />
+                    <Route path="/campaigns" render={props => <CampaignSelector {...props} Application={this} />} />
                     <Route exact path="/pin/new" render={props => <NewPin {...props} Application={this} />} />
                     <Route exact path="/pin/:id" render={props => <PinHistory {...props} Application={this} />} />
-                    <Route exact path="/world/new" render={props => <NewWorld {...props} Application={this} />} />
-                    <Route exact path="/world/:id" render={props => <World {...props} Application={this} />} />
                     <Route path="/" render={props => <Home {...props} Application={this} />} />
                   </Switch>
                 : // else user has not confirmed their discord
