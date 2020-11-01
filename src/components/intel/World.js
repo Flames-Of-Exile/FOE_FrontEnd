@@ -7,10 +7,8 @@ const axios = require('axios').default;
 class World extends React.Component {
     constructor() {
         super();
-        this.reloadPins = this.reloadPins.bind(this);
         this.cancelPin = this.cancelPin.bind(this);
         this.state = {
-            world: {pins: []},
             newPin: false,
             newPinPosition: [0,0]
         };
@@ -40,16 +38,6 @@ class World extends React.Component {
         });
     }
 
-    reloadPins(newPin) {
-        let newWorld = this.state.world;
-        newWorld.pins.push(newPin);
-        this.setState({
-            ...this.state,
-            world:newWorld,
-            newPin: false
-        });
-    }
-
     cancelPin() {
         this.setState({
             ...this.state,
@@ -60,14 +48,14 @@ class World extends React.Component {
     render() {
         return (
             <div>
-                <p className='banner'>{this.state.world.name}</p>
+                <p className='banner'>{this.props.world.name}</p>
                 <div className='world' >
                     <img
-                        src={this.state.world.image}
+                        src={this.props.world.image}
                         onClick={this.addNewPin}
                         alt='World Failed to load you should refresh the application'
                     />
-                    {this.state.world.pins.map(point => (
+                    {this.props.world.pins.map(point => (
                         <Pin key={point.id.toString()}
                             pin={point}
                         />
@@ -77,7 +65,7 @@ class World extends React.Component {
                     <NewPin position_x={this.state.newPinPosition[0]} 
                             position_y={this.state.newPinPosition[1]}
                             world_id={this.state.world.id}
-                            onSubmit={this.reloadPins}
+                            onSubmit={this.cancelPin}
                             onCancel={this.cancelPin}
                     />
                 : null// else
