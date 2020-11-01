@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 class Socket {
     connect() {
         this.socket = io.connect(`${window.location.hostname}`, {reconnection: true});
-        this.socket.on("response", message => console.log(message));
     }
 
     disconnect() {

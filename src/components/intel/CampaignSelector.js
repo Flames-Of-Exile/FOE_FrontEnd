@@ -22,7 +22,7 @@ class CampaignSelector extends React.Component {
             selectedIndex: -1,
             activeWorld: { pins: []},
         };
-        this.socket = new Socket()
+        this.socket = new Socket();
     }
 
     async componentDidMount() {
@@ -31,7 +31,7 @@ class CampaignSelector extends React.Component {
         const response = await axios.get(`/api/campaigns`);
         let campaigns = response.data;
         let activeCampaign = response.data[0];
-        let activeWorld = { pins: []}
+        let activeWorld = { pins: []};
         if (this.props.match.params.campaign) {
             activeCampaign = campaigns.filter(campaign => campaign.name === this.props.match.params.campaign)[0];
             if (this.props.match.params.world) {
@@ -68,7 +68,7 @@ class CampaignSelector extends React.Component {
             campaigns: data,
             activeCampaign: activeCampaign,
             activeWorld: activeWorld,
-        })
+        });
     }
 
     handleChange = (event) => {
