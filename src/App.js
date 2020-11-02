@@ -86,6 +86,11 @@ class App extends React.Component {
                 {this.state.currentUser.discord_confirmed ? //if user has confirmed their discord
                   <Switch>
                     <Route exact path="/campaigns/new" render={props => <NewCampaign {...props} Application={this} />} />
+                    <Route path="/campaigns/:campaign/:world" render={props => <CampaignSelector
+                                                                                {...props}
+                                                                                Application={this}
+                                                                                />}
+                    />
                     <Route path="/campaigns/:campaign" render={props => <CampaignSelector {...props} Application={this} />} />
                     <Route path="/campaigns" render={props => <CampaignSelector {...props} Application={this} />} />
                     <Route exact path="/pin/new" render={props => <NewPin {...props} Application={this} />} />
