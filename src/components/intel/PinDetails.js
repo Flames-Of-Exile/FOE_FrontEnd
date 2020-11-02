@@ -1,6 +1,13 @@
 import React from "react";
 
 function PinDetails(props) {
+
+    let location = {
+        bottom: props.pin.position_y + '%',
+        left: props.pin.position_x + '%',
+        zindex: 10,
+    }
+
     return (
         <div style={{visibility: props.visibility}} className='pin-details'>
             {props.details.name} <br/>

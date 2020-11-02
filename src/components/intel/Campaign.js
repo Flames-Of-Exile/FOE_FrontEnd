@@ -52,7 +52,6 @@ function Campaign(props) {
                 <Link to={`/campaigns/${state.campaign.name}/addworld`}>Add World</Link>
             : // else
                 "" /* end if user is admin */}
->>>>>>> c3e882c84422ccda830878fafbb1ce916fb4a760
         </div>
     );
 }

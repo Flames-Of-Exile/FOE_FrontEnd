@@ -6,7 +6,7 @@ import NewPin from './NewPin.js';
 const axios = require('axios').default;
 
 class World extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
         this.reloadPins = this.reloadPins.bind(this);
         this.cancelPin = this.cancelPin.bind(this);
