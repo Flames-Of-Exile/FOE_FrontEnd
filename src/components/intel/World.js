@@ -2,8 +2,6 @@ import React from "react";
 import Pin from './Pin.js';
 import NewPin from './NewPin.js';
 
-const axios = require('axios').default;
-
 class World extends React.Component {
     constructor() {
         super();
@@ -64,7 +62,7 @@ class World extends React.Component {
                 </div>
             );
         } else {
-            return (<div></div>)
+            return (<div></div>);
         }
     }
 }
