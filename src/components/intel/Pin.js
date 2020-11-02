@@ -138,12 +138,10 @@ class Pin extends React.Component{
                             details={this.state.details}
                         />;
             default:
-                return<div className='pin' style={this.state.containerStyle}>
+                return<div style={this.state.containerStyle}>
                         <img
                             src={'/staticfiles/icons/' + this.state.symbol + '.png'}
                             alt=''
-                            onMouseEnter={this.setVis}
-                            onMouseLeave={this.setInvis}
                         />
                     </div>;
         }
