@@ -74,10 +74,9 @@ function CampaignSelector(props) {
 
     useEffect(() => {
         socket.registerListener('campaign-update', handleCampaignUpdate);
-    }, [props.match.params])
+    }, [props.match.params]);
 
     const handleCampaignUpdate = (data) => {
-        console.log(props)
         let activeCampaign = data[0];
         let activeWorld = { pins: [] };
         if (props.match.params.campaign) {
