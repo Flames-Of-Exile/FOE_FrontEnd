@@ -52,7 +52,6 @@ class App extends React.Component {
   }
 
   pinLeave = (id) => {
-    console.log('leave');
     var returnObj = {};
     returnObj[id] = 'hidden';
     if(this.state[id] !== 'hidden'){
