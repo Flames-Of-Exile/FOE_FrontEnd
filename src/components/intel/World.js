@@ -59,11 +59,11 @@ class World extends React.Component {
                             <>
                                 <Pin key={point.id.toString()}
                                     pin={point}
-                                    Application={props.Application}
+                                    Application={this.props.Application}
                                 />
                                 <PinDetails key={point.id.toString() + 'details'}
                                     details={point}
-                                    Application={props.Application}
+                                    Application={this.props.Application}
                                 />
                             </>
                         ))}
