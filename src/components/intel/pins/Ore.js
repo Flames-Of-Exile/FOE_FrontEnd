@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function Ore(props) {
     return(
         <svg viewBox='12 0 6 11 ' className='pinSVG'>

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function MobBoss(props) {
     return(
         <svg viewBox='43 0 6 11 ' className='pinSVG'>

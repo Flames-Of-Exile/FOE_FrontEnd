@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function Stone(props) {
     return(
         <svg viewBox='1 0 6 11 ' className='pinSVG'>

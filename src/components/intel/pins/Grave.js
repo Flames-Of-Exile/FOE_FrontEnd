@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function Grave(props) {
     return(
         <svg viewBox='54 0 6 11 ' className='pinSVG'>

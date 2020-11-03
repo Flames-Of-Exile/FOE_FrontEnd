@@ -52,27 +52,26 @@ class App extends React.Component {
   }
 
   pinLeave = (id) => {
-    console.log('leave')
-    var returnObj = {}
-    returnObj[id] = 'hidden'
+    console.log('leave');
+    var returnObj = {};
+    returnObj[id] = 'hidden';
     if(this.state[id] !== 'hidden'){
       this.setState({
       ...this.state,
       ...returnObj
-    })
+    });
     }
   }
 
   pinHover = (id) => {
 
     if(this.state[id] !== true){
-    console.log('hover')
-    var returnObj = {}
-    returnObj[id] = true
+    var returnObj = {};
+    returnObj[id] = true;
       this.setState({
       ...this.state,
       ...returnObj
-    })
+    });
     }
     
   }

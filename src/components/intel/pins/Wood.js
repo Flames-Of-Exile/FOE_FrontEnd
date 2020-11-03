@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function Wood(props) {
     return(
         <svg viewBox='22 0 6 11 ' className='pinSVG'>

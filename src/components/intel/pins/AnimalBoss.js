@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function AnimalBoss(props) {
     return(
         <svg viewBox='33 0 6 11 ' className='pinSVG'>

@@ -40,7 +40,7 @@ class World extends React.Component {
             this.setState({
                 ...this.state,
                 Application: this.props.Application
-            })
+            });
         }
     }
 

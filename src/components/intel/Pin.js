@@ -193,11 +193,11 @@ class Pin extends React.Component{
     }
 
     pinHover = () => {
-        this.props.Application.pinHover(this.state.id)
+        this.props.Application.pinHover(this.state.id);
     }
 
     pinLeave = () => {
-        this.props.Application.pinLeave(this.state.id)
+        this.props.Application.pinLeave(this.state.id);
     }
 
     render() {
