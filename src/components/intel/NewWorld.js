@@ -2,6 +2,8 @@ import React from "react";
 
 import swal from "sweetalert";
 
+import Socket from "../../helper_functions/Socket";
+
 const axios = require("axios").default;
 
 class NewWorld extends React.Component {
@@ -13,6 +15,15 @@ class NewWorld extends React.Component {
             file: null,
             filename: "choose a file",
         };
+        this.socket = new Socket();
+    }
+
+    componentDidMount() {
+        this.socket.connect();
+    }
+
+    componentWillUnmount() {
+        this.socket.disconnect();
     }
 
     handleChange = (event) => this.setState({
@@ -48,6 +59,7 @@ class NewWorld extends React.Component {
                 "Content-Type": "multipart/form-data"
             } };
             await axios.post("/api/worlds", formData, config);
+            this.socket.send('campaign-update');
             swal("Success", "World created!", "success");
         } catch (error) {
             swal("Error", error.response.data, "error");

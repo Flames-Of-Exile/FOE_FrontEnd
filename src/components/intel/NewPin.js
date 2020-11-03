@@ -2,6 +2,8 @@ import React from "react";
 
 import swal from "sweetalert";
 
+import Socket from "../../helper_functions/Socket";
+
 const axios = require("axios").default;
 
 class NewPin extends React.Component {
@@ -23,6 +25,15 @@ class NewPin extends React.Component {
             x_cord: null,
             y_cord: null
         };
+        this.socket = new Socket();
+    }
+
+    componentDidMount() {
+        this.socket.connect();
+    }
+
+    componentWillUnmount() {
+        this.socket.disconnect();
     }
 
     handleChange = (event) => this.setState({
@@ -47,19 +58,8 @@ class NewPin extends React.Component {
                 y_cord: this.state.y_cord
 
             }));
-            let tempPin = {
-                position_x: this.state.position_x,
-                position_y: this.state.position_y,
-                symbol: this.state.symbol,
-                notes: this.state.notes,
-                world_id: this.state.world_id,
-                name: this.state.name,
-                rank: this.state.rank,
-                amount: this.state.amount,
-                respawn: this.state.respawn,
-                resource: this.state.resource,
-                id: -1};
-                this.props.onSubmit(tempPin);
+            this.socket.send('campaign-update');
+            this.props.onSubmit();
         } catch (error) {
             swal("Error", error.response.data, "error");
         }
