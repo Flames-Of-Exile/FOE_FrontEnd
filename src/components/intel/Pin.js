@@ -23,7 +23,6 @@ class Pin extends React.Component{
                 bottom: props.pin.position_y + '%',
                 left: props.pin.position_x + '%',
             },
-            visibility: 'hidden',
             id: props.pin.id,
             details: props.pin,
             resource: props.pin.resource,
@@ -193,9 +192,17 @@ class Pin extends React.Component{
         });
     }
 
+    pinHover = () => {
+        this.props.Application.pinHover(this.state.id)
+    }
+
+    pinLeave = () => {
+        this.props.Application.pinLeave(this.state.id)
+    }
+
     render() {
         return(
-            <div className='pin' style={this.state.containerStyle} onMouseOver={this.setVis} onMouseOut={this.setInvis}>
+            <div className='pin' style={this.state.containerStyle} onMouseOver={this.pinHover} onMouseOut={this.pinLeave}>
                 {this.choseSVG()}
             </div>
         );

@@ -5,7 +5,6 @@ import PinDetails from '../PinDetails.js';
 function Mob(props) {
     return(
         <svg viewBox='38 0 6 11 ' className='pinSVG'>
-            <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
                 <path
                     d={'M 41.010417,10.985419 38.629167,5.9583333 V 3.3125 l 1.5875,-1.3229167 ' +

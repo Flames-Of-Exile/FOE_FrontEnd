@@ -5,7 +5,6 @@ import PinDetails from '../PinDetails.js';
 function Animal(props) {
     return(
         <svg viewBox='27 0 6 11 ' className='pinSVG'>
-            <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
                 <path
                     d={'M 30.427083,10.98542 28.045833,5.9583333 V 0.93125 ' + 

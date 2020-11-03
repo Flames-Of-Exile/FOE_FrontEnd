@@ -50,6 +50,15 @@ class CampaignSelector extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        if (this.props.Application !== this.state.Application) {
+            this.setState({
+                ...this.state,
+                Application:this.props.Application
+            })
+        }
+    }
+
     componentWillUnmount() {
         this.socket.disconnect();
     }

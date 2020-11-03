@@ -51,6 +51,32 @@ class App extends React.Component {
       });
   }
 
+  pinLeave = (id) => {
+    console.log('leave')
+    var returnObj = {}
+    returnObj[id] = 'hidden'
+    if(this.state[id] !== 'hidden'){
+      this.setState({
+      ...this.state,
+      ...returnObj
+    })
+    }
+  }
+
+  pinHover = (id) => {
+
+    if(this.state[id] !== true){
+    console.log('hover')
+    var returnObj = {}
+    returnObj[id] = true
+      this.setState({
+      ...this.state,
+      ...returnObj
+    })
+    }
+    
+  }
+
   async refresh(Application) {
     try {
       const response = await axios.get('/api/users/refresh');

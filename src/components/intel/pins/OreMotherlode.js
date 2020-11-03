@@ -5,7 +5,6 @@ import PinDetails from '../PinDetails.js';
 function OreMotherlode(props) {
     return(
         <svg viewBox='17 0 6 11 ' className='pinSVG'>
-            <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
                 <path
                     d={'M 19.84375,10.985419 17.4625,5.9583333 v -2.645833 ' +

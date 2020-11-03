@@ -47,6 +47,15 @@ class World extends React.Component {
         });
     }
 
+    componentDidUpdate() {
+        if (this.props.Application.state !== this.state.Application.state) {
+            this.setState({
+                ...this.state,
+                Application: this.props.Application
+            })
+        }
+    }
+
     render() {
         return (
             <div>
@@ -65,7 +74,7 @@ class World extends React.Component {
                             />
                             <PinDetails key={point.id.toString() + 'details'}
                                 details={point}
-                                Application={this.props.Application}
+                                Application={this.state.Application}
                             />
                         </>
 

@@ -5,7 +5,6 @@ import PinDetails from '../PinDetails.js';
 function Stone(props) {
     return(
         <svg viewBox='1 0 6 11 ' className='pinSVG'>
-            <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
                 <path d='M 3.9627389,10.985417 1.5814889,5.9583333 1.5875,0.93125 h 4.7564889 v 5.0270833 z'></path>
             </g>
