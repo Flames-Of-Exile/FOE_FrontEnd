@@ -143,7 +143,7 @@ class NewPin extends React.Component {
                     <option value='tactical-fish'>Tactical Fish</option>
                     <option value='tactical-house'>Tactical House</option>
                 </select>
-                <select name='resource' value={this.state.symbol} onChange={this.handleChange}>
+                <select name='resource' value={this.state.resource} onChange={this.handleChange}>
                     {this.state.resourceList.map(choice => (
                         <option key={choice} value={choice.toLowerCase()}>{choice}</option>
                     ))}

@@ -1,11 +1,8 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function StoneMotherlode(props) {
     return(
         <svg viewBox='6 0 6 11 ' className='pinSVG'>
-            <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
                 <path d='M 9.2604168,10.985418 6.8791667,5.9583333 6.8851778,0.93125003 H 11.641666 V 5.9583333 Z'></path>
             </g>

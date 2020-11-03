@@ -1,11 +1,8 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function MobBoss(props) {
     return(
         <svg viewBox='43 0 6 11 ' className='pinSVG'>
-            <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
                 <path
                     d={'M 46.302083,10.985419 43.920833,5.958333 V 3.3125 l 1.5875,-1.322917 ' +

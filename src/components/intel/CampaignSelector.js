@@ -15,6 +15,8 @@ import Socket from '../../helper_functions/Socket';
 
 const axios = require('axios').default;
 
+const socket = new Socket();
+
 function CampaignSelector(props) {
     const [state, setState] = useState({
         Application: props.Application,
@@ -25,7 +27,6 @@ function CampaignSelector(props) {
     });
 
     useEffect(() => {
-        const socket = new Socket();
         socket.connect();
         socket.registerListener('campaign-update', handleCampaignUpdate);
         
@@ -68,7 +69,12 @@ function CampaignSelector(props) {
             ...state,
             activeWorld: activeWorld,
         });
+
     }, [props.match.params.world]);
+
+    useEffect(() => {
+        socket.registerListener('campaign-update', handleCampaignUpdate);
+    }, [props.match.params]);
 
     const handleCampaignUpdate = (data) => {
         let activeCampaign = data[0];

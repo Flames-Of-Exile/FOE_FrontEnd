@@ -1,11 +1,8 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function Wood(props) {
     return(
         <svg viewBox='22 0 6 11 ' className='pinSVG'>
-            <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
                 <path
                     d={'M 25.135417,10.985417 22.754167,5.9583307 23.283333,3.3125 ' +

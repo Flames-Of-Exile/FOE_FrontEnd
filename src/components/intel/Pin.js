@@ -17,12 +17,12 @@ class Pin extends React.Component{
     constructor(props) {
         super();
         this.state = {
+            Application: props.Application,
             symbol: props.pin.symbol,
             containerStyle:{
                 bottom: props.pin.position_y + '%',
                 left: props.pin.position_x + '%',
             },
-            visibility: 'hidden',
             id: props.pin.id,
             details: props.pin,
             resource: props.pin.resource,
@@ -43,7 +43,10 @@ class Pin extends React.Component{
 
     setVis = () => this.setState({
         ...this.state,
-        visibility: 'visible',
+        Application: {
+            ...this.state.Application,
+            // TODO: add visibility to application 
+        }
     });
 
     setInvis = () => this.setState({
@@ -134,12 +137,10 @@ class Pin extends React.Component{
                             details={this.state.details}
                         />;
             default:
-                return<div className='pin' style={this.state.containerStyle}>
+                return<div style={this.state.containerStyle}>
                         <img
                             src={'/staticfiles/icons/' + this.state.symbol + '.png'}
                             alt=''
-                            onMouseEnter={this.setVis}
-                            onMouseLeave={this.setInvis}
                         />
                     </div>;
         }
@@ -191,9 +192,17 @@ class Pin extends React.Component{
         });
     }
 
+    pinHover = () => {
+        this.props.Application.pinHover(this.state.id);
+    }
+
+    pinLeave = () => {
+        this.props.Application.pinLeave(this.state.id);
+    }
+
     render() {
         return(
-            <div className='pin' style={this.state.containerStyle}>
+            <div className='pin' style={this.state.containerStyle} onMouseOver={this.pinHover} onMouseOut={this.pinLeave}>
                 {this.choseSVG()}
             </div>
         );

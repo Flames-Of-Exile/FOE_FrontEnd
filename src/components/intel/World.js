@@ -1,14 +1,16 @@
 import React from "react";
 import Pin from './Pin.js';
+import PinDetails from './PinDetails.js';
 import NewPin from './NewPin.js';
 
 class World extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
         this.cancelPin = this.cancelPin.bind(this);
         this.state = {
             newPin: false,
-            newPinPosition: [0,0]
+            newPinPosition: [0,0],
+            Application: props.Application
         };
     }
 
@@ -33,6 +35,15 @@ class World extends React.Component {
         });
     }
 
+    componentDidUpdate() {
+        if (this.props.Application.state !== this.state.Application.state) {
+            this.setState({
+                ...this.state,
+                Application: this.props.Application
+            });
+        }
+    }
+
     render() {
         if (this.props.world) {
             return (
@@ -45,9 +56,16 @@ class World extends React.Component {
                             alt='World Failed to load you should refresh the application'
                         />
                         {this.props.world.pins.map(point => (
-                            <Pin key={point.id.toString()}
-                                pin={point}
-                            />
+                            <>
+                                <Pin key={point.id.toString()}
+                                    pin={point}
+                                    Application={this.props.Application}
+                                />
+                                <PinDetails key={point.id.toString() + 'details'}
+                                    details={point}
+                                    Application={this.props.Application}
+                                />
+                            </>
                         ))}
                     </div>
                     {this.state.newPin ? // if a new pin is being made
@@ -59,6 +77,7 @@ class World extends React.Component {
                         />
                     : null// else
                     /*end if new pin is being made*/}
+
                 </div>
             );
         } else {

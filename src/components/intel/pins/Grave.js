@@ -1,11 +1,8 @@
 import React from 'react';
 
-import PinDetails from '../PinDetails.js';
-
 function Grave(props) {
     return(
         <svg viewBox='54 0 6 11 ' className='pinSVG'>
-            <title><PinDetails visibility={props.visibility} details={props.details}/></title>
             <g className='border' style={props.boarderStyle}>
                 <path
                     d={'M 56.885417,10.985418 54.504167,5.9583333 V 3.3125 L 56.35625,2.7833333 V 2.2541667 ' +
