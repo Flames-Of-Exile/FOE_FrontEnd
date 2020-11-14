@@ -142,7 +142,8 @@ function NewPin(props) {
                <Marker position={state.coords} ref={openPopup}>
                     <Popup>
                         <input
-                            type="number"
+                            type="text"
+                            maxLength="1"
                             name="x_cord"
                             placeholder='X coordinant'
                             value={state.x_cord}
@@ -151,8 +152,7 @@ function NewPin(props) {
                         <input
                             type="number"
                             name="y_cord"
-                            placeholder='Y
-                            coordinant'
+                            placeholder='Y coordinant'
                             value={state.y_cord}
                             onChange={handleChange}
                         />
