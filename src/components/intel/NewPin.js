@@ -7,6 +7,8 @@ import Socket from "../../helper_functions/Socket";
 
 const axios = require("axios").default;
 
+const socket = new Socket();
+
 function NewPin(props) {
     const [state, setState] = useState({
         newPin: false,
@@ -63,6 +65,13 @@ function NewPin(props) {
     }
 
     useEffect(() => {
+        socket.connect();
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
         let selectList = resourceSelector();
         setState({
             ...state,
@@ -92,8 +101,8 @@ function NewPin(props) {
                 y_cord: state.y_cord
 
             }));
-            // this.socket.send('campaign-update');
-            // this.props.onSubmit();
+            socket.send('campaign-update');
+            handleCancel();
         } catch (error) {
             swal("Error", error.response.data, "error");
         }
