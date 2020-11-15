@@ -13,18 +13,16 @@ const well = new Icon({
 
 function World(props) {
     return (
-        <div>
-            <MapContainer center={[0, 0]} zoom={-1} scrollWheelZoom={true} crs={CRS.Simple} minZoom={-3} >
-                <NewPin world_id={props.world.id}/>
-                <ImageOverlay url={props.world.image} bounds={[[-1000,-2000], [1000,2000]]} />
-                {props.world.pins.map(pin => <Marker
-                                                key={pin}
-                                                icon={well}
-                                                position={[pin.position_y, pin.position_x]}>
-                                                <PinDetails offset={[0, -50]} pin={pin} />
-                                            </Marker>)}
-            </MapContainer>
-        </div>
+        <MapContainer center={[0, 0]} zoom={-1} scrollWheelZoom={true} crs={CRS.Simple} minZoom={-3} >
+            <NewPin world_id={props.world.id}/>
+            <ImageOverlay url={props.world.image} bounds={[[-1000,-2000], [1000,2000]]} />
+            {props.world.pins.map(pin => <Marker
+                                            key={pin}
+                                            icon={well}
+                                            position={[pin.position_y, pin.position_x]}>
+                                            <PinDetails offset={[0, -50]} pin={pin} />
+                                        </Marker>)}
+        </MapContainer>
     );
 }
 
