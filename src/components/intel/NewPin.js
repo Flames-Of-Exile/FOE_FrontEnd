@@ -75,7 +75,8 @@ function NewPin(props) {
         let selectList = resourceSelector();
         setState({
             ...state,
-            resourceList: selectList
+            resourceList: selectList,
+            resource: selectList[0].toLowerCase(),
         });
     }, [state.symbol]);
 

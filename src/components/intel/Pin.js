@@ -6,6 +6,7 @@ import { Icon } from "leaflet";
 import Animal from './pins/Animal.js';
 import AnimalBoss from './pins/AnimalBoss.js';
 import Grave from './pins/Grave.js';
+import Mob from './pins/Mob.js';
 import MobBoss from './pins/MobBoss.js';
 import Ore from './pins/Ore.js';
 import OreMotherlode from './pins/OreMotherlode.js';
@@ -39,6 +40,12 @@ function Pin(props){
                         />));
             case 'grave':
                 return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Grave
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
+            case 'mob':
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Mob
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
@@ -114,9 +121,9 @@ function Pin(props){
 
     useEffect(() => {
         let resourceColor = colorSetter(props.pin.resource);
-        let iconStyle = {stroke: resourceColor, fill: '#000000'};
-        let borderStyle = {stroke: '#000000', fill: resourceColor};
-        let cutoutStyle = {stroke: resourceColor, fill: resourceColor};
+        let iconStyle = {stroke: resourceColor, fill: '#000000', strokeWidth: .1};
+        let borderStyle = {stroke: '#000000', fill: resourceColor, strokeWidth: .1};
+        let cutoutStyle = {stroke: resourceColor, fill: resourceColor, strokeWidth: .1};
         let url = chooseSVG(iconStyle, borderStyle, cutoutStyle);
         setState({
             ...state,

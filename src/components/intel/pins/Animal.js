@@ -3,13 +3,13 @@ import React from 'react';
 function Animal(props) {
     return(
         <svg viewBox='27 0 6 11 ' xmlns='http://www.w3.org/2000/svg'>
-            <g className='border' style={props.borderStyle}>
+            <g style={props.borderStyle}>
                 <path
                     d={'M 30.427083,10.98542 28.045833,5.9583333 V 0.93125 ' + 
                         'l 1.058334,1.0583333 H 31.75 l 1.058333,-1.0583333 -1.1e-5,5.0270833 z'}
                 />
             </g>
-            <g className='icon' style={props.iconStyle}>
+            <g style={props.iconStyle}>
                 <path
                     d={'M 28.839583,5.5879168 V 5.1645837 l 0.220487,0.2116666 h 0.220486 0.440972 0.220486 ' +
                         'L 30.1625,5.1645837 v 0.4233331 l 0.220486,0.8466666 -0.440972,0.4233332 -0.220486,0.4233332 ' +
@@ -26,7 +26,7 @@ function Animal(props) {
                         'H 31.13264 L 30.912154,6.8579162 30.471182,6.434583 Z'}
                 />
             </g>
-            <g className='cutout' style={props.cutoutStyle}>
+            <g style={props.cutoutStyle}>
                 <path d='M 28.839583,6.2229168 29.104167,6.4875 h 0.264583 z'></path>
                 <path d='M 30.1625,6.2229168 29.897917,6.4875 h -0.264584 z'></path>
                 <path d='m 29.777485,3.894667 0.264584,0.2645832 h 0.264583 z'></path>
