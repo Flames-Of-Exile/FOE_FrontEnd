@@ -3,7 +3,7 @@ import React from 'react';
 function StoneMotherlode(props) {
     return(
         <svg viewBox='6 0 6 11 ' className='pinSVG'>
-            <g className='border' style={props.boarderStyle}>
+            <g className='border' style={props.borderStyle}>
                 <path d='M 9.2604168,10.985418 6.8791667,5.9583333 6.8851778,0.93125003 H 11.641666 V 5.9583333 Z'></path>
             </g>
             <g className='icon' style={props.iconStyle}>

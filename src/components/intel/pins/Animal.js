@@ -3,7 +3,7 @@ import React from 'react';
 function Animal(props) {
     return(
         <svg viewBox='27 0 6 11 ' className='pinSVG'>
-            <g className='border' style={props.boarderStyle}>
+            <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 30.427083,10.98542 28.045833,5.9583333 V 0.93125 ' + 
                         'l 1.058334,1.0583333 H 31.75 l 1.058333,-1.0583333 -1.1e-5,5.0270833 z'}

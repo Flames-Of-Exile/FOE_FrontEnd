@@ -3,7 +3,7 @@ import React from 'react';
 function Well(props) {
     return(
         <svg viewBox='49 0 6 11 ' className='pinSVG'>
-            <g className='border' style={props.boarderStyle}>
+            <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 51.59375,10.98542 49.2125,5.958333 V 1.9895833 ' +
                         'L 51.59375,0.93125 V 1.9895833 L 53.975,0.93125 l -1.1e-5,5.027083 z'}

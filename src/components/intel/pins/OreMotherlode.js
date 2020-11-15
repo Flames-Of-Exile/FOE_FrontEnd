@@ -3,7 +3,7 @@ import React from 'react';
 function OreMotherlode(props) {
     return(
         <svg viewBox='17 0 6 11 ' className='pinSVG'>
-            <g className='border' style={props.boarderStyle}>
+            <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 19.84375,10.985419 17.4625,5.9583333 v -2.645833 ' +
                         'l 1.058334,-2.38124997 h 2.645833 L 22.225,3.3125003 l -1.1e-5,2.645833 z'}

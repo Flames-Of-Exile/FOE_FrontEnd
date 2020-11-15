@@ -3,7 +3,7 @@ import React from 'react';
 function Wood(props) {
     return(
         <svg viewBox='22 0 6 11 ' className='pinSVG'>
-            <g className='border' style={props.boarderStyle}>
+            <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 25.135417,10.985417 22.754167,5.9583307 23.283333,3.3125 ' +
                         '22.754167,0.93125 h 4.7625 L 26.9875,3.3125 27.516656,5.9583307 Z'}

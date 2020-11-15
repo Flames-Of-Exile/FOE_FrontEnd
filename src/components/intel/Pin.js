@@ -1,4 +1,7 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import { Marker } from 'react-leaflet';
+import { Icon } from "leaflet";
 
 import Animal from './pins/Animal.js';
 import AnimalBoss from './pins/AnimalBoss.js';
@@ -11,6 +14,8 @@ import StoneMotherlode from './pins/StoneMotherlode.js';
 import Well from './pins/Well.js';
 import Wood from './pins/Wood.js';
 
+import PinDetails from './PinDetails.js';
+
 
 
 class Pin extends React.Component{
@@ -19,14 +24,9 @@ class Pin extends React.Component{
         this.state = {
             Application: props.Application,
             symbol: props.pin.symbol,
-            containerStyle:{
-                bottom: props.pin.position_y + '%',
-                left: props.pin.position_x + '%',
-            },
-            id: props.pin.id,
             details: props.pin,
             resource: props.pin.resource,
-            boarderStyle: {
+            borderStyle: {
                 stroke:'#000000',
                 fill:'#ffffff'
             },
@@ -38,103 +38,71 @@ class Pin extends React.Component{
                 stroke:'#ffffff',
                 fill:'#ffffff'
             },
+            svg: <svg/>
         };
     }
 
-    setVis = () => this.setState({
-        ...this.state,
-        Application: {
-            ...this.state.Application,
-            // TODO: add visibility to application 
-        }
-    });
-
-    setInvis = () => this.setState({
-        ...this.state,
-        visibility: 'hidden',
-    });
-
-    choseSVG() {
+    chooseSVG() {
         switch(this.state.symbol) {
             case 'animal-boss':
                 return <AnimalBoss
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'animal':
                 return <Animal
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'grave':
                 return <Grave
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'mob-boss':
                 return <MobBoss
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'ore-motherlode':
                 return <OreMotherlode
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'ore':
                 return <Ore
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'stone-motherlode':
                 return <StoneMotherlode
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'stone':
                 return <Stone
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'well':
                 return <Well
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             case 'wood':
                 return <Wood
                             iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
+                            borderStyle={this.state.borderStyle}
                             cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
                         />;
             default:
                 return<div style={this.state.containerStyle}>
@@ -171,17 +139,17 @@ class Pin extends React.Component{
     }
 
     async componentDidMount() {
-        var pickSVG = this.choseSVG();
+        var pickSVG = this.chooseSVG();
         var resourceColor = this.colorSetter();
         var iconColor = '#000000';
-        await this.setState({
+        this.setState({
             ...this.state,
             svg:pickSVG,
             iconStyle:{
                 stroke: resourceColor,
                 fill: iconColor
             },
-            boarderStyle:{
+            borderStyle:{
                 stroke:'#000000',
                 fill: resourceColor
             },
@@ -192,19 +160,15 @@ class Pin extends React.Component{
         });
     }
 
-    pinHover = () => {
-        this.props.Application.pinHover(this.state.id);
-    }
-
-    pinLeave = () => {
-        this.props.Application.pinLeave(this.state.id);
-    }
-
     render() {
         return(
-            <div className='pin' style={this.state.containerStyle} onMouseOver={this.pinHover} onMouseOut={this.pinLeave}>
-                {this.choseSVG()}
-            </div>
+            <Marker position={[this.props.pin.position_y, this.props.pin.position_x]} icon={new Icon({
+                iconUrl: 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup((this.state.svg))),
+                iconSize: [25, 50],
+                iconAnchor: [12.5, 50]
+            })}>
+                <PinDetails offset={[0, -50]} pin={this.props.pin} />
+            </Marker>
         );
     }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 function Mob(props) {
     return(
         <svg viewBox='38 0 6 11 ' className='pinSVG'>
-            <g className='border' style={props.boarderStyle}>
+            <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 41.010417,10.985419 38.629167,5.9583333 V 3.3125 l 1.5875,-1.3229167 ' +
                     'V 0.93125 h 1.5875 v 1.0583333 l 1.5875,1.3229167 -1.1e-5,2.6458333 z'}
