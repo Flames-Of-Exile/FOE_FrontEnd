@@ -2,7 +2,7 @@ import React from 'react';
 
 function Grave(props) {
     return(
-        <svg viewBox='54 0 6 11 ' className='pinSVG' xmlns='http://www.w3.org/2000/svg'>
+        <svg viewBox='54 0 6 11 ' xmlns='http://www.w3.org/2000/svg'>
             <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 56.885417,10.985418 54.504167,5.9583333 V 3.3125 L 56.35625,2.7833333 V 2.2541667 ' +

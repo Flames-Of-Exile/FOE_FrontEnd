@@ -20,78 +20,73 @@ import PinDetails from './PinDetails.js';
 
 function Pin(props){
     const [state, setState] = useState({
-        svg: <svg/>,
+        url: "http://",
     });
 
     function chooseSVG(iconStyle, borderStyle, cutoutStyle) {
         switch(props.pin.symbol) {
             case 'animal-boss':
-                return <AnimalBoss
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<AnimalBoss
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'animal':
-                return <Animal
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Animal
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'grave':
-                return <Grave
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Grave
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'mob-boss':
-                return <MobBoss
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<MobBoss
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'ore-motherlode':
-                return <OreMotherlode
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<OreMotherlode
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'ore':
-                return <Ore
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Ore
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'stone-motherlode':
-                return <StoneMotherlode
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<StoneMotherlode
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'stone':
-                return <Stone
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Stone
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'well':
-                return <Well
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Well
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             case 'wood':
-                return <Wood
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Wood
                             iconStyle={iconStyle}
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
-                        />;
+                        />));
             default:
-                return<div>
-                        <img
-                            src={'/staticfiles/icons/' + this.state.symbol + '.png'}
-                            alt=''
-                        />
-                    </div>;
+                return '/staticfiles/icons/' + props.pin.symbol + '.png';
         }
     }
 
@@ -122,17 +117,17 @@ function Pin(props){
         let iconStyle = {stroke: resourceColor, fill: '#000000'};
         let borderStyle = {stroke: '#000000', fill: resourceColor};
         let cutoutStyle = {stroke: resourceColor, fill: resourceColor};
-        let pickSVG = chooseSVG(iconStyle, borderStyle, cutoutStyle);
+        let url = chooseSVG(iconStyle, borderStyle, cutoutStyle);
         setState({
             ...state,
-            svg:pickSVG,
+            url: url,
         });
     }, []);
 
 
     return(
         <Marker position={[props.pin.position_y, props.pin.position_x]} icon={new Icon({
-            iconUrl: 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(state.svg)),
+            iconUrl: state.url,
             iconSize: [35, 70],
             iconAnchor: [17.5, 70]
         })}>

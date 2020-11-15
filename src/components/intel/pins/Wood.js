@@ -2,7 +2,7 @@ import React from 'react';
 
 function Wood(props) {
     return(
-        <svg viewBox='22 0 6 11 ' className='pinSVG' xmlns='http://www.w3.org/2000/svg'>
+        <svg viewBox='22 0 6 11 ' xmlns='http://www.w3.org/2000/svg'>
             <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 25.135417,10.985417 22.754167,5.9583307 23.283333,3.3125 ' +
