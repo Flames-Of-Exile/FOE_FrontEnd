@@ -2,14 +2,14 @@ import React from 'react';
 
 function MobBoss(props) {
     return(
-        <svg viewBox='43 0 6 11 ' className='pinSVG'>
-            <g className='border' style={props.boarderStyle}>
+        <svg viewBox='43 0 6 11 ' xmlns='http://www.w3.org/2000/svg'>
+            <g style={props.borderStyle}>
                 <path
                     d={'M 46.302083,10.985419 43.920833,5.958333 V 3.3125 l 1.5875,-1.322917 ' +
                         'V 0.93125003 h 1.5875 V 1.989583 l 1.5875,1.322917 -1.1e-5,2.645833 z'}
                 />
             </g>
-            <g className='icon' style={props.iconStyle}>
+            <g style={props.iconStyle}>
                 <path
                     d={'m 46.023468,8.2571989 -0.315101,-0.098868 -0.07727,-0.1653528 -0.07727,-0.1653547 ' +
                         'h -0.200505 -0.200503 l -0.08157,-0.4006824 -0.08156,-0.4006827 0.05897,-0.056203 ' +

@@ -2,14 +2,14 @@ import React from 'react';
 
 function Mob(props) {
     return(
-        <svg viewBox='38 0 6 11 ' className='pinSVG'>
-            <g className='border' style={props.boarderStyle}>
+        <svg viewBox='38 0 6 11 ' xmlns='http://www.w3.org/2000/svg'>
+            <g style={props.borderStyle}>
                 <path
                     d={'M 41.010417,10.985419 38.629167,5.9583333 V 3.3125 l 1.5875,-1.3229167 ' +
                     'V 0.93125 h 1.5875 v 1.0583333 l 1.5875,1.3229167 -1.1e-5,2.6458333 z'}
                 />
             </g>
-            <g className='icon' style={props.iconStyle}>
+            <g style={props.iconStyle}>
                 <path
                     d={'M 41.995029,5.4834711 42.251922,5.3495116 42.345192,5.4546464 42.181571,5.6937501 ' +
                         '41.130284,6.6264156 40.4995,7.186005 40.686044,7.3962588 40.475788,7.5827903 ' +
@@ -27,7 +27,7 @@ function Mob(props) {
                         'h 0.264583 v 0.2645833 h -3.175 l 10e-7,-0.2645833 H 39.6875'}
                 />
             </g>
-            <g className='cutout' style={props.cutoutStyle}>
+            <g style={props.cutoutStyle}>
                 <path d='m 40.216667,4.6354267 0.79375,-1.3229167 0.79375,1.3229167 z'></path>
             </g>
         </svg>

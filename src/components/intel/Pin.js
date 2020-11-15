@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactDOMServer from 'react-dom/server';
+import { Marker } from 'react-leaflet';
+import { Icon } from "leaflet";
 
 import Animal from './pins/Animal.js';
 import AnimalBoss from './pins/AnimalBoss.js';
 import Grave from './pins/Grave.js';
+import Mob from './pins/Mob.js';
 import MobBoss from './pins/MobBoss.js';
 import Ore from './pins/Ore.js';
 import OreMotherlode from './pins/OreMotherlode.js';
@@ -11,143 +15,89 @@ import StoneMotherlode from './pins/StoneMotherlode.js';
 import Well from './pins/Well.js';
 import Wood from './pins/Wood.js';
 
+import PinDetails from './PinDetails.js';
 
 
-class Pin extends React.Component{
-    constructor(props) {
-        super();
-        this.state = {
-            Application: props.Application,
-            symbol: props.pin.symbol,
-            containerStyle:{
-                bottom: props.pin.position_y + '%',
-                left: props.pin.position_x + '%',
-            },
-            id: props.pin.id,
-            details: props.pin,
-            resource: props.pin.resource,
-            boarderStyle: {
-                stroke:'#000000',
-                fill:'#ffffff'
-            },
-            iconStyle: {
-                stroke:'#ffffff',
-                fill:'#000000'
-            },
-            cutoutStyle: {
-                stroke:'#ffffff',
-                fill:'#ffffff'
-            },
-        };
-    }
 
-    setVis = () => this.setState({
-        ...this.state,
-        Application: {
-            ...this.state.Application,
-            // TODO: add visibility to application 
-        }
+function Pin(props){
+    const [state, setState] = useState({
+        url: "http://",
     });
 
-    setInvis = () => this.setState({
-        ...this.state,
-        visibility: 'hidden',
-    });
-
-    choseSVG() {
-        switch(this.state.symbol) {
+    function chooseSVG(iconStyle, borderStyle, cutoutStyle) {
+        switch(props.pin.symbol) {
             case 'animal-boss':
-                return <AnimalBoss
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<AnimalBoss
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'animal':
-                return <Animal
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Animal
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'grave':
-                return <Grave
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Grave
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
+            case 'mob':
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Mob
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'mob-boss':
-                return <MobBoss
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<MobBoss
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'ore-motherlode':
-                return <OreMotherlode
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<OreMotherlode
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'ore':
-                return <Ore
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Ore
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'stone-motherlode':
-                return <StoneMotherlode
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<StoneMotherlode
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'stone':
-                return <Stone
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Stone
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'well':
-                return <Well
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Well
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             case 'wood':
-                return <Wood
-                            iconStyle={this.state.iconStyle}
-                            boarderStyle={this.state.boarderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
-                            visibility={this.state.visibility}
-                            details={this.state.details}
-                        />;
+                return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<Wood
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
+                        />));
             default:
-                return<div style={this.state.containerStyle}>
-                        <img
-                            src={'/staticfiles/icons/' + this.state.symbol + '.png'}
-                            alt=''
-                        />
-                    </div>;
+                return '/staticfiles/icons/' + props.pin.symbol + '.png';
         }
     }
 
-    colorSetter() {
-        let resource = this.state.resource;
+    function colorSetter(resource) {
         if (['yew','copper','granite','spider','human'].includes(resource)) {
             return '#069e2f';
         } 
@@ -167,46 +117,31 @@ class Pin extends React.Component{
             return '#f00a3b';
         } 
         return '#ffffff';
-
     }
 
-    async componentDidMount() {
-        var pickSVG = this.choseSVG();
-        var resourceColor = this.colorSetter();
-        var iconColor = '#000000';
-        await this.setState({
-            ...this.state,
-            svg:pickSVG,
-            iconStyle:{
-                stroke: resourceColor,
-                fill: iconColor
-            },
-            boarderStyle:{
-                stroke:'#000000',
-                fill: resourceColor
-            },
-            cutoutStyle:{
-                stroke: resourceColor,
-                fill: resourceColor
-            },
+    useEffect(() => {
+        let resourceColor = colorSetter(props.pin.resource);
+        let iconStyle = {stroke: resourceColor, fill: '#000000', strokeWidth: .1};
+        let borderStyle = {stroke: '#000000', fill: resourceColor, strokeWidth: .1};
+        let cutoutStyle = {stroke: resourceColor, fill: resourceColor, strokeWidth: .1};
+        let url = chooseSVG(iconStyle, borderStyle, cutoutStyle);
+        setState({
+            ...state,
+            url: url,
         });
-    }
+    }, []);
 
-    pinHover = () => {
-        this.props.Application.pinHover(this.state.id);
-    }
 
-    pinLeave = () => {
-        this.props.Application.pinLeave(this.state.id);
-    }
+    return(
+        <Marker position={[props.pin.position_y, props.pin.position_x]} icon={new Icon({
+            iconUrl: state.url,
+            iconSize: [35, 70],
+            iconAnchor: [17.5, 70]
+        })}>
+            <PinDetails offset={[0, -80]} pin={props.pin} />
+        </Marker>
+    );
 
-    render() {
-        return(
-            <div className='pin' style={this.state.containerStyle} onMouseOver={this.pinHover} onMouseOut={this.pinLeave}>
-                {this.choseSVG()}
-            </div>
-        );
-    }
 }
 
 export default Pin;
