@@ -2,7 +2,7 @@ import React from 'react';
 
 function MobBoss(props) {
     return(
-        <svg viewBox='43 0 6 11 ' className='pinSVG'>
+        <svg viewBox='43 0 6 11 ' className='pinSVG' xmlns='http://www.w3.org/2000/svg'>
             <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 46.302083,10.985419 43.920833,5.958333 V 3.3125 l 1.5875,-1.322917 ' +

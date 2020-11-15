@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { Marker } from 'react-leaflet';
 import { Icon } from "leaflet";
@@ -18,94 +18,75 @@ import PinDetails from './PinDetails.js';
 
 
 
-class Pin extends React.Component{
-    constructor(props) {
-        super();
-        this.state = {
-            Application: props.Application,
-            symbol: props.pin.symbol,
-            details: props.pin,
-            resource: props.pin.resource,
-            borderStyle: {
-                stroke:'#000000',
-                fill:'#ffffff'
-            },
-            iconStyle: {
-                stroke:'#ffffff',
-                fill:'#000000'
-            },
-            cutoutStyle: {
-                stroke:'#ffffff',
-                fill:'#ffffff'
-            },
-            svg: <svg/>
-        };
-    }
+function Pin(props){
+    const [state, setState] = useState({
+        svg: <svg/>,
+    });
 
-    chooseSVG() {
-        switch(this.state.symbol) {
+    function chooseSVG(iconStyle, borderStyle, cutoutStyle) {
+        switch(props.pin.symbol) {
             case 'animal-boss':
                 return <AnimalBoss
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'animal':
                 return <Animal
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'grave':
                 return <Grave
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'mob-boss':
                 return <MobBoss
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'ore-motherlode':
                 return <OreMotherlode
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'ore':
                 return <Ore
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'stone-motherlode':
                 return <StoneMotherlode
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'stone':
                 return <Stone
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'well':
                 return <Well
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             case 'wood':
                 return <Wood
-                            iconStyle={this.state.iconStyle}
-                            borderStyle={this.state.borderStyle}
-                            cutoutStyle={this.state.cutoutStyle}
+                            iconStyle={iconStyle}
+                            borderStyle={borderStyle}
+                            cutoutStyle={cutoutStyle}
                         />;
             default:
-                return<div style={this.state.containerStyle}>
+                return<div>
                         <img
                             src={'/staticfiles/icons/' + this.state.symbol + '.png'}
                             alt=''
@@ -114,8 +95,7 @@ class Pin extends React.Component{
         }
     }
 
-    colorSetter() {
-        let resource = this.state.resource;
+    function colorSetter(resource) {
         if (['yew','copper','granite','spider','human'].includes(resource)) {
             return '#069e2f';
         } 
@@ -135,42 +115,31 @@ class Pin extends React.Component{
             return '#f00a3b';
         } 
         return '#ffffff';
-
     }
 
-    async componentDidMount() {
-        var pickSVG = this.chooseSVG();
-        var resourceColor = this.colorSetter();
-        var iconColor = '#000000';
-        this.setState({
-            ...this.state,
+    useEffect(() => {
+        let resourceColor = colorSetter(props.pin.resource);
+        let iconStyle = {stroke: resourceColor, fill: '#000000'};
+        let borderStyle = {stroke: '#000000', fill: resourceColor};
+        let cutoutStyle = {stroke: resourceColor, fill: resourceColor};
+        let pickSVG = chooseSVG(iconStyle, borderStyle, cutoutStyle);
+        setState({
+            ...state,
             svg:pickSVG,
-            iconStyle:{
-                stroke: resourceColor,
-                fill: iconColor
-            },
-            borderStyle:{
-                stroke:'#000000',
-                fill: resourceColor
-            },
-            cutoutStyle:{
-                stroke: resourceColor,
-                fill: resourceColor
-            },
         });
-    }
+    }, []);
 
-    render() {
-        return(
-            <Marker position={[this.props.pin.position_y, this.props.pin.position_x]} icon={new Icon({
-                iconUrl: 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup((this.state.svg))),
-                iconSize: [25, 50],
-                iconAnchor: [12.5, 50]
-            })}>
-                <PinDetails offset={[0, -50]} pin={this.props.pin} />
-            </Marker>
-        );
-    }
+
+    return(
+        <Marker position={[props.pin.position_y, props.pin.position_x]} icon={new Icon({
+            iconUrl: 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(state.svg)),
+            iconSize: [35, 70],
+            iconAnchor: [17.5, 70]
+        })}>
+            <PinDetails offset={[0, -80]} pin={props.pin} />
+        </Marker>
+    );
+
 }
 
 export default Pin;

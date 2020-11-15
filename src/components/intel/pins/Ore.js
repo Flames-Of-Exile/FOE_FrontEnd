@@ -2,7 +2,7 @@ import React from 'react';
 
 function Ore(props) {
     return(
-        <svg viewBox='12 0 6 11 ' className='pinSVG'>
+        <svg viewBox='12 0 6 11 ' className='pinSVG' xmlns='http://www.w3.org/2000/svg'>
             <g className='border' style={props.borderStyle}>
                 <path
                     d={'M 14.552083,10.985418 12.170833,5.9583333 V 3.3125 ' +

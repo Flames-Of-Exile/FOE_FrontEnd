@@ -6,6 +6,7 @@ import NewPin from './NewPin.js';
 import { CRS } from "leaflet";
 
 function World(props) {
+    if (props.world == undefined) {return null;}
     return (
         <MapContainer center={[0, 0]} zoom={-1} scrollWheelZoom={true} crs={CRS.Simple} minZoom={-3} >
             <NewPin world_id={props.world.id}/>
