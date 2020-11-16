@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, ImageOverlay } from 'react-leaflet';
+import { CRS } from "leaflet";
 
 import Pin from './Pin.js';
 import NewPin from './NewPin.js';
-import { CRS } from "leaflet";
 
 function World(props) {
     const [state, setState] = useState({
