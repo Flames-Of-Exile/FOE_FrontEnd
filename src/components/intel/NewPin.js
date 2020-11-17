@@ -3,11 +3,7 @@ import { Marker, Popup, useMapEvents } from 'react-leaflet';
 
 import swal from "sweetalert";
 
-import Socket from "../../helper_functions/Socket";
-
 const axios = require("axios").default;
-
-const socket = new Socket();
 
 function NewPin(props) {
     const [state, setState] = useState({
