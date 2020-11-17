@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 
 import Campaign from './Campaign';
+import CampaignUpdate from './CampaignUpdate';
 import World from './World';
 import NewWorld from './NewWorld';
 import Socket from '../../helper_functions/Socket';
@@ -124,6 +125,10 @@ function CampaignSelector(props) {
                                                                                     Application={state.Application}
                                                                                     campaign={state.activeCampaign}/>}
                                                                                     />
+                <Route exact path="/campaigns/:campaign/update" render={props => <CampaignUpdate {...props}
+                                                                                    Application={state.Application}
+                                                                                    campaign={state.activeCampaign}/>}
+                                                                                    />               
                 <Route exact path="/campaigns/:campaign/:world" render={props => <World {...props} 
                                                                                     Application={state.Application}
                                                                                     world={state.activeWorld} />}
