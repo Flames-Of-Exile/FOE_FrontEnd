@@ -49,7 +49,11 @@ function Campaign(props) {
             </MapContainer>
             <br />
             {props.Application.state.currentUser.role === "admin" ? // if user is admin
-                <Link to={`/campaigns/${props.campaign.name}/addworld`}>Add World</Link>
+                <div>
+                    <Link to={`/campaigns/${props.campaign.name}/addworld`}>Add World</Link>
+                    <br />
+                    <Link to={`/campaigns/${props.campaign.name}/update`}>Edit Campaign</Link>
+                </div>
             : // else
                 "" /* end if user is admin */}
         </div>
