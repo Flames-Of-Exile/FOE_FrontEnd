@@ -138,7 +138,7 @@ function Pin(props){
             iconSize: [35, 70],
             iconAnchor: [17.5, 70]
         })}>
-            <PinDetails offset={[0, -80]} pin={props.pin} />
+            <PinDetails pin={props.pin} socket={props.socket} Application={props.Application} />
         </Marker>
     );
 
