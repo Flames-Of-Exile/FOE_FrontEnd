@@ -39,7 +39,7 @@ function CampaignUpdate(props) {
                 is_archived: state.is_archived,
             }));
             socket.send('campaign-update');
-            props.history.push(`/campaigns/${state.name}`);
+            props.history.push(`/`);
             swal("Success", "Campaign updated!", "success");
         } catch (error) {
             swal("Error", error.response.data, "error");
