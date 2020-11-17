@@ -40,7 +40,7 @@ function Campaign(props) {
                             center={[world.center_lat, world.center_lng]}
                             radius={world.radius}
                             opacity={0}
-                            fillOpacity={0}
+                            fillColor={"yellow"}
                             eventHandlers={{click: () => 
                                 props.history.push(`/campaigns/${props.campaign.name}/${world.name}`)
                             }} />
