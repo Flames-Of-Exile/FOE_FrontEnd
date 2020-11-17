@@ -28,6 +28,14 @@ class NewCampaign extends React.Component {
 
     handleSubmit = async () => {
         const formData = new FormData();
+        if (this.state.file === null) {
+            swal("Error", "Please select an image to upload.", "error");
+            return;
+        }
+        if (this.state.name === "") {
+            swal("Error", "Please enter the name of the campaign.", "error");
+            return;
+        }
         formData.append("file", this.state.file, this.state.file.name);
         formData.append("name", this.state.name);
         formData.append("is_default", true);
