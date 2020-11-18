@@ -32,7 +32,7 @@ function FilterBox(props) {
             resource: resource,
             rank: rank,
             amount: amount
-        })
+        });
     }, [props.query]);
 
     const typeOptions = [
