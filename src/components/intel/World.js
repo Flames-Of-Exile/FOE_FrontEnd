@@ -31,7 +31,13 @@ function World(props) {
         if (props.world == undefined) {return;}
         const image = new Image();
         image.src = props.world.image;
-        image.onload = () => setState({...state, width: image.naturalWidth, height: image.naturalHeight, loading: false});
+        image.onload = () => setState({
+            ...state,
+            width: image.naturalWidth,
+            height: image.naturalHeight,
+            loading: false,
+            pins: filterPins(queryString.parse(props.location.search))
+    });
     },[props.world]);
 
     useEffect(() => {
