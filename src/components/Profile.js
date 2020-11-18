@@ -38,6 +38,7 @@ function EditProfile(props) {
             return;
         }
         try {
+            swal("Sending...", "Attempting to update password...", "info", {buttons: false});
             let user = props.Application.state.currentUser;
             await axios.patch(`/api/users/${user.id}`, JSON.stringify({
                 'theme': user.theme,

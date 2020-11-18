@@ -27,6 +27,7 @@ class GuildList extends React.Component {
             return;
         }
         try {
+            swal("Sending...", "Attempting to post the guild...", "info", {buttons: false});
             const response = await axios.post('/api/guilds', JSON.stringify({
                 name: this.state.guildName,
             }));

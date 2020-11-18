@@ -51,6 +51,7 @@ class Admin extends React.Component {
 
     handleSubmit = async () => {
         try {
+            swal("Sending...", "Attempting to update the user...", "info", {buttons: false});
             const putResponse = await axios.put(`/api/users/${this.state.id}`, JSON.stringify({
                 role: this.state.role,
                 is_active: this.state.is_active,

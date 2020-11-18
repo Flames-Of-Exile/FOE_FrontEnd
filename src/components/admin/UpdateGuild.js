@@ -52,6 +52,7 @@ class UpdateGuild extends React.Component {
             return;
         }
         try {
+            swal("Sending...", "Attempting to update the guild...", "info", {buttons: false});
             const patchResponse = await axios.patch(`/api/guilds/${this.state.guild.id}`, JSON.stringify({
                 "name": this.state.guildName,
                 "is_active": this.state.guild.is_active
