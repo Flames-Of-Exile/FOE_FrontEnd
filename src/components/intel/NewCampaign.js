@@ -43,6 +43,7 @@ class NewCampaign extends React.Component {
             let config = { headers: {
                 "Content-Type": "multipart/form-data"
             } };
+            swal("Sending...", "Attempting to post your campaign...", "info", {buttons: false});
             await axios.post("/api/campaigns", formData, config);
             swal("Success", "Campaign posted!", "success");
         } catch (error) {

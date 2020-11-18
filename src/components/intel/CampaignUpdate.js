@@ -33,6 +33,7 @@ function CampaignUpdate(props) {
 
     const handleSubmit = async () => {
         try {
+            swal("Sending...", "Attempting to update the campaign...", "info", {buttons: false});
             await axios.patch(`/api/campaigns/${props.campaign.id}`, JSON.stringify({
                 name: state.name,
                 is_default: state.is_default,
@@ -57,6 +58,7 @@ function CampaignUpdate(props) {
                 <input type="checkbox" name="is_default" checked={state.is_default} onChange={handleCheckChange} />
             </div>
             <button onClick={handleSubmit}>Submit</button>
+            <br />
             <img src={props.campaign.image}/>
         </div>
     );

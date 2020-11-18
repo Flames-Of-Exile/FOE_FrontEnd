@@ -78,6 +78,7 @@ function NewWorld(props) {
             let config = { headers: {
                 "Content-Type": "multipart/form-data"
             } };
+            swal("Sending...", "Attempting to post the world...", "info", {buttons: false});
             await axios.post("/api/worlds", formData, config);
             socket.send('campaign-update');
             swal("Success", "World created!", "success");
