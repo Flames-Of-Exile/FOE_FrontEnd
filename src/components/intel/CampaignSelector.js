@@ -129,7 +129,7 @@ function CampaignSelector(props) {
                                                                                     Application={state.Application}
                                                                                     campaign={state.activeCampaign}/>}
                                                                                     />               
-                <Route exact path="/campaigns/:campaign/:world" render={props => <World {...props} 
+                <Route path="/campaigns/:campaign/:world" render={props => <World {...props} 
                                                                                     Application={state.Application}
                                                                                     world={state.activeWorld} />}
                                                                                     />
