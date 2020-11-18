@@ -24,11 +24,11 @@ function Campaign(props) {
             <p className='banner'>{props.campaign.name}</p>
             <MapContainer center={[0, 0]}
                           keyboard={false}
-                          zoom={-1}
+                          zoom={-2}
                           scrollWheelZoom={false}
                           crs={CRS.Simple}
-                          minZoom={-1}
-                          maxZoom={-1}
+                          minZoom={-2}
+                          maxZoom={-2}
                           dragging={false}
                           zoomControl={false}
             >
