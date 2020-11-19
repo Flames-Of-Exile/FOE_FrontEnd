@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { Marker } from 'react-leaflet';
+import { Marker, Popup } from 'react-leaflet';
 import { Icon } from "leaflet";
 
 import Animal from './pins/Animal.js';
@@ -19,13 +19,15 @@ import tactical_fire from '../../staticfiles/icons/tactical-fire.png';
 import tactical_fish from '../../staticfiles/icons/tactical-fish.png';
 import tactical_house from '../../staticfiles/icons/tactical-house.png';
 
-import PinDetails from './PinDetails.js';
+import PinDetails from './PinDetails';
+import PinUpdate from './PinUpdate';
 
 
 
 function Pin(props){
     const [state, setState] = useState({
         url: "http://",
+        isEditing: false,
     });
 
     function chooseSVG(iconStyle, borderStyle, cutoutStyle) {
@@ -145,7 +147,21 @@ function Pin(props){
             ...state,
             url: url,
         });
-    }, []);
+    }, [props.pin]);
+
+    const handleEdit = () => {
+        setState({
+            ...state,
+            isEditing: true,
+        });
+    };
+
+    const handleCancel = () => {
+        setState({
+            ...state,
+            isEditing: false,
+        });
+    };
 
 
     return(
@@ -154,7 +170,17 @@ function Pin(props){
             iconSize: [35, 70],
             iconAnchor: [17.5, 70]
         })}>
-            <PinDetails pin={props.pin} socket={props.socket} Application={props.Application} />
+            <Popup offset={[0, -50]} >
+                {state.isEditing ? // if editing
+                    <PinUpdate pin={props.pin} socket={props.socket} handleCancel={handleCancel} />
+                : // else not editing
+                    <PinDetails pin={props.pin}
+                                socket={props.socket}
+                                Application={props.Application}
+                                handleEdit={handleEdit}
+                    />
+                /* end if editing */}
+            </Popup>
         </Marker>
     );
 

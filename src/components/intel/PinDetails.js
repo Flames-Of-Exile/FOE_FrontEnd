@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Popup } from 'react-leaflet';
 import swal from "sweetalert";
 
 import capitalize from "../../helper_functions/Capitalize";
@@ -54,14 +53,15 @@ function PinDetails(props) {
     };
 
     return (
-        <Popup offset={[0, -50]}>
+        <div className="popup">
             {state.details}
+            <a onClick={props.handleEdit}>Edit</a>
             {props.Application.state.currentUser.role === "admin" ? // if user is admin
                 <a onClick={handleDelete}>Delete</a>
             : // else user is not admin
                 ""
             /* end if user is admin */}
-        </Popup>
+        </div>
     );
 }
 

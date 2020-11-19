@@ -89,7 +89,6 @@ function NewPin(props) {
                 resource: state.resource,
                 x_cord: state.x_cord,
                 y_cord: state.y_cord
-
             }));
             props.socket.send('campaign-update');
             handleCancel();
