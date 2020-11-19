@@ -51,12 +51,13 @@ function PinDetails(props) {
             swal("Error", error.response.data, "error");
         }   
     };
-
+    
     return (
         <div className="popup">
             {state.details}
             <a onClick={props.handleEdit}>Edit</a>
-            {props.Application.state.currentUser.role === "admin" ? // if user is admin
+            {props.Application.state.currentUser.role === "admin" || 
+             props.Application.state.currentUser.id === props.pin.edits[0].user.id ? // if user is admin or creator
                 <a onClick={handleDelete}>Delete</a>
             : // else user is not admin
                 ""
