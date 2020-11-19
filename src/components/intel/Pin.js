@@ -109,23 +109,29 @@ function Pin(props){
 
     function colorSetter(resource) {
         if (['yew','copper','granite','spider','human'].includes(resource)) {
-            return '#069e2f';
+            return '#ff0000';
         } 
         if (['birch', 'tin', 'limestone', 'pig', 'elven'].includes(resource)) {
-            return '#0cc4a6';
+            return '#ff8800';
         }
         if (['ash', 'iron', 'travertine', 'cat', 'monster'].includes(resource)){
-            return '#097b9e';
+            return '#ffff00';
         } 
         if (['oak', 'silver', 'slate', 'auroch', 'stoneborn'].includes(resource)) {
-            return '#143fcc';
+            return '#00ff00';
         } 
         if (['spruce', 'aurelium', 'marble', 'elk', 'guinecian'].includes(resource)) {
-            return '#6714cc';
+            return '#00ffff';
         } 
         if (['wolf'].includes(resource)) {
-            return '#f00a3b';
-        } 
+            return '#0000ff';
+        }
+        if (['gryphon'].includes(resource)) {
+            return '#8800ff';
+        }
+        if (['bear'].includes(resource)) {
+            return '#ff0088';
+        }
         return '#ffffff';
     }
 
