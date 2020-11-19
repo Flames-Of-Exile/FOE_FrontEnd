@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CircleMarker, MapContainer, ImageOverlay } from 'react-leaflet';
 import { CRS } from "leaflet";
 import { Link } from "react-router-dom";
@@ -10,13 +10,28 @@ function Campaign(props) {
         height: 0,
         loading: true
     });
+    const overlayRef = useRef(null);
 
     useEffect(() => {
         if (props.campaign.image == undefined) {return;}
         const image = new Image();
         image.src = props.campaign.image;
-        image.onload = () => setState({width: image.naturalWidth, height: image.naturalHeight, loading: false});
+        image.onload = () => {
+            setState({width: image.naturalWidth, height: image.naturalHeight, loading: false});
+        };
     },[props.campaign]);
+
+    const handleLoad = () => {
+        if (overlayRef.current) {
+            overlayRef.current.setBounds([[-1*state.height, -1*state.width], [state.height, state.width]]);
+        }
+    };
+
+    useEffect(() => {
+        if (overlayRef.current) {
+            overlayRef.current.setBounds([[-1*state.height, -1*state.width], [state.height, state.width]]);
+        }
+    },[state.height, state.width]);
 
     if (state.loading) {return null;}
     return(
@@ -33,7 +48,10 @@ function Campaign(props) {
                           zoomControl={false}
             >
                 <ImageOverlay url={props.campaign.image}
-                              bounds={[[-1 * state.height, -1 * state.width], [state.height, state.width]]} />
+                              ref={overlayRef}
+                              bounds={[[0,0],[0,0]]}
+                              eventHandlers={{load: handleLoad}}
+                />
                 {props.campaign.worlds.map(world => 
                         <div key={world}>
                             <CircleMarker
