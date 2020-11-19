@@ -2,6 +2,8 @@ import React from "react";
 import { Popup } from 'react-leaflet';
 import swal from "sweetalert";
 
+import capitalize from "../../helper_functions/Capitalize";
+
 const axios = require('axios').default;
 
 function PinDetails(props) {
@@ -17,11 +19,11 @@ function PinDetails(props) {
 
     return (
         <Popup offset={[0, -50]}>
+            {capitalize(props.pin.resource)}{props.pin.rank ? ` - Rank: ${props.pin.rank}` : ""}<br/>
+            {props.pin.amount ? `Amount - ${props.pin.amount}` : ""}<br />
+            {props.pin.x_cord ? `Location - ${props.pin.x_cord}${props.pin.y_cord}` : ""}<br />
             {props.pin.name} <br/>
-            Resource: {props.pin.resource} Type: {props.pin.symbol} Amount: {props.pin.amount} <br/>
-            Notes: {props.pin.notes} Rank: {props.pin.rank}<br/>
-            {props.pin.x_cord ? 'X: ' + props.pin.x_cord :null} {props.pin.y_cord ? 'Y: '+ props.pin.y_cord : null}
-            <br />
+            {props.pin.notes} <br/>
             {props.Application.state.currentUser.role === "admin" ? // if user is admin
                 <a onClick={handleDelete}>Delete</a>
             : // else user is not admin
