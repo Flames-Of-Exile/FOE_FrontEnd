@@ -15,6 +15,10 @@ import StoneMotherlode from './pins/StoneMotherlode.js';
 import Well from './pins/Well.js';
 import Wood from './pins/Wood.js';
 
+import tactical_fire from '../../staticfiles/icons/tactical-fire.png';
+import tactical_fish from '../../staticfiles/icons/tactical-fish.png';
+import tactical_house from '../../staticfiles/icons/tactical-house.png';
+
 import PinDetails from './PinDetails.js';
 
 
@@ -92,6 +96,12 @@ function Pin(props){
                             borderStyle={borderStyle}
                             cutoutStyle={cutoutStyle}
                         />));
+            case 'tactical-fire':
+                return tactical_fire;
+            case 'tactical-fish':
+                return tactical_fish;
+            case 'tactical-house':
+                return tactical_house;
             default:
                 return '/staticfiles/icons/' + props.pin.symbol + '.png';
         }
