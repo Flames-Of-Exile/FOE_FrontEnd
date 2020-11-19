@@ -4,7 +4,7 @@ import swal from "sweetalert";
 
 const axios = require("axios").default;
 
-function NewPin(props) {
+function PinUpdate(props) {
     const [state, setState] = useState({
         symbol: props.pin.symbol,
         notes: props.pin.notes,
@@ -30,7 +30,7 @@ function NewPin(props) {
             selectList = ['Yew','Birch','Ash','Oak','Spruce'];
         }
         else if (['animal', 'animal-boss'].includes(symbol)) {
-            selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf'];
+            selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf', 'Bear', 'Gryphon'];
         }
         else if (['camp', 'boss'].includes(symbol)) {
             selectList = ['NA'];
@@ -49,7 +49,6 @@ function NewPin(props) {
         setState({
             ...state,
             resourceList: selectList,
-            resource: selectList[0].toLowerCase(),
         });
     }, [state.symbol]);
 
@@ -80,7 +79,7 @@ function NewPin(props) {
             swal("Error", error.response.data, "error");
         }
     };
-
+    console.log(state.resource)
     return (
         <div>
             <input
@@ -130,4 +129,4 @@ function NewPin(props) {
     );
 }
 
-export default NewPin;
+export default PinUpdate;

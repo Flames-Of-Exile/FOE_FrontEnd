@@ -32,7 +32,7 @@ function PinDetails(props) {
             details.push(<span>{`Amount: ${pin.amount}`}<br /></span>);
         }
         if (pin.x_cord && pin.y_cord) {
-            details.push(<span>{`Location: ${pin.x_cord}${pin.y_cord}`}<br /></span>);
+            details.push(<span>{`Location: ${capitalize(pin.x_cord)}${pin.y_cord}`}<br /></span>);
         }
         if (pin.name) {
             details.push(<span>{`${pin.name}`}<br /></span>);
