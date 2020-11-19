@@ -79,7 +79,7 @@ function PinUpdate(props) {
             swal("Error", error.response.data, "error");
         }
     };
-    console.log(state.resource)
+
     return (
         <div>
             <input
