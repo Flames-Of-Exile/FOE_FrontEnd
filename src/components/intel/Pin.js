@@ -31,7 +31,6 @@ function Pin(props){
     });
 
     function chooseSVG(iconStyle, borderStyle, cutoutStyle) {
-        console.log(props.pin)
         switch(props.pin.symbol) {
             case 'animal-boss':
                 return 'data:image/svg+xml,' + escape(ReactDOMServer.renderToStaticMarkup(<AnimalBoss
