@@ -24,7 +24,10 @@ function PinDetails(props) {
             details.push(<span>{capitalize(pin.resource)}</span>);
         }
         if (pin.rank) {
-            details.push(<span>{` Rank: ${pin.rank}`}<br/></span>);
+            details.push(<span>{` Rank: ${pin.rank}`}</span>);
+        }
+        if (details.length > 0) {
+            details.push(<br/>);
         }
         if (pin.amount) {
             details.push(<span>{`Amount: ${pin.amount}`}<br /></span>);
