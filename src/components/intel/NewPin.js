@@ -46,7 +46,7 @@ function NewPin(props) {
             selectList = ['Yew','Birch','Ash','Oak','Spruce'];
         }
         else if (['animal', 'animal-boss'].includes(symbol)) {
-            selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf'];
+            selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf', 'Bear', 'Gryphon'];
         }
         else if (['camp', 'boss'].includes(symbol)) {
             selectList = ['NA'];

@@ -82,7 +82,9 @@ function FilterBox(props) {
         { value: 'cat', label: 'Cat' },
         { value: 'auroch', label: 'Auroch' },
         { value: 'elk', label: 'Elk' },
-        { value: 'wolf', label: 'Wolf' }
+        { value: 'wolf', label: 'Wolf' },
+        { value: 'bear', label: 'Bear' },
+        { value: 'gryphon', label: 'Gryphon'}
     ];
 
     const graveOptions = [
@@ -136,6 +138,8 @@ function FilterBox(props) {
         { value: 'auroch', label: 'Auroch' },
         { value: 'elk', label: 'Elk' },
         { value: 'wolf', label: 'Wolf' },
+        { value: 'bear', label: 'Bear' },
+        { value: 'gryphon', label: 'Gryphon'},
         { value: 'human', label: 'Human' },
         { value: 'elven', label: 'Elven' },
         { value: 'monster', label: 'Monster' },
