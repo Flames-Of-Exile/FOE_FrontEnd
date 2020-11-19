@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Popup } from 'react-leaflet';
 import swal from "sweetalert";
 
@@ -7,6 +7,39 @@ import capitalize from "../../helper_functions/Capitalize";
 const axios = require('axios').default;
 
 function PinDetails(props) {
+    const [state, setState] = useState({
+        details: [],
+    });
+
+    useEffect(() => {
+        setState({
+            ...state,
+            details: createDetailArray(props.pin)
+        });
+    },[props.pin]);
+
+    const createDetailArray = (pin) => {
+        let details = [];
+        if (pin.resource !== 'na') {
+            details.push(<span>{capitalize(pin.resource)}</span>);
+        }
+        if (pin.rank) {
+            details.push(<span>{` Rank: ${pin.rank}`}<br/></span>);
+        }
+        if (pin.amount) {
+            details.push(<span>{`Amount: ${pin.amount}`}<br /></span>);
+        }
+        if (pin.x_cord && pin.y_cord) {
+            details.push(<span>{`Location: ${pin.x_cord}${pin.y_cord}`}<br /></span>);
+        }
+        if (pin.name) {
+            details.push(<span>{`${pin.name}`}<br /></span>);
+        }
+        if (pin.notes) {
+            details.push(<span>{`${pin.notes}`}<br /></span>);
+        }
+        return details;
+    };
 
     const handleDelete = async () => {
         try {
@@ -19,11 +52,7 @@ function PinDetails(props) {
 
     return (
         <Popup offset={[0, -50]}>
-            {capitalize(props.pin.resource)}{props.pin.rank ? ` - Rank: ${props.pin.rank}` : ""}<br/>
-            {props.pin.amount ? `Amount - ${props.pin.amount}` : ""}<br />
-            {props.pin.x_cord ? `Location - ${props.pin.x_cord}${props.pin.y_cord}` : ""}<br />
-            {props.pin.name} <br/>
-            {props.pin.notes} <br/>
+            {state.details}
             {props.Application.state.currentUser.role === "admin" ? // if user is admin
                 <a onClick={handleDelete}>Delete</a>
             : // else user is not admin
