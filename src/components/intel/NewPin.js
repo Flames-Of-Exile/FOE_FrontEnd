@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Marker, Popup, useMapEvents } from 'react-leaflet';
-
+import ReactTooltip from 'react-tooltip';
 import swal from "sweetalert";
 
 const axios = require("axios").default;
@@ -130,11 +130,14 @@ function NewPin(props) {
             <div>
                <Marker position={state.coords} ref={openPopup}>
                     <Popup>
+                        <ReactTooltip id='tooltip' getContent={(dataTip) => <div>{dataTip}</div>} />
                         <input
                             type="text"
                             maxLength="1"
                             name="x_cord"
                             placeholder='X coordinant'
+                            data-tip='X coordinant'
+                            data-for='tooltip'
                             value={state.x_cord}
                             onChange={handleChange}
                         />
@@ -142,6 +145,8 @@ function NewPin(props) {
                             type="number"
                             name="y_cord"
                             placeholder='Y coordinant'
+                            data-tip='Y coordinant'
+                            data-for='tooltip'
                             value={state.y_cord}
                             onChange={handleChange}
                         />
@@ -166,11 +171,41 @@ function NewPin(props) {
                                 <option key={choice} value={choice.toLowerCase()}>{choice}</option>
                             ))}
                         </select>
-                        <input type="text" name="notes" placeholder='notes' onChange={handleChange}/>
-                        <input type="text" name="name" placeholder='name' onChange={handleChange}/>
-                        <input type="number" name="rank" placeholder='rank' onChange={handleChange}/>
-                        <input type="number" name="amount" placeholder='amount' onChange={handleChange}/>
-                        <input type="number" name="respawn" placeholder='respawn' onChange={handleChange}/>
+                        <input type="text"
+                               name="notes"
+                               placeholder='notes'
+                               data-tip='notes'
+                               data-for='tooltip'
+                               onChange={handleChange}
+                        />
+                        <input type="text"
+                               name="name"
+                               placeholder='name'
+                               data-tip='name'
+                               data-for='tooltip'
+                               onChange={handleChange}
+                        />
+                        <input type="number"
+                               name="rank"
+                               placeholder='rank'
+                               data-tip='rank'
+                               data-for='tooltip'
+                               onChange={handleChange}
+                        />
+                        <input type="number"
+                               name="amount"
+                               placeholder='amount'
+                               data-tip='amount'
+                               data-for='tooltip'
+                               onChange={handleChange}
+                        />
+                        <input type="number"
+                               name="respawn"
+                               placeholder='respawn'
+                               data-tip='respawn'
+                               data-for='tooltip'
+                               onChange={handleChange}
+                        />
                         <button onClick={handleSubmit}>Submit</button>
                         <button onClick={handleCancel}>Cancel</button>
                     </Popup>
