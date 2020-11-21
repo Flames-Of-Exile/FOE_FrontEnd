@@ -48,8 +48,8 @@ function NewPin(props) {
         else if (['animal', 'animal-boss'].includes(symbol)) {
             selectList = ['Spider', 'Pig', 'Cat', 'Auroch', 'Elk', 'Wolf', 'Bear', 'Gryphon'];
         }
-        else if (['camp', 'boss'].includes(symbol)) {
-            selectList = ['NA'];
+        else if (['mob', 'mob-boss'].includes(symbol)) {
+            selectList = ['Urgu', 'Elementals', 'Satyr', 'Aracoix', 'Underhill', 'Enbarri', 'Thralls'];
         }
         else if (symbol === 'grave'){
             selectList = ['Human', 'Elven', 'Monster', 'Stoneborn', 'Guinecian'];

@@ -110,25 +110,25 @@ function Pin(props){
     }
 
     function colorSetter(resource) {
-        if (['yew','copper','granite','spider','human'].includes(resource)) {
+        if (['yew','copper','granite','spider','human', 'urgu'].includes(resource)) {
             return '#ff0000';
         } 
-        if (['birch', 'tin', 'limestone', 'pig', 'elven'].includes(resource)) {
+        if (['birch', 'tin', 'limestone', 'pig', 'elven', 'elementals'].includes(resource)) {
             return '#ff8800';
         }
-        if (['ash', 'iron', 'travertine', 'cat', 'monster'].includes(resource)){
+        if (['ash', 'iron', 'travertine', 'cat', 'monster', 'satyr'].includes(resource)){
             return '#ffff00';
         } 
-        if (['oak', 'silver', 'slate', 'auroch', 'stoneborn'].includes(resource)) {
+        if (['oak', 'silver', 'slate', 'auroch', 'stoneborn', 'aracoix'].includes(resource)) {
             return '#00ff00';
         } 
-        if (['spruce', 'aurelium', 'marble', 'elk', 'guinecian'].includes(resource)) {
+        if (['spruce', 'aurelium', 'marble', 'elk', 'guinecian', 'underhill'].includes(resource)) {
             return '#00ffff';
         } 
-        if (['wolf'].includes(resource)) {
+        if (['wolf', 'enbarri'].includes(resource)) {
             return '#0000ff';
         }
-        if (['gryphon'].includes(resource)) {
+        if (['gryphon', 'thralls'].includes(resource)) {
             return '#8800ff';
         }
         if (['bear'].includes(resource)) {
