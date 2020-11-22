@@ -95,6 +95,16 @@ function FilterBox(props) {
         { value: 'guinecian', label: 'Guinecian' }
     ];
 
+    const mobOptions = [
+        { value: 'urgu', label: 'Urgu' },
+        { value: 'elementals', label: 'Elementals' },
+        { value: 'satyr', label: 'Satyr' },
+        { value: 'aracoix', label: 'Aracoix' },
+        { value: 'underhill', label: 'Underhill' },
+        { value: 'enbarri', label: 'Enbarri' },
+        { vaule: 'thralls', label: 'Thralls' }
+    ];
+
     const buildResourceOptions = () => {
         let options = [];
         let types = state.type.map(item => item.value);
@@ -112,6 +122,9 @@ function FilterBox(props) {
         }
         if (types.includes('grave')) {
             options = options.concat(graveOptions);
+        }
+        if (types.includes('mob') || types.includes('mob-boss')) {
+            options = options.concat(mobOptions);
         }
         return options;
     };
@@ -144,7 +157,14 @@ function FilterBox(props) {
         { value: 'elven', label: 'Elven' },
         { value: 'monster', label: 'Monster' },
         { value: 'stoneborn', label: 'Stoneborn' },
-        { value: 'guinecian', label: 'Guinecian' }
+        { value: 'guinecian', label: 'Guinecian' },
+        { value: 'urgu', label: 'Urgu' },
+        { value: 'elementals', label: 'Elementals' },
+        { value: 'satyr', label: 'Satyr' },
+        { value: 'aracoix', label: 'Aracoix' },
+        { value: 'underhill', label: 'Underhill' },
+        { value: 'enbarri', label: 'Enbarri' },
+        { vaule: 'thralls', label: 'Thralls' }
     ];
 
     const handleChange = (event) => setState({
