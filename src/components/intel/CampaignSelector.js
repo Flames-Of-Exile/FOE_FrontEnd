@@ -23,7 +23,8 @@ function CampaignSelector(props) {
         Application: props.Application,
         campaigns: [],
         activeCampaign: { worlds: [], name: '' },
-        selectedIndex: -1,
+        selectedCampaignIndex: -1,
+        selectedWorldIndex: -1,
         activeWorld: { pins: [], name: '' }
     });
 
@@ -36,18 +37,21 @@ function CampaignSelector(props) {
             let campaigns = response.data;
             let activeCampaign = campaigns[0];
             let activeWorld = { pins: [], name: '' };
+            let selectedWorldIndex = -1;
             if (props.match.params.campaign) {
                 activeCampaign = campaigns.filter(campaign => campaign.name === props.match.params.campaign)[0];
                 if (props.match.params.world) {
                     activeWorld = activeCampaign.worlds.filter(world => world.name === props.match.params.world)[0];
+                    selectedWorldIndex =activeCampaign.worlds.indexOf(activeWorld);
                 }
             }
             setState({
                 ...state,
                 campaigns: campaigns,
                 activeCampaign: activeCampaign,
-                selectedIndex: campaigns.indexOf(activeCampaign),
+                selectedCampaignIndex: campaigns.indexOf(activeCampaign),
                 activeWorld: activeWorld,
+                selectedWorldIndex: selectedWorldIndex
             });
             if (activeCampaign && props.location.pathname === "/campaigns") {
                 props.history.push(`/campaigns/${activeCampaign.name}`);
@@ -94,7 +98,7 @@ function CampaignSelector(props) {
         });
     };
 
-    const handleChange = (event) => {
+    const handleCampaignChange = (event) => {
         let index = event.target.value;
         if (index == -1) {
             return;
@@ -103,7 +107,20 @@ function CampaignSelector(props) {
         setState({
             ...state,
             activeCampaign: state.campaigns[index],
-            selectedIndex: index
+            selectedCampaignIndex: index
+        });
+    };
+
+    const handleWorldChange = (event) => {
+        let index = event.target.value;
+        if (index == -1) {
+            return;
+        }
+        props.history.push(`/campaigns/${state.activeCampaign.name}/${state.activeCampaign.worlds[index].name}`);
+        setState({
+            ...state,
+            activeWorld: state.activeCampaign.worlds[index],
+            selectedWorldIndex: index
         });
     };
 
@@ -112,14 +129,24 @@ function CampaignSelector(props) {
             <select name='activeCampaign'
                     id='selector'
                     placeholder='Please Choose a Campaign'
-                    onChange={handleChange}
-                    value={state.selectedIndex}
+                    onChange={handleCampaignChange}
+                    value={state.selectedCampaignIndex}
             >
                 <option value={-1}>Please Choose a Campaign</option>
                 {state.campaigns.map( (campaign, index) => ( 
                     <option key={index} value={index}>{campaign.name}</option>
                 ))}
             </select>
+            {state.activeCampaign ? // if there is an active campaign
+                <select onChange={handleWorldChange} value={state.selectedWorldIndex}>
+                    <option value={-1}>-</option>
+                    {state.activeCampaign.worlds.map( (world, index) => (
+                        <option key={index} value={index}>{world.name}</option>
+                    ))}
+                </select>
+            : // else if there is no active campaign
+                null
+            /* end if there is an active campaign*/}
             <Switch>
                 <Route exact path="/campaigns/:campaign/addworld" render={props => <NewWorld {...props}
                                                                                     Application={state.Application}

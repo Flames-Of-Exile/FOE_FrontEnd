@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MapContainer, ImageOverlay } from 'react-leaflet';
 import { CRS } from "leaflet";
 
@@ -19,6 +19,8 @@ function World(props) {
         filterOptions: queryString.parse(props.location.search),
         pins: []
     });
+
+    const overlayRef = useRef(null);
 
     useEffect(() => {
         socket.connect();
@@ -75,14 +77,29 @@ function World(props) {
         }
         return props.world.pins;
     };
+
+    const handleLoad = () => {
+        if (overlayRef.current) {
+            overlayRef.current.setBounds([[-1*state.height, -1*state.width], [state.height, state.width]]);
+        }
+    };
+
+    useEffect(() => {
+        if (overlayRef.current) {
+            overlayRef.current.setBounds([[-1*state.height, -1*state.width], [state.height, state.width]]);
+        }
+    },[state.height, state.width]);
     
     if (state.loading) {return null;}
     return (
         <div>
             <MapContainer center={[0, 0]} zoom={-1} scrollWheelZoom={true} crs={CRS.Simple} minZoom={-3} >
                 <NewPin world_id={props.world.id} socket={socket}/>
-                <ImageOverlay url={props.world.image}
-                              bounds={[[-1 * state.height, -1 * state.width], [state.height, state.width]]} />
+                <ImageOverlay url={props.world.image} 
+                              ref={overlayRef}
+                              bounds={[[0,0],[0,0]]}
+                              eventHandlers={{load: handleLoad}}
+                />
                 {state.pins.map(pin => <Pin key={pin} pin={pin} socket={socket} Application={props.Application}/>)}
             </MapContainer>
             <FilterBox history={props.history} location={props.location} query={queryString.parse(props.location.search)}/>
