@@ -58,7 +58,7 @@ function World(props) {
                     }
                 }
                 if (filterOptions.resource) {
-                    if (!filterOptions.resource.split(',').includes(pin.resource)) {
+                    if (!filterOptions.resource.split(',').includes(pin.resource) && pin.resource !== 'na') {
                         return false;
                     }
                 }
