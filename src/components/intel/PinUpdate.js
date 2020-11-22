@@ -39,13 +39,14 @@ function PinUpdate(props) {
             selectList = ['Human', 'Elven', 'Monster', 'Stoneborn', 'Guinecian'];
         }
         else {
-            selectList = ['NA'];
+            selectList = [];
         }
         return selectList;
     }
 
     useEffect(() => {
-        let selectList = resourceSelector(state.symbol);
+        let selectList = ['na'];
+        selectList = selectList.concat(resourceSelector(state.symbol));
         setState({
             ...state,
             resourceList: selectList,
@@ -115,7 +116,7 @@ function PinUpdate(props) {
             </select>
             <select name='resource' value={state.resource} onChange={handleChange}>
                 {state.resourceList.map(choice => (
-                    <option key={choice} value={choice.toLowerCase()}>{choice}</option>
+                    <option key={choice} value={choice.toLowerCase()}>{choice === 'na' ? '-' : choice}</option>
                 ))}
             </select>
             <input type="text" name="notes" placeholder='notes' value={state.notes} onChange={handleChange}/>
