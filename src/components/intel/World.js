@@ -63,12 +63,12 @@ function World(props) {
                     }
                 }
                 if (filterOptions.rank) {
-                    if (pin.rank && !filterOptions.rank <= pin.rank) {
+                    if (pin.rank && filterOptions.rank <= pin.rank) {
                         return false;
                     }
                 }
                 if (filterOptions.amount) {
-                    if (pin.amount && !filterOptions.amount <= pin.amount) {
+                    if (pin.amount && filterOptions.amount <= pin.amount) {
                         return false;
                     }
                 }
