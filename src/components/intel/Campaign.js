@@ -8,7 +8,7 @@ function Campaign(props) {
     const [state, setState] = useState({
         width: 0,
         height: 0,
-        loading: true
+        loading: true,
     });
     const overlayRef = useRef(null);
 
@@ -17,19 +17,21 @@ function Campaign(props) {
         const image = new Image();
         image.src = props.campaign.image;
         image.onload = () => {
-            setState({width: image.naturalWidth, height: image.naturalHeight, loading: false});
+            setState({...state, width: image.naturalWidth, height: image.naturalHeight, loading: false});
         };
     },[props.campaign]);
 
     const handleLoad = () => {
         if (overlayRef.current) {
-            overlayRef.current.setBounds([[-1*state.height, -1*state.width], [state.height, state.width]]);
+            let ratio = state.height / state.width;
+            overlayRef.current.setBounds([[-400, -400/ratio], [400, 400/ratio]]);
         }
     };
 
     useEffect(() => {
         if (overlayRef.current) {
-            overlayRef.current.setBounds([[-1*state.height, -1*state.width], [state.height, state.width]]);
+            let ratio = state.height / state.width;
+            overlayRef.current.setBounds([[-400, -400/ratio], [400, 400/ratio]]);
         }
     },[state.height, state.width]);
 
@@ -38,12 +40,10 @@ function Campaign(props) {
         <div>
             <p className='banner'>{props.campaign.name}</p>
             <MapContainer center={[0, 0]}
+                          zoom={0}
                           keyboard={false}
-                          zoom={-1}
                           scrollWheelZoom={false}
                           crs={CRS.Simple}
-                          minZoom={-1}
-                          maxZoom={-1}
                           dragging={false}
                           zoomControl={false}
             >
