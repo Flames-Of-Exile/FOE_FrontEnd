@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CircleMarker, MapContainer, ImageOverlay } from 'react-leaflet';
+import { Circle, MapContainer, ImageOverlay } from 'react-leaflet';
 import { CRS } from "leaflet";
 import { Link } from "react-router-dom";
 
@@ -44,8 +44,8 @@ function Campaign(props) {
                           keyboard={false}
                           scrollWheelZoom={false}
                           crs={CRS.Simple}
-                          dragging={false}
-                          zoomControl={false}
+                          minZoom={-5}
+                          maxZoom={5}
             >
                 <ImageOverlay url={props.campaign.image}
                               ref={overlayRef}
@@ -54,7 +54,7 @@ function Campaign(props) {
                 />
                 {props.campaign.worlds.map(world => 
                         <div key={world}>
-                            <CircleMarker
+                            <Circle
                             center={[world.center_lat, world.center_lng]}
                             radius={world.radius}
                             opacity={0}

@@ -15,8 +15,6 @@ function NewWorld(props) {
     const [state, setState] = useState({
         Application: props.Application,
         name: "",
-        file: null,
-        filename: "choose a file",
         centerLat: 0,
         centerLng: 0,
         radius: 0,
@@ -46,12 +44,6 @@ function NewWorld(props) {
         [event.target.name]: event.target.value,
     });
 
-    const handleSelect = (event) => setState({
-        ...state,
-        [event.target.name]: event.target.files[0],
-        filename: event.target.value.split('\\').pop()
-    });
-
     const handleSubmit = async () => {
         if (state.name === "") {
             swal("Error", "Please enter the name of the world.", "error");
@@ -61,29 +53,20 @@ function NewWorld(props) {
             swal("Error", "Please enter the campaign id.", "error");
             return;
         }
-        if (state.file === null) {
-            swal("Error", "Please upload a file.", "error");
-            return;
-        }
         if (state.radius === 0) {
             swal("Error", "Please draw the click area on the map.", "error");
             return;
         }
-        const formData = new FormData();
-        formData.append("file", state.file, state.file.name);
-        formData.append("name", state.name);
-        formData.append("campaign_id", props.campaign.id);
-        formData.append("center_lat", state.centerLat);
-        formData.append("center_lng", state.centerLng);
-        formData.append("radius", state.radius);
         try {
-            let config = { headers: {
-                "Content-Type": "multipart/form-data"
-            } };
-            swal("Sending...", "Attempting to post the world...", "info", {buttons: false});
-            await axios.post("/api/worlds", formData, config);
+            swal("Sending...", "Attempting to update world...", "info", {buttons: false});
+            await axios.patch(`/api/worlds/${props.world.id}`, JSON.stringify({
+                name: state.name,
+                center_lat: state.centerLat,
+                center_lng: state.centerLng,
+                radius: state.radius,
+            }));
             socket.send('campaign-update');
-            swal("Success", "World created!", "success");
+            swal("Success", "World updated!", "success");
         } catch (error) {
             swal("Error", error.response.data, "error");
         }
@@ -108,20 +91,20 @@ function NewWorld(props) {
         <div>
             <br />
             <br />
-            <p>Add world to {props.campaign.name}</p>
-            <input type="text" name="name" placeholder='World Name' onChange={handleChange}/>
-            <input type="file" name="file" id="file" onChange={handleSelect}/>
-            <label htmlFor="file">{state.filename}</label>
+            <p>Update {props.world.name} of {props.campaign.name}</p>
+            <input type="text" name="name" placeholder='World Name' onChange={handleChange} value={state.name}/>
             <button onClick={handleSubmit}>Submit</button>
             <br />
             Draw click area below
             <MapContainer center={[0, 0]}
-                        zoom={0}
-                        crs={CRS.Simple}
-                        minZoom={-5}
-                        maxZoom={5}
+                          keyboard={false}
+                          scrollWheelZoom={false}
+                          zoom={0}
+                          crs={CRS.Simple}
+                          minZoom={-5}
+                          maxZoom={5}
             >
-                <WorldLinkDrawer newWorldState={state} newWorldSetState={setState}/>
+                <WorldLinkDrawer newWorldState={state} newWorldSetState={setState} />
                 <ImageOverlay url={props.campaign.image}
                               ref={overlayRef}
                               bounds={[[0,0],[0,0]]}

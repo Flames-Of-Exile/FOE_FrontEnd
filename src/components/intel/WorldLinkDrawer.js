@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CircleMarker, useMapEvents } from 'react-leaflet';
+import { Circle, useMapEvents } from 'react-leaflet';
 
 function WorldLinkDrawer(props) {
     const [state, setState] = useState({
@@ -51,7 +51,7 @@ function WorldLinkDrawer(props) {
     }
 
     return (
-        <CircleMarker center={state.centerLatLng} radius={state.radius} />
+        <Circle center={state.centerLatLng} radius={state.radius} />
     );
 }
 

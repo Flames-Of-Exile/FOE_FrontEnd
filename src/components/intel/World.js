@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MapContainer, ImageOverlay } from 'react-leaflet';
 import { CRS } from "leaflet";
+import { Link } from "react-router-dom";
 
 import FilterBox from './FilterBox';
 import Pin from './Pin.js';
@@ -103,6 +104,10 @@ function World(props) {
                 {state.pins.map(pin => <Pin key={pin} pin={pin} socket={socket} Application={props.Application}/>)}
             </MapContainer>
             <FilterBox history={props.history} location={props.location} query={queryString.parse(props.location.search)}/>
+            {props.Application.state.currentUser.role === "admin" ? // if user is admin
+                <Link to={`/campaigns/${props.match.params.campaign}/${props.world.name}/update`}>Edit World</Link>
+            : // else
+                "" /* end if user is admin */}
         </div>
     );
 }
