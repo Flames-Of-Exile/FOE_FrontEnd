@@ -66,6 +66,7 @@ function NewWorld(props) {
                 radius: state.radius,
             }));
             socket.send('campaign-update');
+            props.history.push(`/campaigns/${props.campaign.name}`);
             swal("Success", "World updated!", "success");
         } catch (error) {
             swal("Error", error.response.data, "error");
