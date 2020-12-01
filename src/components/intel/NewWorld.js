@@ -116,10 +116,12 @@ function NewWorld(props) {
             <br />
             Draw click area below
             <MapContainer center={[0, 0]}
-                        zoom={0}
-                        crs={CRS.Simple}
-                        minZoom={-5}
-                        maxZoom={5}
+                          keyboard={false}
+                          scrollWheelZoom={false}
+                          zoom={0}
+                          crs={CRS.Simple}
+                          minZoom={-5}
+                          maxZoom={5}
             >
                 <WorldLinkDrawer newWorldState={state} newWorldSetState={setState}/>
                 <ImageOverlay url={props.campaign.image}
