@@ -18,7 +18,7 @@ function NewPin(props) {
         amount: 0,
         respawn: 0,
         resource: 'granite',
-        resourceList: ['Granite','Limestone','Travertine','Slate','Marble'],
+        resourceList: ['-', 'Granite','Limestone','Travertine','Slate','Marble'],
         x_cord: null,
         y_cord: null
     });
@@ -109,8 +109,8 @@ function NewPin(props) {
         rank: 0,
         amount: 0,
         respawn: 0,
-        resource: 'granite',
-        resourceList: ['Granite','Limestone','Travertine','Slate','Marble'],
+        resource: '-',
+        resourceList: ['-', 'Granite','Limestone','Travertine','Slate','Marble'],
         x_cord: null,
         y_cord: null
     });
