@@ -30,7 +30,7 @@ class Register extends React.Component {
             other: '',
             preferedRolesSupport: false,
             preferedRolesControl: false,
-            preferedRolesShotrDPS: false,
+            preferedRolesShortDPS: false,
             preferedRolesLongDPS: false,
             preferedRolesScouting: false,
             preferedRolesHarvesting: false,
@@ -96,6 +96,24 @@ class Register extends React.Component {
                 username: this.state.username,
                 password: this.state.password1,
                 guild_id: this.state.guild,
+                currentMember: this.state.currentMember,
+                interestedGames: this.state.interestedGames,
+                ingameName: this.state.ingameName,
+                referral: this.state.referral,
+                hours: this.state.hours,
+                timeOfPlay: this.state.timeOfPlay,
+                perferedRoles: this.state.perferedRoles,
+                willingFillNeededRoles: this.state.willingFillNeededRoles,
+                considerElite: this.state.considerElite,
+                pvpComfort: this.state.pvpComfort,
+                whyApply: this.state.whyApply,
+                other: this.state.other,
+                preferedRolesSupport: this.state.preferedRolesSupport,
+                preferedRolesControl: this.state.preferedRolesControl,
+                preferedRolesShortDPS: this.state.preferedRolesShortDPS,
+                preferedRolesLongDPS: this.state.preferedRolesLongDPS,
+                preferedRolesScouting: this.state.preferedRolesScouting,
+                preferedRolesHarvesting: this.state.preferedRolesHarvesting,
             }));
             if (this.state.currentMember == false){
                 await axios.post("/bot/application", JSON.stringify({
@@ -112,7 +130,7 @@ class Register extends React.Component {
                     other: this.state.other,
                     preferedRolesSupport: this.state.preferedRolesSupport,
                     preferedRolesControl: this.state.preferedRolesControl,
-                    preferedRolesShotrDPS: this.state.preferedRolesShotrDPS,
+                    preferedRolesShortDPS: this.state.preferedRolesShortDPS,
                     preferedRolesLongDPS: this.state.preferedRolesLongDPS,
                     preferedRolesScouting: this.state.preferedRolesScouting,
                     preferedRolesHarvesting: this.state.preferedRolesHarvesting,
@@ -133,7 +151,6 @@ class Register extends React.Component {
             swal("Error", error.response.data, "error");
         }
     }
-
     
     render() {
         return (
@@ -179,37 +196,115 @@ class Register extends React.Component {
                     After submitting this application please make sure you have registered your Discord with us so we are able to reach you.<br/><br/>
                     Remember, there are no wrong answers, and no answer will constitute an automatic denial. Just be as honest as posible.
                     </p><br/><br/>
-                        <label htmlFor='interestedGames'>What game or games are you interested in playing with us?</label><br/>
+                        <h4 htmlFor='interestedGames'>What game or games are you interested in playing with us?</h4><br/>
                         <textarea name='interestedGames'rows='5' cols='75' value={this.state.interestedGames} onChange={this.handleChange}/><br/><br/>
-                        <label htmlFor='ingameName'>What is you current or planned ingame name?</label><br/>
+                        <h4 htmlFor='ingameName'>What is you current or planned ingame name?</h4><br/>
                         <textarea name='ingameName'rows='5' cols='75' value={this.state.ingameName} onChange={this.handleChange}/><br/><br/>
-                        <label htmlFor='referral'>Were you referred by an existing guild member? if so please tell us who</label><br/>
+                        <h4 htmlFor='referral'>Were you referred by an existing guild member? if so please tell us who</h4><br/>
                         <textarea name='referral'rows='5' cols='75' value={this.state.referral} onChange={this.handleChange}/><br/><br/>
-                        <label htmlFor='hours'>How many hours a week do you usually play MMOs?</label><br/>
+                        <h4 htmlFor='hours'>How many hours a week do you usually play MMOs?</h4><br/>
                         <textarea name='hours'rows='5' cols='75' value={this.state.hours} onChange={this.handleChange}/><br/><br/>
-                        <label htmlFor='timeOfPlay'>What time zone and time of day do you currently play in?</label><br/>
+                        <h4 htmlFor='timeOfPlay'>What time zone are you in and what time of day do you currently play?</h4><br/>
                         <textarea name='timeOfPlay'rows='5' cols='75' value={this.state.timeOfPlay} onChange={this.handleChange}/><br/><br/>
-                        <label htmlFor='preferedRoles'>Please select which roles you prefer to fill in a group based environment. (please select all that apply)</label><br/>
-                        <input type='checkbox' name='preferedRolesSupport' onClick={this.handleCheckbox}/>Combat Support (including Healing and Buffing<br/>
-                        <input type='checkbox' name='preferedRolesControl' onClick={this.handleCheckbox}/>Combat Control (including CC and Area Denial)<br/>
-                        <input type='checkbox' name='preferedRolesShotrDPS' onClick={this.handleCheckbox}/>Short Range Combat DPS (Melee or short ranged firearms, depending on game)<br/>
-                        <input type='checkbox' name='preferedRolesLongDPS' onClick={this.handleCheckbox}/>Long Range Combat DPS<br/>
-                        <input type='checkbox' name='preferedRolesScouting' onClick={this.handleCheckbox}/>Scouting<br/>
-                        <input type='checkbox' name='preferedRolesHarvesting' onClick={this.handleCheckbox}/>Resourcing and Production (Mining, harvesting, crafting, etc.)<br/><br/>
-                        <label htmlFor='willingFillNeededRoles'>Are you willing, if requested, to roll specific characters or train specific
-                                                                skills if requested by the guild for the purpose of filling gaps in group 
-                                                                composition or crafting availability?</label><br/>
-                        <input type='radio' name='willingFillNeededRoles' value={true} onClick={this.handleRadioTrue}/>Yes
-                        <input type='radio' name='willingFillNeededRoles' value={false} onClick={this.handleRadioFalse}/>No<br/><br/>
-                        <label htmlFor='considerElite'>Would you describe yourself as an "Elite Gamer?"</label><br/>
-                        <input type='radio' name='considerElite' value={true} onClick={this.handleRadioTrue}/>Yes
-                        <input type='radio' name='considerElite' value={false} onClick={this.handleRadioFalse}/>No<br/><br/>
-                        <label htmlFor='pvpComfort'>on a scale of 0 to 5 with 0 being the lowest, how comfortable are you with PvP?</label><br/>
-                        <input type='range' name='pvpComfort'value={this.state.pvpComfort} onChange={this.handleChange}/><br/><br/>
-                        <label htmlFor='whyApply'>What made you want to apply to Flames of Exile, and why do you think you'd be a good fit for our guild?</label><br/>
-                        <textarea name='whyApply'rows='5' cols='75' value={this.state.whyApply} onChange={this.handleChange}/><br/><br/>
-                        <label htmlFor='other'>Finally, is there anything else you would like to tell us about yourself?</label><br/>
-                        <textarea name='other'rows='5' cols='75' onChange={this.handleChange}/><br/>
+                        <h4 htmlFor='preferedRoles'>Please select which roles you prefer to fill in a group based environment. (please select all that apply)</h4><br/>
+                        <table>
+                            <colgroup>
+                                <col width="30%"/>
+                                <col width="60%"/>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td align="right">
+                                        <input type='checkbox' name='preferedRolesSupport' onClick={this.handleCheckbox}/>
+                                    </td>
+                                    <td align="left">
+                                        Combat Support (including Healing and Buffing)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><input type='checkbox' name='preferedRolesControl' onClick={this.handleCheckbox}/>
+                                    </td>
+                                    <td align="left">
+                                        Combat Control (including CC and Area Denial)<br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <input type='checkbox' name='preferedRolesShortDPS' onClick={this.handleCheckbox}/>
+                                    </td>
+                                    <td align="left">
+                                        Short Range Combat DPS (Melee or short ranged firearms, depending on game)<br/></td></tr>
+                                <tr>
+                                    <td align="right">
+                                        <input type='checkbox' name='preferedRolesLongDPS' onClick={this.handleCheckbox}/>
+                                    </td>
+                                    <td align="left">
+                                        Long Range Combat DPS<br/></td></tr>
+                                <tr>
+                                    <td align="right">
+                                        <input type='checkbox' name='preferedRolesScouting' onClick={this.handleCheckbox}/>
+                                    </td>
+                                    <td align="left">
+                                        Scouting<br/></td></tr>
+                                <tr>
+                                    <td align="right">
+                                        <input type='checkbox' name='preferedRolesHarvesting' onClick={this.handleCheckbox}/>
+                                    </td>
+                                    <td align="left">
+                                        Resourcing and Production (Mining, harvesting, crafting, etc.)</td></tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h4 htmlFor='willingFillNeededRoles'><br/>
+                                            Are you willing, if requested, to roll specific characters or train specific
+                                            skills if requested by the guild for the purpose of filling gaps in group 
+                                            composition or crafting availability?
+                                        </h4><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type='radio' name='willingFillNeededRoles' value={true} onClick={this.handleRadioTrue}/>Yes
+                                        <input type='radio' name='willingFillNeededRoles' value={false} onClick={this.handleRadioFalse}/>No<br/><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h4 htmlFor='considerElite'>Would you describe yourself as an "Elite Gamer?"</h4><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type='radio' name='considerElite' value={true} onClick={this.handleRadioTrue}/>Yes
+                                        <input type='radio' name='considerElite' value={false} onClick={this.handleRadioFalse}/>No<br/><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h4 htmlFor='pvpComfort'>How comfortable are you with PvP?</h4><br/>
+                                        Not at All<input type='range' name='pvpComfort'value={this.state.pvpComfort} onChange={this.handleChange}/>Very<br/><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h4 htmlFor='whyApply'>What made you want to apply to Flames of Exile, and why do you think you'd be a good fit for our guild?</h4><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                    <textarea name='whyApply'rows='5' cols='75' value={this.state.whyApply} onChange={this.handleChange}/><br/><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h4 htmlFor='other'>Finally, is there anything else you would like to tell us about yourself?</h4><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <textarea name='other'rows='5' cols='75' onChange={this.handleChange}/><br/>
+                                    </td>
+                                </tr>
+                    </tbody></table>
                     </>
                     }
 
