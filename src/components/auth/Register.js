@@ -55,13 +55,13 @@ class Register extends React.Component {
         this.setState({
             ...this.state,
             [event.target.name]: true
-    })}
+    });}
 
     handleRadioFalse = (event) =>{
         this.setState({
             ...this.state,
             [event.target.name]: false
-    })}
+    });}
 
     handleCheckbox = (event) =>{
         if (this.state[event.target.name] == true){
@@ -73,7 +73,7 @@ class Register extends React.Component {
             this.setState({
                 ...this.state,
                 [event.target.name]: true
-            })
+            });
         }
     }
 
@@ -134,7 +134,7 @@ class Register extends React.Component {
                     preferedRolesLongDPS: this.state.preferedRolesLongDPS,
                     preferedRolesScouting: this.state.preferedRolesScouting,
                     preferedRolesHarvesting: this.state.preferedRolesHarvesting,
-                }))
+                }));
             }
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
@@ -175,7 +175,9 @@ class Register extends React.Component {
                     <input type="password" name="password2" placeholder='retype password' onChange={this.handleChange}/>
                     <br/>
                     </form>
-                    <label htmlFor='currentMember'>Are you currently a member of Flames of Exile or one of our Allied Guilds?</label>
+                    <label htmlFor='currentMember'>
+                        Are you currently a member of Flames of Exile or one of our Allied Guilds?
+                    </label>
                     <br/>
                     <input type='radio' name='currentMember' value={true} onClick={this.handleRadioTrue}/> Yes
                     <input type='radio' name='currentMember' value={false} onClick={this.handleRadioFalse}/>No
@@ -191,22 +193,48 @@ class Register extends React.Component {
                     <p>
                     Thanks for applying to FOEX.
                     Please fill out this short recruitment form as accurately as you can and submit it.
-                    You can return to this page to check the status of your application and any comments from FOEX Officers or recruiters during the recruiting process.
+                    You can return to this page to check the status of your application and any comments
+                     from FOEX Officers or recruiters during the recruiting process.
                     You will be notified on Discord after your application is accepted or denied.
-                    After submitting this application please make sure you have registered your Discord with us so we are able to reach you.<br/><br/>
-                    Remember, there are no wrong answers, and no answer will constitute an automatic denial. Just be as honest as posible.
+                    After submitting this application please make sure you have 
+                    registered your Discord with us so we are able to reach you.
+                    <br/><br/>
+                    Remember, there are no wrong answers, and no answer will constitute an automatic denial. 
+                    Just be as honest as posible.
                     </p><br/><br/>
                         <h4 htmlFor='interestedGames'>What game or games are you interested in playing with us?</h4><br/>
-                        <textarea name='interestedGames'rows='5' cols='75' value={this.state.interestedGames} onChange={this.handleChange}/><br/><br/>
-                        <h4 htmlFor='ingameName'>What is you current or planned ingame name?</h4><br/>
-                        <textarea name='ingameName'rows='5' cols='75' value={this.state.ingameName} onChange={this.handleChange}/><br/><br/>
-                        <h4 htmlFor='referral'>Were you referred by an existing guild member? if so please tell us who</h4><br/>
-                        <textarea name='referral'rows='5' cols='75' value={this.state.referral} onChange={this.handleChange}/><br/><br/>
-                        <h4 htmlFor='hours'>How many hours a week do you usually play MMOs?</h4><br/>
-                        <textarea name='hours'rows='5' cols='75' value={this.state.hours} onChange={this.handleChange}/><br/><br/>
-                        <h4 htmlFor='timeOfPlay'>What time zone are you in and what time of day do you currently play?</h4><br/>
-                        <textarea name='timeOfPlay'rows='5' cols='75' value={this.state.timeOfPlay} onChange={this.handleChange}/><br/><br/>
-                        <h4 htmlFor='preferedRoles'>Please select which roles you prefer to fill in a group based environment. (please select all that apply)</h4><br/>
+                        <textarea name='interestedGames'rows='5' cols='75' 
+                                  value={this.state.interestedGames} 
+                                  onChange={this.handleChange}/>
+                        <br/><br/>
+                        <h4 htmlFor='ingameName'>
+                            What is you current or planned ingame name?
+                        </h4><br/>
+                        <textarea name='ingameName'rows='5' cols='75' 
+                                  value={this.state.ingameName} 
+                                  onChange={this.handleChange}/><br/><br/>
+                        <h4 htmlFor='referral'>
+                            Were you referred by an existing guild member? if so please tell us who
+                        </h4><br/>
+                        <textarea name='referral'rows='5' cols='75' 
+                                  value={this.state.referral} 
+                                  onChange={this.handleChange}/><br/><br/>
+                        <h4 htmlFor='hours'>
+                            How many hours a week do you usually play MMOs?
+                        </h4><br/>
+                        <textarea name='hours'rows='5' cols='75' 
+                                  value={this.state.hours} 
+                                  onChange={this.handleChange}/><br/><br/>
+                        <h4 htmlFor='timeOfPlay'>
+                            What time zone are you in and what time of day do you currently play?
+                        </h4><br/>
+                        <textarea name='timeOfPlay'rows='5' cols='75' 
+                                  value={this.state.timeOfPlay} 
+                                  onChange={this.handleChange}/><br/><br/>
+                        <h4 htmlFor='preferedRoles'>
+                            Please select which roles you prefer to fill in a group based environment. 
+                            (please select all that apply)
+                        </h4><br/>
                         <table>
                             <colgroup>
                                 <col width="30%"/>
@@ -215,14 +243,19 @@ class Register extends React.Component {
                             <tbody>
                                 <tr>
                                     <td align="right">
-                                        <input type='checkbox' name='preferedRolesSupport' onClick={this.handleCheckbox}/>
+                                        <input type='checkbox' 
+                                               name='preferedRolesSupport' 
+                                               onClick={this.handleCheckbox}/>
                                     </td>
                                     <td align="left">
                                         Combat Support (including Healing and Buffing)
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="right"><input type='checkbox' name='preferedRolesControl' onClick={this.handleCheckbox}/>
+                                    <td align="right">
+                                        <input type='checkbox' 
+                                               name='preferedRolesControl' 
+                                               onClick={this.handleCheckbox}/>
                                     </td>
                                     <td align="left">
                                         Combat Control (including CC and Area Denial)<br/>
@@ -230,30 +263,48 @@ class Register extends React.Component {
                                 </tr>
                                 <tr>
                                     <td align="right">
-                                        <input type='checkbox' name='preferedRolesShortDPS' onClick={this.handleCheckbox}/>
+                                        <input type='checkbox' 
+                                               name='preferedRolesShortDPS' 
+                                               onClick={this.handleCheckbox}/>
                                     </td>
                                     <td align="left">
-                                        Short Range Combat DPS (Melee or short ranged firearms, depending on game)<br/></td></tr>
+                                        Short Range Combat DPS 
+                                        (Melee or short ranged firearms, depending on game)<br/>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td align="right">
-                                        <input type='checkbox' name='preferedRolesLongDPS' onClick={this.handleCheckbox}/>
+                                        <input type='checkbox' 
+                                               name='preferedRolesLongDPS' 
+                                               onClick={this.handleCheckbox}/>
                                     </td>
                                     <td align="left">
-                                        Long Range Combat DPS<br/></td></tr>
+                                        Long Range Combat DPS<br/>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td align="right">
-                                        <input type='checkbox' name='preferedRolesScouting' onClick={this.handleCheckbox}/>
+                                        <input type='checkbox' 
+                                               name='preferedRolesScouting' 
+                                               onClick={this.handleCheckbox}/>
                                     </td>
                                     <td align="left">
-                                        Scouting<br/></td></tr>
+                                        Scouting<br/>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td align="right">
-                                        <input type='checkbox' name='preferedRolesHarvesting' onClick={this.handleCheckbox}/>
+                                        <input type='checkbox' 
+                                               name='preferedRolesHarvesting' 
+                                               onClick={this.handleCheckbox}/>
                                     </td>
                                     <td align="left">
-                                        Resourcing and Production (Mining, harvesting, crafting, etc.)</td></tr>
+                                        Resourcing and Production 
+                                        (Mining, harvesting, crafting, etc.)
+                                    </td>
+                                </tr>
                                 <tr>
-                                    <td colspan="2">
+                                    <td colSpan="2">
                                         <h4 htmlFor='willingFillNeededRoles'><br/>
                                             Are you willing, if requested, to roll specific characters or train specific
                                             skills if requested by the guild for the purpose of filling gaps in group 
@@ -262,46 +313,76 @@ class Register extends React.Component {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <input type='radio' name='willingFillNeededRoles' value={true} onClick={this.handleRadioTrue}/>Yes
-                                        <input type='radio' name='willingFillNeededRoles' value={false} onClick={this.handleRadioFalse}/>No<br/><br/>
+                                    <td colSpan="2">
+                                        <input type='radio' 
+                                               name='willingFillNeededRoles' 
+                                               value={true} 
+                                               onClick={this.handleRadioTrue}/>Yes
+                                        <input type='radio' 
+                                               name='willingFillNeededRoles' 
+                                               value={false} 
+                                               onClick={this.handleRadioFalse}/>No
+                                        <br/><br/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <h4 htmlFor='considerElite'>Would you describe yourself as an "Elite Gamer?"</h4><br/>
+                                    <td colSpan="2">
+                                        <h4 htmlFor='considerElite'>
+                                            Would you describe yourself as an "Elite Gamer?"
+                                        </h4><br/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <input type='radio' name='considerElite' value={true} onClick={this.handleRadioTrue}/>Yes
-                                        <input type='radio' name='considerElite' value={false} onClick={this.handleRadioFalse}/>No<br/><br/>
+                                    <td colSpan="2">
+                                        <input type='radio' 
+                                               name='considerElite' 
+                                               value={true} 
+                                               onClick={this.handleRadioTrue}/>Yes
+                                        <input type='radio' 
+                                               name='considerElite' 
+                                               value={false} 
+                                               onClick={this.handleRadioFalse}/>No
+                                        <br/><br/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <h4 htmlFor='pvpComfort'>How comfortable are you with PvP?</h4><br/>
-                                        Not at All<input type='range' name='pvpComfort'value={this.state.pvpComfort} onChange={this.handleChange}/>Very<br/><br/>
+                                    <td colSpan="2">
+                                        <h4 htmlFor='pvpComfort'>
+                                            How comfortable are you with PvP?
+                                        </h4><br/>
+                                        Not at All
+                                        <input type='range' 
+                                               name='pvpComfort' 
+                                               value={this.state.pvpComfort} 
+                                               onChange={this.handleChange}/>
+                                        Very<br/><br/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <h4 htmlFor='whyApply'>What made you want to apply to Flames of Exile, and why do you think you'd be a good fit for our guild?</h4><br/>
+                                    <td colSpan="2">
+                                        <h4 htmlFor='whyApply'>
+                                            What made you want to apply to Flames of Exile, and why do you think you'd be a good fit for our guild?
+                                        </h4><br/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                    <textarea name='whyApply'rows='5' cols='75' value={this.state.whyApply} onChange={this.handleChange}/><br/><br/>
+                                    <td colSpan="2">
+                                        <textarea name='whyApply'rows='5' cols='75' 
+                                                  value={this.state.whyApply} 
+                                                  onChange={this.handleChange}/><br/><br/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <h4 htmlFor='other'>Finally, is there anything else you would like to tell us about yourself?</h4><br/>
+                                    <td colSpan="2">
+                                        <h4 htmlFor='other'>
+                                            Finally, is there anything else you would like to tell us about yourself?
+                                        </h4><br/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <textarea name='other'rows='5' cols='75' onChange={this.handleChange}/><br/>
+                                    <td colSpan="2">
+                                        <textarea name='other'rows='5' cols='75' 
+                                                  onChange={this.handleChange}/><br/>
                                     </td>
                                 </tr>
                     </tbody></table>
