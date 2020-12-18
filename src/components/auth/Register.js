@@ -68,7 +68,7 @@ class Register extends React.Component {
             this.setState({
                 ...this.state,
                 [event.target.name]: false
-            })
+            });
         }else {
             this.setState({
                 ...this.state,
@@ -328,7 +328,7 @@ class Register extends React.Component {
                                 <tr>
                                     <td colSpan="2">
                                         <h4 htmlFor='considerElite'>
-                                            Would you describe yourself as an "Elite Gamer?"
+                                            Would you describe yourself as an &quot;Elite Gamer?&quot;
                                         </h4><br/>
                                     </td>
                                 </tr>
@@ -361,7 +361,8 @@ class Register extends React.Component {
                                 <tr>
                                     <td colSpan="2">
                                         <h4 htmlFor='whyApply'>
-                                            What made you want to apply to Flames of Exile, and why do you think you'd be a good fit for our guild?
+                                            What made you want to apply to Flames of Exile, 
+                                            and why do you think you&apos;d be a good fit for our guild?
                                         </h4><br/>
                                     </td>
                                 </tr>
