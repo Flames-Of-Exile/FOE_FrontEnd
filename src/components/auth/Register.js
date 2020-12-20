@@ -18,11 +18,11 @@ class Register extends React.Component {
             guildList: [],
             currentMember: false,
             interestedGames: '',
-            ingameName: '',
+            inGameName: '',
             referral: '',
             hours: '',
             timeOfPlay: '',
-            perferedRoles: [],
+            preferredRoles: [],
             willingFillNeededRoles: false,
             considerElite: false,
             pvpComfort: 0,
@@ -46,22 +46,19 @@ class Register extends React.Component {
         });
     }
 
-    handleChange = (event) => this.setState({
-        ...this.state,
-        [event.target.name]: event.target.value,
-    });
-
-    handleRadioTrue = (event) =>{
+    handleChange = (event) => {
         this.setState({
             ...this.state,
-            [event.target.name]: true
-    });}
+            [event.target.name]: event.target.value,
+        });
+    }
 
-    handleRadioFalse = (event) =>{
-        this.setState({
-            ...this.state,
-            [event.target.name]: false
-    });}
+    handleRadioChange = (event) =>{
+            this.setState({
+                ...this.state,
+                [event.target.name]: Boolean(Number(event.target.value))
+        });
+    }
 
     handleCheckbox = (event) =>{
         if (this.state[event.target.name] == true){
@@ -98,11 +95,11 @@ class Register extends React.Component {
                 guild_id: this.state.guild,
                 currentMember: this.state.currentMember,
                 interestedGames: this.state.interestedGames,
-                ingameName: this.state.ingameName,
+                inGameName: this.state.inGameName,
                 referral: this.state.referral,
                 hours: this.state.hours,
                 timeOfPlay: this.state.timeOfPlay,
-                perferedRoles: this.state.perferedRoles,
+                preferredRoles: this.state.preferredRoles,
                 willingFillNeededRoles: this.state.willingFillNeededRoles,
                 considerElite: this.state.considerElite,
                 pvpComfort: this.state.pvpComfort,
@@ -115,27 +112,6 @@ class Register extends React.Component {
                 preferedRolesScouting: this.state.preferedRolesScouting,
                 preferedRolesHarvesting: this.state.preferedRolesHarvesting,
             }));
-            if (this.state.currentMember == false){
-                await axios.post("/bot/application", JSON.stringify({
-                    interestedGames: this.state.interestedGames,
-                    ingameName: this.state.ingameName,
-                    referral: this.state.referral,
-                    hours: this.state.hours,
-                    timeOfPlay: this.state.timeOfPlay,
-                    perferedRoles: this.state.perferedRoles,
-                    willingFillNeededRoles: this.state.willingFillNeededRoles,
-                    considerElite: this.state.considerElite,
-                    pvpComfort: this.state.pvpComfort,
-                    whyApply: this.state.whyApply,
-                    other: this.state.other,
-                    preferedRolesSupport: this.state.preferedRolesSupport,
-                    preferedRolesControl: this.state.preferedRolesControl,
-                    preferedRolesShortDPS: this.state.preferedRolesShortDPS,
-                    preferedRolesLongDPS: this.state.preferedRolesLongDPS,
-                    preferedRolesScouting: this.state.preferedRolesScouting,
-                    preferedRolesHarvesting: this.state.preferedRolesHarvesting,
-                }));
-            }
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
             this.state.Application.setState({
@@ -179,9 +155,11 @@ class Register extends React.Component {
                         Are you currently a member of Flames of Exile or one of our Allied Guilds?
                     </label>
                     <br/>
-                    <input type='radio' name='currentMember' value={true} onClick={this.handleRadioTrue}/> Yes
-                    <input type='radio' name='currentMember' value={false} onClick={this.handleRadioFalse}/>No
-                    {this.state.currentMember ? 
+                    <div onChange={this.handleRadioChange}>
+                        <input type='radio' name='currentMember' value={1}/> Yes
+                        <input type='radio' name='currentMember' value={0}/>No
+                    </div>
+                    {(this.state.currentMember===true) ? 
                     <><br/>
                     <label htmlFor="guild">Which Guild are you a member of?</label>
                     <select name="guild" onChange={this.handleChange} value={this.state.guild}>
@@ -207,11 +185,11 @@ class Register extends React.Component {
                                   value={this.state.interestedGames} 
                                   onChange={this.handleChange}/>
                         <br/><br/>
-                        <h4 htmlFor='ingameName'>
+                        <h4 htmlFor='inGameName'>
                             What is you current or planned ingame name?
                         </h4><br/>
-                        <textarea name='ingameName'rows='5' cols='75' 
-                                  value={this.state.ingameName} 
+                        <textarea name='inGameName'rows='5' cols='75' 
+                                  value={this.state.inGameName} 
                                   onChange={this.handleChange}/><br/><br/>
                         <h4 htmlFor='referral'>
                             Were you referred by an existing guild member? if so please tell us who
@@ -314,14 +292,16 @@ class Register extends React.Component {
                                 </tr>
                                 <tr>
                                     <td colSpan="2">
-                                        <input type='radio' 
-                                               name='willingFillNeededRoles' 
-                                               value={true} 
-                                               onClick={this.handleRadioTrue}/>Yes
-                                        <input type='radio' 
-                                               name='willingFillNeededRoles' 
-                                               value={false} 
-                                               onClick={this.handleRadioFalse}/>No
+                                        <div onChange={this.handleRadioChange}>
+                                            <input type='radio' 
+                                                name='willingFillNeededRoles' 
+                                                value={1}
+                                                />Yes
+                                            <input type='radio' 
+                                                name='willingFillNeededRoles' 
+                                                value={0} 
+                                                />No
+                                        </div>
                                         <br/><br/>
                                     </td>
                                 </tr>
@@ -334,14 +314,16 @@ class Register extends React.Component {
                                 </tr>
                                 <tr>
                                     <td colSpan="2">
-                                        <input type='radio' 
-                                               name='considerElite' 
-                                               value={true} 
-                                               onClick={this.handleRadioTrue}/>Yes
-                                        <input type='radio' 
-                                               name='considerElite' 
-                                               value={false} 
-                                               onClick={this.handleRadioFalse}/>No
+                                        <div onChange={this.handleRadioChange}>
+                                            <input type='radio' 
+                                                name='considerElite' 
+                                                value={1} 
+                                                />Yes
+                                            <input type='radio' 
+                                                name='considerElite' 
+                                                value={0}
+                                                />No
+                                        </div>
                                         <br/><br/>
                                     </td>
                                 </tr>
