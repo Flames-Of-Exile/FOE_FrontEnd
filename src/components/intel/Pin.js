@@ -144,9 +144,9 @@ function Pin(props){
             case 8:
             case 9:
             case 10:
-                return ['#1d014d',.3]
+                return ['#1d014d',.3];
             default:
-                return ['#000000',.1]
+                return ['#000000',.1];
         }
     }
 
