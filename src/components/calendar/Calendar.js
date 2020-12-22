@@ -3,6 +3,8 @@ import React, {
     useState
 } from 'react';
 
+import Model from 'react-model'
+
 import Socket from '../helper_functions/Socket';
 const socket = new Socket();
 
@@ -39,11 +41,17 @@ function Calendar(props) {
         })
     }
 
+    const newEvent = () => {
+
+    }
+
     return(
         <div>
+            <h1>Upcoming Events</h1>
             {state.events.map( (e, index) => (
                 <Event key={index} {...e}/>
             ))}
+            <button onClick={newEvent}>Add Event</button>
         </div>
     )
 }
