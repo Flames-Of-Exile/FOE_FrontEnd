@@ -3,8 +3,6 @@ import React, {
     useState
 } from 'react';
 
-import Model from 'react-model'
-
 import Socket from '../helper_functions/Socket';
 const socket = new Socket();
 
@@ -55,3 +53,5 @@ function Calendar(props) {
         </div>
     )
 }
+
+export default Calendar;
