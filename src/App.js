@@ -119,6 +119,7 @@ class App extends React.Component {
                     <Route path="/campaigns" render={props => <CampaignSelector {...props} Application={this} />} />
                     <Route exact path="/pin/new" render={props => <NewPin {...props} Application={this} />} />
                     <Route exact path="/pin/:id" render={props => <PinHistory {...props} Application={this} />} />
+                    <Route exact path="/calendar" render={props => <Calendar {...props} Application={this} />} />
                     <Route path="/" render={props => <Home {...props} Application={this} />} />
                   </Switch>
                 : // else user has not confirmed their discord
