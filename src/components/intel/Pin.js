@@ -137,10 +137,24 @@ function Pin(props){
         return '#ffffff';
     }
 
+    function rankSelector(rank) {
+        switch(rank) {
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                return ['#1d014d',.3]
+            default:
+                return ['#000000',.1]
+        }
+    }
+
     useEffect(() => {
         let resourceColor = colorSetter(props.pin.resource);
+        let strokeAtribs = rankSelector(props.pin.rank);
         let iconStyle = {stroke: resourceColor, fill: '#000000', strokeWidth: .1};
-        let borderStyle = {stroke: '#000000', fill: resourceColor, strokeWidth: .1};
+        let borderStyle = {stroke: strokeAtribs[0], fill: resourceColor, strokeWidth: strokeAtribs[1]};
         let cutoutStyle = {stroke: resourceColor, fill: resourceColor, strokeWidth: .1};
         let url = chooseSVG(iconStyle, borderStyle, cutoutStyle);
         setState({
