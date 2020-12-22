@@ -31,7 +31,7 @@ function World(props) {
     }, []);
 
     useEffect(() => {
-        if (props.world == undefined) {return;}
+        if (props.world === undefined) {return;}
         const image = new Image();
         image.src = props.world.image;
         image.onload = () => setState({

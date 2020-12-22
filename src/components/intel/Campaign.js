@@ -13,7 +13,7 @@ function Campaign(props) {
     const overlayRef = useRef(null);
 
     useEffect(() => {
-        if (props.campaign.image == undefined) {return;}
+        if (props.campaign.image === undefined) {return;}
         const image = new Image();
         image.src = props.campaign.image;
         image.onload = () => {

@@ -59,7 +59,7 @@ function CampaignUpdate(props) {
             </div>
             <button onClick={handleSubmit}>Submit</button>
             <br />
-            <img src={props.campaign.image}/>
+            <img src={props.campaign.image} alt='The Campain world'/>
         </div>
     );
 }

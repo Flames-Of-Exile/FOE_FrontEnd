@@ -101,7 +101,7 @@ function CampaignSelector(props) {
 
     const handleCampaignChange = (event) => {
         let index = event.target.value;
-        if (index == -1) {
+        if (index === -1) {
             return;
         }
         props.history.push(`/campaigns/${state.campaigns[index].name}`);
@@ -114,7 +114,7 @@ function CampaignSelector(props) {
 
     const handleWorldChange = (event) => {
         let index = event.target.value;
-        if (index == -1) {
+        if (index === -1) {
             return;
         }
         props.history.push(`/campaigns/${state.activeCampaign.name}/${state.activeCampaign.worlds[index].name}`);

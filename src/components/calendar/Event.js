@@ -3,9 +3,9 @@ import React, {
     useState
 } from 'react';
 
-import Modal from 'react-model';
+import Modal from 'react-modal';
 
-import Socket from '../helper_functions/Socket';
+import Socket from '../../helper_functions/Socket';
 const socket = new Socket();
 
 function Event(props) {

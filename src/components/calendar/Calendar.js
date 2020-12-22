@@ -3,8 +3,11 @@ import React, {
     useState
 } from 'react';
 
-import Socket from '../helper_functions/Socket';
+import Event from "./Event";
+
+import Socket from '../../helper_functions/Socket';
 const socket = new Socket();
+const axios = require("axios").default;
 
 function Calendar(props) {
     const [state, setState] = useState({

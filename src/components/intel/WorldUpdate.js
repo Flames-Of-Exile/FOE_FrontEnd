@@ -33,7 +33,7 @@ function NewWorld(props) {
     },[]);
 
     useEffect(() => {
-        if (props.campaign.image == undefined) {return;}
+        if (props.campaign.image === undefined) {return;}
         const image = new Image();
         image.src = props.campaign.image;
         image.onload = () => setState({...state, width: image.naturalWidth, height: image.naturalHeight, loading: false});
