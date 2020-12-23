@@ -6,32 +6,27 @@ import React, {
 import Event from "./Event";
 
 import Socket from '../../helper_functions/Socket';
-const socket = new Socket();
 const axios = require("axios").default;
 
 function Calendar(props) {
     const [state, setState] = useState({
-        Application: props.Application
+        Application: props.Application,
+        events: []
     })
 
     useEffect(() => {
-        socket.connect();
-        socket.registerListener('calendar-update', handleCalendarUpdate)
 
         async function getCalendar() {
             const response = await axios.get('/api/calendar');
             let events = response.data;
             setState({
                 ...state,
-                events: events
+                events: events,
+                newEventVisible: false
             })
         }
 
         getCalendar();
-
-        return () => {
-            socket.disconnect();
-        }
     })
 
     const handleCalendarUpdate = (data) => {
@@ -43,7 +38,17 @@ function Calendar(props) {
     }
 
     const newEvent = () => {
+        setState({
+            ...state,
+            newEventVisible: true
+        });
+    };
 
+    const closeNewEvent = () => {
+        setState({
+            ...state,
+            newEventVisible: false
+        })
     }
 
     return(
@@ -52,6 +57,7 @@ function Calendar(props) {
             {state.events.map( (e, index) => (
                 <Event key={index} {...e}/>
             ))}
+            <Event isOpen={state.newEventVisible} closeNewEvent={closeNewEvent}/>
             <button onClick={newEvent}>Add Event</button>
         </div>
     )
