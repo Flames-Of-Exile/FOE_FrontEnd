@@ -21,9 +21,9 @@ import Profile from "./components/Profile";
 import Sidebar from "./components/Sidebar";
 import Theme from "./components/Theme";
 
-import Calendar from "./components/calendar/Calendar"
-
 import Admin from "./components/admin/Admin";
+
+import Calendar from "./components/calendar/Calendar";
 
 const axios = require("axios").default;
 const url = process.env.REACT_APP_BACKEND || "http://localhost:5000/";
@@ -81,7 +81,6 @@ class App extends React.Component {
     try {
       const response = await axios.get('/api/users/refresh');
       axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
-      console.log(this.state.Application)
       Application.setState({
         ...Application.state,
         currentUser: response.data.user,

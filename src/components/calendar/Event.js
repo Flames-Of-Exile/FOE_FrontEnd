@@ -1,126 +1,84 @@
-import React, {
-    useState
-} from 'react';
+import React, {useState} from 'react';
 
-import Modal from 'react-modal';
-
-import Socket from '../../helper_functions/Socket';
-const socket = new Socket();
 const axios = require("axios").default;
 
 function Event(props) {
     const [state, setState] = useState({
         Application: props.Application,
-        name: '',
-        game: '',
-        when: '',
-        notes: '',
-    });
+        game: props.game,
+        name: props.name,
+        note: props.note,
+        date: props.date,
+        id: props.id,
+        editor: false,
+        edits: {
+            game: props.game,
+            name: props.name,
+            note: props.note,
+            date: props.date
+        }
+    })
 
-    const modalFormating = {
-        content: {
-        top                   : '50%',
-        left                  : '50%',
-        right                 : '80%',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)'
-    }}
+    const eventEditor = () => {
+        setState({
+            ...state,
+            editor: true,
+            edits:{
+                name:state.name,
+                game:state.game,
+                note:state.note,
+                date:state.date,
+            }
+        })
+    }
 
-    const handleChange = (event) => {
+    const handleEdit = (event) => {
+        let edits = state.edits;
+        edits[[event.target.name]] = event.target.value;
+        setState({
+            ...state,
+            edits: edits
+        })
+    }
+
+    const handleDate = (event) => {
         setState({
             ...state,
             [event.target.name]: event.target.value
         })
     }
 
-    const handleSubmit = async() => {
-        if (state.name === '') {
-            alert('Must provide a name for the event')
-            return
-        }
-        else if (state.game === '') {
-            alert('must provide a game for the event')
-            return
-        }
-        else if (state.when === '') {
-            alert('must provide a date and time for the event')
-            return
-        }
-        else {
-            try{
-            let responce = await axios.post("api/calendar", JSON.stringify({
-                name: state.name,
-                game: state.game,
-                when: state.when,
-                notes: state.notes
-            }))
-            if (responce.status === 200) {
-                handleCancel()
-                return
-                }
-            }
-            catch{
-                alert('there was a problem creating your event.\nIf this problem persists talk to @SysOp')
-            }
-    };
+    const update = async() => {
+        response = await axios.patch(`/api/calendar/${state.id}`, JSON.stringify(edits));
+        cancelEdit()
+    }
 
-    const handleClear = () => {
+    const cancelEdit = () => {
         setState({
             ...state,
-            name: '',
-            game: '',
-            when: '',
-            notes: ''
-        });
-    };
-
-    const handleCancel = () => {
-        handleClear();
-        props.closeNewEvent();
+            editor: false
+        })
     }
 
     return (
-        <>
-            <Modal isOpen={props.isOpen} style={modalFormating}>
-                <h2>New Event</h2>
-                <input 
-                    type='text' 
-                    name='name' 
-                    value={state.name} 
-                    onChange={handleChange}
-                    placeholder='Name'
-                /><br/>
-                <input
-                    type='text'
-                    name='game'
-                    value={state.game}
-                    onChange={handleChange}
-                    placeholder='Game'
-                /><br/>
-                <input 
-                    type='datetime-local' 
-                    name='when' 
-                    value={state.when} 
-                    onChange={handleChange}
-                /><br/>
-                <input
-                    type='text'
-                    name='notes'
-                    value={state.notes}
-                    onChange={handleChange}
-                    size='150'
-                    placeholder='Notes'
-                /><br/>
-                <button onClick={handleSubmit}>Submit</button>
-                <button onClick={handleClear}>Clear</button>
-                <button onClick={handleCancel}>Cancel</button>
-
-            </Modal>
-
-        </>
+        <div className='event' onClick={eventEditor}>
+            {state.editor ?
+            <>
+                Name: <input type='text' name='name' value={state.edits.name} onChange={handleEdit}/>
+                Game: <input type='text' name='game' value={state.edits.game} onChange={handleEdit}/><br/>
+                When: <input type='datetime-local' name='date' value={state.edits.date} onChange={handleDate}/>
+                notes: <input type='text' name='note' value={state.edits.note} onChange={handleEdit}/><br/>
+                <button onClick={update}>Update</button><button onClick={cancelEdit}>Cancel</button>
+            </>
+            :
+            <>
+                <h4 className='banner'>{state.name}</h4>
+                <h5>IN: {state.game} AT: {state.date}</h5>
+                {state.note}
+            </>
+            }
+        </div>
     )
+}
 
-}}
-
-export default Event;
+export default Event

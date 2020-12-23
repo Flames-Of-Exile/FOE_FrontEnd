@@ -1,9 +1,11 @@
 import React, {
     useEffect,
-    useState
+    useState,
+    
 } from 'react';
 
-import Event from "./Event";
+import NewEvent from "./NewEvent";
+import Event from "./Event"
 
 import Socket from '../../helper_functions/Socket';
 const axios = require("axios").default;
@@ -19,15 +21,17 @@ function Calendar(props) {
         async function getCalendar() {
             const response = await axios.get('/api/calendar');
             let events = response.data;
+            if (events !== state.events){
             setState({
                 ...state,
                 events: events,
-                newEventVisible: false
-            })
+                newEventVisible: false,
+                eventEditor: false
+            })}
         }
 
         getCalendar();
-    })
+    }, []);
 
     const handleCalendarUpdate = (data) => {
         let events = data;
@@ -53,11 +57,11 @@ function Calendar(props) {
 
     return(
         <div>
-            <h1>Upcoming Events</h1>
+            <h1 className='banner'>Upcoming Events</h1>
             {state.events.map( (e, index) => (
                 <Event key={index} {...e}/>
             ))}
-            <Event isOpen={state.newEventVisible} closeNewEvent={closeNewEvent}/>
+            <NewEvent isOpen={state.newEventVisible} closeNewEvent={closeNewEvent}/>
             <button onClick={newEvent}>Add Event</button>
         </div>
     )
