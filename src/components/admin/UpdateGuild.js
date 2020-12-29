@@ -34,7 +34,7 @@ class UpdateGuild extends React.Component {
                 ...this.state.adminPanel.state,
                 guilds: getResponse.data,
             });
-            let access = this.state.guild.is_active ? "disabled" : "enabled";
+            let access = this.state.guild.is_active ? "enabled" : "disabled";
             swal("Success", `Access for '${this.state.guild.name}' ${access}.`, "success");
         } catch (error) {
             swal("Error", error.response.data, "error");

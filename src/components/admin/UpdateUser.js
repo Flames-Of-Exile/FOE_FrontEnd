@@ -112,6 +112,7 @@ class Admin extends React.Component {
                         <option value="guest">Guest</option>
                         <option value="verified">Verified</option>
                         <option value="admin">Admin</option>
+                        <option value="alliance_member">Alliance Member</option>
                     </select>
                     <label htmlFor="guild">Guild</label>
                     <select name="guild" value={this.state.guild} onChange={this.handleChange}>
