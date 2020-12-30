@@ -20,6 +20,7 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Sidebar from "./components/Sidebar";
 import Theme from "./components/Theme";
+import Calendar from "./components/calendar/Calendar"
 
 import Admin from "./components/admin/Admin";
 
@@ -119,6 +120,7 @@ class App extends React.Component {
                     <Route path="/campaigns" render={props => <CampaignSelector {...props} Application={this} />} />
                     <Route exact path="/pin/new" render={props => <NewPin {...props} Application={this} />} />
                     <Route exact path="/pin/:id" render={props => <PinHistory {...props} Application={this} />} />
+                    <Route exact path="/calendar" render={props => <Calendar {...props} Application={this} />} />
                     <Route path="/" render={props => <Home {...props} Application={this} />} />
                   </Switch>
                 : // else user has not confirmed their discord
