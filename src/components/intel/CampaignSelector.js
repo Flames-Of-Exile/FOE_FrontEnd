@@ -131,7 +131,7 @@ function CampaignSelector(props) {
 
     return(
         <div>
-            <button onClick={handleBackToCampaign}>{state.activeCampaign.name}</button>
+            {state.activeCampaign ? <button onClick={handleBackToCampaign}>{state.activeCampaign.name}</button> : ''}
             <select name='activeCampaign'
                     id='selector'
                     placeholder='Please Choose a Campaign'
