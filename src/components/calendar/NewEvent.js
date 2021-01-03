@@ -37,10 +37,12 @@ function NewEvent(props) {
             await axios.post("/api/calendar", JSON.stringify({
                 name: state.name,
                 game: state.game,
-                date: state.date,
+                date: new Date(new Date(state.date).getTime() - new Date().getTimezoneOffset()*60000),
                 note: state.notes
             }));
-                props.NewEvent();
+                console.log(typeof(state.date));
+                console.log(state.date);
+                props.newEvent();
                 handleCancel();
             }
     };

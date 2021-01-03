@@ -90,15 +90,15 @@ function Event(props) {
         console.log(data);
         await axios.patch(`/api/calendar/${state.id}`, JSON.stringify(data));
         props.updateEvent();
-        // setState({
-        //     ...state,
-        //     game: state.edits.game,
-        //     name: state.edits.name,
-        //     note: state.edits.note,
-        //     date: new Date(state.edits.date.getTime() + new Date().getTimezoneOffset()*60000),
-        //     editor: false,
-        //     active: state.edits.active,
-        // });
+        setState({
+            ...state,
+            game: state.edits.game,
+            name: state.edits.name,
+            note: state.edits.note,
+            date: new Date(state.edits.date.getTime() + new Date().getTimezoneOffset()*60000),
+            editor: false,
+            active: state.edits.active,
+        });
     };
 
     const cancelEdit = () => {
@@ -125,14 +125,16 @@ function Event(props) {
                 Notes: <input type='text' name='note' value={state.edits.note} onChange={handleEdit}/><br/>
                 Active:<input type='checkbox' name='active' checked={state.edits.active} onChange={handleCheck}/>
                 <button onClick={update}>Update</button><button onClick={cancelEdit}>Cancel</button>
+                <button onClick={deleteEvent}>Delete Event</button>
             </>
             :
             <div onClick={eventEditor} style={state.active? {background:'white'}:{background:'#ff4455'}}>
                 <h4 className='banner'>{state.name}</h4>
-                <p><b>Where:</b> {state.game} &emsp;<b>When:</b> {state.date.toLocaleString()}</p>
-                {state.note}
+                <p><b>Where:</b> {state.game} &emsp;<b>When:</b>
+                 {console.log(typeof(state.date))}{state.date.toLocaleString()}</p>
+                {state.note}<button onClick={deleteEvent}>Delete Event</button>
             </div>
-            }<button onClick={deleteEvent}>Delete Event</button>
+            }
         </div>
     );
 }
