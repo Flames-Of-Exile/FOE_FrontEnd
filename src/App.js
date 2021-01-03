@@ -20,7 +20,7 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Sidebar from "./components/Sidebar";
 import Theme from "./components/Theme";
-import Calendar from "./components/calendar/Calendar"
+import Calendar from "./components/calendar/Calendar";
 
 import Admin from "./components/admin/Admin";
 

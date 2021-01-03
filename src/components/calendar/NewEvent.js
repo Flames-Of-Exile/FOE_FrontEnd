@@ -9,7 +9,7 @@ function NewEvent(props) {
         Application: props.Application,
         name: '',
         game: '',
-        when: '',
+        date: '',
         notes: '',
     });
 
@@ -17,40 +17,40 @@ function NewEvent(props) {
         setState({
             ...state,
             [event.target.name]: event.target.value
-        })
-    }
+        });
+    };
 
     const handleSubmit = async() => {
         if (state.name === '') {
-            alert('Must provide a name for the event')
-            return
+            alert('Must provide a name for the event');
+            return;
         }
         else if (state.game === '') {
-            alert('must provide a game for the event')
-            return
+            alert('must provide a game for the event');
+            return;
         }
-        else if (state.when === '') {
-            alert('must provide a date and time for the event')
-            return
+        else if (state.date === '') {
+            alert('must provide a date and time for the event');
+            return;
         }
         else {
-            console.log(state)
-            let responce = await axios.post("/api/calendar", JSON.stringify({
+            await axios.post("/api/calendar", JSON.stringify({
                 name: state.name,
                 game: state.game,
-                when: state.when,
+                date: state.date,
                 note: state.notes
-            }))
-                handleCancel()
+            }));
+                props.NewEvent();
+                handleCancel();
             }
-    }
+    };
 
     const handleClear = () => {
         setState({
             ...state,
             name: '',
             game: '',
-            when: '',
+            date: '',
             notes: ''
         });
     };
@@ -58,7 +58,7 @@ function NewEvent(props) {
     const handleCancel = () => {
         handleClear();
         props.closeNewEvent();
-    }
+    };
 
     return (
         <>
@@ -79,8 +79,8 @@ function NewEvent(props) {
                 /><br/>
                 <input 
                     type='datetime-local' 
-                    name='when' 
-                    value={state.when} 
+                    name='date' 
+                    value={state.date} 
                     onChange={handleChange}
                 /><br/>
                 <input
@@ -96,7 +96,7 @@ function NewEvent(props) {
                 <button onClick={handleCancel}>Cancel</button>
 
         </>
-    )
+    );
 
 }
 

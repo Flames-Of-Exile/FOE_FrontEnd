@@ -5,18 +5,22 @@ import React, {
 } from 'react';
 
 import NewEvent from "./NewEvent";
-import Event from "./Event"
-
+import Event from "./Event";
 import Socket from '../../helper_functions/Socket';
+
 const axios = require("axios").default;
+const socket = new Socket();
 
 function Calendar(props) {
     const [state, setState] = useState({
         Application: props.Application,
-        events: []
-    })
+        events: [],
+        timeZone: new Date().getTimezoneOffset()
+    });
 
     useEffect(() => {
+        socket.connect();
+        socket.registerListener('calendar-update', handleCalendarUpdate);
 
         async function getCalendar() {
             const response = await axios.get('/api/calendar');
@@ -27,19 +31,27 @@ function Calendar(props) {
                 events: events,
                 newEventVisible: false,
                 eventEditor: false
-            })}
+            });}
         }
 
         getCalendar();
+
+        return () => {
+            socket.disconnect();
+        };
     }, []);
 
+    useEffect(() => {
+        socket.registerListener('calendar-update', handleCalendarUpdate);
+    }, [props.match.params]);
+
     const handleCalendarUpdate = (data) => {
-        let events = data;
+        console.log('handle calendar update data receved');
         setState({
             ...state,
-            events: events
-        })
-    }
+            events: data
+        });
+    };
 
     const newEvent = () => {
         setState({
@@ -52,22 +64,27 @@ function Calendar(props) {
         setState({
             ...state,
             newEventVisible: false
-        })
-    }
+        });
+    };
+
+    const updateCalendar = () => {
+        console.log('update calendar socket send');
+        socket.send('calendar-update');
+    };
 
     return(
         <div>
             <h1 className='banner'>Upcoming Events</h1>
             {state.events.map( (e, index) => (
-                <Event key={index} {...e}/>
+                <Event key={index} updateEvent={updateCalendar} {...e}/>
             ))}
             {state.newEventVisible ?
-                <NewEvent isOpen={state.newEventVisible} closeNewEvent={closeNewEvent}/>
+                <NewEvent isOpen={state.newEventVisible} newEvent={updateCalendar} closeNewEvent={closeNewEvent}/>
             :
                 <button onClick={newEvent}>Add Event</button>
             }
         </div>
-    )
+    );
 }
 
 export default Calendar;
