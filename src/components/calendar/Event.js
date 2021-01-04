@@ -3,10 +3,8 @@ import React, {useState} from 'react';
 const axios = require("axios").default;
 
 function Event(props) {
-    console.log(props.date);
     const sdate = props.date.split(' ');
     const date = new Date(new Date(sdate[0] + 'T' + sdate[1]).getTime() - new Date().getTimezoneOffset()*60000);
-    console.log(date);
     const [state, setState] = useState({
         Application: props.Application,
         game: props.game,
@@ -33,6 +31,7 @@ function Event(props) {
     };
 
     const eventEditor = () => {
+        if (state.Application.state.currentUser.role === 'admin') {
         setState({
             ...state,
             editor: true,
@@ -43,7 +42,7 @@ function Event(props) {
                 date:state.date,
                 active:state.active,
             }
-        });
+        });}
     };
 
     const handleEdit = (event) => {
@@ -59,8 +58,6 @@ function Event(props) {
     const handleDate = (event) => {
         event.persist();
         console.log(state.edits.date.toISOString());
-        // console.log(new Date().toISOString());
-        // console.log(typeof(event.target.value));
         const date = new Date(event.target.value);
         const fixedDate = new Date(date.getTime());
         setState({
@@ -70,8 +67,6 @@ function Event(props) {
                 date: fixedDate
             }
         });
-        console.log(event.target.value);
-        console.log(new Date(event.target.value));
     };
 
     const handleCheck = (event) => {
@@ -87,9 +82,7 @@ function Event(props) {
 
     const update = async() => {
         let data = state.edits;
-        console.log(data.date);
         data.date = new Date(state.edits.date.getTime());
-        console.log(data);
         await axios.patch(`/api/calendar/${state.id}`, JSON.stringify(data));
         props.updateEvent();
         setState({
@@ -133,7 +126,13 @@ function Event(props) {
             <div onClick={eventEditor} style={state.active? {background:'white'}:{background:'#ff4455'}}>
                 <h4 className='banner'>{state.name}</h4>
                 <p><b>Where:</b> {state.game} &emsp;<b>When:</b> {state.date.toLocaleString()}</p>
-                {state.note}<button onClick={deleteEvent}>Delete Event</button>
+                {state.note}
+                {state.Application.state.currentUser.role === 'admin'
+                ?
+                <button onClick={deleteEvent}>Delete Event</button>
+                :
+                ''
+                }
             </div>
             }
         </div>

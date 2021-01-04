@@ -108,6 +108,11 @@ class App extends React.Component {
                 : // else user is not an admin
                   ""
                 /*end if user is admin*/}
+                {(this.state.currentUser.role === 'verified' || this.state.currentUser.role === 'admin')?
+                    <Route exact path="/calendar" render={props => <Calendar {...props} Application={this} />} />
+                :
+                ''
+                }
                 {this.state.currentUser.discord_confirmed ? //if user has confirmed their discord
                   <Switch>
                     <Route exact path="/campaigns/new" render={props => <NewCampaign {...props} Application={this} />} />
@@ -120,7 +125,6 @@ class App extends React.Component {
                     <Route path="/campaigns" render={props => <CampaignSelector {...props} Application={this} />} />
                     <Route exact path="/pin/new" render={props => <NewPin {...props} Application={this} />} />
                     <Route exact path="/pin/:id" render={props => <PinHistory {...props} Application={this} />} />
-                    <Route exact path="/calendar" render={props => <Calendar {...props} Application={this} />} />
                     <Route path="/" render={props => <Home {...props} Application={this} />} />
                   </Switch>
                 : // else user has not confirmed their discord

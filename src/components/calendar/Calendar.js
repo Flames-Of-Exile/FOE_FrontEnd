@@ -30,7 +30,7 @@ function Calendar(props) {
                 ...state,
                 events: events,
                 newEventVisible: false,
-                eventEditor: false
+                eventEditor: false,
             });}
         }
 
@@ -76,12 +76,15 @@ function Calendar(props) {
         <div>
             <h1 className='banner'>Upcoming Events</h1>
             {state.events.map( (e, index) => (
-                <Event key={index} updateEvent={updateCalendar} {...e}/>
+                <Event key={index} updateEvent={updateCalendar} Application={state.Application}{...e}/>
             ))}
             {state.newEventVisible ?
                 <NewEvent isOpen={state.newEventVisible} newEvent={updateCalendar} closeNewEvent={closeNewEvent}/>
             :
+            state.Application.state.currentUser.role === 'admin' ?
                 <button onClick={newEvent}>Add Event</button>
+            :
+                ''
             }
         </div>
     );
