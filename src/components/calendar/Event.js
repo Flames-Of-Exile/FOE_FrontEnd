@@ -3,8 +3,10 @@ import React, {useState} from 'react';
 const axios = require("axios").default;
 
 function Event(props) {
+    console.log(props.date);
     const sdate = props.date.split(' ');
-    const date = new Date(sdate[0] + 'T' + sdate[1]);
+    const date = new Date(new Date(sdate[0] + 'T' + sdate[1]).getTime() - new Date().getTimezoneOffset()*60000);
+    console.log(date);
     const [state, setState] = useState({
         Application: props.Application,
         game: props.game,
@@ -86,7 +88,7 @@ function Event(props) {
     const update = async() => {
         let data = state.edits;
         console.log(data.date);
-        data.date = new Date(state.edits.date.getTime() - new Date().getTimezoneOffset()*60000);
+        data.date = new Date(state.edits.date.getTime());
         console.log(data);
         await axios.patch(`/api/calendar/${state.id}`, JSON.stringify(data));
         props.updateEvent();
@@ -95,7 +97,7 @@ function Event(props) {
             game: state.edits.game,
             name: state.edits.name,
             note: state.edits.note,
-            date: new Date(state.edits.date.getTime() + new Date().getTimezoneOffset()*60000),
+            date: new Date(state.edits.date.getTime()),
             editor: false,
             active: state.edits.active,
         });
@@ -130,8 +132,7 @@ function Event(props) {
             :
             <div onClick={eventEditor} style={state.active? {background:'white'}:{background:'#ff4455'}}>
                 <h4 className='banner'>{state.name}</h4>
-                <p><b>Where:</b> {state.game} &emsp;<b>When:</b>
-                 {console.log(typeof(state.date))}{state.date.toLocaleString()}</p>
+                <p><b>Where:</b> {state.game} &emsp;<b>When:</b> {state.date.toLocaleString()}</p>
                 {state.note}<button onClick={deleteEvent}>Delete Event</button>
             </div>
             }
