@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 
 import capitalize from "../../helper_functions/Capitalize";
+import AuditPin from "./AuditPin";
 
 const axios = require('axios').default;
 
@@ -13,7 +14,8 @@ function PinDetails(props) {
     useEffect(() => {
         setState({
             ...state,
-            details: createDetailArray(props.pin)
+            details: createDetailArray(props.pin),
+            viewaudit: false
         });
     },[props.pin]);
 
@@ -51,17 +53,49 @@ function PinDetails(props) {
             swal("Error", error.response.data, "error");
         }   
     };
+
+    const handleAudit = () => {
+        setState({
+            ...state,
+            viewaudit: true
+        });
+    };
+
+    const stopAudit = () => {
+        setState({
+            ...state,
+            viewaudit: false
+        });
+    };
     
     return (
         <div className="popup">
+            {console.log(props.pin.edits)}
             {state.details}
             <a onClick={props.handleEdit}>Edit</a>
             {props.Application.state.currentUser.role === "admin" || 
              props.Application.state.currentUser.id === props.pin.edits[0].user.id ? // if user is admin or creator
-                <a onClick={handleDelete}>Delete</a>
+             <>
+                <a onClick={handleDelete}>Delete</a><br/>
+             </>
             : // else user is not admin
                 ""
             /* end if user is admin */}
+            {props.Application.state.currentUser.role === 'admin' && // if user is admin and view audit is false
+             state.viewaudit === false ?
+                <a onClick={handleAudit}>History</a>
+            :// else if not admin or view audit is true
+            ''
+            /*end if*/}
+            {props.Application.state.currentUser.role === 'admin' && //if user is admin and view audit is true
+             state.viewaudit === true ?
+             <>
+                {props.pin.edits.map(edit => <AuditPin key={edit.id} edit={edit}  />)}
+                <a onClick={stopAudit}>close audit</a>                
+             </>
+            :// else if not admin or view audit is false
+                ''
+            /*endif*/}
         </div>
     );
 }
