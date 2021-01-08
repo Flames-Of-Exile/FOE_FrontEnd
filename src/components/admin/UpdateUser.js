@@ -110,6 +110,7 @@ class Admin extends React.Component {
                     <label htmlFor="role">Access Level</label>
                     <select name="role" value={this.state.role} onChange={this.handleChange}>
                         <option value="guest">Guest</option>
+                        <option value="alliance_member">Alliance Member</option>
                         <option value="verified">Verified</option>
                         <option value="admin">Admin</option>
                     </select>

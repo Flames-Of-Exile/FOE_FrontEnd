@@ -13,6 +13,7 @@ class GuildList extends React.Component {
             Application: props.Application,
             guilds: props.guilds,
             guildName: "",
+            nickname: ""
         };
     }
 
@@ -22,14 +23,15 @@ class GuildList extends React.Component {
     });
 
     handleSubmit = async () => {
-        if (this.state.guildName === "") {
-            swal("Error", "Please enter a guild name.", "error");
+        if (this.state.guildName === "" || this.state.nickname === "") {
+            swal("Error", "Please enter a guild name and nickname.", "error");
             return;
         }
         try {
             swal("Sending...", "Attempting to post the guild...", "info", {buttons: false});
             const response = await axios.post('/api/guilds', JSON.stringify({
                 name: this.state.guildName,
+                nickname: this.state.nickname
             }));
             this.setState({
                 ...this.state,
@@ -52,6 +54,7 @@ class GuildList extends React.Component {
                     {this.state.guilds.map(guild => <Guild guild={guild} key={guild} Application={this.state.Application}/>)}
                 </div>
                 <input type="text" name="guildName" placeholder="new guild name" onChange={this.handleChange} />
+                <input type="text" name="nickname" placeholder="new guild nickname" onChange={this.handleChange} />
                 <button onClick={this.handleSubmit}>Add Guild</button>
             </div>
         );
