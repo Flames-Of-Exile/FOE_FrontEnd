@@ -20,6 +20,7 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Sidebar from "./components/Sidebar";
 import Theme from "./components/Theme";
+import Calendar from "./components/calendar/Calendar";
 
 import Admin from "./components/admin/Admin";
 
@@ -107,6 +108,11 @@ class App extends React.Component {
                 : // else user is not an admin
                   ""
                 /*end if user is admin*/}
+                {(this.state.currentUser.role === 'verified' || this.state.currentUser.role === 'admin')?
+                    <Route exact path="/calendar" render={props => <Calendar {...props} Application={this} />} />
+                :
+                ''
+                }
                 {this.state.currentUser.discord_confirmed ? //if user has confirmed their discord
                   <Switch>
                     <Route exact path="/campaigns/new" render={props => <NewCampaign {...props} Application={this} />} />

@@ -15,15 +15,19 @@ class UpdateGuild extends React.Component {
             Application: props.Application,
             adminPanel: props.adminPanel,
             guild: this_guild,
-            guildName: "",
+            guildName: this_guild.name,
+            nickname: this_guild.nickname
         };
     }
 
     handleToggle = async () => {
         try {
+            let data = {"name": this.state.guild.name, "is_active": !this.state.guild.is_active};
+            if (this.state.guild.nickname !== '') {
+                data['nickname'] = this.state.guild.nickname;
+            }
             const patchResponse = await axios.patch(`/api/guilds/${this.state.guild.id}`, JSON.stringify({
-                "name": this.state.guild.name,
-                "is_active": !this.state.guild.is_active
+                data
             }));
             this.setState({
                 ...this.state,
@@ -53,9 +57,13 @@ class UpdateGuild extends React.Component {
         }
         try {
             swal("Sending...", "Attempting to update the guild...", "info", {buttons: false});
+            let data = {"name": this.state.guildName,
+                        "is_active": this.state.guild.is_active,};
+            if (this.state.nickname !== '') {
+                data['nickname'] =this.state.nickname;
+            }
             const patchResponse = await axios.patch(`/api/guilds/${this.state.guild.id}`, JSON.stringify({
-                "name": this.state.guildName,
-                "is_active": this.state.guild.is_active
+                ...data
             }));
             this.setState({
                 ...this.state,
@@ -85,7 +93,16 @@ class UpdateGuild extends React.Component {
                 <button onClick={this.handleToggle}>{this.state.guild.is_active ? "Disable Access" : "Enable Access"}</button>
                 <br />
                 <br />
-                <input type="text" name="guildName" placeholder="new guild name" onChange={this.handleChange} />
+                <input type="text" 
+                       name="guildName" 
+                       placeholder="new guild name" 
+                       value={this.state.guildName}
+                       onChange={this.handleChange} />
+                <input type='text' 
+                       name="nickname" 
+                       value={this.state.nickname}
+                       placeholder='new guild nickname' 
+                       onChange={this.handleChange} />
                 <button onClick={this.handleSubmit}>Change Name</button>
             </div>
         );

@@ -6,7 +6,9 @@ function Guild(props) {
     return(
         <Link to={`/admin/guild/${props.guild.name}`}>
             <li className="user-entry">
-                <span>{props.guild.name}</span>
+                {console.log(props.guild)}
+                <span>{props.guild.name}
+                {(['', null].indexOf(props.guild.nickname) === -1 ) ? <> - {props.guild.nickname}</>: ''}</span>
             </li>
         </Link>
     );

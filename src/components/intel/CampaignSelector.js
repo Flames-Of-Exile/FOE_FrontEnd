@@ -125,8 +125,13 @@ function CampaignSelector(props) {
         });
     };
 
+    const handleBackToCampaign = () => {
+        props.history.push(`/campaigns/${state.activeCampaign.name}`);
+    };
+
     return(
         <div>
+            {state.activeCampaign ? <button onClick={handleBackToCampaign}>{state.activeCampaign.name}</button> : ''}
             <select name='activeCampaign'
                     id='selector'
                     placeholder='Please Choose a Campaign'

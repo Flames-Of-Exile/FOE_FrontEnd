@@ -13,14 +13,21 @@ function Sidebar(props) {
                 <p>{props.Application.state.currentUser.username}</p>
                 <Link to="/">Home</Link><br/>
                 <Link to="/profile">Edit Profile</Link><br />
-                <Link to="/logout">Logout</Link>
-                <br /><br /><Link to='/campaigns/new'>Add Campaign</Link>
+                <Link to="/logout">Logout</Link><br /><br />
+
+                <Link to='/campaigns/new'>Add Campaign</Link><br/><br/>
                 {props.Application.state.currentUser.role === "admin" ? // if user is admin
                 <div>
-                    <Link to="/admin">Admin</Link>
+                    <Link to="/admin">Admin</Link><br />
+                    <Link to="/calendar">Calendar</Link><br />
                 </div>
                 : // else
-                    ""
+                props.Application.state.currentUser.role === 'verified' ?
+                <>
+                    <Link to="/calendar">Calendar</Link><br />
+                </>
+                :
+                ''
                 /*end if user is admin*/}
             </div>
             : // else user is not logged in

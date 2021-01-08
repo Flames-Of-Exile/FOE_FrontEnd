@@ -13,7 +13,7 @@
     ],
     "rules": {
         "react/prop-types": "off",
-        "no-console": "warn",
+        "no-console": "off",
         "max-len": ["error", { "code": 127 }],
         "semi": "error"
     },
