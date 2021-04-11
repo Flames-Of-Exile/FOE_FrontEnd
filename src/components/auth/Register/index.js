@@ -2,7 +2,7 @@ import React from "react";
 
 import swal from "sweetalert";
 
-import validatePassword from "../../helper_functions/ValidatePassword";
+import validatePassword from "../../../helper_functions/ValidatePassword";
 
 const axios = require("axios").default;
 
