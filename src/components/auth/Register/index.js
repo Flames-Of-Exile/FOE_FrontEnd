@@ -1,104 +1,160 @@
-import React from "react";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import SessionContext from "SessionContext";
+import { AlertBarContext } from "components/AlertBar";
+import useFormReducer, {
+  setUsername,
+  setPassword1,
+  setPassword2,
+  setGuildId,
+  setGuildList,
+} from "./reducer";
 
-import swal from "sweetalert";
+const Register = () => {
+  /* CONTEXT */
+  const { setUser, refresh } = useContext(SessionContext);
+  const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
 
-import validatePassword from "../../../helper_functions/ValidatePassword";
+  /* FORM STATE */
+  const [formState, dispatch] = useFormReducer();
+  const { username, password1, password2, guildId, guildList } = formState;
+  const [loading, setLoading] = useState(false);
 
-const axios = require("axios").default;
+  useEffect(async () => {
+    const response = await axios.get("/api/guilds");
+    dispatch(setGuildList(response.data));
+    dispatch(setGuildId(response.data[0].id));
+  }, []);
 
-class Register extends React.Component {
-    constructor(props) {
-        super();
-        this.state = {
-            Application: props.Application,
-            username: "",
-            password1: "",
-            password2: "",
-            guild: "",
-            guildList: [],
-        };
+  const handleChange = (e) => {
+    switch (e.target.name) {
+      case "username":
+        dispatch(setUsername(e.target.value));
+        break;
+      case "password1":
+        dispatch(setPassword1(e.target.value));
+        break;
+      case "password2":
+        dispatch(setPassword2(e.target.value));
+        break;
+      case "guild":
+        dispatch(setGuildId(e.target.value));
+        break;
     }
+  };
 
-    async componentDidMount() {
-        const response = await axios.get("/api/guilds");
-        this.setState({
-            ...this.state,
-            guildList: response.data,
-            guild: response.data[0].id,
-        });
+  const handleSubmit = async () => {
+    if (
+      username.value === "" ||
+      password1.value === "" ||
+      password2.value === ""
+    ) {
+      dispatch(setUsername(username.value));
+      dispatch(setPassword1(password1.value));
+      dispatch(setPassword2(password2.value));
+      return;
     }
-
-    handleChange = (event) => this.setState({
-        ...this.state,
-        [event.target.name]: event.target.value,
-    });
-
-    handleSubmit = async () => {
-        if (this.state.username === "") {
-            swal("Error", "Please enter a username.", "error");
-            return;
-        }
-        if (this.state.password1 !== this.state.password2) {
-            swal("Error", "Passwords don't match.", "error");
-            return;
-        }
-        let errors = validatePassword(this.state.password1);
-        if (errors.length > 0) {
-            swal("Error", errors.join('\n'), "error");
-            return;
-        }
-        try {
-            const response = await axios.post("/api/users", JSON.stringify({
-                username: this.state.username,
-                password: this.state.password1,
-                guild_id: this.state.guild,
-            }));
-            axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
-            this.state.Application.setState({
-                ...this.state.Application.state,
-                currentUser: response.data.user,
-            });
-            setTimeout(this.state.Application.refresh, 27000, this.state.Application);
-        } catch (error) {
-            if (error.response.data.includes(`(${this.state.username}) already exists`)) {
-                swal("Error", "Username already taken, please try another.", "error");
-                return;
-            }
-            swal("Error", error.response.data, "error");
-        }
+    if (username.error || password1.error || password2.error) {
+      return;
     }
+    setLoading(true);
+    try {
+      const response = await axios.post("/api/users", {
+        username: username.value,
+        password: password1.value,
+        guild_id: guildId.value,
+      });
 
-    
-    render() {
-        return (
-            <div>
-                <div className="grid-3">
-                    <span className="column-1-3">Password must meet the following requirements:</span>
-                    <ul className="row-2 column-2">
-                        <li>At least 8 characters in length</li>
-                        <li>At least 1 uppercase character</li>
-                        <li>At least 1 lowercase character</li>
-                        <li>At least 1 number</li>
-                        <li>At least 1 symbol</li>
-                    </ul>
-                </div>
-                <br />
-                <form className="grid-2">
-                    <label htmlFor="username">Username</label>
-                    <input type="text" name="username" placeholder='user name' onChange={this.handleChange}/>
-                    <label htmlFor="password1">Password</label>
-                    <input type="password" name="password1" placeholder='password' onChange={this.handleChange}/>
-                    <label htmlFor="password2">Retype Password</label>
-                    <input type="password" name="password2" placeholder='retype password' onChange={this.handleChange}/>
-                    <label htmlFor="guild">Guild</label>
-                    <select name="guild" onChange={this.handleChange} value={this.state.guild}>
-                        {this.state.guildList.map(guild => <option key={guild} value={guild.id}>{guild.name}</option>)}
-                    </select>
-                </form>
-                <button onClick={this.handleSubmit}>Submit</button>
-            </div>
-        );
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.data.accessToken}`;
+
+      setUser(response.data.user);
+      setTimeout(refresh, 27000);
+    } catch (error) {
+      if (error.response.data.includes(`(${username.value}) already exists`)) {
+        setAlertText("Username already taken, please try another.");
+      } else {
+        setAlertText(error.response.data);
+      }
+      setSeverity("error");
+      setOpen(true);
     }
-}
+    setLoading(false);
+  };
+
+  /* COMPONENT PROPS */
+  const baseProps = {
+    onChange: handleChange,
+    disabled: loading,
+  };
+
+  const usernameFieldProps = {
+    label: "Username",
+    name: "username",
+    id: "password",
+    ...baseProps,
+    ...username,
+  };
+
+  const password1FieldProps = {
+    label: "Password",
+    name: "password1",
+    type: "password",
+    id: "password1",
+    ...baseProps,
+    ...password1,
+  };
+
+  const password2FieldProps = {
+    label: "Verify Password",
+    name: "password2",
+    type: "password",
+    id: "password2",
+    ...baseProps,
+    ...password2,
+  };
+
+  const guildSelectProps = {
+    name: "guild",
+    ...baseProps,
+    ...guildId,
+  };
+
+  return (
+    <>
+      <Grid item>
+        <TextField {...usernameFieldProps} />
+      </Grid>
+      <Grid item>
+        <TextField {...password1FieldProps} />
+      </Grid>
+      <Grid item>
+        <TextField {...password2FieldProps} />
+      </Grid>
+      <Select {...guildSelectProps}>
+        {guildList.map((guild) => (
+          <MenuItem key={guild.id} value={guild.id}>
+            {guild.name}
+          </MenuItem>
+        ))}
+      </Select>
+      <Grid item>
+        <Button variant="contained" onClick={handleSubmit} disabled={loading}>
+          Submit
+          {loading && <CircularProgress size={25} />}
+        </Button>
+      </Grid>
+    </>
+  );
+};
 
 export default Register;

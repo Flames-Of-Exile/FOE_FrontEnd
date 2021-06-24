@@ -1,55 +1,56 @@
-import React, {
-    useEffect,
-    useRef,
-    useState
-} from 'react';
+import { Button, Grid, Link, TextField, Typography } from "@material-ui/core";
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
-const axios = require('axios').default;
+const Unconfirmed = () => {
+  const [token, setToken] = useState("");
 
-function Unconfirmed() {
+  const textArea = useRef(null);
 
-    const [state, setState] = useState({
-        token: "",
-    });
+  useEffect(() => {
+    generateToken();
+  }, []);
 
-    const textArea = useRef(null);
+  const generateToken = async () => {
+    const response = await axios.get("/api/users/discord-token");
+    setToken(response.data.token);
+  };
 
-    useEffect(() => {
-        async function fetchToken() {
-            const response = await axios.get('/api/users/discord-token');
-            setState({
-                token: response.data.token,
-            });
-        }
-        fetchToken();
-    }, []);
+  const handleCopy = () => {
+    textArea.current.select();
+    document.execCommand("copy");
+  };
 
-    const handleRegenerate = async () => {
-        const response = await axios.get('/api/users/discord-token');
-        setState({
-            token: response.data.token,
-        });
-    };
-
-    const handleCopy = () => {
-        textArea.current.select();
-        document.execCommand("copy");
-    };
-
-    return (
-        <div className="grid-3">
-            <p className="column-2">Thank you for registering, please link your account to discord.</p>
-            <ol type="1" className="row-2 column-2">
-                <li>Copy the following token, it is good for 1 hour:
-                    <textarea ref={textArea} value={state.token} /> <a onClick={handleCopy}>Copy</a>
-                </li>
-                <li>Please join our <a href="https://discord.gg/HPDCnAn">discord</a>.</li>
-                <li>Type !register</li>
-                <li>Follow the instructions given by the bot.</li>
-            </ol>
-            <a className="row-3 column-2" onClick={handleRegenerate}>Regenerate token</a>
-        </div>
-    );
-}
+  return (
+    <>
+      <Grid item>
+        <Typography>
+          Thank you for registering, please link your account to discord.
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography>
+          Copy the following token, it is good for 1 hour:
+        </Typography>
+        <TextField multiline disabled={true} value={token} />
+        <Button onClick={handleCopy}>Copy</Button>
+      </Grid>
+      <Grid>
+        <Typography>
+          Please join our <Link href="https://discord.gg/HPDCnAn">discord</Link>
+        </Typography>
+      </Grid>
+      <Grid>
+        <Typography>Type !register</Typography>
+      </Grid>
+      <Grid>
+        <Typography>Follow the instructions given by the bot.</Typography>
+      </Grid>
+      <Button onClick={generateToken} variant="contained">
+        Regenerate Token
+      </Button>
+    </>
+  );
+};
 
 export default Unconfirmed;

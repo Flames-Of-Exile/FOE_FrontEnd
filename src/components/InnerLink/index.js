@@ -5,13 +5,12 @@ import { Link } from "@material-ui/core";
 const InnerLink = (props) => {
   const { text, to } = props;
 
-  const renderLink = useMemo(
-    () =>
-      forwardRef((itemProps, ref) => (
-        <RouterLink to={to} ref={ref} {...itemProps} />
-      )),
-    [to]
-  );
+  const renderLink = useMemo(() => {
+    const routerLink = (itemProps, ref) => (
+      <RouterLink to={to} ref={ref} {...itemProps} />
+    );
+    return forwardRef(routerLink);
+  }, [to]);
 
   return (
     <>

@@ -21,8 +21,6 @@ export class Socket {
   }
 }
 
-const socketContext = {
-  socket: new Socket(),
-};
+const socket = new Socket();
 
-export default createContext(socketContext);
+export default createContext(socket);

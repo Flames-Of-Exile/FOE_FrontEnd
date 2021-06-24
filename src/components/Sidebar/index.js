@@ -1,6 +1,17 @@
-import React, { forwardRef } from "react";
-
-import { Link } from "react-router-dom";
+import {
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import React, { forwardRef, useMemo, useContext } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import SessionContext from "SessionContext";
 
 const drawerWidth = 200;
 
@@ -20,18 +31,18 @@ const useStyles = makeStyles(() => ({
 const ListItemLink = (props) => {
   const { icon, primary, to } = props;
 
-  const renderLink = useMemo(
-    () =>
-      forwardRef((itemProps, ref) => (
-        <RouterLink to={to} ref={ref} {...itemProps} />
-      )),
-    [to]
-  );
+  const renderLink = useMemo(() => {
+    const routerLink = (
+      itemProps,
+      ref
+    ) => <RouterLink to={to} ref={ref} {...itemProps} />;
+    return forwardRef(routerLink);
+  }, [to]);
 
   return (
     <li>
       <ListItem button component={renderLink}>
-        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+        {icon && <ListItemIcon>{icon}</ListItemIcon>}
         <ListItemText primary={primary} />
       </ListItem>
     </li>

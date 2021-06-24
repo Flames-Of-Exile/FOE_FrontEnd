@@ -1,34 +1,58 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import SessionContext from "SessionContext";
+import {
+  Backdrop,
+  CircularProgress,
+  Grid,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
-const axios = require("axios").default;
+/* CONSTANTS */
+const sidebarWidth = 200;
 
-function Logout(props) {
-    const [state, setState] = useState({
-        loading: true
-    });
+/* STYLING */
+const useStyles = makeStyles(() => ({
+  backdrop: {
+    left: sidebarWidth,
+  },
+}));
 
-    useEffect(() => {
-        async function apiLogout() {
-            await axios.get('/api/users/logout');
-            setState({
-                loading: false
-            });
-            props.Application.syncLogout();
-            localStorage.setItem('logout', Date.now());
-        }
-        apiLogout();
-    }, []);
+const Logout = () => {
+  /* STYLING */
+  const classes = useStyles();
 
-    
-    return (
-        <div className="main">
-            {state.loading ? 
-                "Logging out..."
-            :
-                "Successfully logged out!"
-            }
-        </div>
-    );
-}
+  /* LOAD STATE */
+  const [loading, setLoading] = useState(true);
+
+  /* CONTEXT */
+  const { syncLogout } = useContext(SessionContext);
+
+  /* LOGOUT */
+  const logout = useCallback(async () => {
+    await axios.get("/api/users/logout");
+    setLoading(false);
+    localStorage.setItem("logout", Date.now());
+    syncLogout();
+  }, [syncLogout]);
+
+  useEffect(() => {
+    logout();
+  }, [logout]);
+
+  return (
+    <>
+      <Backdrop className={classes.backdrop} open={loading}>
+        <CircularProgress />
+      </Backdrop>
+      <Grid item>
+        <Typography>
+          {loading ? "Logging out..." : "Successfully logged out!"}
+        </Typography>
+      </Grid>
+    </>
+  );
+};
 
 export default Logout;
