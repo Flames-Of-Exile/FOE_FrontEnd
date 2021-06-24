@@ -74,7 +74,7 @@ const App = () => {
   return (
     <SessionContext.Provider value={{ user, setUser, refresh, syncLogout }}>
       <AlertBarContext.Provider value={{ setOpen, setAlertText, setSeverity }}>
-        <SocketContext.Provider value={{ socket }}>
+        <SocketContext.Provider value={ socket }>
           <ThemeProvider theme={Theme}>
             <div className={classes.app}>
               <Router>

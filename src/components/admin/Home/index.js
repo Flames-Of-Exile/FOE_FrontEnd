@@ -1,9 +1,9 @@
 import { Backdrop } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import GuildList from "./GuildList";
-import UpdateGuild from "./UpdateGuild";
-import UpdateUser from "./UpdateUser";
+import GuildList from "components/admin/GuildList";
+import UpdateGuild from "components/admin/UpdateGuild";
+import UpdateUser from "components/admin/UpdateUser";
 import { AlertBarContext } from "components/AlertBar";
 import axios from "axios";
 import { context } from "./context";
@@ -33,13 +33,13 @@ const Home = () => {
       <Switch>
         <context.Provider value={{ guilds, setGuilds }}>
           <Route exact path="/admin/guild/:name">
-            <UpdateGuild guilds={guilds} />
+            <UpdateGuild />
           </Route>
           <Route exact path="/admin/guild/user/:id">
-            <UpdateUser guilds={guilds} />
+            <UpdateUser />
           </Route>
           <Route path="/admin">
-            <GuildList guilds={guilds} />
+            <GuildList />
           </Route>
         </context.Provider>
       </Switch>

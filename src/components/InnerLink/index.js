@@ -1,9 +1,9 @@
 import React, { forwardRef, useMemo } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Link } from "@material-ui/core";
+import { Link, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
 const InnerLink = (props) => {
-  const { text, to } = props;
+  const { icon, primary, to, variant } = props;
 
   const renderLink = useMemo(() => {
     const routerLink = (itemProps, ref) => (
@@ -12,9 +12,20 @@ const InnerLink = (props) => {
     return forwardRef(routerLink);
   }, [to]);
 
+  if (variant === "list") {
+    return (
+      <li>
+        <ListItem button component={renderLink}>
+          {icon && <ListItemIcon>{icon}</ListItemIcon>}
+          <ListItemText primary={primary} />
+        </ListItem>
+      </li>
+    );
+  }
+
   return (
     <>
-      <Link component={renderLink}>{text}</Link>
+      <Link component={renderLink}>{primary}</Link>
     </>
   );
 };

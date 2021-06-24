@@ -2,16 +2,13 @@ import {
   Divider,
   Drawer,
   List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   makeStyles,
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import React, { forwardRef, useMemo, useContext } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useContext } from "react";
 import SessionContext from "SessionContext";
+import InnerLink from "components/InnerLink";
 
 const drawerWidth = 200;
 
@@ -28,44 +25,27 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ListItemLink = (props) => {
-  const { icon, primary, to } = props;
-
-  const renderLink = useMemo(() => {
-    const routerLink = (
-      itemProps,
-      ref
-    ) => <RouterLink to={to} ref={ref} {...itemProps} />;
-    return forwardRef(routerLink);
-  }, [to]);
-
-  return (
-    <li>
-      <ListItem button component={renderLink}>
-        {icon && <ListItemIcon>{icon}</ListItemIcon>}
-        <ListItemText primary={primary} />
-      </ListItem>
-    </li>
-  );
-};
-
 const Sidebar = () => {
   const classes = useStyles();
   const { user } = useContext(SessionContext);
 
   var links = [];
   if (user.id) {
-    links.push(<ListItemLink to="/" primary="Home" />);
-    links.push(<ListItemLink to="/profile" primary="Edit Profile" />);
-    links.push(<ListItemLink to="/logout" primary="Logout" />);
-    links.push(<ListItemLink to="/campaigns/new" primary="Add Campaign" />);
+    links.push(<InnerLink to="/" primary="Home" variant="list" />);
+    links.push(
+      <InnerLink to="/profile" primary="Edit Profile" variant="list" />
+    );
+    links.push(<InnerLink to="/logout" primary="Logout" variant="list" />);
+    links.push(
+      <InnerLink to="/campaigns/new" primary="Add Campaign" variant="list" />
+    );
     if (user.role === "admin") {
       links.push(<Divider />);
-      links.push(<ListItemLink to="/admin" primary="Admin" />);
+      links.push(<InnerLink to="/admin" primary="Admin" variant="list" />);
     }
   } else {
-    links.push(<ListItemLink to="/login" primary="Login" />);
-    links.push(<ListItemLink to="/register" primary="Register" />);
+    links.push(<InnerLink to="/login" primary="Login" variant="list" />);
+    links.push(<InnerLink to="/register" primary="Register" variant="list" />);
   }
 
   return (

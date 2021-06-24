@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <>
-      <InnerLink to="/campaigns" text="Campaign Maps" />
+      <InnerLink to="/campaigns" primary="Campaign Maps" />
     </>
   );
 };
