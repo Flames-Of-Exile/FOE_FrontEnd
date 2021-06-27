@@ -19,6 +19,10 @@ export class Socket {
   registerListener(name, callback) {
     this.socket.on(name, callback);
   }
+
+  removeListener(name) {
+    this.socket.removeListener(name);
+  }
 }
 
 const socket = new Socket();
