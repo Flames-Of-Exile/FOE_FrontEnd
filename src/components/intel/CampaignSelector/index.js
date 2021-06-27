@@ -11,7 +11,7 @@ import SocketContext from "SocketContext";
 import { context } from "./context";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-function CampaignSelector() {
+const CampaignSelector = () => {
   const params = useParams();
   const location = useLocation();
   const history = useHistory();
@@ -47,7 +47,7 @@ function CampaignSelector() {
     setCampaigns(campaigns);
     setActiveCampaign(activeCampaign);
     setWorld(activeWorld);
-    
+
     if (activeCampaign && location.pathname === "/campaigns") {
       history.push(`/campaigns/${activeCampaign.name}`);
     }
@@ -171,7 +171,7 @@ function CampaignSelector() {
       </context.Provider>
     </>
   );
-}
+};
 
 export const CampaignContext = context;
 export default CampaignSelector;
