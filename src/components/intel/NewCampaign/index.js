@@ -25,6 +25,7 @@ const NewCampaign = () => {
   const handleSubmit = async () => {
     if (name.error || name.value === "" || file.value === null) {
       dispatch(setName(name.value));
+      dispatch(setFile(file.value, filename.value));
       return;
     }
     setLoading(true);
