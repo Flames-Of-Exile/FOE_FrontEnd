@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import checkPasswordComplexity from "helpers/checkPasswordComplexity";
+import checkPasswordComplexity from "helper_functions/checkPasswordComplexity";
 
 export const setUsername = (username) => {
   return {

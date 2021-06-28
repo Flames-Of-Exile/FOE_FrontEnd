@@ -1,4 +1,5 @@
-import { Autocomplete, Button, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";

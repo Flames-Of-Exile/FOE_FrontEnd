@@ -1,6 +1,6 @@
 import { Link, Typography } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
-import { AlertBarContext } from "components/intel/AlertBar";
+import { AlertBarContext } from "components/AlertBar";
 import capitalize from "helper_functions/Capitalize";
 import axios from "axios";
 import SessionContext from "SessionContext";

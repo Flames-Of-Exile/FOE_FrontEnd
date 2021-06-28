@@ -9,7 +9,7 @@ import UserList from "components/admin/UserList";
 import axios from "axios";
 import { AdminContext } from "components/admin/Home";
 import { useParams } from "react-router-dom";
-import { AlertBarContext } from "component/AlertBar";
+import { AlertBarContext } from "components/AlertBar";
 import useFormReducer, { setGuildName } from "./reducer";
 
 const UpdateGuild = () => {

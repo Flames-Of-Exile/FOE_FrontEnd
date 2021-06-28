@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import passwordValidator from "helper_functions/ValidatePassword";
+import passwordValidator from "helper_functions/checkPasswordComplexity";
 
 export const setPassword1 = (password) => {
   return {

@@ -4,7 +4,6 @@ import {
   CircularProgress,
   FormControlLabel,
   Grid,
-  Image,
   TextField,
 } from "@material-ui/core";
 import React, { useContext, useState } from "react";
@@ -113,7 +112,7 @@ function CampaignUpdate() {
           Submit{loading && <CircularProgress />}
         </Button>
       </Grid>
-      <Image src={campaign.image} />
+      <img src={campaign.image} />
     </>
   );
 }

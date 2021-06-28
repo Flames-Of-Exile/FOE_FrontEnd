@@ -90,11 +90,11 @@ const validateNumber = (number) => {
   return { error: false, helperText: "" };
 };
 
-const validateNotes = (notes) => {
+const validateNotes = () => {
   return { error: false, helperText: "" };
 };
 
-const validateCoord = (coord) => {
+const validateCoord = () => {
   return { error: false, helperText: "" };
 };
 
