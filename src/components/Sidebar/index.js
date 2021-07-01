@@ -3,7 +3,6 @@ import {
   Drawer,
   List,
   makeStyles,
-  Toolbar,
   Typography,
 } from "@material-ui/core";
 import React, { useContext } from "react";
@@ -22,6 +21,8 @@ const useStyles = makeStyles(() => ({
   },
   drawerContainer: {
     overflow: "auto",
+    margin: 10,
+    marginTop: 20,
   },
 }));
 
@@ -54,7 +55,6 @@ const Sidebar = () => {
       className={classes.drawer}
       classes={{ paper: classes.drawerPaper }}
     >
-      <Toolbar />
       <div className={classes.drawerContainer}>
         <Typography>Welcome to the Flames of Exile</Typography>
         <List>{links}</List>

@@ -6,7 +6,7 @@ import {
   Grid,
   TextField,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SocketContext from "SocketContext";
 import axios from "axios";
 import useFormReducer, {
@@ -28,6 +28,12 @@ function CampaignUpdate() {
   const { socket } = useContext(SocketContext);
   const { activeCampaign: campaign } = useContext(CampaignContext);
   const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+
+  useEffect(() => {
+    dispatch(setName(campaign.name));
+    dispatch(setIsDefault(campaign.is_default));
+    dispatch(setIsArchived(campaign.is_archived));
+  }, [campaign]);
 
   const handleChange = (e) => {
     switch (e.target.name) {

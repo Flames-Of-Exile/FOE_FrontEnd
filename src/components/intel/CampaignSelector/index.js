@@ -1,4 +1,4 @@
-import { MenuItem, Select } from "@material-ui/core";
+import { Grid, MenuItem, Select } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Campaign from "components/intel/Campaign";
@@ -123,27 +123,31 @@ const CampaignSelector = () => {
           setWorld,
         }}
       >
-        <Select {...campaignSelectProps}>
-          <MenuItem value={-1}>Please Choose a Campaign</MenuItem>
-          {campaigns.map((campaign, index) => (
-            <MenuItem key={index} value={index}>
-              {campaign.name}
-            </MenuItem>
-          ))}
-        </Select>
+        <Grid item>
+          <Select {...campaignSelectProps}>
+            <MenuItem value={-1}>Please Choose a Campaign</MenuItem>
+            {campaigns.map((campaign, index) => (
+              <MenuItem key={index} value={index}>
+                {campaign.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </Grid>
         {
           activeCampaign ? ( // if there is an active campaign
-            <Select
-              onChange={handleWorldChange}
-              value={activeCampaign.worlds.indexOf(world)}
-            >
-              <MenuItem value={-1}>-</MenuItem>
-              {activeCampaign.worlds.map((world, index) => (
-                <MenuItem key={index} value={index}>
-                  {world.name}
-                </MenuItem>
-              ))}
-            </Select>
+            <Grid item>
+              <Select
+                onChange={handleWorldChange}
+                value={activeCampaign.worlds.indexOf(world)}
+              >
+                <MenuItem value={-1}>-</MenuItem>
+                {activeCampaign.worlds.map((world, index) => (
+                  <MenuItem key={index} value={index}>
+                    {world.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
           ) : // else if there is no active campaign
           null
           /* end if there is an active campaign*/

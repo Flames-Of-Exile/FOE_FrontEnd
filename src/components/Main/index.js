@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { makeStyles, Grid, Toolbar } from "@material-ui/core";
+import { makeStyles, Grid } from "@material-ui/core";
 import { Route, Switch } from "react-router";
 import SessionContext from "SessionContext";
 import Logout from "components/auth/Logout";
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     passing: theme.spacing(3),
+    marginTop: 20,
   },
 }));
 
@@ -109,9 +110,6 @@ const Main = () => {
         // xs="auto"
         spacing={3}
       >
-        <Grid item>
-          <Toolbar />
-        </Grid>
         <Switch>{routes}</Switch>
       </Grid>
     </main>

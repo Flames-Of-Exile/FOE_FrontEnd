@@ -34,7 +34,7 @@ const NewWorld = () => {
 
   const overlayRef = useRef(null);
 
-  const { campaign } = useContext(CampaignContext);
+  const { activeCampaign: campaign } = useContext(CampaignContext);
   const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
   const { socket } = useContext(SocketContext);
 
@@ -127,6 +127,7 @@ const NewWorld = () => {
   };
 
   const fileTextFieldProps = {
+    type: "file",
     name: "file",
     id: "file",
     label: filename.value,

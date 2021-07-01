@@ -1,5 +1,11 @@
-import { Backdrop, Typography } from "@material-ui/core";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { Backdrop, Grid, Typography, makeStyles } from "@material-ui/core";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Circle, MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
 import { CampaignContext } from "components/intel/CampaignSelector";
@@ -7,7 +13,15 @@ import SessionContext from "SessionContext";
 import { useHistory } from "react-router-dom";
 import InnerLink from "components/InnerLink";
 
+const useStyles = makeStyles(() => ({
+  map: {
+    width: "100%",
+    height: "90vh",
+  },
+}));
+
 const Campaign = () => {
+  const classes = useStyles();
   const history = useHistory();
 
   const [state, setState] = useState({
@@ -36,17 +50,7 @@ const Campaign = () => {
     };
   }, [campaign]);
 
-  const handleLoad = () => {
-    if (overlayRef.current) {
-      let ratio = state.height / state.width;
-      overlayRef.current.setBounds([
-        [-400, -400 / ratio],
-        [400, 400 / ratio],
-      ]);
-    }
-  };
-
-  useEffect(() => {
+  const handleLoad = useCallback(() => {
     if (overlayRef.current) {
       let ratio = state.height / state.width;
       overlayRef.current.setBounds([
@@ -56,55 +60,66 @@ const Campaign = () => {
     }
   }, [state.height, state.width]);
 
+  useEffect(() => {
+    handleLoad();
+  }, [handleLoad]);
+
   if (state.loading) {
     return <Backdrop open />;
   }
   return (
     <>
-      <Typography>{campaign.name}</Typography>
-      <MapContainer
-        center={[0, 0]}
-        zoom={0}
-        keyboard={false}
-        scrollWheelZoom={false}
-        crs={CRS.Simple}
-        minZoom={-5}
-        maxZoom={5}
-      >
-        <ImageOverlay
-          url={campaign.image}
-          ref={overlayRef}
-          bounds={[
-            [0, 0],
-            [0, 0],
-          ]}
-          eventHandlers={{ load: handleLoad }}
+      <Grid item>
+        <Typography>{campaign.name}</Typography>
+      </Grid>
+        <MapContainer
+          center={[0, 0]}
+          zoom={0}
+          keyboard={false}
+          scrollWheelZoom={false}
+          crs={CRS.Simple}
+          minZoom={-5}
+          maxZoom={5}
+          className={classes.map}
+        >
+          <ImageOverlay
+            url={campaign.image}
+            ref={overlayRef}
+            bounds={[
+              [0, 0],
+              [0, 0],
+            ]}
+            eventHandlers={{ load: handleLoad }}
+          />
+          {campaign.worlds.map((world) => (
+            <div key={world}>
+              <Circle
+                center={[world.center_lat, world.center_lng]}
+                radius={world.radius}
+                opacity={0}
+                fillColor={"yellow"}
+                eventHandlers={{
+                  click: () =>
+                    history.push(`/campaigns/${campaign.name}/${world.name}`),
+                }}
+              />
+            </div>
+          ))}
+        </MapContainer>
+      <Grid item>
+        <InnerLink
+          to={`/campaigns/${campaign.name}/addworld`}
+          primary="Add World"
         />
-        {campaign.worlds.map((world) => (
-          <div key={world}>
-            <Circle
-              center={[world.center_lat, world.center_lng]}
-              radius={world.radius}
-              opacity={0}
-              fillColor={"yellow"}
-              eventHandlers={{
-                click: () =>
-                  history.push(`/campaigns/${campaign.name}/${world.name}`),
-              }}
-            />
-          </div>
-        ))}
-      </MapContainer>
-      <InnerLink
-        to={`/campaigns/${campaign.name}/addworld`}
-        primary="Add World"
-      />
+      </Grid>
       {
         user.role === "admin" ? ( // if user is admin
-          <InnerLink
-            to={`/campaigns/${campaign.name}/update`}
-            primary="Edit Campaign"
-          />
+          <Grid item>
+            <InnerLink
+              to={`/campaigns/${campaign.name}/update`}
+              primary="Edit Campaign"
+            />
+          </Grid>
         ) : (
           // else
           ""
