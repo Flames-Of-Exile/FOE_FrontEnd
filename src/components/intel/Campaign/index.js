@@ -24,11 +24,8 @@ const Campaign = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [state, setState] = useState({
-    width: 0,
-    height: 0,
-    loading: true,
-  });
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  const [loading, setLoading] = useState(true);
   const overlayRef = useRef(null);
 
   const { activeCampaign: campaign } = useContext(CampaignContext);
@@ -41,30 +38,26 @@ const Campaign = () => {
     const image = new Image();
     image.src = campaign.image;
     image.onload = () => {
-      setState({
-        ...state,
-        width: image.naturalWidth,
-        height: image.naturalHeight,
-        loading: false,
-      });
+      setSize({ width: image.naturalWidth, height: image.naturalHeight });
+      setLoading(false);
     };
   }, [campaign]);
 
   const handleLoad = useCallback(() => {
     if (overlayRef.current) {
-      let ratio = state.height / state.width;
+      let ratio = size.height / size.width;
       overlayRef.current.setBounds([
         [-400, -400 / ratio],
         [400, 400 / ratio],
       ]);
     }
-  }, [state.height, state.width]);
+  }, [size]);
 
   useEffect(() => {
     handleLoad();
   }, [handleLoad]);
 
-  if (state.loading) {
+  if (loading) {
     return <Backdrop open />;
   }
   return (
@@ -72,40 +65,40 @@ const Campaign = () => {
       <Grid item>
         <Typography>{campaign.name}</Typography>
       </Grid>
-        <MapContainer
-          center={[0, 0]}
-          zoom={0}
-          keyboard={false}
-          scrollWheelZoom={false}
-          crs={CRS.Simple}
-          minZoom={-5}
-          maxZoom={5}
-          className={classes.map}
-        >
-          <ImageOverlay
-            url={campaign.image}
-            ref={overlayRef}
-            bounds={[
-              [0, 0],
-              [0, 0],
-            ]}
-            eventHandlers={{ load: handleLoad }}
-          />
-          {campaign.worlds.map((world) => (
-            <div key={world}>
-              <Circle
-                center={[world.center_lat, world.center_lng]}
-                radius={world.radius}
-                opacity={0}
-                fillColor={"yellow"}
-                eventHandlers={{
-                  click: () =>
-                    history.push(`/campaigns/${campaign.name}/${world.name}`),
-                }}
-              />
-            </div>
-          ))}
-        </MapContainer>
+      <MapContainer
+        center={[0, 0]}
+        zoom={0}
+        keyboard={false}
+        scrollWheelZoom={false}
+        crs={CRS.Simple}
+        minZoom={-5}
+        maxZoom={5}
+        className={classes.map}
+      >
+        <ImageOverlay
+          url={campaign.image}
+          ref={overlayRef}
+          bounds={[
+            [0, 0],
+            [0, 0],
+          ]}
+          eventHandlers={{ load: handleLoad }}
+        />
+        {campaign.worlds.map((world) => (
+          <div key={world}>
+            <Circle
+              center={[world.center_lat, world.center_lng]}
+              radius={world.radius}
+              opacity={0}
+              fillColor={"yellow"}
+              eventHandlers={{
+                click: () =>
+                  history.push(`/campaigns/${campaign.name}/${world.name}`),
+              }}
+            />
+          </div>
+        ))}
+      </MapContainer>
       <Grid item>
         <InnerLink
           to={`/campaigns/${campaign.name}/addworld`}

@@ -1,9 +1,15 @@
-import { Backdrop } from "@material-ui/core";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { Backdrop, Grid, makeStyles, Typography } from "@material-ui/core";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
 import InnerLink from "components/InnerLink";
-import FilterBox from "components/intel/FilterBox";
+// import FilterBox from "components/intel/FilterBox";
 import Pin from "components/intel/Pin";
 import NewPin from "components/intel/NewPin";
 import { useLocation, useParams } from "react-router-dom";
@@ -11,7 +17,15 @@ import { CampaignContext } from "components/intel/CampaignSelector";
 import SessionContext from "SessionContext";
 import queryString from "query-string";
 
+const useStyles = makeStyles(() => ({
+  map: {
+    width: "100%",
+    height: "90vh",
+  },
+}));
+
 const World = () => {
+  const classes = useStyles();
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [pins, setPins] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +39,7 @@ const World = () => {
   const { user } = useContext(SessionContext);
 
   useEffect(() => {
-    if (world == undefined) {
+    if (world.image == undefined) {
       return;
     }
     const image = new Image();
@@ -73,16 +87,7 @@ const World = () => {
     return world.pins;
   };
 
-  const handleLoad = () => {
-    if (overlayRef.current) {
-      overlayRef.current.setBounds([
-        [-1 * size.height, -1 * size.width],
-        [size.height, size.width],
-      ]);
-    }
-  };
-
-  useEffect(() => {
+  const handleLoad = useCallback(() => {
     if (overlayRef.current) {
       overlayRef.current.setBounds([
         [-1 * size.height, -1 * size.width],
@@ -91,17 +96,25 @@ const World = () => {
     }
   }, [size]);
 
+  useEffect(() => {
+    handleLoad;
+  }, [handleLoad]);
+
   if (loading) {
-    return <Backdrop />;
+    return <Backdrop open />;
   }
   return (
     <>
+      <Grid item>
+        <Typography>{world.name}</Typography>
+      </Grid>
       <MapContainer
         center={[0, 0]}
         zoom={-1}
         scrollWheelZoom={true}
         crs={CRS.Simple}
         minZoom={-3}
+        className={classes.map}
       >
         <NewPin />
         <ImageOverlay
@@ -117,13 +130,15 @@ const World = () => {
           <Pin key={pin} pin={pin} />
         ))}
       </MapContainer>
-      <FilterBox />
+      {/* <FilterBox /> */}
       {
         user.role === "admin" ? ( // if user is admin
-          <InnerLink
-            to={`/campaigns/${params.campaign}/${world.name}/update`}
-            primary="Edit World"
-          />
+          <Grid item>
+            <InnerLink
+              to={`/campaigns/${params.campaign}/${world.name}/update`}
+              primary="Edit World"
+            />
+          </Grid>
         ) : (
           // else
           ""

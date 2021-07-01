@@ -1,5 +1,5 @@
 import { Grid, MenuItem, Select } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Campaign from "components/intel/Campaign";
 import CampaignUpdate from "components/intel/CampaignUpdate";
@@ -13,8 +13,8 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 
 const CampaignSelector = () => {
   const params = useParams();
-  const location = useLocation();
   const history = useHistory();
+  const location = useLocation();
 
   const [campaigns, setCampaigns] = useState([]);
   const [activeCampaign, setActiveCampaign] = useState({
@@ -22,66 +22,64 @@ const CampaignSelector = () => {
     name: "",
   });
   const [world, setWorld] = useState({ pins: [], name: "" });
+  const [indices, setIndices] = useState({ campaign: -1, world: -1 });
 
   const { socket } = useContext(SocketContext);
 
-  useEffect(async () => {
-    socket.registerListener("campaign-update", handleCampaignUpdate);
-
-    const response = await axios.get(`/api/campaigns`);
-    let campaigns = response.data;
-    let activeCampaign = campaigns[0];
-    let activeWorld = { pins: [], name: "" };
-    if (params.campaign) {
-      activeCampaign = campaigns.filter(
-        (campaign) => campaign.name === params.campaign
-      )[0];
-      if (params.world) {
-        activeWorld = activeCampaign.worlds.filter(
-          (world) => world.name === params.world
-        )[0];
+  const getActiveCampaignOrWorld = (array, name) => {
+    let active = { worlds: [], pins: [], name: "" };
+    if (array.length) {
+      active = array[0];
+      if (name) {
+        active = array.filter((item) => item.name === name)[0];
       }
     }
+    return active;
+  };
 
-    setCampaigns(campaigns);
-    setActiveCampaign(activeCampaign);
-    setWorld(activeWorld);
+  const handleCampaignUpdate = useCallback(
+    (data) => {
+      setCampaigns(data);
+      const activeCamp = getActiveCampaignOrWorld(data, params.campaign);
+      const activeWorld = getActiveCampaignOrWorld(
+        activeCamp.worlds,
+        params.world
+      );
 
-    if (activeCampaign && location.pathname === "/campaigns") {
-      history.push(`/campaigns/${activeCampaign.name}`);
-    }
+      setActiveCampaign(activeCamp);
+      setWorld(activeWorld);
+      setIndices({
+        campaign: campaigns.indexOf(activeCamp),
+        world: activeCamp.worlds.indexOf(activeWorld),
+      });
+      if (activeWorld.name) {
+        if (
+          location.pathname !==
+          `/campaigns/${activeCamp.name}/${activeWorld.name}`
+        ) {
+          history.push(`/campaigns/${activeCamp.name}/${activeWorld.name}`);
+        }
+      } else if (
+        activeCamp.name &&
+        location.pathname !== `/campaigns/${activeCamp.name}`
+      ) {
+        history.push(`/campaigns/${activeCamp.name}`);
+      }
+    },
+    [params]
+  );
 
+  useEffect(() => {
+    socket.registerListener("campaign-update", handleCampaignUpdate);
     return () => {
       socket.removeListener("campaign-update");
     };
-  }, []);
+  }, [socket, handleCampaignUpdate]);
 
-  useEffect(() => {
-    let activeWorld = { pins: [], name: "" };
-    if (params.world) {
-      activeWorld = activeCampaign.worlds.filter(
-        (world) => world.name === params.world
-      )[0];
-    }
-    setWorld(activeWorld);
-  }, [params.world]);
-
-  const handleCampaignUpdate = (data) => {
-    let activeCampaign = data[0];
-    let activeWorld = { pins: [] };
-    if (params.campaign) {
-      activeCampaign = data.filter(
-        (campaign) => campaign.name === params.campaign
-      )[0];
-      if (params.world) {
-        activeWorld = activeCampaign.worlds.filter(
-          (world) => world.name === params.world
-        )[0];
-      }
-    }
-    setActiveCampaign(activeCampaign);
-    setWorld(activeWorld);
-  };
+  useEffect(async () => {
+    const response = await axios.get("/api/campaigns");
+    handleCampaignUpdate(response.data);
+  }, [handleCampaignUpdate]);
 
   const handleCampaignChange = (event) => {
     let index = event.target.value;
@@ -108,7 +106,7 @@ const CampaignSelector = () => {
     id: "activeCampaign",
     placeholder: "Please Choose a Campaign",
     onChange: handleCampaignChange,
-    value: campaigns.indexOf(activeCampaign),
+    value: indices.campaign,
   };
 
   return (
@@ -134,12 +132,9 @@ const CampaignSelector = () => {
           </Select>
         </Grid>
         {
-          activeCampaign ? ( // if there is an active campaign
+          activeCampaign.worlds ? ( // if there is an active campaign
             <Grid item>
-              <Select
-                onChange={handleWorldChange}
-                value={activeCampaign.worlds.indexOf(world)}
-              >
+              <Select onChange={handleWorldChange} value={indices.world}>
                 <MenuItem value={-1}>-</MenuItem>
                 {activeCampaign.worlds.map((world, index) => (
                   <MenuItem key={index} value={index}>

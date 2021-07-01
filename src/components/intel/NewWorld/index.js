@@ -1,6 +1,8 @@
 import {
   Button,
   CircularProgress,
+  Grid,
+  makeStyles,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -20,7 +22,15 @@ import { AlertBarContext } from "components/AlertBar";
 import { CampaignContext } from "components/intel/CampaignSelector";
 import useFormReducer, { setName, setFile } from "./reducer";
 
+const useStyles = makeStyles(() => ({
+  map: {
+    width: "100%",
+    height: "90vh",
+  },
+}));
+
 const NewWorld = () => {
+  const classes = useStyles();
   const [formState, dispatch] = useFormReducer();
   const { name, file, filename } = formState;
   const [circle, setCircle] = useState({
@@ -137,13 +147,21 @@ const NewWorld = () => {
 
   return (
     <>
-      <Typography>Add world to {campaign.name}</Typography>
-      <TextField {...nameTextFieldProps} />
-      <TextField {...fileTextFieldProps} />
-      <Button onClick={handleSubmit} disabled={loading} variant="contained">
-        Submit
-        {loading && <CircularProgress size={25} />}
-      </Button>
+      <Grid item>
+        <Typography>Add world to {campaign.name}</Typography>
+      </Grid>
+      <Grid item>
+        <TextField {...nameTextFieldProps} />
+      </Grid>
+      <Grid item>
+        <TextField {...fileTextFieldProps} />
+      </Grid>
+      <Grid item>
+        <Button onClick={handleSubmit} disabled={loading} variant="contained">
+          Submit
+          {loading && <CircularProgress size={25} />}
+        </Button>
+      </Grid>
       Draw click area below
       {initialLoading ? (
         <CircularProgress />
@@ -156,6 +174,7 @@ const NewWorld = () => {
           crs={CRS.Simple}
           minZoom={-5}
           maxZoom={5}
+          className={classes.map}
         >
           <WorldLinkDrawer setCircle={setCircle} />
           <ImageOverlay
