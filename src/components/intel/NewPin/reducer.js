@@ -198,5 +198,5 @@ const reducer = (state, action) => {
 };
 
 export default function useNewPinFormReducer(state = initialState) {
-  return useReducer(state, reducer);
+  return useReducer(reducer, state);
 }

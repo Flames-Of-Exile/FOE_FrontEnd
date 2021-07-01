@@ -107,7 +107,6 @@ const Main = () => {
         direction="column"
         justify="space-around"
         alignItems="center"
-        // xs="auto"
         spacing={3}
       >
         <Switch>{routes}</Switch>

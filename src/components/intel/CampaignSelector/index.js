@@ -26,13 +26,21 @@ const CampaignSelector = () => {
 
   const { socket } = useContext(SocketContext);
 
-  const getActiveCampaignOrWorld = (array, name) => {
-    let active = { worlds: [], pins: [], name: "" };
-    if (array.length) {
-      active = array[0];
+  const getActiveCampaign = (campaigns, name) => {
+    let active = { worlds: [], name: "" };
+    if (campaigns.length) {
+      active = campaigns[0];
       if (name) {
-        active = array.filter((item) => item.name === name)[0];
+        active = campaigns.filter((campaign) => campaign.name === name)[0];
       }
+    }
+    return active;
+  };
+
+  const getActiveWorld = (worlds, name) => {
+    let active = { pins: [], name: "" };
+    if (name) {
+      active = worlds.filter((world) => world.name === name)[0];
     }
     return active;
   };
@@ -40,11 +48,8 @@ const CampaignSelector = () => {
   const handleCampaignUpdate = useCallback(
     (data) => {
       setCampaigns(data);
-      const activeCamp = getActiveCampaignOrWorld(data, params.campaign);
-      const activeWorld = getActiveCampaignOrWorld(
-        activeCamp.worlds,
-        params.world
-      );
+      const activeCamp = getActiveCampaign(data, params.campaign);
+      const activeWorld = getActiveWorld(activeCamp.worlds, params.world);
 
       setActiveCampaign(activeCamp);
       setWorld(activeWorld);
