@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 export const setGuildName = (name) => {
   return {
-    action: "SET_GUILD_NAME",
+    type: "SET_GUILD_NAME",
     value: name,
   };
 };
@@ -31,5 +31,5 @@ const reducer = (state, action) => {
 };
 
 export default function useGuildFormReducer(state = initialState) {
-  return useReducer(state, reducer);
+  return useReducer(reducer, state);
 }

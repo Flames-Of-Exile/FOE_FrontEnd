@@ -32,5 +32,5 @@ const reducer = (state, action) => {
 
 export default function useGuildFormReducer(name = "", state = initialState) {
   state = { ...state, guildName: { ...state.guildName, value: name } };
-  return useReducer(state, reducer);
+  return useReducer(reducer, state);
 }

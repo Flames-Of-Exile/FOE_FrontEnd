@@ -15,8 +15,8 @@ import InnerLink from "components/InnerLink";
 
 const useStyles = makeStyles(() => ({
   map: {
-    width: "100%",
-    height: "90vh",
+    width: "90%",
+    height: "75vh",
   },
 }));
 

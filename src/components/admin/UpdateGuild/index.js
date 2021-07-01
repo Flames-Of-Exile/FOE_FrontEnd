@@ -1,6 +1,7 @@
 import {
   Button,
   CircularProgress,
+  Grid,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -27,7 +28,7 @@ const UpdateGuild = () => {
   const handleToggle = async () => {
     setLoading(true);
     try {
-      await axios.patch(`/api/guilds/${thisGuild.name}`, {
+      await axios.patch(`/api/guilds/${thisGuild.id}`, {
         name: thisGuild.name,
         is_active: !thisGuild.is_active,
       });
@@ -89,17 +90,27 @@ const UpdateGuild = () => {
 
   return (
     <>
-      <Typography>{thisGuild.name}</Typography>
-      <UserList users={thisGuild ? thisGuild.users : []} />
-      <Button onClick={handleToggle} variant="contained" disabled={loading}>
-        {thisGuild.is_active ? "Disable Access" : "Enable Access"}
-        {loading && <CircularProgress size={25} />}
-      </Button>
-      <TextField {...guildNameTextFieldProps} />
-      <Button onClick={handleSubmit} variant="contained" disabled={loading}>
-        Change Name
-        {loading && <CircularProgress size={25} />}
-      </Button>
+      <Grid item>
+        <Typography>{thisGuild.name}</Typography>
+      </Grid>
+      <Grid item>
+        <UserList users={thisGuild ? thisGuild.users : []} />
+      </Grid>
+      <Grid item>
+        <Button onClick={handleToggle} variant="contained" disabled={loading}>
+          {thisGuild.is_active ? "Disable Access" : "Enable Access"}
+          {loading && <CircularProgress size={25} />}
+        </Button>
+      </Grid>
+      <Grid item>
+        <TextField {...guildNameTextFieldProps} />
+      </Grid>
+      <Grid item>
+        <Button onClick={handleSubmit} variant="contained" disabled={loading}>
+          Change Name
+          {loading && <CircularProgress size={25} />}
+        </Button>
+      </Grid>
     </>
   );
 };

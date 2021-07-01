@@ -25,13 +25,13 @@ const Home = () => {
       setSeverity("error");
       setOpen(true);
     }
-  });
+  }, []);
 
   return (
     <>
-      {loading && <Backdrop />}
-      <Switch>
-        <context.Provider value={{ guilds, setGuilds }}>
+      {loading && <Backdrop open />}
+      <context.Provider value={{ guilds, setGuilds }}>
+        <Switch>
           <Route exact path="/admin/guild/:name">
             <UpdateGuild />
           </Route>
@@ -41,8 +41,8 @@ const Home = () => {
           <Route path="/admin">
             <GuildList />
           </Route>
-        </context.Provider>
-      </Switch>
+        </Switch>
+      </context.Provider>
     </>
   );
 };

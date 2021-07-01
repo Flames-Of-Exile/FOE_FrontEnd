@@ -37,7 +37,7 @@ const Main = () => {
         <Profile />
       </Route>
     );
-    if (user.isAdmin) {
+    if (user.role === "admin") {
       routes.push(
         <Route path="/admin" key="/admin">
           <Admin />

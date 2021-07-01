@@ -34,19 +34,42 @@ const Sidebar = () => {
   if (user.id) {
     links.push(<InnerLink to="/" primary="Home" variant="list" key="/" />);
     links.push(
-      <InnerLink to="/profile" primary="Edit Profile" variant="list" key="/profile" />
+      <InnerLink
+        to="/profile"
+        primary="Edit Profile"
+        variant="list"
+        key="/profile"
+      />
     );
-    links.push(<InnerLink to="/logout" primary="Logout" variant="list" key="/logout" />);
     links.push(
-      <InnerLink to="/campaigns/new" primary="Add Campaign" variant="list" key="/campaigns/new" />
+      <InnerLink to="/logout" primary="Logout" variant="list" key="/logout" />
+    );
+    links.push(
+      <InnerLink
+        to="/campaigns/new"
+        primary="Add Campaign"
+        variant="list"
+        key="/campaigns/new"
+      />
     );
     if (user.role === "admin") {
-      links.push(<Divider key="admin-divider"/>);
-      links.push(<InnerLink to="/admin" primary="Admin" variant="list" key="/admin" />);
+      links.push(<Divider key="admin-divider" />);
+      links.push(
+        <InnerLink to="/admin" primary="Admin" variant="list" key="/admin" />
+      );
     }
   } else {
-    links.push(<InnerLink to="/login" primary="Login" variant="list" key="/login" />);
-    links.push(<InnerLink to="/register" primary="Register" variant="list" key="/register" />);
+    links.push(
+      <InnerLink to="/login" primary="Login" variant="list" key="/login" />
+    );
+    links.push(
+      <InnerLink
+        to="/register"
+        primary="Register"
+        variant="list"
+        key="/register"
+      />
+    );
   }
 
   return (
