@@ -62,12 +62,12 @@ const NewCampaign = () => {
   };
 
   const fileTextFieldProps = {
+    type: "file",
     name: "file",
     id: "file",
     label: filename.value,
     onChange: handleChange,
     disabled: loading,
-    ...file,
   };
 
   return (

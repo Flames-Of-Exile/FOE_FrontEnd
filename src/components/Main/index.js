@@ -106,7 +106,7 @@ const Main = () => {
         direction="column"
         justify="space-around"
         alignItems="center"
-        xs="auto"
+        // xs="auto"
         spacing={3}
       >
         <Grid item>

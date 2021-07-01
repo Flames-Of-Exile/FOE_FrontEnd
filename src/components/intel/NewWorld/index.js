@@ -132,7 +132,6 @@ const NewWorld = () => {
     label: filename.value,
     onChange: handleChange,
     disabled: loading,
-    ...file,
   };
 
   return (

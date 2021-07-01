@@ -4,10 +4,12 @@ import axios from "axios";
 import SessionContext from "SessionContext";
 import { AlertBarContext } from "components/AlertBar";
 import useFormReducer, { setUsername, setPassword } from "./reducer";
+import SocketContext from "SocketContext";
 
 const Login = () => {
   const { setUser, refresh } = useContext(SessionContext);
   const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
+  const { socket } = useContext(SocketContext);
 
   const [formState, dispatch] = useFormReducer();
   const { username, password } = formState;
@@ -46,6 +48,7 @@ const Login = () => {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer${response.data.token}`;
+      socket.connect();
       setUser(response.data.user);
       setTimeout(refresh, 2700);
     } catch (error) {

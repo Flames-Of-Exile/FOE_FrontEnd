@@ -17,7 +17,7 @@ const Campaign = () => {
   });
   const overlayRef = useRef(null);
 
-  const { campaign } = useContext(CampaignContext);
+  const { activeCampaign: campaign } = useContext(CampaignContext);
   const { user } = useContext(SessionContext);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Campaign = () => {
   }, [state.height, state.width]);
 
   if (state.loading) {
-    return <Backdrop />;
+    return <Backdrop open />;
   }
   return (
     <>

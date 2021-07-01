@@ -3,28 +3,28 @@ import { createContext } from "react";
 
 export class Socket {
   connect() {
-    this.socket = io.connect(`${window.location.hostname}`, {
+    this.connection = io.connect(`${window.location.hostname}`, {
       reconnection: true,
     });
   }
 
   disconnect() {
-    this.socket.close();
+    this.connection.close();
   }
 
   send(event) {
-    this.socket.emit(event);
+    this.connection.emit(event);
   }
 
   registerListener(name, callback) {
-    this.socket.on(name, callback);
+    this.connection.on(name, callback);
   }
 
   removeListener(name) {
-    this.socket.removeListener(name);
+    this.connection.removeListener(name);
   }
 }
 
 const socket = new Socket();
 
-export default createContext(socket);
+export default createContext({socket});

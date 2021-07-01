@@ -17,11 +17,13 @@ import useFormReducer, {
   setGuildId,
   setGuildList,
 } from "./reducer";
+import SocketContext from "SocketContext";
 
 const Register = () => {
   /* CONTEXT */
   const { setUser, refresh } = useContext(SessionContext);
   const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
+  const { socket } = useContext(SocketContext);
 
   /* FORM STATE */
   const [formState, dispatch] = useFormReducer();
@@ -77,6 +79,7 @@ const Register = () => {
         "Authorization"
       ] = `Bearer ${response.data.accessToken}`;
 
+      socket.connect();
       setUser(response.data.user);
       setTimeout(refresh, 27000);
     } catch (error) {

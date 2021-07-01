@@ -26,7 +26,6 @@ const CampaignSelector = () => {
   const { socket } = useContext(SocketContext);
 
   useEffect(async () => {
-    socket.connect();
     socket.registerListener("campaign-update", handleCampaignUpdate);
 
     const response = await axios.get(`/api/campaigns`);
@@ -67,10 +66,6 @@ const CampaignSelector = () => {
     setWorld(activeWorld);
   }, [params.world]);
 
-  useEffect(() => {
-    socket.registerListener("campaign-update", handleCampaignUpdate);
-  }, [params]);
-
   const handleCampaignUpdate = (data) => {
     let activeCampaign = data[0];
     let activeWorld = { pins: [] };
@@ -108,25 +103,27 @@ const CampaignSelector = () => {
     setWorld(activeCampaign.worlds[index]);
   };
 
+  const campaignSelectProps = {
+    name: "activeCampaign",
+    id: "activeCampaign",
+    placeholder: "Please Choose a Campaign",
+    onChange: handleCampaignChange,
+    value: campaigns.indexOf(activeCampaign),
+  };
+
   return (
     <>
       <context.Provider
-        value={
-          (campaigns,
+        value={{
+          campaigns,
           setCampaigns,
           activeCampaign,
           setActiveCampaign,
           world,
-          setWorld)
-        }
+          setWorld,
+        }}
       >
-        <Select
-          name="activeCampaign"
-          id="selector"
-          placeholder="Please Choose a Campaign"
-          onChange={handleCampaignChange}
-          value={campaigns.indexOf(activeCampaign)}
-        >
+        <Select {...campaignSelectProps}>
           <MenuItem value={-1}>Please Choose a Campaign</MenuItem>
           {campaigns.map((campaign, index) => (
             <MenuItem key={index} value={index}>

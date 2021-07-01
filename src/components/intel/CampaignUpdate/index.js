@@ -26,7 +26,7 @@ function CampaignUpdate() {
   const [loading, setLoading] = useState(false);
 
   const { socket } = useContext(SocketContext);
-  const { campaign } = useContext(CampaignContext);
+  const { activeCampaign: campaign } = useContext(CampaignContext);
   const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
 
   const handleChange = (e) => {
