@@ -40,7 +40,7 @@ const initialState = {
   username: { value: "" },
   password: { value: "", error: false, helperText: "" },
   isActive: { value: false },
-  accessLevel: { value: "guest" },
+  role: { value: "guest" },
   guild: { value: 0 },
 };
 

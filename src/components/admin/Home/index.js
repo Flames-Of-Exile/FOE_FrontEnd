@@ -10,7 +10,7 @@ import { context } from "./context";
 
 const Home = () => {
   const [guilds, setGuilds] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
 
@@ -27,9 +27,11 @@ const Home = () => {
     }
   }, []);
 
+  if (loading) {
+    return <Backdrop open />;
+  }
   return (
     <>
-      {loading && <Backdrop open />}
       <context.Provider value={{ guilds, setGuilds }}>
         <Switch>
           <Route exact path="/admin/guild/:name">

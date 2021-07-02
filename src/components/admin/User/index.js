@@ -4,7 +4,7 @@ import InnerLink from "components/InnerLink";
 function User(props) {
   return (
     <InnerLink
-      to={`/admin/guild/user${props.user.id}`}
+      to={`/admin/guild/user/${props.user.id}`}
       primary={props.user.username}
       variant="list"
     />

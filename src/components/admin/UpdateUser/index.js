@@ -42,7 +42,7 @@ const UpdateUser = () => {
       setSeverity("error");
       setOpen(true);
     }
-  });
+  }, [params]);
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -152,7 +152,12 @@ const UpdateUser = () => {
       <Grid item>
         <FormControlLabel
           control={
-            <Checkbox checked={isActive.value} onChange={handleChange} />
+            <Checkbox
+              checked={isActive.value}
+              onChange={handleChange}
+              disabled={loading}
+              name="isActive"
+            />
           }
           label="Is Active"
         />
@@ -167,14 +172,14 @@ const UpdateUser = () => {
       <Grid item>
         <Select {...guildSelectProps}>
           {guilds.map((guild) => (
-            <MenuItem value={guild.id} key={guild}>
+            <MenuItem value={guild.id} key={guild.id}>
               {guild.name}
             </MenuItem>
           ))}
         </Select>
       </Grid>
       <Grid item>
-        <Button onClick={handleSubmit}>
+        <Button onClick={handleSubmit} variant="contained" disabled={loading}>
           Update User
           {loading && <CircularProgress size={25} />}
         </Button>

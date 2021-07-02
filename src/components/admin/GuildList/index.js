@@ -26,7 +26,6 @@ const GuildList = () => {
   const { guildName } = formState;
   const [loading, setLoading] = useState(false);
   const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
-  console.log(formState);
 
   const handleChange = (e) => {
     switch (e.target.name) {

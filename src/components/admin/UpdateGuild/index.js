@@ -2,6 +2,8 @@ import {
   Button,
   CircularProgress,
   Grid,
+  makeStyles,
+  Paper,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -13,14 +15,20 @@ import { useParams } from "react-router-dom";
 import { AlertBarContext } from "components/AlertBar";
 import useFormReducer, { setGuildName } from "./reducer";
 
+const useStyles = makeStyles(() => ({
+  paper: { width: 800 },
+}));
+
 const UpdateGuild = () => {
+  const classes = useStyles();
+
   const { guilds, setGuilds } = useContext(AdminContext);
   const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
 
   const [loading, setLoading] = useState(false);
 
   const params = useParams();
-
+  console.log(guilds);
   const thisGuild = guilds.filter((guild) => guild.name === params.name)[0];
   const [formState, dispatch] = useFormReducer(thisGuild.name);
   const { guildName } = formState;
@@ -94,7 +102,17 @@ const UpdateGuild = () => {
         <Typography>{thisGuild.name}</Typography>
       </Grid>
       <Grid item>
-        <UserList users={thisGuild ? thisGuild.users : []} />
+        <Paper className={classes.paper}>
+          <Grid
+            container
+            direction="column"
+            justify="space-around"
+            alignItems="center"
+            spacing={2}
+          >
+            <UserList users={thisGuild ? thisGuild.users : []} />
+          </Grid>
+        </Paper>
       </Grid>
       <Grid item>
         <Button onClick={handleToggle} variant="contained" disabled={loading}>
