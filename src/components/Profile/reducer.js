@@ -1,18 +1,18 @@
 import { useReducer } from "react";
 import passwordValidator from "helper_functions/checkPasswordComplexity";
 
-export const setPassword1 = (password) => {
-  return {
+export const setPassword1 = (dispatch) => (password) => {
+  return dispatch({
     type: "SET_PASSWORD1",
     value: password,
-  };
+  });
 };
 
-export const setPassword2 = (password) => {
-  return {
+export const setPassword2 = (dispatch) => (password) => {
+  return dispatch({
     type: "SET_PASSWORD2",
     value: password,
-  };
+  });
 };
 
 const initialState = {
@@ -49,6 +49,11 @@ const validatePassword = (password, otherPassword) => {
   return { error: false, helperText: results };
 };
 
-export default function useProfileFormReducer(state = initialState) {
-  return useReducer(reducer, state);
+export default function useProfileFormReducer(initState = initialState) {
+  const [state, dispatch] = useReducer(reducer, initState);
+  return {
+    state,
+    setPassword1: setPassword1(dispatch),
+    setPassword2: setPassword2(dispatch),
+  };
 }

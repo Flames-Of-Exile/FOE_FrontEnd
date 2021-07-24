@@ -20,7 +20,7 @@ import WorldLinkDrawer from "components/intel/WorldLinkDrawer";
 import axios from "axios";
 import { AlertBarContext } from "components/AlertBar";
 import { CampaignContext } from "components/intel/CampaignSelector";
-import useFormReducer, { setName, setFile } from "./reducer";
+import useFormReducer from "./reducer";
 
 const useStyles = makeStyles(() => ({
   map: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 
 const NewWorld = () => {
   const classes = useStyles();
-  const [formState, dispatch] = useFormReducer();
+  const { state: formState, setName, setFile } = useFormReducer();
   const { name, file, filename } = formState;
   const [circle, setCircle] = useState({
     centerLat: 0,
@@ -63,18 +63,18 @@ const NewWorld = () => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
-        dispatch(setName(e.target.value));
+        setName(e.target.value);
         break;
       case "file":
-        dispatch(setFile(e.target.files[0], e.target.value.split("\\").pop()));
+        setFile(e.target.files[0], e.target.value.split("\\").pop());
         break;
     }
   };
 
   const handleSubmit = async () => {
     if (name.value === "" || file.value === null) {
-      dispatch(setName(name.value));
-      dispatch(setFile(file.value, filename.value));
+      setName(name.value);
+      setFile(file.value, filename.value);
       return;
     }
     if (circle.radius === 0) {

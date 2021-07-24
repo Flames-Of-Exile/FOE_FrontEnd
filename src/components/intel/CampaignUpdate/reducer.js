@@ -1,24 +1,24 @@
 import { useReducer } from "react";
 
-export const setName = (name) => {
-  return {
+export const setName = (dispatch) => (name) => {
+  return dispatch({
     type: "SET_NAME",
     value: name,
-  };
+  });
 };
 
-export const setIsDefault = (isDefault) => {
-  return {
+export const setIsDefault = (dispatch) => (isDefault) => {
+  return dispatch({
     type: "SET_IS_DEFAULT",
     value: isDefault,
-  };
+  });
 };
 
-export const setIsArchived = (isArchived) => {
-  return {
+export const setIsArchived = (dispatch) => (isArchived) => {
+  return dispatch({
     type: "SET_IS_ARCHIVED",
     value: isArchived,
-  };
+  });
 };
 
 const initialState = {
@@ -56,6 +56,12 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useCampaignUpdateReducer(state = initialState) {
-  return useReducer(reducer, state,);
+export default function useCampaignUpdateReducer(initState = initialState) {
+  const [state, dispatch] = useReducer(reducer, initState);
+  return {
+    state,
+    setName: setName(dispatch),
+    setIsDefault: setIsDefault(dispatch),
+    setIsArchived: setIsArchived(dispatch),
+  };
 }

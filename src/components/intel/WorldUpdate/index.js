@@ -19,10 +19,10 @@ import SocketContext from "SocketContext";
 import { CampaignContext } from "components/intel/CampaignSelector";
 import { AlertBarContext } from "components/AlertBar";
 import { useHistory } from "react-router-dom";
-import useFormReducer, { setName } from "./reducer";
+import useFormReducer from "./reducer";
 
 const WorldUpdate = () => {
-  const [formState, dispatch] = useFormReducer();
+  const { state: formState, setName } = useFormReducer();
   const { name } = formState;
   const [circle, setCircle] = useState({
     centerLat: 0,
@@ -56,14 +56,14 @@ const WorldUpdate = () => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
-        dispatch(setName(e.target.value));
+        setName(e.target.value);
         break;
     }
   };
 
   const handleSubmit = async () => {
     if (name === "") {
-      dispatch(setName(name.value));
+      setName(name.value);
       return;
     }
     setLoading(true);

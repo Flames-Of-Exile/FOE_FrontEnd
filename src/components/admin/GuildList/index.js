@@ -11,7 +11,7 @@ import React, { useContext, useState } from "react";
 import Guild from "components/admin/Guild";
 import { AdminContext } from "components/admin/Home";
 import axios from "axios";
-import useFormReducer, { setGuildName } from "./reducer";
+import useFormReducer from "./reducer";
 import { AlertBarContext } from "components/AlertBar";
 
 const useStyles = makeStyles(() => ({
@@ -22,7 +22,7 @@ const GuildList = () => {
   const classes = useStyles();
 
   const { guilds, setGuilds } = useContext(AdminContext);
-  const [formState, dispatch] = useFormReducer();
+  const { state: formState, setGuildName } = useFormReducer();
   const { guildName } = formState;
   const [loading, setLoading] = useState(false);
   const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
@@ -30,13 +30,13 @@ const GuildList = () => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "guildName":
-        dispatch(setGuildName(e.target.value));
+        setGuildName(e.target.value);
         break;
     }
   };
 
   const handleSubmit = async () => {
-    dispatch(setGuildName(guildName.value));
+    setGuildName(guildName.value);
     if (guildName.error) {
       return;
     }

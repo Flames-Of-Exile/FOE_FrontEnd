@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import SessionContext from "SessionContext";
 import { AlertBarContext } from "components/AlertBar";
-import useFormReducer, { setUsername, setPassword } from "./reducer";
+import useFormReducer from "./reducer";
 import SocketContext from "SocketContext";
 
 const Login = () => {
@@ -11,7 +11,7 @@ const Login = () => {
   const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
   const { socket } = useContext(SocketContext);
 
-  const [formState, dispatch] = useFormReducer();
+  const { state: formState, setUsername, setPassword } = useFormReducer();
   const { username, password } = formState;
   const [loading, setLoading] = useState(false);
 
@@ -24,16 +24,16 @@ const Login = () => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "username":
-        dispatch(setUsername(e.target.value));
+        setUsername(e.target.value);
         break;
       case "password":
-        dispatch(setPassword(e.target.value));
+        setPassword(e.target.value);
     }
   };
 
   const handleSubmit = async () => {
-    dispatch(setUsername(username.value));
-    dispatch(setPassword(password.value));
+    setUsername(username.value);
+    setPassword(password.value);
     if (username.error || password.error) {
       return;
     }

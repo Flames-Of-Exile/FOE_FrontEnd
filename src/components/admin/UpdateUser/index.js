@@ -14,29 +14,30 @@ import axios from "axios";
 import { AlertBarContext } from "components/AlertBar";
 import { AdminContext } from "components/admin/Home";
 import { useParams } from "react-router-dom";
-import useFormReducer, {
-  setUsername,
-  setPassword,
-  setIsActive,
-  setRole,
-  setGuild,
-} from "./reducer";
+import useFormReducer from "./reducer";
 
 const UpdateUser = () => {
   const params = useParams();
   const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
   const { guilds, setGuilds } = useContext(AdminContext);
-  const [formState, dispatch] = useFormReducer();
+  const {
+    state: formState,
+    setUsername,
+    setRole,
+    setIsActive,
+    setGuild,
+    setPassword,
+  } = useFormReducer();
   const { username, password, isActive, role, guild } = formState;
   const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
     try {
       const response = await axios.get(`/api/users/${params.id}`);
-      dispatch(setUsername(response.data.username));
-      dispatch(setRole(response.data.role));
-      dispatch(setIsActive(response.data.is_active));
-      dispatch(setGuild(response.data.guild.id));
+      setUsername(response.data.username);
+      setRole(response.data.role);
+      setIsActive(response.data.is_active);
+      setGuild(response.data.guild.id);
     } catch (error) {
       setAlertText(error.response.data);
       setSeverity("error");
@@ -47,16 +48,16 @@ const UpdateUser = () => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "password":
-        dispatch(setPassword(e.target.value));
+        setPassword(e.target.value);
         break;
       case "role":
-        dispatch(setRole(e.target.value));
+        setRole(e.target.value);
         break;
       case "isActive":
-        dispatch(setIsActive(e.target.checked));
+        setIsActive(e.target.checked);
         break;
       case "guild":
-        dispatch(setGuild(e.target.value));
+        setGuild(e.target.value);
         break;
     }
   };

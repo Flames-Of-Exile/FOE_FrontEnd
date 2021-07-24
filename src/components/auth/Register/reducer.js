@@ -2,39 +2,39 @@ import checkPasswordComplexity from "helper_functions/checkPasswordComplexity";
 import { useReducer } from "react";
 
 /* ACTIONS */
-export const setUsername = (username) => {
-  return {
+export const setUsername = (dispatch) => (username) => {
+  return dispatch({
     type: "SET_USERNAME",
     value: username,
-  };
+  });
 };
 
-export const setPassword1 = (password) => {
-  return {
+export const setPassword1 = (dispatch) => (password) => {
+  return dispatch({
     type: "SET_PASSWORD1",
     value: password,
-  };
+  });
 };
 
-export const setPassword2 = (password) => {
-  return {
+export const setPassword2 = (dispatch) => (password) => {
+  return dispatch({
     type: "SET_PASSWORD2",
     value: password,
-  };
+  });
 };
 
-export const setGuildId = (guildId) => {
-  return {
+export const setGuildId = (dispatch) => (guildId) => {
+  return dispatch({
     type: "SET_GUILD_ID",
     value: guildId,
-  };
+  });
 };
 
-export const setGuildList = (guildList) => {
-  return {
+export const setGuildList = (dispatch) => (guildList) => {
+  return dispatch({
     type: "SET_GUILD_LIST",
     value: guildList,
-  };
+  });
 };
 
 /* INITIAL STATE */
@@ -105,6 +105,14 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useRegisterFormReducer(state = initialState) {
-  return useReducer(reducer, state);
+export default function useRegisterFormReducer(initState = initialState) {
+  const [state, dispatch] = useReducer(reducer, initState);
+  return {
+    state,
+    setUsername: setUsername(dispatch),
+    setPassword1: setPassword1(dispatch),
+    setPassword2: setPassword2(dispatch),
+    setGuildId: setGuildId(dispatch),
+    setGuildList: setGuildList(dispatch),
+  };
 }

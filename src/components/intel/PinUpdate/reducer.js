@@ -1,66 +1,66 @@
 import { useReducer } from "react";
 
-export const setName = (name) => {
-  return {
+export const setName = (dispatch) => (name) => {
+  return dispatch({
     type: "SET_NAME",
     value: name,
-  };
+  });
 };
 
-export const setRank = (rank) => {
-  return {
+export const setRank = (dispatch) => (rank) => {
+  return dispatch({
     type: "SET_RANK",
     value: rank,
-  };
+  });
 };
 
-export const setAmount = (amount) => {
-  return {
+export const setAmount = (dispatch) => (amount) => {
+  return dispatch({
     type: "SET_AMOUNT",
     value: amount,
-  };
+  });
 };
 
-export const setRespawn = (respawn) => {
-  return {
+export const setRespawn = (dispatch) => (respawn) => {
+  return dispatch({
     type: "SET_RESPAWN",
     value: respawn,
-  };
+  });
 };
 
-export const setNotes = (notes) => {
-  return {
+export const setNotes = (dispatch) => (notes) => {
+  return dispatch({
     type: "SET_NOTE",
     value: notes,
-  };
+  });
 };
 
-export const setXCoord = (xCoord) => {
-  return {
+export const setXCoord = (dispatch) => (xCoord) => {
+  return dispatch({
     type: "SET_X_COORD",
     value: xCoord,
-  };
+  });
 };
 
-export const setYCoord = (yCoord) => {
-  return {
+export const setYCoord = (dispatch) => (yCoord) => {
+  return dispatch({
     type: "SET_Y_COORD",
     value: yCoord,
-  };
+  });
 };
 
-export const setSymbol = (symbol) => {
-  return {
+export const setSymbol = (dispatch) => (symbol) => {
+  return dispatch({
     type: "SET_SYMBOL",
     value: symbol,
-  };
+  });
 };
 
-export const setResource = (resource) => {
-  return {
+export const setResource = (dispatch) => (resource) => {
+  return dispatch({
     type: "SET_RESOURCE",
     value: resource,
-  };
+  });
 };
 
 const initialState = {
@@ -197,6 +197,18 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useUpdatePinFormReducer(state = initialState) {
-  return useReducer(state, reducer);
+export default function useUpdatePinFormReducer(initState = initialState) {
+  const [state, dispatch] = useReducer(initState, reducer);
+  return {
+    state,
+    setName: setName(dispatch),
+    setRank: setRank(dispatch),
+    setAmount: setAmount(dispatch),
+    setRespawn: setRespawn(dispatch),
+    setNotes: setNotes(dispatch),
+    setXCoord: setXCoord(dispatch),
+    setYCoord: setYCoord(dispatch),
+    setSymbol: setSymbol(dispatch),
+    setResource: setResource(dispatch),
+  };
 }

@@ -1,39 +1,39 @@
 import { useReducer } from "react";
 import checkPasswordComplexity from "helper_functions/checkPasswordComplexity";
 
-export const setUsername = (username) => {
-  return {
+const setUsername = (dispatch) => (username) => {
+  return dispatch({
     type: "SET_USERNAME",
     value: username,
-  };
+  });
 };
 
-export const setPassword = (password) => {
-  return {
+const setPassword = (dispatch) => (password) => {
+  return dispatch({
     type: "SET_PASSWORD",
     value: password,
-  };
+  });
 };
 
-export const setIsActive = (isActive) => {
-  return {
+const setIsActive = (dispatch) => (isActive) => {
+  return dispatch({
     type: "SET_IS_ACTIVE",
     value: isActive,
-  };
+  });
 };
 
-export const setRole = (role) => {
-  return {
+const setRole = (dispatch) => (role) => {
+  return dispatch({
     type: "SET_ROLE",
     value: role,
-  };
+  });
 };
 
-export const setGuild = (guild) => {
-  return {
+const setGuild = (dispatch) => (guild) => {
+  return dispatch({
     type: "SET_GUILD",
     value: guild,
-  };
+  });
 };
 
 const initialState = {
@@ -85,6 +85,14 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useUpdateUserFormReducer(state = initialState) {
-  return useReducer(reducer, state);
+export default function useUpdateUserFormReducer(initState = initialState) {
+  const [dispatch, state] = useReducer(reducer, initState);
+  return {
+    state,
+    setUsername: setUsername(dispatch),
+    setPassword: setPassword(dispatch),
+    setIsActive: setIsActive(dispatch),
+    setRole: setRole(dispatch),
+    setGuild: setGuild(dispatch),
+  };
 }

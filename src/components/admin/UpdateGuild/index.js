@@ -13,7 +13,7 @@ import axios from "axios";
 import { AdminContext } from "components/admin/Home";
 import { useParams } from "react-router-dom";
 import { AlertBarContext } from "components/AlertBar";
-import useFormReducer, { setGuildName } from "./reducer";
+import useFormReducer from "./reducer";
 
 const useStyles = makeStyles(() => ({
   paper: { width: 800 },
@@ -28,9 +28,9 @@ const UpdateGuild = () => {
   const [loading, setLoading] = useState(false);
 
   const params = useParams();
-  console.log(guilds);
+
   const thisGuild = guilds.filter((guild) => guild.name === params.name)[0];
-  const [formState, dispatch] = useFormReducer(thisGuild.name);
+  const { state: formState, setGuildName } = useFormReducer(thisGuild.name);
   const { guildName } = formState;
 
   const handleToggle = async () => {
@@ -55,13 +55,13 @@ const UpdateGuild = () => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "guildName":
-        dispatch(setGuildName(e.target.value));
+        setGuildName(e.target.value);
         break;
     }
   };
 
   const handleSubmit = async () => {
-    dispatch(setGuildName(guildName.value));
+    setGuildName(guildName.value);
     if (guildName.error) {
       return;
     }

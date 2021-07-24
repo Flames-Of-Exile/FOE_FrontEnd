@@ -1,18 +1,18 @@
 import { useReducer } from "react";
 
-export const setName = (name) => {
-  return {
+export const setName = (dispatch) => (name) => {
+  return dispatch({
     type: "SET_NAME",
     value: name,
-  };
+  });
 };
 
-export const setFile = (file, filename) => {
-  return {
+export const setFile = (dispatch) => (file, filename) => {
+  return dispatch({
     type: "SET_FILE",
     value1: file,
     value2: filename,
-  };
+  });
 };
 
 const initialState = {
@@ -46,6 +46,11 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useNewCampaignFormReducer(state = initialState) {
-  return useReducer(reducer, state);
+export default function useNewCampaignFormReducer(initState = initialState) {
+  const [state, dispatch] = useReducer(reducer, initState);
+  return {
+    state,
+    setName: setName(dispatch),
+    setFile: setFile(dispatch),
+  };
 }

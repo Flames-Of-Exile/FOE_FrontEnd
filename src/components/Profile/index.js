@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import useFormReducer, { setPassword1, setPassword2 } from "./reducer";
+import useFormReducer from "./reducer";
 import SessionContext from "SessionContext";
 import { Button, Grid, TextField } from "@material-ui/core";
 import { AlertBarContext } from "components/AlertBar";
 
 const EditProfile = () => {
-  const [formState, dispatch] = useFormReducer();
+  const { state: formState, setPassword1, setPassword2 } = useFormReducer();
   const { password1, password2 } = formState;
   const { user } = useContext(SessionContext);
   const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
@@ -48,10 +48,10 @@ const EditProfile = () => {
   const handleChange = async (event) => {
     switch (event.target.name) {
       case "password1":
-        dispatch(setPassword1(event.target.value));
+        setPassword1(event.target.value);
         break;
       case "password2":
-        dispatch(setPassword2(event.target.value));
+        setPassword2(event.target.value);
         break;
     }
   };

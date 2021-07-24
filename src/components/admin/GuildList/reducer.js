@@ -1,10 +1,10 @@
 import { useReducer } from "react";
 
-export const setGuildName = (name) => {
-  return {
+export const setGuildName = (dispatch) => (name) => {
+  return dispatch({
     type: "SET_GUILD_NAME",
     value: name,
-  };
+  });
 };
 
 const initialState = {
@@ -30,6 +30,10 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useGuildFormReducer(state = initialState) {
-  return useReducer(reducer, state);
+export default function useGuildFormReducer(initState = initialState) {
+  const [state, dispatch] = useReducer(reducer, initState);
+  return {
+    state,
+    setGuildName: setGuildName(dispatch),
+  };
 }

@@ -1,10 +1,10 @@
 import { useReducer } from "react";
 
-export const setName = (name) => {
-  return {
+export const setName = (dispatch) => (name) => {
+  return dispatch({
     type: "SET_NAME",
     value: name,
-  };
+  });
 };
 
 const initialState = {
@@ -30,6 +30,10 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useNewWorldFormReducer(state = initialState) {
-  return useReducer(reducer, state);
+export default function useNewWorldFormReducer(initState = initialState) {
+  const [state, dispatch] = useReducer(reducer, initState);
+  return {
+    state,
+    setName: setName(dispatch),
+  };
 }

@@ -9,21 +9,22 @@ import React, { useContext } from "react";
 import { AlertBarContext } from "components/AlertBar";
 import SocketContext from "SocketContext";
 import axios from "axios";
-import useFormReducer, {
-  setName,
-  setRank,
-  setAmount,
-  setRespawn,
-  setNotes,
-  setXCoord,
-  setYCoord,
-  setSymbol,
-  setResource,
-} from "./reducer";
+import useFormReducer from "./reducer";
 
 const PinUpdate = (props) => {
   const { pin, handleCancel } = props;
-  const [formState, dispatch] = useFormReducer();
+  const {
+    state: formState,
+    setName,
+    setRank,
+    setAmount,
+    setRespawn,
+    setNotes,
+    setXCoord,
+    setYCoord,
+    setSymbol,
+    setResource,
+  } = useFormReducer();
   const {
     name,
     rank,
@@ -43,31 +44,31 @@ const PinUpdate = (props) => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
-        dispatch(setName(e.target.value));
+        setName(e.target.value);
         break;
       case "rank":
-        dispatch(setRank(e.target.value));
+        setRank(e.target.value);
         break;
       case "amount":
-        dispatch(setAmount(e.target.value));
+        setAmount(e.target.value);
         break;
       case "respawn":
-        dispatch(setRespawn(e.target.value));
+        setRespawn(e.target.value);
         break;
       case "notes":
-        dispatch(setNotes(e.target.value));
+        setNotes(e.target.value);
         break;
       case "xCoord":
-        dispatch(setXCoord(e.target.value));
+        setXCoord(e.target.value);
         break;
       case "yCoord":
-        dispatch(setYCoord(e.target.value));
+        setYCoord(e.target.value);
         break;
       case "symbol":
-        dispatch(setSymbol(e.target.value));
+        setSymbol(e.target.value);
         break;
       case "resource":
-        dispatch(setResource(e.target.value));
+        setResource(e.target.value);
         break;
     }
   };

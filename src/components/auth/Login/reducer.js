@@ -1,17 +1,17 @@
 import { useReducer } from "react";
 
-export const setUsername = (username) => {
-  return {
+export const setUsername = (dispatch) => (username) => {
+  return dispatch({
     type: "SET_USERNAME",
     value: username,
-  };
+  });
 };
 
-export const setPassword = (password) => {
-  return {
+export const setPassword = (dispatch) => (password) => {
+  return dispatch({
     type: "SET_PASSWORD",
     value: password,
-  };
+  });
 };
 
 const initialState = {
@@ -51,6 +51,11 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useLoginFormReducer(state = initialState) {
-  return useReducer(reducer, state);
+export default function useLoginFormReducer(initState = initialState) {
+  const [state, dispatch] = useReducer(reducer, initState);
+  return {
+    state,
+    setUsername: setUsername(dispatch),
+    setPassword: setPassword(dispatch),
+  };
 }

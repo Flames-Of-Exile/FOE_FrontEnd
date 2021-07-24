@@ -9,11 +9,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import SocketContext from "SocketContext";
 import axios from "axios";
-import useFormReducer, {
-  setName,
-  setIsDefault,
-  setIsArchived,
-} from "./reducer";
+import useFormReducer from "./reducer";
 import { useHistory } from "react-router-dom";
 import { CampaignContext } from "components/intel/CampaignSelector";
 import { AlertBarContext } from "components/AlertBar";
@@ -21,7 +17,7 @@ import { AlertBarContext } from "components/AlertBar";
 function CampaignUpdate() {
   const history = useHistory();
 
-  const [formState, dispatch] = useFormReducer();
+  const { state: formState, setName, setIsDefault, setIsArchived } = useFormReducer();
   const { name, isDefault, isArchived } = formState;
   const [loading, setLoading] = useState(false);
 
@@ -30,21 +26,21 @@ function CampaignUpdate() {
   const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
 
   useEffect(() => {
-    dispatch(setName(campaign.name));
-    dispatch(setIsDefault(campaign.is_default));
-    dispatch(setIsArchived(campaign.is_archived));
+    setName(campaign.name);
+    setIsDefault(campaign.is_default);
+    setIsArchived(campaign.is_archived);
   }, [campaign]);
 
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
-        dispatch(setName(e.target.value));
+        setName(e.target.value);
         break;
       case "isDefault":
-        dispatch(setIsDefault(e.target.checked));
+        setIsDefault(e.target.checked);
         break;
       case "isArchived":
-        dispatch(setIsArchived(e.target.checked));
+        setIsArchived(e.target.checked);
         break;
     }
   };

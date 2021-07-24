@@ -1,11 +1,11 @@
 import { Button, CircularProgress, TextField } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import useFormReducer, { setName, setFile } from "./reducer";
+import useFormReducer from "./reducer";
 import { AlertBarContext } from "components/AlertBar";
 
 const NewCampaign = () => {
-  const [formState, dispatch] = useFormReducer();
+  const { state: formState, setName, setFile } = useFormReducer();
   const { name, file, filename } = formState;
   const [loading, setLoading] = useState(false);
 
@@ -14,18 +14,18 @@ const NewCampaign = () => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
-        dispatch(setName(e.target.value));
+        setName(e.target.value);
         break;
       case "file":
-        dispatch(setFile(e.target.files[0], e.target.value.split("\\").pop()));
+        setFile(e.target.files[0], e.target.value.split("\\").pop());
         break;
     }
   };
 
   const handleSubmit = async () => {
     if (name.error || name.value === "" || file.value === null) {
-      dispatch(setName(name.value));
-      dispatch(setFile(file.value, filename.value));
+      setName(name.value);
+      setFile(file.value, filename.value);
       return;
     }
     setLoading(true);

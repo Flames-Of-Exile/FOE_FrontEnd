@@ -10,13 +10,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import SessionContext from "SessionContext";
 import { AlertBarContext } from "components/AlertBar";
-import useFormReducer, {
-  setUsername,
-  setPassword1,
-  setPassword2,
-  setGuildId,
-  setGuildList,
-} from "./reducer";
+import useFormReducer from "./reducer";
 import SocketContext from "SocketContext";
 
 const Register = () => {
@@ -26,29 +20,36 @@ const Register = () => {
   const { socket } = useContext(SocketContext);
 
   /* FORM STATE */
-  const [formState, dispatch] = useFormReducer();
+  const {
+    state: formState,
+    setUsername,
+    setPassword1,
+    setPassword2,
+    setGuildId,
+    setGuildList,
+  } = useFormReducer();
   const { username, password1, password2, guildId, guildList } = formState;
   const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
     const response = await axios.get("/api/guilds");
-    dispatch(setGuildList(response.data));
-    dispatch(setGuildId(response.data[0].id));
+    setGuildList(response.data);
+    setGuildId(response.data[0].id);
   }, []);
 
   const handleChange = (e) => {
     switch (e.target.name) {
       case "username":
-        dispatch(setUsername(e.target.value));
+        setUsername(e.target.value);
         break;
       case "password1":
-        dispatch(setPassword1(e.target.value));
+        setPassword1(e.target.value);
         break;
       case "password2":
-        dispatch(setPassword2(e.target.value));
+        setPassword2(e.target.value);
         break;
       case "guild":
-        dispatch(setGuildId(e.target.value));
+        setGuildId(e.target.value);
         break;
     }
   };
@@ -59,9 +60,9 @@ const Register = () => {
       password1.value === "" ||
       password2.value === ""
     ) {
-      dispatch(setUsername(username.value));
-      dispatch(setPassword1(password1.value));
-      dispatch(setPassword2(password2.value));
+      setUsername(username.value);
+      setPassword1(password1.value);
+      setPassword2(password2.value);
       return;
     }
     if (username.error || password1.error || password2.error) {
