@@ -17,13 +17,18 @@ import { AlertBarContext } from "components/AlertBar";
 function CampaignUpdate() {
   const history = useHistory();
 
-  const { state: formState, setName, setIsDefault, setIsArchived } = useFormReducer();
+  const {
+    state: formState,
+    setName,
+    setIsDefault,
+    setIsArchived,
+  } = useFormReducer();
   const { name, isDefault, isArchived } = formState;
   const [loading, setLoading] = useState(false);
 
   const { socket } = useContext(SocketContext);
   const { activeCampaign: campaign } = useContext(CampaignContext);
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
 
   useEffect(() => {
     setName(campaign.name);
@@ -61,14 +66,11 @@ function CampaignUpdate() {
       );
       socket.send("campaign-update");
       history.push(`/`);
-      setAlertText("Campaign updated");
-      setSeverity("success");
+      setAlert("Campaign updated", "error");
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
+      setAlert(error.response.data, "error");
     }
     setLoading(false);
-    setOpen(true);
   };
 
   const nameTextFieldProps = {

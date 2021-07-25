@@ -12,7 +12,7 @@ const Home = () => {
   const [guilds, setGuilds] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
 
   useEffect(async () => {
     setLoading(true);
@@ -21,9 +21,7 @@ const Home = () => {
       setGuilds(response.data);
       setLoading(false);
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
-      setOpen(true);
+      setAlert(error.response.data, "error");
     }
   }, []);
 

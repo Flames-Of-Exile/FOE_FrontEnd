@@ -23,7 +23,7 @@ const UpdateGuild = () => {
   const classes = useStyles();
 
   const { guilds, setGuilds } = useContext(AdminContext);
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -42,13 +42,10 @@ const UpdateGuild = () => {
       });
       const response = await axios.get("/api/guilds");
       setGuilds(response.data);
-      setAlertText(`Access for ${thisGuild.name} updated.`);
-      setSeverity("success");
+      setAlert(`Access for ${thisGuild.name} updated.`, "success");
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
+      setAlert(error.response.data, "error");
     }
-    setOpen(true);
     setLoading(false);
   };
 
@@ -73,17 +70,17 @@ const UpdateGuild = () => {
       });
       const response = await axios.get("/api/guilds");
       setGuilds(response.data);
-      setAlertText(`${guildName.value} updated!`);
-      setSeverity("success");
+      setAlert(`${guildName.value} updated!`, "success");
     } catch (error) {
       if (error.response.data.includes(`(${guildName.value}) already exists`)) {
-        setAlertText(`Guild with name '${guildName.value}' already exists`);
+        setAlert(
+          `Guild with name '${guildName.value}' already exists`,
+          "error"
+        );
       } else {
-        setAlertText(error.response.data);
+        setAlert(error.response.data, "error");
       }
-      setSeverity("error");
     }
-    setOpen(true);
     setLoading(false);
   };
 

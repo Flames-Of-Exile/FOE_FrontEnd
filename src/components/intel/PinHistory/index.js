@@ -11,7 +11,7 @@ const PinHistory = () => {
 
   const params = useParams();
 
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
 
   useEffect(async () => {
     const response = await axios.get(`/api/pins${params.id}`);
@@ -23,9 +23,7 @@ const PinHistory = () => {
     try {
       await axios.delete(`/api/pins/${params.id}`);
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
-      setOpen(true);
+      setAlert(error.response.data, "error");
     }
     setLoading(false);
   };

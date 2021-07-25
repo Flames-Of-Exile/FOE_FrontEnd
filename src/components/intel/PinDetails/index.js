@@ -10,7 +10,7 @@ const PinDetails = (props) => {
   const { pin, handleEdit } = props;
   const [details, setDetails] = useState([]);
 
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
   const { user } = useContext(SessionContext);
   const { socket } = useContext(SocketContext);
 
@@ -71,9 +71,7 @@ const PinDetails = (props) => {
       await axios.delete(`/api/pins/${pin.id}`);
       socket.send("campaign-update");
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
-      setOpen(true);
+      setAlert(error.response.data, "error");
     }
   };
 

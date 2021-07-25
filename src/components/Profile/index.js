@@ -9,7 +9,7 @@ const EditProfile = () => {
   const { state: formState, setPassword1, setPassword2 } = useFormReducer();
   const { password1, password2 } = formState;
   const { user } = useContext(SessionContext);
-  const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
 
   //   const handleSelect = async (event) => {
   //     user.theme = event.target.value;
@@ -36,13 +36,10 @@ const EditProfile = () => {
           password: password1.value,
         })
       );
-      setAlertText("Successfully updated password");
-      setSeverity("success");
+      setAlert("Successfully updated password", "success");
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
+      setAlert(error.response.data, "error");
     }
-    setOpen(true);
   };
 
   const handleChange = async (event) => {

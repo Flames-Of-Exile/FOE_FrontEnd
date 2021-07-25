@@ -8,7 +8,7 @@ import SocketContext from "SocketContext";
 
 const Login = () => {
   const { setUser, refresh } = useContext(SessionContext);
-  const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
   const { socket } = useContext(SocketContext);
 
   const { state: formState, setUsername, setPassword } = useFormReducer();
@@ -52,9 +52,7 @@ const Login = () => {
       setUser(response.data.user);
       setTimeout(refresh, 2700);
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
-      setOpen(true);
+      setAlert(error.response.data, "error");
     }
     setLoading(false);
   };

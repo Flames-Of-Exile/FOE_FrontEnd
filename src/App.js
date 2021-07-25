@@ -36,6 +36,12 @@ const App = () => {
   const [alertText, setAlertText] = useState("");
   const [severity, setSeverity] = useState("");
 
+  const setAlert = (text, severity) => {
+    setAlertText(text);
+    setSeverity(severity);
+    setOpen(true);
+  };
+
   const syncLogout = useCallback(() => {
     delete axios.defaults.headers.common["Authorization"];
     setUser({
@@ -74,7 +80,7 @@ const App = () => {
 
   return (
     <SessionContext.Provider value={{ user, setUser, refresh, syncLogout }}>
-      <AlertBarContext.Provider value={{ setOpen, setAlertText, setSeverity }}>
+      <AlertBarContext.Provider value={{ setAlert }}>
         <SocketContext.Provider value={{ socket }}>
           <ThemeProvider theme={Theme}>
             <div className={classes.app}>

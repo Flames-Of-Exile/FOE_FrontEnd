@@ -9,7 +9,7 @@ const NewCampaign = () => {
   const { name, file, filename } = formState;
   const [loading, setLoading] = useState(false);
 
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -36,20 +36,17 @@ const NewCampaign = () => {
       formData.append("is_default", true);
       const config = { headers: { "Content-Type": "multipart/form-data" } };
       await axios.post("/api/campaigns", formData, config);
-      setAlertText("Campaign posted!");
-      setSeverity("success");
+      setAlert("Campaign posted!", "success");
     } catch (error) {
-      setSeverity("error");
       if (
         error.response.data.includes('unique constraint "campaigns_image_key"')
       ) {
-        setAlertText("A file with that name has already been uploaded.");
+        setAlert("A file with that name has already been uploaded.", "error");
       } else {
-        setAlertText(error.response.data);
+        setAlert(error.response.data, "error");
       }
     }
     setLoading(false);
-    setOpen(true);
   };
 
   const nameTextFieldProps = {

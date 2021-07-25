@@ -45,7 +45,7 @@ const NewWorld = () => {
   const overlayRef = useRef(null);
 
   const { activeCampaign: campaign } = useContext(CampaignContext);
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
   const { socket } = useContext(SocketContext);
 
   useEffect(() => {
@@ -78,9 +78,7 @@ const NewWorld = () => {
       return;
     }
     if (circle.radius === 0) {
-      setAlertText("Please draw the click area on the map.");
-      setSeverity("error");
-      setOpen(true);
+      setAlert("Please draw the click area on the map.", "error");
       return;
     }
     setLoading(true);
@@ -99,13 +97,10 @@ const NewWorld = () => {
       };
       await axios.post("/api/worlds", formData, config);
       socket.send("campaign-update");
-      setAlertText("World created!");
-      setSeverity("success");
+      setAlert("World created!", "success");
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
+      setAlert(error.response.data, "error");
     }
-    setOpen(true);
     setLoading(false);
   };
 

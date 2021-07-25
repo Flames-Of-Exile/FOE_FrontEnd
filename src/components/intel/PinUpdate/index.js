@@ -38,7 +38,7 @@ const PinUpdate = (props) => {
     resourceList,
   } = formState;
 
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
   const { socket } = useContext(SocketContext);
 
   const handleChange = (e) => {
@@ -92,9 +92,7 @@ const PinUpdate = (props) => {
       socket.send("campaign-update");
       handleCancel();
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
-      setOpen(false);
+      setAlert(error.response.data, "error");
     }
   };
 

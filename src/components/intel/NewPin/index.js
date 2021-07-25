@@ -58,7 +58,7 @@ const NewPin = () => {
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
 
   const { world } = useContext(CampaignContext);
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
   const { socket } = useContext(SocketContext);
 
   useMapEvents({
@@ -123,9 +123,7 @@ const NewPin = () => {
       socket.send("campaign-update");
       handleCancel();
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
-      setOpen(false);
+      setAlert(error.response.data, "error");
     }
   };
 

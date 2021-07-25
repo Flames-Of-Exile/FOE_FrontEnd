@@ -16,7 +16,7 @@ import SocketContext from "SocketContext";
 const Register = () => {
   /* CONTEXT */
   const { setUser, refresh } = useContext(SessionContext);
-  const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
   const { socket } = useContext(SocketContext);
 
   /* FORM STATE */
@@ -85,12 +85,10 @@ const Register = () => {
       setTimeout(refresh, 27000);
     } catch (error) {
       if (error.response.data.includes(`(${username.value}) already exists`)) {
-        setAlertText("Username already taken, please try another.");
+        setAlert("Username already taken, please try another.", "error");
       } else {
-        setAlertText(error.response.data);
+        setAlert(error.response.data, "error");
       }
-      setSeverity("error");
-      setOpen(true);
     }
     setLoading(false);
   };

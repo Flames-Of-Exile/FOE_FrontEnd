@@ -18,7 +18,7 @@ import useFormReducer from "./reducer";
 
 const UpdateUser = () => {
   const params = useParams();
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
   const { guilds, setGuilds } = useContext(AdminContext);
   const {
     state: formState,
@@ -39,9 +39,7 @@ const UpdateUser = () => {
       setIsActive(response.data.is_active);
       setGuild(response.data.guild.id);
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
-      setOpen(true);
+      setAlert(error.response.data, "error");
     }
   }, [params]);
 
@@ -72,13 +70,10 @@ const UpdateUser = () => {
       });
       const response = await axios.get("/api/guilds");
       setGuilds(response.data);
-      setAlertText(`${username.value} updated!`);
-      setSeverity("success");
+      setAlert(`${username.value} updated!`, "success");
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
+      setAlert(error.response.data, "error");
     }
-    setOpen(true);
     setLoading(false);
   };
 
@@ -94,13 +89,10 @@ const UpdateUser = () => {
         is_active: isActive.value,
         guild_id: guild.value,
       });
-      setAlertText("Password Updated.");
-      setSeverity("success");
+      setAlert("Password Updated.", "success");
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
+      setAlert(error.response.data, "error");
     }
-    setOpen(true);
     setLoading(false);
   };
 

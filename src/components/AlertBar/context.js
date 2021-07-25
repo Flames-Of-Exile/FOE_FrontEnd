@@ -1,9 +1,7 @@
 import { createContext } from "react";
 
 const alertBarContext = {
-  setOpen: () => {},
-  setAlertText: () => {},
-  setSeverity: () => {},
+  setAlert: () => {},
 };
 
 export const context = createContext(alertBarContext);

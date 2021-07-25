@@ -38,7 +38,7 @@ const WorldUpdate = () => {
   const overlayRef = useRef(null);
 
   const { campaign, world } = useContext(CampaignContext);
-  const { setAlertText, setSeverity, setOpen } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
   const { socket } = useContext(SocketContext);
 
   useEffect(() => {
@@ -76,13 +76,10 @@ const WorldUpdate = () => {
       });
       socket.send("campaign-update");
       history.push(`/campaigns/${campaign.name}`);
-      setAlertText("World updated!");
-      setSeverity("success");
+      setAlert("World updated!", "success");
     } catch (error) {
-      setAlertText(error.response.data);
-      setSeverity("error");
+      setAlert(error.response.data, "error");
     }
-    setOpen(true);
     setLoading(false);
   };
 

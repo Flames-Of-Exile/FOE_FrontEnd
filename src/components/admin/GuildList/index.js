@@ -25,7 +25,7 @@ const GuildList = () => {
   const { state: formState, setGuildName } = useFormReducer();
   const { guildName } = formState;
   const [loading, setLoading] = useState(false);
-  const { setOpen, setAlertText, setSeverity } = useContext(AlertBarContext);
+  const { setAlert } = useContext(AlertBarContext);
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -49,17 +49,18 @@ const GuildList = () => {
         name: guildName.value,
       });
       setGuilds([...guilds, response.data]);
-      setAlertText(`${guildName.value} created!`);
-      setSeverity("success");
+      setAlert(`${guildName.value} created!`, "success");
     } catch (error) {
       if (error.response.data.includes(`(${guildName.value}) already exists`)) {
-        setAlertText(`Guild with name '${guildName.value}' already exists.`);
+        setAlert(
+          `Guild with name '${guildName.value}' already exists.`,
+          "error"
+        );
       } else {
-        setAlertText(error.response.data);
+        setAlert(error.response.data, "error");
       }
-      setSeverity("error");
     }
-    setOpen(true);
+
     setLoading(false);
   };
 
