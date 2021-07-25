@@ -8,13 +8,13 @@ import {
   TextField,
   Tooltip,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Marker, useMapEvents } from "react-leaflet";
-import { AlertBarContext } from "components/AlertBar";
-import { CampaignContext } from "components/intel/CampaignSelector";
-import SocketContext from "SocketContext";
+import { useCampaignContext } from "components/intel/Home";
+import useSocketContext from "SocketContext";
 import axios from "axios";
 import useFormReducer from "./reducer";
+import useAlertBarContext from "AlertBarContext";
 
 const useStyles = makeStyles(() => ({
   popup: {
@@ -57,9 +57,9 @@ const NewPin = () => {
   const [newPin, setNewPin] = useState(false);
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
 
-  const { world } = useContext(CampaignContext);
-  const { setAlert } = useContext(AlertBarContext);
-  const { socket } = useContext(SocketContext);
+  const { world } = useCampaignContext();
+  const { setAlert } = useAlertBarContext();
+  const { send } = useSocketContext();
 
   useMapEvents({
     click: (e) => {
@@ -120,9 +120,10 @@ const NewPin = () => {
         x_cord: xCoord.value,
         y_cord: yCoord.value,
       });
-      socket.send("campaign-update");
+      send("campaign-update");
       handleCancel();
     } catch (error) {
+      console.log(error);
       setAlert(error.response.data, "error");
     }
   };

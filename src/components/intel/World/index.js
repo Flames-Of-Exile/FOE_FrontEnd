@@ -1,11 +1,5 @@
 import { Backdrop, Grid, makeStyles, Typography } from "@material-ui/core";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
 import InnerLink from "components/InnerLink";
@@ -13,8 +7,8 @@ import InnerLink from "components/InnerLink";
 import Pin from "components/intel/Pin";
 import NewPin from "components/intel/NewPin";
 import { useLocation, useParams } from "react-router-dom";
-import { CampaignContext } from "components/intel/CampaignSelector";
-import SessionContext from "SessionContext";
+import { useCampaignContext } from "components/intel/Home";
+import useSessionContext from "SessionContext";
 import queryString from "query-string";
 
 const useStyles = makeStyles(() => ({
@@ -35,8 +29,8 @@ const World = () => {
   const location = useLocation();
   const params = useParams();
 
-  const { world } = useContext(CampaignContext);
-  const { user } = useContext(SessionContext);
+  const { world } = useCampaignContext();
+  const { user } = useSessionContext();
 
   useEffect(() => {
     if (world.image == undefined) {

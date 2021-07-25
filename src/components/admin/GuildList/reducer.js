@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 
-export const setGuildName = (dispatch) => (name) => {
+const setGuildName = (dispatch) => (name) => {
   return dispatch({
     type: "SET_GUILD_NAME",
     value: name,
@@ -27,6 +27,8 @@ const reducer = (state, action) => {
         ...state,
         guildName: { value: action.value, error, helperText },
       };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 

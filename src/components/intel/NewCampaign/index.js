@@ -1,15 +1,15 @@
 import { Button, CircularProgress, TextField } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import useFormReducer from "./reducer";
-import { AlertBarContext } from "components/AlertBar";
+import useAlertBarContext from "AlertBarContext";
 
 const NewCampaign = () => {
   const { state: formState, setName, setFile } = useFormReducer();
   const { name, file, filename } = formState;
   const [loading, setLoading] = useState(false);
 
-  const { setAlert } = useContext(AlertBarContext);
+  const { setAlert } = useAlertBarContext();
 
   const handleChange = (e) => {
     switch (e.target.name) {

@@ -1,13 +1,13 @@
 import { useReducer } from "react";
 
-export const setUsername = (dispatch) => (username) => {
+const setUsername = (dispatch) => (username) => {
   return dispatch({
     type: "SET_USERNAME",
     value: username,
   });
 };
 
-export const setPassword = (dispatch) => (password) => {
+const setPassword = (dispatch) => (password) => {
   return dispatch({
     type: "SET_PASSWORD",
     value: password,
@@ -48,6 +48,8 @@ const reducer = (state, action) => {
         ...state,
         password: { value: action.value, error, helperText },
       };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 

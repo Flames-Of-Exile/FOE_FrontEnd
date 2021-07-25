@@ -7,13 +7,13 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import UserList from "components/admin/UserList";
 import axios from "axios";
-import { AdminContext } from "components/admin/Home";
+import { useAdminContext } from "components/admin/Home";
 import { useParams } from "react-router-dom";
-import { AlertBarContext } from "components/AlertBar";
 import useFormReducer from "./reducer";
+import useAlertBarContext from "AlertBarContext";
 
 const useStyles = makeStyles(() => ({
   paper: { width: 800 },
@@ -22,8 +22,8 @@ const useStyles = makeStyles(() => ({
 const UpdateGuild = () => {
   const classes = useStyles();
 
-  const { guilds, setGuilds } = useContext(AdminContext);
-  const { setAlert } = useContext(AlertBarContext);
+  const { guilds, setGuilds } = useAdminContext();
+  const { setAlert } = useAlertBarContext();
 
   const [loading, setLoading] = useState(false);
 

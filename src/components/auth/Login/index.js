@@ -1,15 +1,15 @@
 import { Button, CircularProgress, Grid, TextField } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import SessionContext from "SessionContext";
-import { AlertBarContext } from "components/AlertBar";
+import useSessionContext from "SessionContext";
 import useFormReducer from "./reducer";
-import SocketContext from "SocketContext";
+import useSocketContext from "SocketContext";
+import useAlertBarContext from "AlertBarContext";
 
 const Login = () => {
-  const { setUser, refresh } = useContext(SessionContext);
-  const { setAlert } = useContext(AlertBarContext);
-  const { socket } = useContext(SocketContext);
+  const { setUser, refresh } = useSessionContext();
+  const { setAlert } = useAlertBarContext();
+  const { connect } = useSocketContext();
 
   const { state: formState, setUsername, setPassword } = useFormReducer();
   const { username, password } = formState;
@@ -48,7 +48,7 @@ const Login = () => {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer${response.data.token}`;
-      socket.connect();
+      connect();
       setUser(response.data.user);
       setTimeout(refresh, 2700);
     } catch (error) {

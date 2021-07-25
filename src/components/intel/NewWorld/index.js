@@ -6,21 +6,15 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
-import SocketContext from "SocketContext";
+import useSocketContext from "SocketContext";
 import WorldLinkDrawer from "components/intel/WorldLinkDrawer";
 import axios from "axios";
-import { AlertBarContext } from "components/AlertBar";
-import { CampaignContext } from "components/intel/CampaignSelector";
+import { useCampaignContext } from "components/intel/Home";
 import useFormReducer from "./reducer";
+import useAlertBarContext from "AlertBarContext";
 
 const useStyles = makeStyles(() => ({
   map: {
@@ -44,9 +38,9 @@ const NewWorld = () => {
 
   const overlayRef = useRef(null);
 
-  const { activeCampaign: campaign } = useContext(CampaignContext);
-  const { setAlert } = useContext(AlertBarContext);
-  const { socket } = useContext(SocketContext);
+  const { activeCampaign: campaign } = useCampaignContext();
+  const { setAlert } = useAlertBarContext();
+  const { send } = useSocketContext();
 
   useEffect(() => {
     if (campaign.image == undefined) {
@@ -96,7 +90,7 @@ const NewWorld = () => {
         },
       };
       await axios.post("/api/worlds", formData, config);
-      socket.send("campaign-update");
+      send("campaign-update");
       setAlert("World created!", "success");
     } catch (error) {
       setAlert(error.response.data, "error");

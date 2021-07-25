@@ -1,18 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { makeStyles, Grid } from "@material-ui/core";
 import { Route, Switch } from "react-router";
-import SessionContext from "SessionContext";
 import Logout from "components/auth/Logout";
 import Profile from "components/Profile";
 import Admin from "components/admin/Home";
 import NewCampaign from "components/intel/NewCampaign";
-import CampaignSelector from "components/intel/CampaignSelector";
+import Intel from "components/intel/Home";
 import NewPin from "components/intel/NewPin";
 import PinHistory from "components/intel/PinHistory";
 import Home from "components/Home";
 import Unconfirmed from "components/auth/Unconfirmed";
 import Login from "components/auth/Login";
 import Register from "components/auth/Register";
+import useSessionContext from "SessionContext";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = () => {
-  const { user } = useContext(SessionContext);
+  const { user } = useSessionContext();
   const classes = useStyles();
 
   var routes = [
@@ -51,18 +51,21 @@ const Main = () => {
         </Route>
       );
       routes.push(
-        <Route path="/campaigns/:campaign/:world" key="/campaigns/:campaign/:world">
-          <CampaignSelector />
+        <Route
+          path="/campaigns/:campaign/:world"
+          key="/campaigns/:campaign/:world"
+        >
+          <Intel />
         </Route>
       );
       routes.push(
         <Route path="/campaigns/:campaign" key="/campaigns/:campaign">
-          <CampaignSelector />
+          <Intel />
         </Route>
       );
       routes.push(
         <Route path="/campaigns" key="/campaigns">
-          <CampaignSelector />
+          <Intel />
         </Route>
       );
       routes.push(

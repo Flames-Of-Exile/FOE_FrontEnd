@@ -6,13 +6,13 @@ import {
   Grid,
   TextField,
 } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
-import SocketContext from "SocketContext";
+import React, { useEffect, useState } from "react";
+import useSocketContext from "SocketContext";
 import axios from "axios";
 import useFormReducer from "./reducer";
 import { useHistory } from "react-router-dom";
-import { CampaignContext } from "components/intel/CampaignSelector";
-import { AlertBarContext } from "components/AlertBar";
+import { useCampaignContext } from "components/intel/Home";
+import useAlertBarContext from "AlertBarContext";
 
 function CampaignUpdate() {
   const history = useHistory();
@@ -26,9 +26,9 @@ function CampaignUpdate() {
   const { name, isDefault, isArchived } = formState;
   const [loading, setLoading] = useState(false);
 
-  const { socket } = useContext(SocketContext);
-  const { activeCampaign: campaign } = useContext(CampaignContext);
-  const { setAlert } = useContext(AlertBarContext);
+  const { send } = useSocketContext();
+  const { activeCampaign: campaign } = useCampaignContext();
+  const { setAlert } = useAlertBarContext();
 
   useEffect(() => {
     setName(campaign.name);
@@ -64,7 +64,7 @@ function CampaignUpdate() {
           is_archived: isArchived.value,
         })
       );
-      socket.send("campaign-update");
+      send("campaign-update");
       history.push(`/`);
       setAlert("Campaign updated", "error");
     } catch (error) {

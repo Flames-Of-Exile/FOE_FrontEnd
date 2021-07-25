@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 
-export const setName = (dispatch) => (name) => {
+const setName = (dispatch) => (name) => {
   return dispatch({
     type: "SET_NAME",
     value: name,
@@ -27,6 +27,8 @@ const reducer = (state, action) => {
         ...state,
         name: { value: action.value, error, helperText },
       };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 

@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-import { createContext } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 export class Socket {
   connect() {
@@ -25,6 +25,32 @@ export class Socket {
   }
 }
 
-const socket = new Socket();
+const SocketContext = createContext();
 
-export default createContext({socket});
+export const SocketContextProvider = (props) => {
+  const [socket] = useState(new Socket());
+  const connect = useCallback(() => socket.connect(), [socket]);
+  const send = useCallback((event) => socket.send(event), [socket]);
+  const disconnect = useCallback(() => socket.disconnect(), [socket]);
+  const registerListener = useCallback(
+    (name, callback) => socket.registerListener(name, callback),
+    [socket]
+  );
+  const removeListener = useCallback(
+    (name) => socket.removeListener(name),
+    [socket]
+  );
+
+  return (
+    <SocketContext.Provider
+      value={{ connect, send, disconnect, registerListener, removeListener }}
+      {...props}
+    />
+  );
+};
+
+export default function useSocketContext() {
+  const { connect, send, disconnect, registerListener, removeListener } =
+    useContext(SocketContext);
+  return { connect, send, disconnect, registerListener, removeListener };
+}

@@ -1,18 +1,18 @@
 import { Link, Typography } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
-import { AlertBarContext } from "components/AlertBar";
+import React, { useEffect, useState } from "react";
 import capitalize from "helper_functions/Capitalize";
 import axios from "axios";
-import SessionContext from "SessionContext";
-import SocketContext from "SocketContext";
+import useSessionContext from "SessionContext";
+import useSocketContext from "SocketContext";
+import useAlertBarContext from "AlertBarContext";
 
 const PinDetails = (props) => {
   const { pin, handleEdit } = props;
   const [details, setDetails] = useState([]);
 
-  const { setAlert } = useContext(AlertBarContext);
-  const { user } = useContext(SessionContext);
-  const { socket } = useContext(SocketContext);
+  const { setAlert } = useAlertBarContext();
+  const { user } = useSessionContext();
+  const { send } = useSocketContext();
 
   useEffect(() => {
     setDetails(createDetailArray(pin));
@@ -69,7 +69,7 @@ const PinDetails = (props) => {
   const handleDelete = async () => {
     try {
       await axios.delete(`/api/pins/${pin.id}`);
-      socket.send("campaign-update");
+      send("campaign-update");
     } catch (error) {
       setAlert(error.response.data, "error");
     }

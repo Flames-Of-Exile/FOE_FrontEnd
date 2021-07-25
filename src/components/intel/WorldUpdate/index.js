@@ -4,22 +4,16 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
 import WorldLinkDrawer from "components/intel/WorldLinkDrawer";
 import axios from "axios";
-import SocketContext from "SocketContext";
-import { CampaignContext } from "components/intel/CampaignSelector";
-import { AlertBarContext } from "components/AlertBar";
+import useSocketContext from "SocketContext";
+import { useCampaignContext } from "components/intel/Home";
 import { useHistory } from "react-router-dom";
 import useFormReducer from "./reducer";
+import useAlertBarContext from "AlertBarContext";
 
 const WorldUpdate = () => {
   const { state: formState, setName } = useFormReducer();
@@ -37,9 +31,9 @@ const WorldUpdate = () => {
 
   const overlayRef = useRef(null);
 
-  const { campaign, world } = useContext(CampaignContext);
-  const { setAlert } = useContext(AlertBarContext);
-  const { socket } = useContext(SocketContext);
+  const { campaign, world } = useCampaignContext();
+  const { setAlert } = useAlertBarContext();
+  const { send } = useSocketContext();
 
   useEffect(() => {
     if (campaign.image == undefined) {
@@ -74,7 +68,7 @@ const WorldUpdate = () => {
         center_lng: circle.centerLng,
         radius: circle.radius,
       });
-      socket.send("campaign-update");
+      send("campaign-update");
       history.push(`/campaigns/${campaign.name}`);
       setAlert("World updated!", "success");
     } catch (error) {

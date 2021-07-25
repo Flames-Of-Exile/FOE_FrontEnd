@@ -1,13 +1,13 @@
 import { useReducer } from "react";
 
-export const setName = (dispatch) => (name) => {
+const setName = (dispatch) => (name) => {
   return dispatch({
     type: "SET_NAME",
     value: name,
   });
 };
 
-export const setFile = (dispatch) => (file, filename) => {
+const setFile = (dispatch) => (file, filename) => {
   return dispatch({
     type: "SET_FILE",
     value1: file,
@@ -43,6 +43,8 @@ const reducer = (state, action) => {
         file: { value: action.value1 },
         filename: { value: action.value2 },
       };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 

@@ -1,9 +1,9 @@
 import { Button, CircularProgress, Typography } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
-import { AlertBarContext } from "components/AlertBar";
+import React, { useEffect, useState } from "react";
 import Edit from "components/intel/Edit";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import useAlertBarContext from "AlertBarContext";
 
 const PinHistory = () => {
   const [pin, setPin] = useState({ edits: [] });
@@ -11,7 +11,7 @@ const PinHistory = () => {
 
   const params = useParams();
 
-  const { setAlert } = useContext(AlertBarContext);
+  const { setAlert } = useAlertBarContext();
 
   useEffect(async () => {
     const response = await axios.get(`/api/pins${params.id}`);

@@ -7,17 +7,17 @@ import {
   TextField,
 } from "@material-ui/core";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import SessionContext from "SessionContext";
-import { AlertBarContext } from "components/AlertBar";
+import React, { useEffect, useState } from "react";
+import useSessionContext from "SessionContext";
 import useFormReducer from "./reducer";
-import SocketContext from "SocketContext";
+import useSocketContext from "SocketContext";
+import useAlertBarContext from "AlertBarContext";
 
 const Register = () => {
   /* CONTEXT */
-  const { setUser, refresh } = useContext(SessionContext);
-  const { setAlert } = useContext(AlertBarContext);
-  const { socket } = useContext(SocketContext);
+  const { setUser, refresh } = useSessionContext();
+  const { setAlert } = useAlertBarContext();
+  const { connect } = useSocketContext();
 
   /* FORM STATE */
   const {
@@ -80,7 +80,7 @@ const Register = () => {
         "Authorization"
       ] = `Bearer ${response.data.accessToken}`;
 
-      socket.connect();
+      connect();
       setUser(response.data.user);
       setTimeout(refresh, 27000);
     } catch (error) {

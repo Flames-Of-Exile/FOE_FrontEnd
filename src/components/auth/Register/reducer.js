@@ -2,35 +2,35 @@ import checkPasswordComplexity from "helper_functions/checkPasswordComplexity";
 import { useReducer } from "react";
 
 /* ACTIONS */
-export const setUsername = (dispatch) => (username) => {
+const setUsername = (dispatch) => (username) => {
   return dispatch({
     type: "SET_USERNAME",
     value: username,
   });
 };
 
-export const setPassword1 = (dispatch) => (password) => {
+const setPassword1 = (dispatch) => (password) => {
   return dispatch({
     type: "SET_PASSWORD1",
     value: password,
   });
 };
 
-export const setPassword2 = (dispatch) => (password) => {
+const setPassword2 = (dispatch) => (password) => {
   return dispatch({
     type: "SET_PASSWORD2",
     value: password,
   });
 };
 
-export const setGuildId = (dispatch) => (guildId) => {
+const setGuildId = (dispatch) => (guildId) => {
   return dispatch({
     type: "SET_GUILD_ID",
     value: guildId,
   });
 };
 
-export const setGuildList = (dispatch) => (guildList) => {
+const setGuildList = (dispatch) => (guildList) => {
   return dispatch({
     type: "SET_GUILD_LIST",
     value: guildList,
@@ -102,6 +102,8 @@ const reducer = (state, action) => {
       return { ...state, guildId: { value: action.value } };
     case "SET_GUILD_LIST":
       return { ...state, guildList: action.value };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 

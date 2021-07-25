@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import axios from "axios";
 import useFormReducer from "./reducer";
-import SessionContext from "SessionContext";
+import useSessionContext from "SessionContext";
 import { Button, Grid, TextField } from "@material-ui/core";
-import { AlertBarContext } from "components/AlertBar";
+import useAlertBarContext from "AlertBarContext";
 
 const EditProfile = () => {
   const { state: formState, setPassword1, setPassword2 } = useFormReducer();
   const { password1, password2 } = formState;
-  const { user } = useContext(SessionContext);
-  const { setAlert } = useContext(AlertBarContext);
+  const { user } = useSessionContext();
+  const { setAlert } = useAlertBarContext();
 
   //   const handleSelect = async (event) => {
   //     user.theme = event.target.value;

@@ -5,11 +5,11 @@ import {
   TextField,
   Tooltip,
 } from "@material-ui/core";
-import React, { useContext } from "react";
-import { AlertBarContext } from "components/AlertBar";
-import SocketContext from "SocketContext";
+import React from "react";
+import useSocketContext from "SocketContext";
 import axios from "axios";
 import useFormReducer from "./reducer";
+import useAlertBarContext from "AlertBarContext";
 
 const PinUpdate = (props) => {
   const { pin, handleCancel } = props;
@@ -38,8 +38,8 @@ const PinUpdate = (props) => {
     resourceList,
   } = formState;
 
-  const { setAlert } = useContext(AlertBarContext);
-  const { socket } = useContext(SocketContext);
+  const { setAlert } = useAlertBarContext();
+  const { send } = useSocketContext();
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -89,7 +89,7 @@ const PinUpdate = (props) => {
         x_cord: xCoord.value,
         y_cord: yCoord.value,
       });
-      socket.send("campaign-update");
+      send("campaign-update");
       handleCancel();
     } catch (error) {
       setAlert(error.response.data, "error");

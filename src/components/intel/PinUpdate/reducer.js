@@ -1,62 +1,62 @@
 import { useReducer } from "react";
 
-export const setName = (dispatch) => (name) => {
+const setName = (dispatch) => (name) => {
   return dispatch({
     type: "SET_NAME",
     value: name,
   });
 };
 
-export const setRank = (dispatch) => (rank) => {
+const setRank = (dispatch) => (rank) => {
   return dispatch({
     type: "SET_RANK",
     value: rank,
   });
 };
 
-export const setAmount = (dispatch) => (amount) => {
+const setAmount = (dispatch) => (amount) => {
   return dispatch({
     type: "SET_AMOUNT",
     value: amount,
   });
 };
 
-export const setRespawn = (dispatch) => (respawn) => {
+const setRespawn = (dispatch) => (respawn) => {
   return dispatch({
     type: "SET_RESPAWN",
     value: respawn,
   });
 };
 
-export const setNotes = (dispatch) => (notes) => {
+const setNotes = (dispatch) => (notes) => {
   return dispatch({
-    type: "SET_NOTE",
+    type: "SET_NOTES",
     value: notes,
   });
 };
 
-export const setXCoord = (dispatch) => (xCoord) => {
+const setXCoord = (dispatch) => (xCoord) => {
   return dispatch({
     type: "SET_X_COORD",
     value: xCoord,
   });
 };
 
-export const setYCoord = (dispatch) => (yCoord) => {
+const setYCoord = (dispatch) => (yCoord) => {
   return dispatch({
     type: "SET_Y_COORD",
     value: yCoord,
   });
 };
 
-export const setSymbol = (dispatch) => (symbol) => {
+const setSymbol = (dispatch) => (symbol) => {
   return dispatch({
     type: "SET_SYMBOL",
     value: symbol,
   });
 };
 
-export const setResource = (dispatch) => (resource) => {
+const setResource = (dispatch) => (resource) => {
   return dispatch({
     type: "SET_RESOURCE",
     value: resource,
@@ -76,10 +76,7 @@ const initialState = {
   resourceList: ["na"],
 };
 
-const validateName = (name) => {
-  if (name === "") {
-    return { error: true, helperText: "Please enter a name" };
-  }
+const validateName = () => {
   return { error: false, helperText: "" };
 };
 
@@ -194,6 +191,8 @@ const reducer = (state, action) => {
         ...state,
         resource: { value: action.value },
       };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 

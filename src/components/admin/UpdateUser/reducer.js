@@ -82,6 +82,8 @@ const reducer = (state, action) => {
         ...state,
         guild: { value: action.value },
       };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 

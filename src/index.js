@@ -1,10 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { SocketContextProvider } from "SocketContext";
+import { SessionContextProvider } from "SessionContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SocketContextProvider>
+      <SessionContextProvider>
+        <App />
+      </SessionContextProvider>
+    </SocketContextProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

@@ -1,15 +1,9 @@
 import { Backdrop, Grid, Typography, makeStyles } from "@material-ui/core";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Circle, MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
-import { CampaignContext } from "components/intel/CampaignSelector";
-import SessionContext from "SessionContext";
+import { useCampaignContext } from "components/intel/Home";
+import useSessionContext from "SessionContext";
 import { useHistory } from "react-router-dom";
 import InnerLink from "components/InnerLink";
 
@@ -28,8 +22,8 @@ const Campaign = () => {
   const [loading, setLoading] = useState(true);
   const overlayRef = useRef(null);
 
-  const { activeCampaign: campaign } = useContext(CampaignContext);
-  const { user } = useContext(SessionContext);
+  const { activeCampaign: campaign } = useCampaignContext();
+  const { user } = useSessionContext();
 
   useEffect(() => {
     if (campaign.image == undefined) {

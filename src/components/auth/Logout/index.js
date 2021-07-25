@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import SessionContext from "SessionContext";
+import React, { useCallback, useEffect, useState } from "react";
+import useSessionContext from "SessionContext";
 import {
   Backdrop,
   CircularProgress,
@@ -27,7 +27,7 @@ const Logout = () => {
   const [loading, setLoading] = useState(true);
 
   /* CONTEXT */
-  const { syncLogout } = useContext(SessionContext);
+  const { syncLogout } = useSessionContext();
 
   /* LOGOUT */
   const logout = useCallback(async () => {

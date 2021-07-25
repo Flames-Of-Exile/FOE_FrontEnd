@@ -9,17 +9,17 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { AlertBarContext } from "components/AlertBar";
-import { AdminContext } from "components/admin/Home";
+import { useAdminContext } from "components/admin/Home";
 import { useParams } from "react-router-dom";
 import useFormReducer from "./reducer";
+import useAlertBarContext from "AlertBarContext";
 
 const UpdateUser = () => {
   const params = useParams();
-  const { setAlert } = useContext(AlertBarContext);
-  const { guilds, setGuilds } = useContext(AdminContext);
+  const { setAlert } = useAlertBarContext();
+  const { guilds, setGuilds } = useAdminContext();
   const {
     state: formState,
     setUsername,

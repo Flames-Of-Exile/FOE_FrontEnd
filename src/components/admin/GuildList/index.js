@@ -7,12 +7,12 @@ import {
   Paper,
   TextField,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Guild from "components/admin/Guild";
-import { AdminContext } from "components/admin/Home";
+import { useAdminContext } from "components/admin/Home";
 import axios from "axios";
 import useFormReducer from "./reducer";
-import { AlertBarContext } from "components/AlertBar";
+import useAlertBarContext from "AlertBarContext";
 
 const useStyles = makeStyles(() => ({
   paper: { width: 800 },
@@ -21,11 +21,11 @@ const useStyles = makeStyles(() => ({
 const GuildList = () => {
   const classes = useStyles();
 
-  const { guilds, setGuilds } = useContext(AdminContext);
+  const { guilds, setGuilds } = useAdminContext();
   const { state: formState, setGuildName } = useFormReducer();
   const { guildName } = formState;
   const [loading, setLoading] = useState(false);
-  const { setAlert } = useContext(AlertBarContext);
+  const { setAlert } = useAlertBarContext();
 
   const handleChange = (e) => {
     switch (e.target.name) {

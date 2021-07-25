@@ -1,14 +1,14 @@
 import { useReducer } from "react";
 import passwordValidator from "helper_functions/checkPasswordComplexity";
 
-export const setPassword1 = (dispatch) => (password) => {
+const setPassword1 = (dispatch) => (password) => {
   return dispatch({
     type: "SET_PASSWORD1",
     value: password,
   });
 };
 
-export const setPassword2 = (dispatch) => (password) => {
+const setPassword2 = (dispatch) => (password) => {
   return dispatch({
     type: "SET_PASSWORD2",
     value: password,
@@ -35,6 +35,8 @@ const reducer = (state, action) => {
         ...state,
         password2: { value: action.value, error, helperText },
       };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 

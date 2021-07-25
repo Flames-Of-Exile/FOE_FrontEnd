@@ -5,8 +5,8 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import React, { useContext } from "react";
-import SessionContext from "SessionContext";
+import React from "react";
+import useSessionContext from "SessionContext";
 import InnerLink from "components/InnerLink";
 
 const drawerWidth = 200;
@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
 
 const Sidebar = () => {
   const classes = useStyles();
-  const { user } = useContext(SessionContext);
+  const { user } = useSessionContext();
 
   var links = [];
   if (user.id) {

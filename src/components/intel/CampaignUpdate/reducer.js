@@ -1,20 +1,20 @@
 import { useReducer } from "react";
 
-export const setName = (dispatch) => (name) => {
+const setName = (dispatch) => (name) => {
   return dispatch({
     type: "SET_NAME",
     value: name,
   });
 };
 
-export const setIsDefault = (dispatch) => (isDefault) => {
+const setIsDefault = (dispatch) => (isDefault) => {
   return dispatch({
     type: "SET_IS_DEFAULT",
     value: isDefault,
   });
 };
 
-export const setIsArchived = (dispatch) => (isArchived) => {
+const setIsArchived = (dispatch) => (isArchived) => {
   return dispatch({
     type: "SET_IS_ARCHIVED",
     value: isArchived,
@@ -53,6 +53,8 @@ const reducer = (state, action) => {
         ...state,
         isArchived: { value: action.value },
       };
+    default:
+      new Error(`Invalid action: ${action.type}`);
   }
 };
 
