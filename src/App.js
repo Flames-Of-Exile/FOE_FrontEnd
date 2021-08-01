@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CssBaseline, makeStyles } from "@material-ui/core";
-import Sidebar from "components/Sidebar";
+import Sidebar from "components/main/Sidebar";
 import Theme from "Theme";
 import useSessionContext from "SessionContext";
-import Main from "components/Main";
+import Main from "components/main/Main";
 import useSocketContext from "SocketContext";
 import { AlertBarContextProvider } from "AlertBarContext";
 
