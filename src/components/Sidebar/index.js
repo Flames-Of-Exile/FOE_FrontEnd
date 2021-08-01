@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
   },
   title: {
-    color: theme.palette.background.default,
+    color: theme.palette.text.title,
+    marginBottom: 5,
   },
 }));
 
@@ -83,7 +84,14 @@ const Sidebar = () => {
       classes={{ paper: classes.drawerPaper }}
     >
       <div className={classes.drawerContainer}>
-        <Typography className={classes.title}>Welcome to the Flames of Exile</Typography>
+        <Typography align="center" variant="h5" className={classes.title}>
+          Welcome to the Flames of Exile
+        </Typography>
+        {user.username ? (
+          <Typography className={classes.title} align="center" variant="h6">
+            {user.username}
+          </Typography>
+        ) : null}
         <List>{links}</List>
       </div>
     </Drawer>

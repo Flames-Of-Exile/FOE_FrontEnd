@@ -15,8 +15,8 @@ import { useParams } from "react-router-dom";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 
-const useStyles = makeStyles(() => ({
-  paper: { width: 800 },
+const useStyles = makeStyles((theme) => ({
+  paper: { width: 800, background: theme.palette.background.secondary },
 }));
 
 const UpdateGuild = () => {

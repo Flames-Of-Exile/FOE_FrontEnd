@@ -25,6 +25,11 @@ const EditProfile = () => {
   };
 
   const handleSubmit = async () => {
+    if (password1.value === "" || password2.value === "") {
+      setPassword1(password1.value);
+      setPassword2(password2.value);
+      return;
+    }
     if (password1.error || password2.error) {
       return;
     }

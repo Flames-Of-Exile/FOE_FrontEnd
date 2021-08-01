@@ -9,11 +9,11 @@ const Theme = {
     text: {
       primary: "#F0B38A",
       secondary: "#3282B8",
-      title: "#0F4C75",
+      title: "#0F4CD5",
     },
-    primary: { main: "#3282B8" },
+    primary: { main: "#8888FF" },
     secondary: { main: "#BBE1FA" },
-    error: { main: "#FFFF00" },
+    error: { main: "#FF0000" },
   },
 };
 

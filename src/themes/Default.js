@@ -8,10 +8,10 @@ const Theme = {
     },
     text: {
       primary: "#363836",
-      secondary: "#8FE5FF",
+      secondary: "#8FB5FF",
       title: "#F0F0F0",
     },
-    primary: { main: "#8FE5FF" },
+    primary: { main: "#8FB5FF" },
     secondary: { main: "#CDFFFB" },
     error: { main: "#FF0000" },
   },
