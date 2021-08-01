@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import useSocketContext from "SocketContext";
 import axios from "axios";
@@ -37,50 +31,53 @@ export const CampaignContextProvider = (props) => {
   };
 
   const getActiveWorld = (worlds, name) => {
-    let active = { pins: [], name: "" };
-    if (name) {
-      active = worlds.filter((world) => world.name === name)[0];
-    }
-    return active;
+    // let active = { pins: [], name: "" };
+    // if (name) {
+    //   active = worlds.filter((world) => world.name === name)[0];
+    // }
+    // return active;
+    return (
+      worlds.filter((world) => world.name === name)[0] || {
+        pins: [],
+        name: "",
+      }
+    );
   };
 
-  const handleCampaignUpdate = useCallback(
-    (data) => {
-      setCampaigns(data);
-      const activeCamp = getActiveCampaign(data, params.campaign);
-      const activeWorld = getActiveWorld(activeCamp.worlds, params.world);
+  const handleCampaignUpdate = (data) => {
+    setCampaigns(data);
+    const activeCamp = getActiveCampaign(data, params.campaign);
+    const activeWorld = getActiveWorld(activeCamp.worlds, params.world);
 
-      setActiveCampaign(activeCamp);
-      setWorld(activeWorld);
+    setActiveCampaign(activeCamp);
+    setWorld(activeWorld);
 
-      if (activeWorld.name) {
-        if (
-          location.pathname !==
-          `/campaigns/${activeCamp.name}/${activeWorld.name}`
-        ) {
-          history.push(`/campaigns/${activeCamp.name}/${activeWorld.name}`);
-        }
-      } else if (
-        activeCamp.name &&
-        location.pathname !== `/campaigns/${activeCamp.name}`
+    if (activeWorld.name) {
+      if (
+        location.pathname !==
+        `/campaigns/${activeCamp.name}/${activeWorld.name}`
       ) {
-        history.push(`/campaigns/${activeCamp.name}`);
+        history.push(`/campaigns/${activeCamp.name}/${activeWorld.name}`);
       }
-    },
-    [params]
-  );
+    } else if (
+      activeCamp.name &&
+      location.pathname !== `/campaigns/${activeCamp.name}`
+    ) {
+      history.push(`/campaigns/${activeCamp.name}`);
+    }
+  };
 
   useEffect(() => {
     registerListener("campaign-update", handleCampaignUpdate);
     return () => {
       removeListener("campaign-update");
     };
-  }, [handleCampaignUpdate]);
+  }, []);
 
   useEffect(async () => {
     const response = await axios.get("/api/campaigns");
     handleCampaignUpdate(response.data);
-  }, [handleCampaignUpdate]);
+  }, []);
 
   return (
     <CampaignContext.Provider

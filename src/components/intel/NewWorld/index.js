@@ -15,6 +15,7 @@ import axios from "axios";
 import { useCampaignContext } from "components/intel/Home";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
+import Upload from "components/utilities/Upload";
 
 const useStyles = makeStyles(() => ({
   map: {
@@ -119,19 +120,23 @@ const NewWorld = () => {
   const nameTextFieldProps = {
     name: "name",
     id: "name",
-    label: "name",
+    label: "Name",
     onChange: handleChange,
     disabled: loading,
     ...name,
   };
 
-  const fileTextFieldProps = {
-    type: "file",
-    name: "file",
-    id: "file",
-    label: filename.value,
-    onChange: handleChange,
-    disabled: loading,
+  const uploadProps = {
+    inputProps: {
+      name: "file",
+      id: "file",
+      accept: "image/*",
+      onChange: handleChange,
+    },
+    buttonProps: {
+      disabled: loading,
+      text: filename.value,
+    },
   };
 
   return (
@@ -143,7 +148,7 @@ const NewWorld = () => {
         <TextField {...nameTextFieldProps} />
       </Grid>
       <Grid item>
-        <TextField {...fileTextFieldProps} />
+        <Upload {...uploadProps} />
       </Grid>
       <Grid item>
         <Button onClick={handleSubmit} disabled={loading} variant="contained">

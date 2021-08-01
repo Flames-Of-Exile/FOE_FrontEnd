@@ -51,19 +51,6 @@ const Main = () => {
         </Route>
       );
       routes.push(
-        <Route
-          path="/campaigns/:campaign/:world"
-          key="/campaigns/:campaign/:world"
-        >
-          <Intel />
-        </Route>
-      );
-      routes.push(
-        <Route path="/campaigns/:campaign" key="/campaigns/:campaign">
-          <Intel />
-        </Route>
-      );
-      routes.push(
         <Route path="/campaigns" key="/campaigns">
           <Intel />
         </Route>
