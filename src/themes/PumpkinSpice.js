@@ -2,9 +2,10 @@ const Theme = {
   palette: {
     type: "dark",
     background: {
-      paper: "#000000",
-      secondary: "#080809",
       default: "#91490E",
+      secondary: "#080809",
+      paper: "#000000",
+      filterBox: "#71292E"
     },
     text: {
       primary: "#F6F6F4",

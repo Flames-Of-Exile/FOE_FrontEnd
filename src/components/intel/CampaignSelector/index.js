@@ -1,20 +1,21 @@
-import { Grid, MenuItem, Select } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useCampaignContext } from "components/intel/Home";
+import LabeledSelect from "components/utilities/LabeledSelect";
+
+const useStyles = makeStyles(() => ({
+  select: { minWidth: 200 },
+}));
 
 const CampaignSelector = () => {
+  const classes = useStyles();
   const history = useHistory();
 
   const [indices, setIndices] = useState({ campaign: -1, world: -1 });
 
-  const {
-    campaigns,
-    activeCampaign,
-    world,
-    setActiveCampaign,
-    setWorld,
-  } = useCampaignContext();
+  const { campaigns, activeCampaign, world, setActiveCampaign, setWorld } =
+    useCampaignContext();
 
   useEffect(() => {
     setIndices({
@@ -45,47 +46,39 @@ const CampaignSelector = () => {
 
   const campaignSelectProps = {
     name: "activeCampaign",
-    id: "activeCampaign",
-    placeholder: "Please Choose a Campaign",
     onChange: handleCampaignChange,
     value: indices.campaign,
+    label: "Campaign",
+    className: classes.select,
+    options: campaigns.map((campaign, index) => {
+      return { value: index, label: campaign.name };
+    }),
   };
 
   const worldSelectProps = {
     name: "activeWorld",
-    id: "activeWorld",
     onChange: handleWorldChange,
     value: indices.world,
+    label: "World",
+    className: classes.select,
+    options: [
+      { value: -1, label: "-" },
+      ...activeCampaign.worlds.map((world, index) => {
+        return { value: index, label: world.name };
+      }),
+    ],
   };
 
   return (
     <>
       <Grid item>
-        <Select {...campaignSelectProps}>
-          <MenuItem value={-1}>Please Choose a Campaign</MenuItem>
-          {campaigns.map((campaign, index) => (
-            <MenuItem key={index} value={index}>
-              {campaign.name}
-            </MenuItem>
-          ))}
-        </Select>
+        <LabeledSelect {...campaignSelectProps} />
       </Grid>
-      {
-        activeCampaign.worlds ? ( // if there is an active campaign
-          <Grid item>
-            <Select {...worldSelectProps}>
-              <MenuItem value={-1}>-</MenuItem>
-              {activeCampaign.worlds.map((world, index) => (
-                <MenuItem key={index} value={index}>
-                  {world.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </Grid>
-        ) : // else if there is no active campaign
-        null
-        /* end if there is an active campaign*/
-      }
+      {activeCampaign.worlds ? (
+        <Grid item>
+          <LabeledSelect {...worldSelectProps} />
+        </Grid>
+      ) : null}
     </>
   );
 };

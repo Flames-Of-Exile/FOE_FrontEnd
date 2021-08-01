@@ -1,12 +1,40 @@
-import { Button, MenuItem, Select, TextField } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  makeStyles,
+  Paper,
+  TextField,
+} from "@material-ui/core";
 import React, { useEffect } from "react";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
 import capitalize from "helper_functions/Capitalize";
 import useFormReducer from "./reducer";
 import { TYPE_OPTIONS, RESOURCE_OPTIONS } from "./constants";
+import LabeledSelect from "components/utilities/LabeledSelect";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    background: theme.palette.background.filterBox,
+    position: "absolute",
+    top: 60,
+    height: 300,
+    right: 10,
+    width: 300,
+    zIndex: 1000,
+    padding: 10,
+  },
+  select: { minWidth: 200 },
+}));
+
+const updateStyle = (value, selectedValues) => {
+  return {
+    fontWeight: selectedValues.includes(value) ? "bold" : "standard",
+  };
+};
 
 const FilterBox = () => {
+  const classes = useStyles();
   const {
     state: formState,
     setType,
@@ -87,6 +115,15 @@ const FilterBox = () => {
     onChange: handleChange,
     value: type,
     name: "type",
+    label: "Types",
+    className: classes.select,
+    options: TYPE_OPTIONS.map((option) => {
+      return {
+        value: option.value,
+        label: capitalize(option.value),
+        style: updateStyle(option.value, type),
+      };
+    }),
   };
 
   const resourceSelectProps = {
@@ -94,13 +131,22 @@ const FilterBox = () => {
     onChange: handleChange,
     value: resource,
     name: "resource",
+    label: "Resources",
+    className: classes.select,
+    options: resourceOptions.map((option) => {
+      return {
+        value: option.value,
+        label: capitalize(option.value),
+        style: updateStyle(option.value, resource),
+      };
+    }),
   };
 
   const rankTextFieldProps = {
     type: "number",
     name: "rank",
     id: "rank",
-    label: "rank",
+    label: "Rank",
     value: rank,
     onChange: handleChange,
   };
@@ -109,32 +155,40 @@ const FilterBox = () => {
     type: "number",
     name: "amount",
     id: "amount",
-    label: "amount",
+    label: "Amount",
     value: amount,
     onChange: handleChange,
   };
 
   return (
     <>
-      <Select {...typeSelectProps}>
-        {TYPE_OPTIONS.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {capitalize(option.value)}
-          </MenuItem>
-        ))}
-      </Select>
-      <Select {...resourceSelectProps}>
-        {resourceOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {capitalize(option.value)}
-          </MenuItem>
-        ))}
-      </Select>
-      <TextField {...rankTextFieldProps} />
-      <TextField {...amountTextFieldProps} />
-      <Button variant="contained" onClick={handleApply}>
-        Apply
-      </Button>
+      <Paper className={classes.paper} elevation={8}>
+        <Grid
+          container
+          direction="column"
+          justify="space-around"
+          alignItems="center"
+          spacing={1}
+        >
+          <Grid item>
+            <LabeledSelect {...typeSelectProps} />
+          </Grid>
+          <Grid item>
+            <LabeledSelect {...resourceSelectProps} />
+          </Grid>
+          <Grid item>
+            <TextField {...rankTextFieldProps} />
+          </Grid>
+          <Grid item>
+            <TextField {...amountTextFieldProps} />
+          </Grid>
+          <Grid item>
+            <Button variant="contained" onClick={handleApply}>
+              Apply
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
     </>
   );
 };
