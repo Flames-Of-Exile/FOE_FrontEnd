@@ -88,7 +88,7 @@ const reducer = (state, action) => {
 };
 
 export default function useUpdateUserFormReducer(initState = initialState) {
-  const [dispatch, state] = useReducer(reducer, initState);
+  const [state, dispatch] = useReducer(reducer, initState);
   return {
     state,
     setUsername: setUsername(dispatch),

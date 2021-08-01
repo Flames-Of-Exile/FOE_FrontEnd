@@ -94,6 +94,7 @@ function CampaignUpdate() {
               checked={isArchived.value}
               onChange={handleChange}
               disabled={loading}
+              name="isArchived"
             />
           }
           label="Is Archived:"
@@ -106,6 +107,7 @@ function CampaignUpdate() {
               checked={isDefault.value}
               onChange={handleChange}
               disabled={loading}
+              name="isDefault"
             />
           }
           label="Is Default:"
