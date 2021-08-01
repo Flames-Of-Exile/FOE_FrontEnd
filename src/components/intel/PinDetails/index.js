@@ -1,23 +1,38 @@
 import { Link, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import capitalize from "helper_functions/Capitalize";
+import capitalize from "helpers/Capitalize";
 import axios from "axios";
 import useSessionContext from "SessionContext";
 import useSocketContext from "SocketContext";
 import useAlertBarContext from "AlertBarContext";
 
 const PinDetails = (props) => {
+  /* PROPS */
   const { pin, handleEdit } = props;
+
+  /* FORM STATE */
   const [details, setDetails] = useState([]);
 
+  /* CONTEXT */
   const { setAlert } = useAlertBarContext();
   const { user } = useSessionContext();
   const { send } = useSocketContext();
 
+  /* FORM HANDLING */
   useEffect(() => {
     setDetails(createDetailArray(pin));
   }, [pin]);
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/api/pins/${pin.id}`);
+      send("campaign-update");
+    } catch (error) {
+      setAlert(error.response.data, "error");
+    }
+  };
+
+  /* COMPONENT ARRAY CONSTRUCTION */
   const createDetailArray = (pin) => {
     let array = [];
     if (pin.resource !== "na") {
@@ -66,28 +81,15 @@ const PinDetails = (props) => {
     return details;
   };
 
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`/api/pins/${pin.id}`);
-      send("campaign-update");
-    } catch (error) {
-      setAlert(error.response.data, "error");
-    }
-  };
-
   return (
     <>
       {details}
       <Link onClick={handleEdit}>Edit</Link>
-      {
-        user.role === "admin" || user.id === pin.edits[0].user.id ? ( // if user is admin or creator
-          <Link onClick={handleDelete}>Delete</Link>
-        ) : (
-          // else user is not admin
-          ""
-        )
-        /* end if user is admin */
-      }
+      {user.role === "admin" || user.id === pin.edits[0].user.id ? (
+        <Link onClick={handleDelete}>Delete</Link>
+      ) : (
+        ""
+      )}
     </>
   );
 };

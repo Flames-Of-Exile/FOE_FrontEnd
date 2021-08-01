@@ -15,8 +15,10 @@ import { useCampaignContext } from "components/intel/Home";
 import useAlertBarContext from "AlertBarContext";
 
 function CampaignUpdate() {
+  /* ROUTING */
   const history = useHistory();
 
+  /* FORM STATE */
   const {
     state: formState,
     setName,
@@ -26,10 +28,12 @@ function CampaignUpdate() {
   const { name, isDefault, isArchived } = formState;
   const [loading, setLoading] = useState(false);
 
+  /* CONTEXT */
   const { send } = useSocketContext();
   const { activeCampaign: campaign } = useCampaignContext();
   const { setAlert } = useAlertBarContext();
 
+  /* FORM HANDLING */
   useEffect(() => {
     setName(campaign.name);
     setIsDefault(campaign.is_default);
@@ -73,6 +77,7 @@ function CampaignUpdate() {
     setLoading(false);
   };
 
+  /* COMPONENT PROPS */
   const nameTextFieldProps = {
     name: "name",
     id: "name",

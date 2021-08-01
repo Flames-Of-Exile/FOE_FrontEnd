@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 
+/* ACTIONS */
 const setName = (dispatch) => (name) => {
   return dispatch({
     type: "SET_NAME",
@@ -63,6 +64,7 @@ const setResource = (dispatch) => (resource) => {
   });
 };
 
+/* INITIAL STATE */
 const initialState = {
   name: { value: "", error: false, helperText: "" },
   rank: { value: 0, error: false, helperText: "" },
@@ -76,6 +78,7 @@ const initialState = {
   resourceList: ["na"],
 };
 
+/* VALIDATORS */
 const validateName = () => {
   return { error: false, helperText: "" };
 };
@@ -95,6 +98,7 @@ const validateCoord = () => {
   return { error: false, helperText: "" };
 };
 
+/* UTILITIES */
 const generateResourceList = (symbol) => {
   let selectList;
   if (["stone", "stone-motherlode"].includes(symbol)) {
@@ -132,6 +136,7 @@ const generateResourceList = (symbol) => {
   return ["na"].concat(selectList);
 };
 
+/* REDUCER */
 const reducer = (state, action) => {
   let error, helperText;
   switch (action.type) {

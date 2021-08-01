@@ -10,12 +10,12 @@ import {
 } from "@material-ui/core";
 
 /* CONSTANTS */
-const sidebarWidth = 200;
+const SIDEBAR_WIDTH = 200;
 
 /* STYLING */
 const useStyles = makeStyles(() => ({
   backdrop: {
-    left: sidebarWidth,
+    left: SIDEBAR_WIDTH,
   },
 }));
 

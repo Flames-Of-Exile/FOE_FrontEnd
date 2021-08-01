@@ -31,6 +31,7 @@ const Register = () => {
   const { username, password1, password2, guildId, guildList } = formState;
   const [loading, setLoading] = useState(false);
 
+  /* FORM HANDLING */
   useEffect(async () => {
     const response = await axios.get("/api/guilds");
     setGuildList(response.data);

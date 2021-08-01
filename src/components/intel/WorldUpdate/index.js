@@ -16,25 +16,32 @@ import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 
 const WorldUpdate = () => {
+  /* FORM STATE */
   const { state: formState, setName } = useFormReducer();
   const { name } = formState;
+  const [loading, setLoading] = useState(false);
+
+  /* MAP STATE */
   const [circle, setCircle] = useState({
     centerLat: 0,
     centerLng: 0,
     radius: 0,
   });
   const [initialLoading, setInitialLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
   const [size, setSize] = useState({ width: 0, height: 0 });
 
+  /* ROUTING */
   const history = useHistory();
 
+  /* REFS */
   const overlayRef = useRef(null);
 
+  /* CONTEXT */
   const { campaign, world } = useCampaignContext();
   const { setAlert } = useAlertBarContext();
   const { send } = useSocketContext();
 
+  /* MAP HANDLING */
   useEffect(() => {
     if (campaign.image == undefined) {
       return;
@@ -47,6 +54,25 @@ const WorldUpdate = () => {
     };
   }, [campaign]);
 
+  const setRefSize = useCallback(() => {
+    if (overlayRef.current) {
+      let ratio = size.height / size.width;
+      overlayRef.current.setBounds([
+        [-400, -400 / ratio],
+        [400, 400 / ratio],
+      ]);
+    }
+  }, [size]);
+
+  const handleLoad = () => {
+    setRefSize();
+  };
+
+  useEffect(() => {
+    setRefSize();
+  }, [setRefSize]);
+
+  /* FORM HANDLING */
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
@@ -77,24 +103,7 @@ const WorldUpdate = () => {
     setLoading(false);
   };
 
-  const setRefSize = useCallback(() => {
-    if (overlayRef.current) {
-      let ratio = size.height / size.width;
-      overlayRef.current.setBounds([
-        [-400, -400 / ratio],
-        [400, 400 / ratio],
-      ]);
-    }
-  }, [size]);
-
-  const handleLoad = () => {
-    setRefSize();
-  };
-
-  useEffect(() => {
-    setRefSize();
-  }, [setRefSize]);
-
+  /* COMPONENT PROPS */
   const nameTextFieldProps = {
     name: "name",
     id: "name",

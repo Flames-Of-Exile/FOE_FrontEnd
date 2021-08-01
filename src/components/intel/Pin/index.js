@@ -20,8 +20,10 @@ import PinDetails from "components/intel/PinDetails";
 import PinUpdate from "components/intel/PinUpdate";
 
 function Pin(props) {
+  /* PROPS */
   const { pin } = props;
 
+  /* STATE */
   const [url, setUrl] = useState("http://");
   const [editing, setEditing] = useState(false);
 

@@ -6,12 +6,15 @@ import useAlertBarContext from "AlertBarContext";
 import Upload from "components/utilities/Upload";
 
 const NewCampaign = () => {
+  /* FORM STATE */
   const { state: formState, setName, setFile } = useFormReducer();
   const { name, file, filename } = formState;
   const [loading, setLoading] = useState(false);
 
+  /* CONTEXT */
   const { setAlert } = useAlertBarContext();
 
+  /* FORM HANDLING */
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
@@ -50,6 +53,7 @@ const NewCampaign = () => {
     setLoading(false);
   };
 
+  /* COMPONENT PROPS */
   const nameTextFieldProps = {
     name: "name",
     id: "name",

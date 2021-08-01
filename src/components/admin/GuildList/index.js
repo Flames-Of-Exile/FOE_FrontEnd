@@ -14,19 +14,25 @@ import axios from "axios";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 
+/* STYLING */
 const useStyles = makeStyles((theme) => ({
   paper: { width: 800, background: theme.palette.background.secondary },
 }));
 
 const GuildList = () => {
+  /* STYLING */
   const classes = useStyles();
 
+  /* CONTEXT */
   const { guilds, setGuilds } = useAdminContext();
+  const { setAlert } = useAlertBarContext();
+
+  /* FORM STATE */
   const { state: formState, setGuildName } = useFormReducer();
   const { guildName } = formState;
   const [loading, setLoading] = useState(false);
-  const { setAlert } = useAlertBarContext();
 
+  /* FORM HANDLING */
   const handleChange = (e) => {
     switch (e.target.name) {
       case "guildName":
@@ -64,6 +70,7 @@ const GuildList = () => {
     setLoading(false);
   };
 
+  /* COMPONENT PROPS */
   const guildNameTextFieldProps = {
     name: "guildName",
     id: "guildName",

@@ -7,6 +7,7 @@ import useSessionContext from "SessionContext";
 import { useHistory } from "react-router-dom";
 import InnerLink from "components/utilities/InnerLink";
 
+/* STYLING */
 const useStyles = makeStyles(() => ({
   map: {
     width: "90%",
@@ -15,16 +16,24 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Campaign = () => {
+  /* STYLING */
   const classes = useStyles();
+
+  /* ROUTING */
   const history = useHistory();
 
+  /* MAP STATE */
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [loading, setLoading] = useState(true);
+
+  /* REFS */
   const overlayRef = useRef(null);
 
+  /* CONTEXT */
   const { activeCampaign: campaign, setWorld } = useCampaignContext();
   const { user } = useSessionContext();
 
+  /* MAP HANDLING */
   useEffect(() => {
     if (campaign.image == undefined) {
       return;
@@ -105,19 +114,16 @@ const Campaign = () => {
           primary="Add World"
         />
       </Grid>
-      {
-        user.role === "admin" ? ( // if user is admin
-          <Grid item>
-            <InnerLink
-              to={`/campaigns/${campaign.name}/update`}
-              primary="Edit Campaign"
-            />
-          </Grid>
-        ) : (
-          // else
-          ""
-        ) /* end if user is admin */
-      }
+      {user.role === "admin" ? (
+        <Grid item>
+          <InnerLink
+            to={`/campaigns/${campaign.name}/update`}
+            primary="Edit Campaign"
+          />
+        </Grid>
+      ) : (
+        ""
+      )}
     </>
   );
 };

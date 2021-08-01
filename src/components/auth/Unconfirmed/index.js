@@ -3,10 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const Unconfirmed = () => {
-  const [token, setToken] = useState("");
-
+  /* REFS */
   const textArea = useRef(null);
 
+  /* FORM STATE */
+  const [token, setToken] = useState("");
+
+  /* FORM HANDLING */
   useEffect(() => {
     generateToken();
   }, []);

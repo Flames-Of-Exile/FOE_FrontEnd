@@ -1,6 +1,7 @@
 import { useReducer } from "react";
-import checkPasswordComplexity from "helper_functions/checkPasswordComplexity";
+import checkPasswordComplexity from "helpers/checkPasswordComplexity";
 
+/* ACTIONS */
 const setPassword1 = (dispatch) => (password) => {
   return dispatch({
     type: "SET_PASSWORD1",
@@ -15,11 +16,13 @@ const setPassword2 = (dispatch) => (password) => {
   });
 };
 
+/* INITIAL STATE */
 const initialState = {
   password1: { value: "", error: false, helperText: "" },
   password2: { value: "", error: false, helperText: "" },
 };
 
+/* REDUCER */
 const reducer = (state, action) => {
   let error, helperText;
   switch (action.type) {
@@ -46,6 +49,7 @@ const reducer = (state, action) => {
   }
 };
 
+/* VALIDATORS */
 const validatePassword = (password, otherPassword) => {
   if (password === "") {
     return { error: true, helperText: "Please enter a password" };

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Circle, useMapEvents } from "react-leaflet";
 
 function WorldLinkDrawer(props) {
+  /* PROPS */
   const { setCircle } = props;
+
+  /* MAP STATE */
   const [state, setState] = useState({
     newMarker: false,
     centerLatLng: [0, 0],
@@ -11,6 +14,7 @@ function WorldLinkDrawer(props) {
     settingRadius: false,
   });
 
+  /* MAP HANDLING */
   useMapEvents({
     click: (event) => {
       if (state.settingRadius) {

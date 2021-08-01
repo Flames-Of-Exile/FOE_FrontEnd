@@ -4,19 +4,26 @@ import { useHistory } from "react-router-dom";
 import { useCampaignContext } from "components/intel/Home";
 import LabeledSelect from "components/utilities/LabeledSelect";
 
+/* STYLING */
 const useStyles = makeStyles(() => ({
   select: { minWidth: 200 },
 }));
 
 const CampaignSelector = () => {
+  /* STYLING */
   const classes = useStyles();
+
+  /* ROUTING */
   const history = useHistory();
 
+  /* FORM STATE */
   const [indices, setIndices] = useState({ campaign: -1, world: -1 });
 
+  /* CONTEXT */
   const { campaigns, activeCampaign, world, setActiveCampaign, setWorld } =
     useCampaignContext();
 
+  /* FORM STATE */
   useEffect(() => {
     setIndices({
       campaign: campaigns.indexOf(activeCampaign),
@@ -44,6 +51,7 @@ const CampaignSelector = () => {
     setWorld(activeCampaign.worlds[index]);
   };
 
+  /* COMPONENT PROPS */
   const campaignSelectProps = {
     name: "activeCampaign",
     onChange: handleCampaignChange,

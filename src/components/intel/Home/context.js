@@ -6,10 +6,12 @@ import axios from "axios";
 const CampaignContext = createContext();
 
 export const CampaignContextProvider = (props) => {
+  /* ROUTING */
   const params = useParams();
   const location = useLocation();
   const history = useHistory();
 
+  /* STATE */
   const [campaigns, setCampaigns] = useState([]);
   const [activeCampaign, setActiveCampaign] = useState({
     worlds: [],
@@ -17,6 +19,7 @@ export const CampaignContextProvider = (props) => {
   });
   const [world, setWorld] = useState({ pins: [], name: "" });
 
+  /* OTHER CONTEXT */
   const { registerListener, removeListener } = useSocketContext();
 
   const getActiveCampaign = (campaigns, name) => {

@@ -1,6 +1,7 @@
 import { useReducer } from "react";
-import checkPasswordComplexity from "helper_functions/checkPasswordComplexity";
+import checkPasswordComplexity from "helpers/checkPasswordComplexity";
 
+/* ACTIONS */
 const setUsername = (dispatch) => (username) => {
   return dispatch({
     type: "SET_USERNAME",
@@ -36,6 +37,7 @@ const setGuild = (dispatch) => (guild) => {
   });
 };
 
+/* INITIAL STATE */
 const initialState = {
   username: { value: "" },
   password: { value: "", error: false, helperText: "" },
@@ -44,6 +46,7 @@ const initialState = {
   guild: { value: 0 },
 };
 
+/* VALIDATORS */
 const validatePassword = (password) => {
   const validationErrors = checkPasswordComplexity(password);
 
@@ -53,6 +56,7 @@ const validatePassword = (password) => {
   };
 };
 
+/* REDUCER */
 const reducer = (state, action) => {
   let error, helperText;
   switch (action.type) {

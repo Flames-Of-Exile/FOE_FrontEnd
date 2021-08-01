@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 
+/* ACTIONS */
 const setUsername = (dispatch) => (username) => {
   return dispatch({
     type: "SET_USERNAME",
@@ -14,11 +15,13 @@ const setPassword = (dispatch) => (password) => {
   });
 };
 
+/* INITIAL STATE */
 const initialState = {
   username: { value: "", error: false, helperText: "" },
   password: { value: "", error: false, helperText: "" },
 };
 
+/* VALIDATORS */
 const validateUsername = (username) => {
   if (username === "") {
     return { error: true, helperText: "Please enter a username" };
@@ -33,6 +36,7 @@ const validatePassword = (password) => {
   return { error: false, helperText: "" };
 };
 
+/* REDUCER */
 const reducer = (state, action) => {
   let error, helperText;
   switch (action.type) {

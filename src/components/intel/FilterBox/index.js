@@ -1,18 +1,13 @@
-import {
-  Button,
-  Grid,
-  makeStyles,
-  Paper,
-  TextField,
-} from "@material-ui/core";
+import { Button, Grid, makeStyles, Paper, TextField } from "@material-ui/core";
 import React, { useEffect } from "react";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
-import capitalize from "helper_functions/Capitalize";
+import capitalize from "helpers/Capitalize";
 import useFormReducer from "./reducer";
 import { TYPE_OPTIONS, RESOURCE_OPTIONS } from "./constants";
 import LabeledSelect from "components/utilities/LabeledSelect";
 
+/* STYLING */
 const useStyles = makeStyles((theme) => ({
   paper: {
     background: theme.palette.background.filterBox,
@@ -34,7 +29,10 @@ const updateStyle = (value, selectedValues) => {
 };
 
 const FilterBox = () => {
+  /* STYLING */
   const classes = useStyles();
+
+  /* FORM STATE */
   const {
     state: formState,
     setType,
@@ -44,9 +42,11 @@ const FilterBox = () => {
   } = useFormReducer();
   const { type, resource, rank, amount, resourceOptions } = formState;
 
+  /* ROUTING */
   const history = useHistory();
   const location = useLocation();
 
+  /* FORM HANDLING */
   useEffect(() => {
     const query = queryString.parse(location.search);
     let type = [];
@@ -110,6 +110,7 @@ const FilterBox = () => {
     history.push(`${location.pathname}?${queryString}`);
   };
 
+  /* COMPONENT PROPS */
   const typeSelectProps = {
     multiple: true,
     onChange: handleChange,

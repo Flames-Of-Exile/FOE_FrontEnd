@@ -15,24 +15,29 @@ import { useParams } from "react-router-dom";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 
+/* STYLING */
 const useStyles = makeStyles((theme) => ({
   paper: { width: 800, background: theme.palette.background.secondary },
 }));
 
 const UpdateGuild = () => {
+  /* STYLING */
   const classes = useStyles();
 
+  /* CONTEXT */
   const { guilds, setGuilds } = useAdminContext();
   const { setAlert } = useAlertBarContext();
 
-  const [loading, setLoading] = useState(false);
-
+  /* ROUTING */
   const params = useParams();
-
+  
+  /* FORM STATE */
+  const [loading, setLoading] = useState(false);
   const thisGuild = guilds.filter((guild) => guild.name === params.name)[0];
   const { state: formState, setGuildName } = useFormReducer(thisGuild.name);
   const { guildName } = formState;
 
+  /* FORM HANDLING */
   const handleToggle = async () => {
     setLoading(true);
     try {
@@ -84,6 +89,7 @@ const UpdateGuild = () => {
     setLoading(false);
   };
 
+  /* COMPONENT PROPS */
   const guildNameTextFieldProps = {
     name: "guildName",
     id: "guildName",

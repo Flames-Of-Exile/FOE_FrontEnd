@@ -9,8 +9,10 @@ import {
 } from "@material-ui/core";
 
 const InnerLink = (props) => {
+  /* PROPS */
   const { icon, primary, to, variant } = props;
 
+  /* INNER COMPONENTS */
   const renderLink = useMemo(() => {
     const routerLink = (itemProps, ref) => (
       <RouterLink to={to} ref={ref} {...itemProps} />

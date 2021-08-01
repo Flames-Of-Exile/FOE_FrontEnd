@@ -2,6 +2,7 @@ import React from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 
 const LabeledSelect = (props) => {
+  /* PROPS */
   const {
     label,
     options,

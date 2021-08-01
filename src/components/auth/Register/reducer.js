@@ -1,4 +1,4 @@
-import checkPasswordComplexity from "helper_functions/checkPasswordComplexity";
+import checkPasswordComplexity from "helpers/checkPasswordComplexity";
 import { useReducer } from "react";
 
 /* ACTIONS */

@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 
+/* ACTIONS */
 const setName = (dispatch) => (name) => {
   return dispatch({
     type: "SET_NAME",
@@ -15,12 +16,14 @@ const setFile = (dispatch) => (file, filename) => {
   });
 };
 
+/* INITIAL STATE */
 const initialState = {
   name: { value: "", error: false, helperText: "" },
   file: { value: null },
   filename: { value: "choose a file" },
 };
 
+/* VALIDATORS */
 const validateName = (name) => {
   if (name === "") {
     return { error: true, helperText: "Please enter a name" };
@@ -28,6 +31,7 @@ const validateName = (name) => {
   return { error: false, helperText: "" };
 };
 
+/* REDUCER */
 const reducer = (state, action) => {
   let error, helperText;
   switch (action.type) {

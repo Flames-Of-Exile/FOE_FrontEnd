@@ -6,11 +6,15 @@ import { Button, Grid, MenuItem, Select, TextField } from "@material-ui/core";
 import useAlertBarContext from "AlertBarContext";
 
 const EditProfile = () => {
-  const { state: formState, setPassword1, setPassword2 } = useFormReducer();
-  const { password1, password2 } = formState;
+  /* CONTEXT */
   const { user, setUser } = useSessionContext();
   const { setAlert } = useAlertBarContext();
 
+  /* FORM STATE */
+  const { state: formState, setPassword1, setPassword2 } = useFormReducer();
+  const { password1, password2 } = formState;
+
+  /* FORM HANDLING */
   const handleSelect = async (event) => {
     user.theme = event.target.value;
     try {
@@ -58,6 +62,7 @@ const EditProfile = () => {
     }
   };
 
+  /* COMPONENT PROPS */
   const password1Props = {
     label: "New Password",
     name: "password1",

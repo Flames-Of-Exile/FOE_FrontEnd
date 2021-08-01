@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { RESOURCE_OPTIONS } from "./constants";
 
+/* ACTIONS */
 const setType = (dispatch) => (type) => {
   return dispatch({
     type: "SET_TYPE",
@@ -29,6 +30,7 @@ const setAmount = (dispatch) => (amount) => {
   });
 };
 
+/* INITIAL STATE */
 const initialState = {
   type: [],
   resource: [],
@@ -37,11 +39,13 @@ const initialState = {
   resourceOptions: [],
 };
 
+/* UTILITIES */
 const buildResourceOptions = (type) => {
   const types = type.map((item) => item.replace("-motherlode", ""));
   return RESOURCE_OPTIONS.filter((option) => types.includes(option.type));
 };
 
+/* REDUCER */
 const reducer = (state, action) => {
   switch (action.type) {
     case "SET_TYPE":

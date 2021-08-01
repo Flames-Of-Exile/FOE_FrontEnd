@@ -9,15 +9,17 @@ import React from "react";
 import useSessionContext from "SessionContext";
 import InnerLink from "components/utilities/InnerLink";
 
-const drawerWidth = 200;
+/* CONSTANTS */
+const DRAWER_WIDTH = 200;
 
+/* STYLING */
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
     background: theme.palette.background.secondary,
   },
   drawerContainer: {
@@ -32,9 +34,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Sidebar = () => {
+  /* STYLING */
   const classes = useStyles();
+  /* CONTEXT */
   const { user } = useSessionContext();
 
+  /* COMPONENT ARRAY CONSTRUCTION */
   var links = [];
   if (user.id) {
     links.push(<InnerLink to="/" primary="Home" variant="list" key="/" />);

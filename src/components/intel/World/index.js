@@ -11,6 +11,7 @@ import { useCampaignContext } from "components/intel/Home";
 import useSessionContext from "SessionContext";
 import queryString from "query-string";
 
+/* STYLING */
 const useStyles = makeStyles(() => ({
   map: {
     width: "90%",
@@ -19,19 +20,26 @@ const useStyles = makeStyles(() => ({
 }));
 
 const World = () => {
+  /* STYLING */
   const classes = useStyles();
+
+  /* MAP STATE */
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [pins, setPins] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  /* REFS */
   const overlayRef = useRef(null);
 
+  /* ROUTING */
   const location = useLocation();
   const params = useParams();
 
+  /* CONTEXT */
   const { world } = useCampaignContext();
   const { user } = useSessionContext();
 
+  /* MAP HANDLING */
   useEffect(() => {
     if (world.image == undefined) {
       return;

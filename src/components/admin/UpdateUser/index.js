@@ -17,9 +17,14 @@ import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 
 const UpdateUser = () => {
+  /* ROUTING */
   const params = useParams();
+
+  /* CONTEXT */
   const { setAlert } = useAlertBarContext();
   const { guilds, setGuilds } = useAdminContext();
+
+  /* FORM STATE */
   const {
     state: formState,
     setUsername,
@@ -31,6 +36,7 @@ const UpdateUser = () => {
   const { username, password, isActive, role, guild } = formState;
   const [loading, setLoading] = useState(false);
 
+  /* FORM HANDLING */
   useEffect(async () => {
     try {
       const response = await axios.get(`/api/users/${params.id}`);
@@ -96,6 +102,7 @@ const UpdateUser = () => {
     setLoading(false);
   };
 
+  /* COMPONENT PROPS */
   const passwordTextFieldProps = {
     type: "password",
     name: "password",

@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 
+/* ACTIONS */
 const setGuildName = (dispatch) => (name) => {
   return dispatch({
     action: "SET_GUILD_NAME",
@@ -7,10 +8,12 @@ const setGuildName = (dispatch) => (name) => {
   });
 };
 
+/* INITIAL STATE */
 const initialState = {
   guildName: { value: "", error: false, helperText: "" },
 };
 
+/* VALIDATORS */
 const validateGuildName = (name) => {
   if (name === "") {
     return { error: true, helperText: "Please enter a name" };
@@ -18,6 +21,7 @@ const validateGuildName = (name) => {
   return { error: false, helperText: "" };
 };
 
+/* REDUCER */
 const reducer = (state, action) => {
   let error, helperText;
   switch (action.type) {

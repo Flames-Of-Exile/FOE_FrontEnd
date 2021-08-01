@@ -16,6 +16,7 @@ import axios from "axios";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 
+/* STYLING */
 const useStyles = makeStyles(() => ({
   popup: {
     padding: 5,
@@ -27,7 +28,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 const NewPin = () => {
+  /* STYLING */
   const classes = useStyles();
+
+  /* FORM STATE */
   const {
     state: formState,
     setName,
@@ -53,13 +57,15 @@ const NewPin = () => {
     resourceList,
   } = formState;
 
-  const [anchor, setAnchor] = useState({ top: 0, left: 0 });
-  const [newPin, setNewPin] = useState(false);
-  const [coords, setCoords] = useState({ lat: 0, lng: 0 });
-
+  /* CONTEXT */
   const { world } = useCampaignContext();
   const { setAlert } = useAlertBarContext();
   const { send } = useSocketContext();
+
+  /* MAP STATE */
+  const [anchor, setAnchor] = useState({ top: 0, left: 0 });
+  const [newPin, setNewPin] = useState(false);
+  const [coords, setCoords] = useState({ lat: 0, lng: 0 });
 
   useMapEvents({
     click: (e) => {
@@ -72,6 +78,7 @@ const NewPin = () => {
     },
   });
 
+  /* FORM HANDLING */
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
@@ -138,6 +145,7 @@ const NewPin = () => {
     setResource("-");
   };
 
+  /* COMPONENT PROPS */
   const nameTextFieldProps = {
     name: "name",
     id: "name",

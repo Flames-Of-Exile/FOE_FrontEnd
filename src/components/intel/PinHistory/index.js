@@ -6,13 +6,17 @@ import { useParams } from "react-router-dom";
 import useAlertBarContext from "AlertBarContext";
 
 const PinHistory = () => {
+  /* FORM STATE */
   const [pin, setPin] = useState({ edits: [] });
   const [loading, setLoading] = useState(false);
 
+  /* ROUTING */
   const params = useParams();
 
+  /* CONTEXT */
   const { setAlert } = useAlertBarContext();
 
+  /* FORM HANDLING */
   useEffect(async () => {
     const response = await axios.get(`/api/pins${params.id}`);
     setPin(response.data);

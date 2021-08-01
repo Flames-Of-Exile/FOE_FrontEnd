@@ -14,6 +14,7 @@ import Login from "components/auth/Login";
 import Register from "components/auth/Register";
 import useSessionContext from "SessionContext";
 
+/* STYLING */
 const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
@@ -23,9 +24,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = () => {
-  const { user } = useSessionContext();
+  /* STYLING */
   const classes = useStyles();
 
+  /* CONTEXT */
+  const { user } = useSessionContext();
+
+  /* COMPONENT ARRAY CONSTRUCTION */
   var routes = [
     <Route exact path="/logout" key="/logout">
       <Logout />

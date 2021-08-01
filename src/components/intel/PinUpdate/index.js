@@ -12,7 +12,10 @@ import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 
 const PinUpdate = (props) => {
+  /* PROPS */
   const { pin, handleCancel } = props;
+
+  /* FORM STATE */
   const {
     state: formState,
     setName,
@@ -38,9 +41,11 @@ const PinUpdate = (props) => {
     resourceList,
   } = formState;
 
+  /* CONTEXT */
   const { setAlert } = useAlertBarContext();
   const { send } = useSocketContext();
 
+  /* FORM HANDLING */
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
@@ -96,6 +101,7 @@ const PinUpdate = (props) => {
     }
   };
 
+  /* COMPONENT PROPS */
   const nameTextFieldProps = {
     name: "name",
     id: "name",

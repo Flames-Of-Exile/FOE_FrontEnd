@@ -1,6 +1,7 @@
 import { Button, Input, makeStyles } from "@material-ui/core";
 import React from "react";
 
+/* STYLING */
 const useStyles = makeStyles({
   input: {
     display: "none",
@@ -8,7 +9,10 @@ const useStyles = makeStyles({
 });
 
 const Upload = (props) => {
+  /* STYLING */
   const classes = useStyles();
+
+  /* PROPS */
   const { inputProps, buttonProps } = props;
   const id = inputProps.id || "contained-button-file";
   const text = buttonProps.text || "Upload";

@@ -4,6 +4,7 @@ import InnerLink from "components/utilities/InnerLink";
 
 
 const Home = () => {
+  /* ROUTING */
   const history = useHistory();
 
   useEffect(() => {

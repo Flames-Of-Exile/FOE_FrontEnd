@@ -7,14 +7,17 @@ import useSocketContext from "SocketContext";
 import useAlertBarContext from "AlertBarContext";
 
 const Login = () => {
+  /* CONTEXT */
   const { setUser, refresh } = useSessionContext();
   const { setAlert } = useAlertBarContext();
   const { connect } = useSocketContext();
 
+  /* FORM STATE */
   const { state: formState, setUsername, setPassword } = useFormReducer();
   const { username, password } = formState;
   const [loading, setLoading] = useState(false);
 
+  /* FORM HANDLING */
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSubmit();
@@ -57,6 +60,7 @@ const Login = () => {
     setLoading(false);
   };
 
+  /* COMPONENT PROPS */
   const usernameFieldProps = {
     label: "Username",
     name: "username",
