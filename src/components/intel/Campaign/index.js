@@ -5,7 +5,7 @@ import { CRS } from "leaflet";
 import { useCampaignContext } from "components/intel/Home";
 import useSessionContext from "SessionContext";
 import { useHistory } from "react-router-dom";
-import InnerLink from "components/InnerLink";
+import InnerLink from "components/utilities/InnerLink";
 
 const useStyles = makeStyles(() => ({
   map: {

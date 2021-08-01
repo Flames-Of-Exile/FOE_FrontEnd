@@ -2,22 +2,22 @@ import React, { createContext, useCallback, useContext, useState } from "react";
 import useSocketContext from "SocketContext";
 import axios from "axios";
 
+const defaultUser = {
+  id: 0,
+  isAdmin: false,
+  discordConfirmed: false,
+  theme: "default",
+};
+
 const SessionContext = createContext();
 
 export const SessionContextProvider = (props) => {
   const { connect, disconnect } = useSocketContext();
-  const [user, setUser] = useState({
-    id: 0,
-    isAdmin: false,
-    discordConfirmed: false,
-  });
+  const [user, setUser] = useState(defaultUser);
 
   const syncLogout = useCallback(() => {
     delete axios.defaults.headers.common["Authorization"];
-    setUser({
-      id: 0,
-      isAdmin: false,
-    });
+    setUser(defaultUser);
   }, []);
 
   const refresh = useCallback(async () => {

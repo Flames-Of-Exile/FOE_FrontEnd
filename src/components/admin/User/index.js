@@ -1,5 +1,5 @@
 import React from "react";
-import InnerLink from "components/InnerLink";
+import InnerLink from "components/utilities/InnerLink";
 
 function User(props) {
   return (

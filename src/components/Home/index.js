@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import InnerLink from "components/InnerLink";
+import InnerLink from "components/utilities/InnerLink";
 
 
 const Home = () => {

@@ -1,6 +1,12 @@
 import React, { forwardRef, useMemo } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Link, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  Link,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@material-ui/core";
 
 const InnerLink = (props) => {
   const { icon, primary, to, variant } = props;
@@ -17,7 +23,9 @@ const InnerLink = (props) => {
       <li>
         <ListItem button component={renderLink}>
           {icon && <ListItemIcon>{icon}</ListItemIcon>}
-          <ListItemText primary={primary} />
+          <ListItemText
+            primary={<Typography color="secondary">{primary}</Typography>}
+          />
         </ListItem>
       </li>
     );

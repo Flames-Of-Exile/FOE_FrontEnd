@@ -7,22 +7,26 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import useSessionContext from "SessionContext";
-import InnerLink from "components/InnerLink";
+import InnerLink from "components/utilities/InnerLink";
 
 const drawerWidth = 200;
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
+    background: theme.palette.background.secondary,
   },
   drawerContainer: {
     overflow: "auto",
     margin: 10,
     marginTop: 20,
+  },
+  title: {
+    color: theme.palette.background.default,
   },
 }));
 
@@ -79,7 +83,7 @@ const Sidebar = () => {
       classes={{ paper: classes.drawerPaper }}
     >
       <div className={classes.drawerContainer}>
-        <Typography>Welcome to the Flames of Exile</Typography>
+        <Typography className={classes.title}>Welcome to the Flames of Exile</Typography>
         <List>{links}</List>
       </div>
     </Drawer>

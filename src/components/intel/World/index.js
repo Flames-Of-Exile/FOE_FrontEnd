@@ -2,7 +2,7 @@ import { Backdrop, Grid, makeStyles, Typography } from "@material-ui/core";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
-import InnerLink from "components/InnerLink";
+import InnerLink from "components/utilities/InnerLink";
 // import FilterBox from "components/intel/FilterBox";
 import Pin from "components/intel/Pin";
 import NewPin from "components/intel/NewPin";

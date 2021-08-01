@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import passwordValidator from "helper_functions/checkPasswordComplexity";
+import checkPasswordComplexity from "helper_functions/checkPasswordComplexity";
 
 const setPassword1 = (dispatch) => (password) => {
   return dispatch({
@@ -24,13 +24,19 @@ const reducer = (state, action) => {
   let error, helperText;
   switch (action.type) {
     case "SET_PASSWORD1":
-      ({ error, helperText } = validatePassword(action.value, state.password2));
+      ({ error, helperText } = validatePassword(
+        action.value,
+        state.password2.value
+      ));
       return {
         ...state,
         password1: { value: action.value, error, helperText },
       };
     case "SET_PASSWORD2":
-      ({ error, helperText } = validatePassword(action.value, state.password1));
+      ({ error, helperText } = validatePassword(
+        action.value,
+        state.password1.value
+      ));
       return {
         ...state,
         password2: { value: action.value, error, helperText },
@@ -42,13 +48,18 @@ const reducer = (state, action) => {
 
 const validatePassword = (password, otherPassword) => {
   if (password === "") {
-    return { error: true, text: "Please enter a password" };
+    return { error: true, helperText: "Please enter a password" };
   }
   if (otherPassword !== "" && password !== otherPassword) {
-    return { error: true, text: "Passwords do not match" };
+    return { error: true, helperText: "Passwords do not match" };
   }
-  const results = passwordValidator(password).join("\n");
-  return { error: false, helperText: results };
+
+  const validationErrors = checkPasswordComplexity(password);
+
+  return {
+    error: !!validationErrors,
+    helperText: validationErrors,
+  };
 };
 
 export default function useProfileFormReducer(initState = initialState) {

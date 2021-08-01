@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CssBaseline, makeStyles } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/core/styles";
 import Sidebar from "components/Sidebar";
 import Theme from "Theme";
 import useSessionContext from "SessionContext";
@@ -38,17 +37,17 @@ const App = () => {
   };
 
   return (
-        <AlertBarContextProvider>
-          <ThemeProvider theme={Theme}>
-            <div className={classes.app}>
-              <Router>
-                <CssBaseline />
-                <Sidebar />
-                <Main />
-              </Router>
-            </div>
-          </ThemeProvider>
-        </AlertBarContextProvider>
+    <AlertBarContextProvider>
+      <Theme>
+        <div className={classes.app}>
+          <Router>
+            <CssBaseline />
+            <Sidebar />
+            <Main />
+          </Router>
+        </div>
+      </Theme>
+    </AlertBarContextProvider>
   );
 };
 

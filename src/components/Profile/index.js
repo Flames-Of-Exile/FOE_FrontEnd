@@ -2,27 +2,27 @@ import React from "react";
 import axios from "axios";
 import useFormReducer from "./reducer";
 import useSessionContext from "SessionContext";
-import { Button, Grid, TextField } from "@material-ui/core";
+import { Button, Grid, MenuItem, Select, TextField } from "@material-ui/core";
 import useAlertBarContext from "AlertBarContext";
 
 const EditProfile = () => {
   const { state: formState, setPassword1, setPassword2 } = useFormReducer();
   const { password1, password2 } = formState;
-  const { user } = useSessionContext();
+  const { user, setUser } = useSessionContext();
   const { setAlert } = useAlertBarContext();
 
-  //   const handleSelect = async (event) => {
-  //     user.theme = event.target.value;
-  //     props.Application.setState({
-  //       ...props.Application.state,
-  //       currentUser: user,
-  //     });
-  //     try {
-  //       await axios.patch(`/api/users/${user.id}`, JSON.stringify(user));
-  //     } catch (error) {
-  //       swal("Error", error.response.data, "error");
-  //     }
-  //   };
+  const handleSelect = async (event) => {
+    user.theme = event.target.value;
+    try {
+      const response = await axios.patch(
+        `/api/users/${user.id}`,
+        JSON.stringify(user)
+      );
+      setUser(response.data);
+    } catch (error) {
+      setAlert(error.response.data, "error");
+    }
+  };
 
   const handleSubmit = async () => {
     if (password1.error || password2.error) {
@@ -72,6 +72,16 @@ const EditProfile = () => {
   return (
     <>
       <Grid item>
+        <Select onChange={handleSelect} value={user.theme}>
+          <MenuItem value="default">Default</MenuItem>
+          <MenuItem value="blue_raspberry">Blue Raspberry</MenuItem>
+          <MenuItem value="cartography">Cartography</MenuItem>
+          <MenuItem value="pumpkin_spice">Pumpkin Spice</MenuItem>
+          <MenuItem value="red">Red</MenuItem>
+          <MenuItem value="seabreeze">Seabreeze</MenuItem>
+        </Select>
+      </Grid>
+      <Grid item>
         <TextField {...password1Props} />
       </Grid>
       <Grid item>
@@ -79,47 +89,11 @@ const EditProfile = () => {
       </Grid>
       <Grid item>
         <Button variant="contained" onClick={handleSubmit}>
-          Submit
+          Change Password
         </Button>
       </Grid>
     </>
   );
 };
-//   return (
-//     <div>
-//       <form className="grid-2">
-//         <label htmlFor="theme-selector">Theme</label>
-//         <select
-//           className="theme-selector"
-//           onChange={handleSelect}
-//           value={user.theme}
-//         >
-//           <option value="default">Default</option>
-//           <option value="blue_raspberry">Blue Raspberry</option>
-//           <option value="cartography">Cartography</option>
-//           <option value="pumpkin_spice">Pumpkin Spice</option>
-//           <option value="red">Red</option>
-//           <option value="seabreeze">Seabreeze</option>
-//         </select>
-//         <div className="row-2 column-1-2" />
-//         <div className="row-3 column-1-2" />
-//         <label htmlFor="password1">New Password</label>
-//         <input
-//           type="password"
-//           name="password1"
-//           placeholder="password"
-//           onChange={handleChange}
-//         />
-//         <label htmlFor="password2">Retype Password</label>
-//         <input
-//           type="password"
-//           name="password2"
-//           placeholder="retype password"
-//           onChange={handleChange}
-//         />
-//       </form>
-//       <button onClick={handleSubmit}>Change Password</button>
-//     </div>
-//   );
 
 export default EditProfile;

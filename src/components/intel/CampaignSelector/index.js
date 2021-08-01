@@ -51,6 +51,13 @@ const CampaignSelector = () => {
     value: indices.campaign,
   };
 
+  const worldSelectProps = {
+    name: "activeWorld",
+    id: "activeWorld",
+    onChange: handleWorldChange,
+    value: indices.world,
+  };
+
   return (
     <>
       <Grid item>
@@ -66,7 +73,7 @@ const CampaignSelector = () => {
       {
         activeCampaign.worlds ? ( // if there is an active campaign
           <Grid item>
-            <Select onChange={handleWorldChange} value={indices.world}>
+            <Select {...worldSelectProps}>
               <MenuItem value={-1}>-</MenuItem>
               {activeCampaign.worlds.map((world, index) => (
                 <MenuItem key={index} value={index}>

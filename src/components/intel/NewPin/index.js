@@ -123,7 +123,6 @@ const NewPin = () => {
       send("campaign-update");
       handleCancel();
     } catch (error) {
-      console.log(error);
       setAlert(error.response.data, "error");
     }
   };

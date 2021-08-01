@@ -1,8 +1,9 @@
-import { Button, CircularProgress, TextField } from "@material-ui/core";
+import { Button, CircularProgress, Grid, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import axios from "axios";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
+import Upload from "components/utilities/Upload";
 
 const NewCampaign = () => {
   const { state: formState, setName, setFile } = useFormReducer();
@@ -52,29 +53,39 @@ const NewCampaign = () => {
   const nameTextFieldProps = {
     name: "name",
     id: "name",
-    label: "name",
+    label: "Name",
     onChange: handleChange,
     disabled: loading,
     ...name,
   };
 
-  const fileTextFieldProps = {
-    type: "file",
-    name: "file",
-    id: "file",
-    label: filename.value,
-    onChange: handleChange,
-    disabled: loading,
+  const uploadProps = {
+    inputProps: {
+      name: "file",
+      id: "file",
+      accept: "image/*",
+      onChange: handleChange,
+    },
+    buttonProps: {
+      disabled: loading,
+      text: filename.value,
+    },
   };
 
   return (
     <>
-      <TextField {...nameTextFieldProps} />
-      <TextField {...fileTextFieldProps} />
-      <Button onClick={handleSubmit} disabled={loading} variant="contained">
-        Submit
-        {loading && <CircularProgress size={25} />}
-      </Button>
+      <Grid item>
+        <TextField {...nameTextFieldProps} />
+      </Grid>
+      <Grid item>
+        <Upload {...uploadProps} />
+      </Grid>
+      <Grid item>
+        <Button onClick={handleSubmit} disabled={loading} variant="contained">
+          Submit
+          {loading && <CircularProgress size={25} />}
+        </Button>
+      </Grid>
     </>
   );
 };
