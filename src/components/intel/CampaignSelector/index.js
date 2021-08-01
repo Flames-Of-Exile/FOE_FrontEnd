@@ -11,7 +11,7 @@ const CampaignSelector = () => {
   const {
     campaigns,
     activeCampaign,
-    activeWorld,
+    world,
     setActiveCampaign,
     setWorld,
   } = useCampaignContext();
@@ -19,9 +19,9 @@ const CampaignSelector = () => {
   useEffect(() => {
     setIndices({
       campaign: campaigns.indexOf(activeCampaign),
-      world: activeCampaign.worlds.indexOf(activeWorld),
+      world: activeCampaign.worlds.indexOf(world),
     });
-  }, [campaigns, activeCampaign, activeWorld]);
+  }, [campaigns, activeCampaign, world]);
 
   const handleCampaignChange = (event) => {
     let index = event.target.value;

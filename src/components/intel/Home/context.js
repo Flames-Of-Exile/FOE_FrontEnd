@@ -31,11 +31,6 @@ export const CampaignContextProvider = (props) => {
   };
 
   const getActiveWorld = (worlds, name) => {
-    // let active = { pins: [], name: "" };
-    // if (name) {
-    //   active = worlds.filter((world) => world.name === name)[0];
-    // }
-    // return active;
     return (
       worlds.filter((world) => world.name === name)[0] || {
         pins: [],
@@ -52,17 +47,7 @@ export const CampaignContextProvider = (props) => {
     setActiveCampaign(activeCamp);
     setWorld(activeWorld);
 
-    if (activeWorld.name) {
-      if (
-        location.pathname !==
-        `/campaigns/${activeCamp.name}/${activeWorld.name}`
-      ) {
-        history.push(`/campaigns/${activeCamp.name}/${activeWorld.name}`);
-      }
-    } else if (
-      activeCamp.name &&
-      location.pathname !== `/campaigns/${activeCamp.name}`
-    ) {
+    if (activeCamp.name && location.pathname === "/campaigns") {
       history.push(`/campaigns/${activeCamp.name}`);
     }
   };

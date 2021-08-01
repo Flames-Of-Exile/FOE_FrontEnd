@@ -22,7 +22,7 @@ const Campaign = () => {
   const [loading, setLoading] = useState(true);
   const overlayRef = useRef(null);
 
-  const { activeCampaign: campaign } = useCampaignContext();
+  const { activeCampaign: campaign, setWorld } = useCampaignContext();
   const { user } = useSessionContext();
 
   useEffect(() => {
@@ -50,6 +50,13 @@ const Campaign = () => {
   useEffect(() => {
     handleLoad();
   }, [handleLoad]);
+
+  const handleWorldSelect = (world) => {
+    return () => {
+      history.push(`/campaigns/${campaign.name}/${world.name}`);
+      setWorld(world);
+    };
+  };
 
   if (loading) {
     return <Backdrop open />;
@@ -86,8 +93,7 @@ const Campaign = () => {
               opacity={0}
               fillColor={"yellow"}
               eventHandlers={{
-                click: () =>
-                  history.push(`/campaigns/${campaign.name}/${world.name}`),
+                click: handleWorldSelect(world),
               }}
             />
           </div>
