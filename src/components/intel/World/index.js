@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
 import InnerLink from "components/utilities/InnerLink";
-// import FilterBox from "components/intel/FilterBox";
+import FilterBox from "components/intel/FilterBox";
 import Pin from "components/intel/Pin";
 import NewPin from "components/intel/NewPin";
 import { useLocation, useParams } from "react-router-dom";
@@ -124,7 +124,7 @@ const World = () => {
           <Pin key={pin} pin={pin} />
         ))}
       </MapContainer>
-      {/* <FilterBox /> */}
+      <FilterBox />
       {
         user.role === "admin" ? ( // if user is admin
           <Grid item>
