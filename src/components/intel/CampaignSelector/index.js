@@ -43,12 +43,14 @@ const CampaignSelector = () => {
   const handleWorldChange = (event) => {
     let index = event.target.value;
     if (index == -1) {
-      return;
+      history.push(`/campaigns/${activeCampaign.name}`);
+      setWorld({ pins: [], name: "" });
+    } else {
+      history.push(
+        `/campaigns/${activeCampaign.name}/${activeCampaign.worlds[index].name}`
+      );
+      setWorld(activeCampaign.worlds[index]);
     }
-    history.push(
-      `/campaigns/${activeCampaign.name}/${activeCampaign.worlds[index].name}`
-    );
-    setWorld(activeCampaign.worlds[index]);
   };
 
   /* COMPONENT PROPS */
