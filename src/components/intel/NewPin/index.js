@@ -1,12 +1,14 @@
 import {
   Button,
   Grid,
+  InputBase,
   makeStyles,
   MenuItem,
   Popover,
   Select,
   TextField,
   Tooltip,
+  withStyles,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { Marker, useMapEvents } from "react-leaflet";
@@ -18,14 +20,26 @@ import useAlertBarContext from "AlertBarContext";
 
 /* STYLING */
 const useStyles = makeStyles(() => ({
-  popup: {
-    padding: 5,
-  },
   popupPaper: {
     overflow: "hidden",
     width: 400,
+    padding: 10,
+    borderRadius: 8,
   },
 }));
+
+const style = {
+  root: {
+    borderRadius: 8,
+    padding: "0 0 0 5px",
+    width: "100%",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+  },
+};
+
+const StyledTextField = withStyles(() => style)(TextField);
+
+const StyledInputBase = withStyles(() => style)(InputBase);
 
 const NewPin = () => {
   /* STYLING */
@@ -210,6 +224,7 @@ const NewPin = () => {
   const symbolSelectProps = {
     name: "symbol",
     id: "symbol",
+    input: <StyledInputBase />,
     onChange: handleChange,
     ...symbol,
   };
@@ -217,6 +232,7 @@ const NewPin = () => {
   const resourceSelectProps = {
     name: "resource",
     id: "resource",
+    input: <StyledInputBase />,
     onChange: handleChange,
     ...resource,
   };
@@ -231,7 +247,6 @@ const NewPin = () => {
             open
             anchorReference="anchorPosition"
             anchorPosition={anchor}
-            className={classes.popup}
             classes={{ paper: classes.popupPaper }}
             transformOrigin={{
               vertical: "bottom",
@@ -246,12 +261,12 @@ const NewPin = () => {
             >
               <Grid item xs={5}>
                 <Tooltip title="X Coordinate">
-                  <TextField {...xCoordTextFieldProps} />
+                  <StyledTextField {...xCoordTextFieldProps} />
                 </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <Tooltip title="Y Coordinate">
-                  <TextField {...yCoordTextFieldProps} />
+                  <StyledTextField {...yCoordTextFieldProps} />
                 </Tooltip>
               </Grid>
               <Grid item xs={5}>
@@ -283,35 +298,39 @@ const NewPin = () => {
               </Grid>
               <Grid item xs={5}>
                 <Tooltip title="Notes">
-                  <TextField {...notesTextFieldProps} />
+                  <StyledTextField {...notesTextFieldProps} />
                 </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <Tooltip title="Name">
-                  <TextField {...nameTextFieldProps} />
+                  <StyledTextField {...nameTextFieldProps} />
                 </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <Tooltip title="Rank">
-                  <TextField {...rankTextFieldProps} />
+                  <StyledTextField {...rankTextFieldProps} />
                 </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <Tooltip title="Amount">
-                  <TextField {...amountTextFieldProps} />
+                  <StyledTextField {...amountTextFieldProps} />
                 </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <Tooltip title="Respawn">
-                  <TextField {...respawnTextFieldProps} />
+                  <StyledTextField {...respawnTextFieldProps} />
                 </Tooltip>
               </Grid>
               <Grid item xs={5} />
               <Grid item xs={5}>
-                <Button onClick={handleCancel}>Cancel</Button>
+                <Button onClick={handleCancel} variant="contained">
+                  Cancel
+                </Button>
               </Grid>
               <Grid item xs={5}>
-                <Button onClick={handleSubmit}>Submit</Button>
+                <Button onClick={handleSubmit} variant="contained">
+                  Submit
+                </Button>
               </Grid>
             </Grid>
           </Popover>

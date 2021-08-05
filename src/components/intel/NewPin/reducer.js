@@ -64,40 +64,6 @@ const setResource = (dispatch) => (resource) => {
   });
 };
 
-/* INITIAL STATE */
-const initialState = {
-  name: { value: "", error: false, helperText: "" },
-  rank: { value: 0, error: false, helperText: "" },
-  amount: { value: 0, error: false, helperText: "" },
-  respawn: { value: 0, error: false, helperText: "" },
-  notes: { value: "", error: false, helperText: "" },
-  xCoord: { value: 0, error: false, helperText: "" },
-  yCoord: { value: 0, error: false, helperText: "" },
-  symbol: { value: "stone" },
-  resource: { value: "granite" },
-  resourceList: ["na"],
-};
-
-/* VALIDATORS */
-const validateName = () => {
-  return { error: false, helperText: "" };
-};
-
-const validateNumber = (number) => {
-  if (number < 0) {
-    return { error: true, helperText: "Number cannot be negative." };
-  }
-  return { error: false, helperText: "" };
-};
-
-const validateNotes = () => {
-  return { error: false, helperText: "" };
-};
-
-const validateCoord = () => {
-  return { error: false, helperText: "" };
-};
-
 /* UTILITIES */
 const generateResourceList = (symbol) => {
   let selectList;
@@ -134,6 +100,40 @@ const generateResourceList = (symbol) => {
     selectList = [];
   }
   return ["na"].concat(selectList);
+};
+
+/* INITIAL STATE */
+const initialState = {
+  name: { value: "", error: false, helperText: "" },
+  rank: { value: 0, error: false, helperText: "" },
+  amount: { value: 0, error: false, helperText: "" },
+  respawn: { value: 0, error: false, helperText: "" },
+  notes: { value: "", error: false, helperText: "" },
+  xCoord: { value: 0, error: false, helperText: "" },
+  yCoord: { value: 0, error: false, helperText: "" },
+  symbol: { value: "stone" },
+  resource: { value: "granite" },
+  resourceList: generateResourceList("stone"),
+};
+
+/* VALIDATORS */
+const validateName = () => {
+  return { error: false, helperText: "" };
+};
+
+const validateNumber = (number) => {
+  if (number < 0) {
+    return { error: true, helperText: "Number cannot be negative." };
+  }
+  return { error: false, helperText: "" };
+};
+
+const validateNotes = () => {
+  return { error: false, helperText: "" };
+};
+
+const validateCoord = () => {
+  return { error: false, helperText: "" };
 };
 
 /* REDUCER */
