@@ -34,6 +34,7 @@ const PinDetails = (props) => {
 
   /* COMPONENT ARRAY CONSTRUCTION */
   const createDetailArray = (pin) => {
+    console.log(pin);
     let array = [];
     if (pin.resource !== "na") {
       array.push(
@@ -43,14 +44,10 @@ const PinDetails = (props) => {
     if (pin.rank) {
       array.push(<Typography key="rank">{` Rank: ${pin.rank}`}</Typography>);
     }
-    if (array.length > 0) {
-      array.push(<br key="br" />);
-    }
     if (pin.amount) {
       array.push(
         <Typography key="amount">
           {`Amount: ${pin.amount}`}
-          <br />
         </Typography>
       );
     }
@@ -58,7 +55,6 @@ const PinDetails = (props) => {
       array.push(
         <Typography key="coord">
           {`Location: ${capitalize(pin.x_cord)}${pin.y_cord}`}
-          <br />
         </Typography>
       );
     }
@@ -66,7 +62,6 @@ const PinDetails = (props) => {
       array.push(
         <Typography key="name">
           {`${pin.name}`}
-          <br />
         </Typography>
       );
     }
@@ -74,19 +69,18 @@ const PinDetails = (props) => {
       array.push(
         <Typography key="notes">
           {`${pin.notes}`}
-          <br />
         </Typography>
       );
     }
-    return details;
+    return array;
   };
 
   return (
     <>
       {details}
-      <Link onClick={handleEdit}>Edit</Link>
+      <Link onClick={handleEdit}>Edit </Link>
       {user.role === "admin" || user.id === pin.edits[0].user.id ? (
-        <Link onClick={handleDelete}>Delete</Link>
+        <Link onClick={handleDelete}> Delete</Link>
       ) : (
         ""
       )}

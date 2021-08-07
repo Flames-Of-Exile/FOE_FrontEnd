@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import BlueRaspberry from "themes/BlueRaspberry";
 import Cartography from "themes/Cartography";
 import Default from "themes/Default";
@@ -37,7 +37,7 @@ const Theme = (props) => {
     setTheme(selected);
   }, [user]);
 
-  return <ThemeProvider theme={createMuiTheme(theme)} {...props} />;
+  return <ThemeProvider theme={createTheme(theme)} {...props} />;
 };
 
 export default Theme;

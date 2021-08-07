@@ -109,7 +109,7 @@ const initialState = {
   amount: { value: 0, error: false, helperText: "" },
   respawn: { value: 0, error: false, helperText: "" },
   notes: { value: "", error: false, helperText: "" },
-  xCoord: { value: 0, error: false, helperText: "" },
+  xCoord: { value: "", error: false, helperText: "" },
   yCoord: { value: 0, error: false, helperText: "" },
   symbol: { value: "stone" },
   resource: { value: "granite" },
@@ -184,12 +184,13 @@ const reducer = (state, action) => {
       };
     case "SET_SYMBOL":
       var resourceList = generateResourceList(action.value);
-      var resource = resourceList[0];
+      var resource =
+        resourceList.length > 1 ? resourceList[1] : resourceList[0];
       return {
         ...state,
         symbol: { value: action.value },
         resourceList,
-        resource: { value: resource },
+        resource: { value: resource.toLowerCase() },
       };
     case "SET_RESOURCE":
       return {

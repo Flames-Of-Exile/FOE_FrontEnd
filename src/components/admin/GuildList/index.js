@@ -87,7 +87,7 @@ const GuildList = () => {
           <Grid
             container
             direction="column"
-            justify="space-around"
+            justifyContent="space-around"
             alignItems="center"
             spacing={2}
           >

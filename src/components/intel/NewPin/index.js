@@ -154,9 +154,11 @@ const NewPin = () => {
     setRank(0);
     setAmount(0);
     setRespawn(0);
+    setXCoord("");
+    setYCoord(0);
     setNotes("");
     setSymbol("stone");
-    setResource("-");
+    setResource("granite");
   };
 
   /* COMPONENT PROPS */
@@ -204,7 +206,6 @@ const NewPin = () => {
   };
 
   const xCoordTextFieldProps = {
-    type: "number",
     name: "xCoord",
     id: "xCoord",
     placeholder: "X Coordinate",
@@ -255,7 +256,7 @@ const NewPin = () => {
           >
             <Grid
               container
-              justify="space-around"
+              justifyContent="space-around"
               alignItems="center"
               spacing={1}
             >

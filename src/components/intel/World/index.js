@@ -129,7 +129,7 @@ const World = () => {
           eventHandlers={{ load: handleLoad }}
         />
         {pins.map((pin) => (
-          <Pin key={pin} pin={pin} />
+          <Pin key={pin.id} pin={pin} />
         ))}
       </MapContainer>
       <FilterBox />
