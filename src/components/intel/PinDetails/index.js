@@ -1,10 +1,12 @@
-import { Link, Typography } from "@material-ui/core";
+import { Link, Typography, withStyles } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import capitalize from "helpers/Capitalize";
 import axios from "axios";
 import useSessionContext from "SessionContext";
 import useSocketContext from "SocketContext";
 import useAlertBarContext from "AlertBarContext";
+
+const StyledTypography = withStyles({ root: { margin: -5 } })(Typography);
 
 const PinDetails = (props) => {
   /* PROPS */
@@ -34,43 +36,53 @@ const PinDetails = (props) => {
 
   /* COMPONENT ARRAY CONSTRUCTION */
   const createDetailArray = (pin) => {
-    console.log(pin);
     let array = [];
     if (pin.resource !== "na") {
       array.push(
-        <Typography key="resource">{capitalize(pin.resource)}</Typography>
+        <StyledTypography key="resource" variant="h6">
+          {capitalize(pin.resource)}
+        </StyledTypography>
       );
     }
     if (pin.rank) {
-      array.push(<Typography key="rank">{` Rank: ${pin.rank}`}</Typography>);
+      array.push(
+        <StyledTypography
+          key="rank"
+          variant="caption"
+        >{` Rank: ${pin.rank}`}</StyledTypography>
+      );
+      array.push(<br key="rank-br" />);
     }
     if (pin.amount) {
       array.push(
-        <Typography key="amount">
+        <StyledTypography key="amount" variant="caption">
           {`Amount: ${pin.amount}`}
-        </Typography>
+        </StyledTypography>
       );
+      array.push(<br key="amount-br" />);
     }
     if (pin.x_cord && pin.y_cord) {
       array.push(
-        <Typography key="coord">
+        <StyledTypography key="coord" variant="caption">
           {`Location: ${capitalize(pin.x_cord)}${pin.y_cord}`}
-        </Typography>
+        </StyledTypography>
       );
+      array.push(<br key="location-br" />);
     }
     if (pin.name) {
       array.push(
-        <Typography key="name">
+        <StyledTypography key="name" variant="subtitle1">
           {`${pin.name}`}
-        </Typography>
+        </StyledTypography>
       );
     }
     if (pin.notes) {
       array.push(
-        <Typography key="notes">
+        <StyledTypography key="notes" variant="caption">
           {`${pin.notes}`}
-        </Typography>
+        </StyledTypography>
       );
+      array.push(<br key="notes-br" />);
     }
     return array;
   };

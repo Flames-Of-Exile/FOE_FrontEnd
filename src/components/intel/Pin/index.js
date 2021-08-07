@@ -169,13 +169,16 @@ function Pin(props) {
         })
       }
     >
-      <Popup offset={[0, -50]}>
+      <Popup offset={[0, -50]} minWidth={100} maxWidth={100}>
         {
           editing ? ( // if editing
             <PinUpdate pin={pin} handleCancel={() => setEditing(false)} />
           ) : (
             // else not editing
-            <PinDetails pin={pin} handleEdit={() => setEditing(true)} />
+            <PinDetails
+              pin={pin}
+              handleEdit={() => setEditing(true)}
+            />
           )
           /* end if editing */
         }
