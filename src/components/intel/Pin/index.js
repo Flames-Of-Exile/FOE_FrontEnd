@@ -28,150 +28,41 @@ function Pin(props) {
   const [editing, setEditing] = useState(false);
 
   function chooseSVG(iconStyle, borderStyle, cutoutStyle) {
+    let Icon;
     switch (pin.symbol) {
       case "animal-boss":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <AnimalBoss
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = AnimalBoss;
+        break;
       case "animal":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <Animal
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = Animal;
+        break;
       case "grave":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <Grave
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = Grave;
+        break;
       case "mob":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <Mob
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = Mob;
+        break;
       case "mob-boss":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <MobBoss
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = MobBoss;
+        break;
       case "ore-motherlode":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <OreMotherlode
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = OreMotherlode;
+        break;
       case "ore":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <Ore
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = Ore;
+        break;
       case "stone-motherlode":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <StoneMotherlode
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = StoneMotherlode;
+        break;
       case "stone":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <Stone
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = Stone;
+        break;
       case "well":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <Well
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = Well;
+        break;
       case "wood":
-        return (
-          "data:image/svg+xml," +
-          escape(
-            ReactDOMServer.renderToStaticMarkup(
-              <Wood
-                iconStyle={iconStyle}
-                borderStyle={borderStyle}
-                cutoutStyle={cutoutStyle}
-              />
-            )
-          )
-        );
+        Icon = Wood;
+        break;
       case "tactical-fire":
         return tactical_fire;
       case "tactical-fish":
@@ -179,8 +70,20 @@ function Pin(props) {
       case "tactical-house":
         return tactical_house;
       default:
-        return "/staticfiles/icons/" + props.pin.symbol + ".png";
+        return "/static/icons/" + pin.symbol + ".png";
     }
+    return (
+      "data:image/svg+xml," +
+      escape(
+        ReactDOMServer.renderToStaticMarkup(
+          <Icon
+            iconStyle={iconStyle}
+            borderStyle={borderStyle}
+            cutoutStyle={cutoutStyle}
+          />
+        )
+      )
+    );
   }
 
   function colorSetter(resource) {
