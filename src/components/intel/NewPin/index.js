@@ -1,24 +1,14 @@
-import {
-  Button,
-  Grid,
-  MenuItem,
-  Popover,
-  Select,
-  Tooltip,
-} from "@material-ui/core";
+import { Button, Grid, MenuItem, Select, Tooltip } from "@material-ui/core";
 import React, { useState } from "react";
-import { Marker, useMapEvents } from "react-leaflet";
+import { Marker, Popup, useMapEvents } from "react-leaflet";
 import { useCampaignContext } from "components/intel/Home";
 import useSocketContext from "SocketContext";
 import axios from "axios";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
-import useStyles, { StyledInputBase, StyledTextField } from "./style";
+import { StyledInputBase, StyledTextField } from "./style";
 
 const NewPin = () => {
-  /* STYLING */
-  const classes = useStyles();
-
   /* FORM STATE */
   const {
     state: formState,
@@ -51,7 +41,6 @@ const NewPin = () => {
   const { send } = useSocketContext();
 
   /* MAP STATE */
-  const [anchor, setAnchor] = useState({ top: 0, left: 0 });
   const [newPin, setNewPin] = useState(false);
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
 
@@ -59,12 +48,16 @@ const NewPin = () => {
     click: (e) => {
       setNewPin(true);
       setCoords(e.latlng);
-      setAnchor({
-        top: e.originalEvent.y - 50,
-        left: e.originalEvent.x,
-      });
     },
   });
+
+  const openPopup = (marker) => {
+    if (marker) {
+      window.setTimeout(() => {
+        marker.openPopup();
+      });
+    }
+  };
 
   /* FORM HANDLING */
   const handleChange = (e) => {
@@ -217,17 +210,8 @@ const NewPin = () => {
   } else {
     return (
       <>
-        <Marker position={coords}>
-          <Popover
-            open
-            anchorReference="anchorPosition"
-            anchorPosition={anchor}
-            classes={{ paper: classes.popupPaper }}
-            transformOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-          >
+        <Marker position={coords} ref={openPopup}>
+          <Popup onClose={handleCancel} minWidth={200} maxWidth={200}>
             <Grid
               container
               justifyContent="space-around"
@@ -272,11 +256,6 @@ const NewPin = () => {
                 </Select>
               </Grid>
               <Grid item xs={5}>
-                <Tooltip title="Notes">
-                  <StyledTextField {...notesTextFieldProps} />
-                </Tooltip>
-              </Grid>
-              <Grid item xs={5}>
                 <Tooltip title="Name">
                   <StyledTextField {...nameTextFieldProps} />
                 </Tooltip>
@@ -296,7 +275,12 @@ const NewPin = () => {
                   <StyledTextField {...respawnTextFieldProps} />
                 </Tooltip>
               </Grid>
-              <Grid item xs={5} />
+              <Grid item xs={12}>
+                <Tooltip title="Notes">
+                  <StyledTextField {...notesTextFieldProps} />
+                </Tooltip>
+              </Grid>
+
               <Grid item xs={5}>
                 <Button onClick={handleCancel} variant="contained">
                   Cancel
@@ -308,7 +292,7 @@ const NewPin = () => {
                 </Button>
               </Grid>
             </Grid>
-          </Popover>
+          </Popup>
         </Marker>
       </>
     );

@@ -1,19 +1,21 @@
-import {
-  Button,
-  MenuItem,
-  Select,
-  TextField,
-  Tooltip,
-} from "@material-ui/core";
-import React from "react";
+import { Button, Grid, MenuItem, Select, Tooltip } from "@material-ui/core";
+import { Popup } from "react-leaflet";
+import React, { useEffect } from "react";
 import useSocketContext from "SocketContext";
 import axios from "axios";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
+import { StyledInputBase, StyledTextField } from "./style";
 
 const PinUpdate = (props) => {
   /* PROPS */
-  const { pin, handleCancel } = props;
+  const { pin, handleCancel, marker } = props;
+
+  useEffect(() => {
+    window.setTimeout(() => {
+      marker.current.openPopup();
+    });
+  }, [marker]);
 
   /* FORM STATE */
   const {
@@ -27,7 +29,7 @@ const PinUpdate = (props) => {
     setYCoord,
     setSymbol,
     setResource,
-  } = useFormReducer();
+  } = useFormReducer(pin);
   const {
     name,
     rank,
@@ -101,6 +103,19 @@ const PinUpdate = (props) => {
     }
   };
 
+  const handleClose = () => {
+    setName("");
+    setRank(0);
+    setAmount(0);
+    setRespawn(0);
+    setXCoord("");
+    setYCoord(0);
+    setNotes("");
+    setSymbol("stone");
+    setResource("granite");
+    handleCancel();
+  };
+
   /* COMPONENT PROPS */
   const nameTextFieldProps = {
     name: "name",
@@ -146,7 +161,6 @@ const PinUpdate = (props) => {
   };
 
   const xCoordTextFieldProps = {
-    type: "number",
     name: "xCoord",
     id: "xCoord",
     placeholder: "X Coordinate",
@@ -166,6 +180,7 @@ const PinUpdate = (props) => {
   const symbolSelectProps = {
     name: "symbol",
     id: "symbol",
+    input: <StyledInputBase />,
     onChange: handleChange,
     ...symbol,
   };
@@ -173,58 +188,100 @@ const PinUpdate = (props) => {
   const resourceSelectProps = {
     name: "resource",
     id: "resource",
+    input: <StyledInputBase />,
     onChange: handleChange,
     ...resource,
   };
 
   return (
     <>
-      <Tooltip title="X Coordinate">
-        <TextField {...xCoordTextFieldProps} />
-      </Tooltip>
-      <Tooltip title="Y Coordinate">
-        <TextField {...yCoordTextFieldProps} />
-      </Tooltip>
-      <Select {...symbolSelectProps}>
-        <MenuItem value="stone">Stone</MenuItem>
-        <MenuItem value="stone-motherlode">Stone Motherload</MenuItem>
-        <MenuItem value="ore">Ore</MenuItem>
-        <MenuItem value="ore-motherlode">Ore Motherload</MenuItem>
-        <MenuItem value="wood">Wood</MenuItem>
-        <MenuItem value="animal">Animal</MenuItem>
-        <MenuItem value="animal-boss">Animal Boss</MenuItem>
-        <MenuItem value="mob">Camp</MenuItem>
-        <MenuItem value="mob-boss">Boss</MenuItem>
-        <MenuItem value="well">Well</MenuItem>
-        <MenuItem value="grave">Grave</MenuItem>
-        <MenuItem value="tactical-fire">Tactical Fire</MenuItem>
-        <MenuItem value="tactical-fish">Tactical Fish</MenuItem>
-        <MenuItem value="tactical-house">Tactical House</MenuItem>
-      </Select>
-      <Select {...resourceSelectProps}>
-        {resourceList.map((choice) => (
-          <MenuItem key={choice} value={choice.toLowerCase()}>
-            {choice === "na" ? "-" : choice}
-          </MenuItem>
-        ))}
-      </Select>
-      <Tooltip title="Notes">
-        <TextField {...notesTextFieldProps} />
-      </Tooltip>
-      <Tooltip title="Name">
-        <TextField {...nameTextFieldProps} />
-      </Tooltip>
-      <Tooltip title="Rank">
-        <TextField {...rankTextFieldProps} />
-      </Tooltip>
-      <Tooltip title="Amount">
-        <TextField {...amountTextFieldProps} />
-      </Tooltip>
-      <Tooltip title="Respawn">
-        <TextField {...respawnTextFieldProps} />
-      </Tooltip>
-      <Button onClick={handleSubmit}>Submit</Button>
-      <Button onClick={handleCancel}>Cancel</Button>
+      <Popup
+        offset={[0, -50]}
+        onClose={handleClose}
+        minWidth={200}
+        maxWidth={200}
+      >
+        <Grid
+          container
+          justifyContent="space-around"
+          alignItems="center"
+          spacing={1}
+        >
+          <Grid item xs={5}>
+            <Tooltip title="X Coordinate">
+              <StyledTextField {...xCoordTextFieldProps} />
+            </Tooltip>
+          </Grid>
+          <Grid item xs={5}>
+            <Tooltip title="Y Coordinate">
+              <StyledTextField {...yCoordTextFieldProps} />
+            </Tooltip>
+          </Grid>
+          <Grid item xs={5}>
+            <Select {...symbolSelectProps}>
+              <MenuItem value="stone">Stone</MenuItem>
+              <MenuItem value="stone-motherlode">Stone Motherload</MenuItem>
+              <MenuItem value="ore">Ore</MenuItem>
+              <MenuItem value="ore-motherlode">Ore Motherload</MenuItem>
+              <MenuItem value="wood">Wood</MenuItem>
+              <MenuItem value="animal">Animal</MenuItem>
+              <MenuItem value="animal-boss">Animal Boss</MenuItem>
+              <MenuItem value="mob">Camp</MenuItem>
+              <MenuItem value="mob-boss">Boss</MenuItem>
+              <MenuItem value="well">Well</MenuItem>
+              <MenuItem value="grave">Grave</MenuItem>
+              <MenuItem value="tactical-fire">Tactical Fire</MenuItem>
+              <MenuItem value="tactical-fish">Tactical Fish</MenuItem>
+              <MenuItem value="tactical-house">Tactical House</MenuItem>
+            </Select>
+          </Grid>
+          <Grid item xs={5}>
+            <Select {...resourceSelectProps}>
+              {resourceList.map((choice) => (
+                <MenuItem key={choice} value={choice.toLowerCase()}>
+                  {choice === "na" ? "-" : choice}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+          <Grid item xs={5}>
+            <Tooltip title="Name">
+              <StyledTextField {...nameTextFieldProps} />
+            </Tooltip>
+          </Grid>
+          <Grid item xs={5}>
+            <Tooltip title="Rank">
+              <StyledTextField {...rankTextFieldProps} />
+            </Tooltip>
+          </Grid>
+          <Grid item xs={5}>
+            <Tooltip title="Amount">
+              <StyledTextField {...amountTextFieldProps} />
+            </Tooltip>
+          </Grid>
+          <Grid item xs={5}>
+            <Tooltip title="Respawn">
+              <StyledTextField {...respawnTextFieldProps} />
+            </Tooltip>
+          </Grid>
+          <Grid item xs={12}>
+            <Tooltip title="Notes">
+              <StyledTextField {...notesTextFieldProps} />
+            </Tooltip>
+          </Grid>
+
+          <Grid item xs={5}>
+            <Button onClick={handleClose} variant="contained">
+              Cancel
+            </Button>
+          </Grid>
+          <Grid item xs={5}>
+            <Button onClick={handleSubmit} variant="contained">
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+      </Popup>
     </>
   );
 };

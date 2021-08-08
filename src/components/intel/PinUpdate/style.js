@@ -1,8 +1,4 @@
-import {
-  InputBase,
-  TextField,
-  withStyles,
-} from "@material-ui/core";
+import { InputBase, TextField, withStyles } from "@material-ui/core";
 
 const style = {
   root: {

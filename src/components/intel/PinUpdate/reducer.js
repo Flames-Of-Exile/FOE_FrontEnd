@@ -64,40 +64,6 @@ const setResource = (dispatch) => (resource) => {
   });
 };
 
-/* INITIAL STATE */
-const initialState = {
-  name: { value: "", error: false, helperText: "" },
-  rank: { value: 0, error: false, helperText: "" },
-  amount: { value: 0, error: false, helperText: "" },
-  respawn: { value: 0, error: false, helperText: "" },
-  notes: { value: "", error: false, helperText: "" },
-  xCoord: { value: 0, error: false, helperText: "" },
-  yCoord: { value: 0, error: false, helperText: "" },
-  symbol: { value: "stone" },
-  resource: { value: "granite" },
-  resourceList: ["na"],
-};
-
-/* VALIDATORS */
-const validateName = () => {
-  return { error: false, helperText: "" };
-};
-
-const validateNumber = (number) => {
-  if (number < 0) {
-    return { error: true, helperText: "Number cannot be negative." };
-  }
-  return { error: false, helperText: "" };
-};
-
-const validateNotes = () => {
-  return { error: false, helperText: "" };
-};
-
-const validateCoord = () => {
-  return { error: false, helperText: "" };
-};
-
 /* UTILITIES */
 const generateResourceList = (symbol) => {
   let selectList;
@@ -134,6 +100,40 @@ const generateResourceList = (symbol) => {
     selectList = [];
   }
   return ["na"].concat(selectList);
+};
+
+/* INITIAL STATE */
+const initialState = {
+  name: { value: "", error: false, helperText: "" },
+  rank: { value: 0, error: false, helperText: "" },
+  amount: { value: 0, error: false, helperText: "" },
+  respawn: { value: 0, error: false, helperText: "" },
+  notes: { value: "", error: false, helperText: "" },
+  xCoord: { value: "", error: false, helperText: "" },
+  yCoord: { value: 0, error: false, helperText: "" },
+  symbol: { value: "stone" },
+  resource: { value: "granite" },
+  resourceList: generateResourceList("stone"),
+};
+
+/* VALIDATORS */
+const validateName = () => {
+  return { error: false, helperText: "" };
+};
+
+const validateNumber = (number) => {
+  if (number < 0) {
+    return { error: true, helperText: "Number cannot be negative." };
+  }
+  return { error: false, helperText: "" };
+};
+
+const validateNotes = () => {
+  return { error: false, helperText: "" };
+};
+
+const validateCoord = () => {
+  return { error: false, helperText: "" };
 };
 
 /* REDUCER */
@@ -184,12 +184,13 @@ const reducer = (state, action) => {
       };
     case "SET_SYMBOL":
       var resourceList = generateResourceList(action.value);
-      var resource = resourceList[0];
+      var resource =
+        resourceList.length > 1 ? resourceList[1] : resourceList[0];
       return {
         ...state,
         symbol: { value: action.value },
         resourceList,
-        resource: { value: resource },
+        resource: { value: resource.toLowerCase() },
       };
     case "SET_RESOURCE":
       return {
@@ -201,8 +202,25 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useUpdatePinFormReducer(initState = initialState) {
-  const [state, dispatch] = useReducer(initState, reducer);
+export default function useUpdatePinFormReducer(pin = {}) {
+  let initState;
+  if (Object.keys(pin).length === 0) {
+    initState = initialState;
+  } else {
+    initState = {
+      name: { value: pin.name, error: false, helperText: "" },
+      rank: { value: pin.rank, error: false, helperText: "" },
+      amount: { value: pin.amount, error: false, helperText: "" },
+      respawn: { value: pin.respawn, error: false, helperText: "" },
+      notes: { value: pin.notes, error: false, helperText: "" },
+      xCoord: { value: pin.x_cord, error: false, helperText: "" },
+      yCoord: { value: pin.y_cord, error: false, helperText: "" },
+      symbol: { value: pin.symbol },
+      resource: { value: pin.resource },
+      resourceList: generateResourceList(pin.symbol),
+    };
+  }
+  const [state, dispatch] = useReducer(reducer, initState);
   return {
     state,
     setName: setName(dispatch),

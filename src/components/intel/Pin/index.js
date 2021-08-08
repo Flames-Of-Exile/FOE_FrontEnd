@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
-import { Marker, Popup } from "react-leaflet";
+import { Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import Animal from "components/intel/pins/Animal.js";
 import AnimalBoss from "components/intel/pins/AnimalBoss.js";
@@ -22,6 +22,9 @@ import PinUpdate from "components/intel/PinUpdate";
 function Pin(props) {
   /* PROPS */
   const { pin } = props;
+
+  /* REFS */
+  const marker = useRef(null);
 
   /* STATE */
   const [url, setUrl] = useState("http://");
@@ -160,6 +163,7 @@ function Pin(props) {
 
   return (
     <Marker
+      ref={marker}
       position={[pin.position_y, pin.position_x]}
       icon={
         new Icon({
@@ -169,20 +173,15 @@ function Pin(props) {
         })
       }
     >
-      <Popup offset={[0, -50]} minWidth={100} maxWidth={100}>
-        {
-          editing ? ( // if editing
-            <PinUpdate pin={pin} handleCancel={() => setEditing(false)} />
-          ) : (
-            // else not editing
-            <PinDetails
-              pin={pin}
-              handleEdit={() => setEditing(true)}
-            />
-          )
-          /* end if editing */
-        }
-      </Popup>
+      {editing ? (
+        <PinUpdate
+          pin={pin}
+          handleCancel={() => setEditing(false)}
+          marker={marker}
+        />
+      ) : (
+        <PinDetails pin={pin} handleEdit={() => setEditing(true)} />
+      )}
     </Marker>
   );
 }

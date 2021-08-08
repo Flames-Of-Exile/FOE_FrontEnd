@@ -1,5 +1,6 @@
 import { Link } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { Popup } from "react-leaflet";
 import capitalize from "helpers/Capitalize";
 import axios from "axios";
 import useSessionContext from "SessionContext";
@@ -88,13 +89,15 @@ const PinDetails = (props) => {
 
   return (
     <>
-      {details}
-      <Link onClick={handleEdit}>Edit </Link>
-      {user.role === "admin" || user.id === pin.edits[0].user.id ? (
-        <Link onClick={handleDelete}> Delete</Link>
-      ) : (
-        ""
-      )}
+      <Popup offset={[0, -50]} minWidth={100} maxWidth={100}>
+        {details}
+        <Link onClick={handleEdit}>Edit </Link>
+        {user.role === "admin" || user.id === pin.edits[0].user.id ? (
+          <Link onClick={handleDelete}> Delete</Link>
+        ) : (
+          ""
+        )}
+      </Popup>
     </>
   );
 };
