@@ -45,11 +45,9 @@ const World = () => {
       if (isMounted) {
         setSize({ width: image.naturalWidth, height: image.naturalHeight });
         setPins(filterPins(queryString.parse(location.search)));
+        setLoading(false);
       }
     };
-    if (isMounted) {
-      setLoading(false);
-    }
   }, [world]);
 
   useEffect(() => {
