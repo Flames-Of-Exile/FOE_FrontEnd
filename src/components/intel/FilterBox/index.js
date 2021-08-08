@@ -1,4 +1,4 @@
-import { Button, Grid, makeStyles, Paper, TextField } from "@material-ui/core";
+import { Button, Grid, Paper, TextField } from "@material-ui/core";
 import React, { useEffect } from "react";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
@@ -6,27 +6,7 @@ import capitalize from "helpers/Capitalize";
 import useFormReducer from "./reducer";
 import { TYPE_OPTIONS, RESOURCE_OPTIONS } from "./constants";
 import LabeledSelect from "components/utilities/LabeledSelect";
-
-/* STYLING */
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    background: theme.palette.background.filterBox,
-    position: "absolute",
-    top: 60,
-    height: 300,
-    right: 10,
-    width: 300,
-    zIndex: 1000,
-    padding: 10,
-  },
-  select: { minWidth: 200 },
-}));
-
-const updateStyle = (value, selectedValues) => {
-  return {
-    fontWeight: selectedValues.includes(value) ? "bold" : "standard",
-  };
-};
+import useStyles, { updateStyle } from "./style";
 
 const FilterBox = () => {
   /* STYLING */

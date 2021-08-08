@@ -2,7 +2,6 @@ import {
   Button,
   CircularProgress,
   Grid,
-  makeStyles,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -16,14 +15,7 @@ import { useCampaignContext } from "components/intel/Home";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 import Upload from "components/utilities/Upload";
-
-/* STYLING */
-const useStyles = makeStyles(() => ({
-  map: {
-    width: "100%",
-    height: "90vh",
-  },
-}));
+import useStyles from "./style";
 
 const NewWorld = () => {
   /* STYLING */

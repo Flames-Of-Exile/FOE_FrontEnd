@@ -1,19 +1,10 @@
-import { Grid, IconButton, makeStyles } from "@material-ui/core";
+import { Grid, IconButton } from "@material-ui/core";
 import { ArrowUpward } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useCampaignContext } from "components/intel/Home";
 import LabeledSelect from "components/utilities/LabeledSelect";
-
-/* STYLING */
-const useStyles = makeStyles(() => ({
-  select: { minWidth: 200 },
-  button: {
-    marginRight: -25,
-    marginLeft: -25,
-    transform: "translate(40%, 15%)",
-  },
-}));
+import useStyles from "./style";
 
 const CampaignSelector = () => {
   /* STYLING */

@@ -3,7 +3,6 @@ import {
   CircularProgress,
   Grid,
   List,
-  makeStyles,
   Paper,
   TextField,
 } from "@material-ui/core";
@@ -13,11 +12,7 @@ import { useAdminContext } from "components/admin/Home";
 import axios from "axios";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
-
-/* STYLING */
-const useStyles = makeStyles((theme) => ({
-  paper: { width: 800, background: theme.palette.background.secondary },
-}));
+import useStyles from "./style";
 
 const GuildList = () => {
   /* STYLING */

@@ -1,4 +1,4 @@
-import { Backdrop, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Backdrop, Grid, Typography } from "@material-ui/core";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
@@ -10,14 +10,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { useCampaignContext } from "components/intel/Home";
 import useSessionContext from "SessionContext";
 import queryString from "query-string";
-
-/* STYLING */
-const useStyles = makeStyles(() => ({
-  map: {
-    width: "90%",
-    height: "75vh",
-  },
-}));
+import useStyles from "./style";
 
 const World = () => {
   /* STYLING */

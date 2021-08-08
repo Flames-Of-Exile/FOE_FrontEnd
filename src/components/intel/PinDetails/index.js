@@ -1,12 +1,11 @@
-import { Link, Typography, withStyles } from "@material-ui/core";
+import { Link } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import capitalize from "helpers/Capitalize";
 import axios from "axios";
 import useSessionContext from "SessionContext";
 import useSocketContext from "SocketContext";
 import useAlertBarContext from "AlertBarContext";
-
-const StyledTypography = withStyles({ root: { margin: -5 } })(Typography);
+import { StyledTypography } from "./style";
 
 const PinDetails = (props) => {
   /* PROPS */

@@ -5,19 +5,9 @@ import {
   Backdrop,
   CircularProgress,
   Grid,
-  makeStyles,
   Typography,
 } from "@material-ui/core";
-
-/* CONSTANTS */
-const SIDEBAR_WIDTH = 200;
-
-/* STYLING */
-const useStyles = makeStyles(() => ({
-  backdrop: {
-    left: SIDEBAR_WIDTH,
-  },
-}));
+import useStyles from "./style";
 
 const Logout = () => {
   /* STYLING */

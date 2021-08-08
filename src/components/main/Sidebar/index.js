@@ -1,37 +1,8 @@
-import {
-  Divider,
-  Drawer,
-  List,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Divider, Drawer, List, Typography } from "@material-ui/core";
 import React from "react";
 import useSessionContext from "SessionContext";
 import InnerLink from "components/utilities/InnerLink";
-
-/* CONSTANTS */
-const DRAWER_WIDTH = 200;
-
-/* STYLING */
-const useStyles = makeStyles((theme) => ({
-  drawer: {
-    width: DRAWER_WIDTH,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: DRAWER_WIDTH,
-    background: theme.palette.background.secondary,
-  },
-  drawerContainer: {
-    overflow: "auto",
-    margin: 10,
-    marginTop: 20,
-  },
-  title: {
-    color: theme.palette.text.title,
-    marginBottom: 5,
-  },
-}));
+import useStyles from "./style";
 
 const Sidebar = () => {
   /* STYLING */

@@ -1,12 +1,6 @@
-import { Button, Input, makeStyles } from "@material-ui/core";
+import { Button, Input } from "@material-ui/core";
 import React from "react";
-
-/* STYLING */
-const useStyles = makeStyles({
-  input: {
-    display: "none",
-  },
-});
+import useStyles from "./style";
 
 const Upload = (props) => {
   /* STYLING */

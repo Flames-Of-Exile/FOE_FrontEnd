@@ -1,14 +1,10 @@
 import {
   Button,
   Grid,
-  InputBase,
-  makeStyles,
   MenuItem,
   Popover,
   Select,
-  TextField,
   Tooltip,
-  withStyles,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { Marker, useMapEvents } from "react-leaflet";
@@ -17,29 +13,7 @@ import useSocketContext from "SocketContext";
 import axios from "axios";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
-
-/* STYLING */
-const useStyles = makeStyles(() => ({
-  popupPaper: {
-    overflow: "hidden",
-    width: 400,
-    padding: 10,
-    borderRadius: 8,
-  },
-}));
-
-const style = {
-  root: {
-    borderRadius: 8,
-    padding: "0 0 0 5px",
-    width: "100%",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
-  },
-};
-
-const StyledTextField = withStyles(() => style)(TextField);
-
-const StyledInputBase = withStyles(() => style)(InputBase);
+import useStyles, { StyledInputBase, StyledTextField } from "./style";
 
 const NewPin = () => {
   /* STYLING */

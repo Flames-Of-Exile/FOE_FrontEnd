@@ -2,7 +2,6 @@ import {
   Button,
   CircularProgress,
   Grid,
-  makeStyles,
   Paper,
   TextField,
   Typography,
@@ -14,11 +13,7 @@ import { useAdminContext } from "components/admin/Home";
 import { useParams } from "react-router-dom";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
-
-/* STYLING */
-const useStyles = makeStyles((theme) => ({
-  paper: { width: 800, background: theme.palette.background.secondary },
-}));
+import useStyles from "./style";
 
 const UpdateGuild = () => {
   /* STYLING */
@@ -30,7 +25,7 @@ const UpdateGuild = () => {
 
   /* ROUTING */
   const params = useParams();
-  
+
   /* FORM STATE */
   const [loading, setLoading] = useState(false);
   const thisGuild = guilds.filter((guild) => guild.name === params.name)[0];

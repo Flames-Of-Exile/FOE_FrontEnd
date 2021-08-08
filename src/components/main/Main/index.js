@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { Route, Switch } from "react-router";
 import Logout from "components/auth/Logout";
 import Profile from "components/main/Profile";
@@ -13,15 +13,7 @@ import Unconfirmed from "components/auth/Unconfirmed";
 import Login from "components/auth/Login";
 import Register from "components/auth/Register";
 import useSessionContext from "SessionContext";
-
-/* STYLING */
-const useStyles = makeStyles((theme) => ({
-  content: {
-    flexGrow: 1,
-    passing: theme.spacing(3),
-    marginTop: 20,
-  },
-}));
+import useStyles from "./style";
 
 const Main = () => {
   /* STYLING */

@@ -1,4 +1,4 @@
-import { Backdrop, Grid, Typography, makeStyles } from "@material-ui/core";
+import { Backdrop, Grid, Typography } from "@material-ui/core";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Circle, MapContainer, ImageOverlay } from "react-leaflet";
 import { CRS } from "leaflet";
@@ -6,14 +6,7 @@ import { useCampaignContext } from "components/intel/Home";
 import useSessionContext from "SessionContext";
 import { useHistory } from "react-router-dom";
 import InnerLink from "components/utilities/InnerLink";
-
-/* STYLING */
-const useStyles = makeStyles(() => ({
-  map: {
-    width: "90%",
-    height: "75vh",
-  },
-}));
+import useStyles from "./style";
 
 const Campaign = () => {
   /* STYLING */
