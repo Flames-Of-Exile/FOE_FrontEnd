@@ -7,6 +7,7 @@ import useSessionContext from "SessionContext";
 import { useHistory } from "react-router-dom";
 import InnerLink from "components/utilities/InnerLink";
 import useStyles from "./style";
+import useIsMounted from "hooks/useIsMounted";
 
 const Campaign = () => {
   /* STYLING */
@@ -21,6 +22,7 @@ const Campaign = () => {
 
   /* REFS */
   const overlayRef = useRef(null);
+  const isMounted = useIsMounted();
 
   /* CONTEXT */
   const { activeCampaign: campaign, setWorld } = useCampaignContext();
@@ -34,8 +36,10 @@ const Campaign = () => {
     const image = new Image();
     image.src = campaign.image;
     image.onload = () => {
-      setSize({ width: image.naturalWidth, height: image.naturalHeight });
-      setLoading(false);
+      if (isMounted) {
+        setSize({ width: image.naturalWidth, height: image.naturalHeight });
+        setLoading(false);
+      }
     };
   }, [campaign]);
 

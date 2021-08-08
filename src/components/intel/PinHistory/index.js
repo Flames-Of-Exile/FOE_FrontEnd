@@ -4,8 +4,12 @@ import Edit from "components/intel/Edit";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import useAlertBarContext from "AlertBarContext";
+import useIsMounted from "hooks/useIsMounted";
 
 const PinHistory = () => {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* FORM STATE */
   const [pin, setPin] = useState({ edits: [] });
   const [loading, setLoading] = useState(false);
@@ -19,7 +23,9 @@ const PinHistory = () => {
   /* FORM HANDLING */
   useEffect(async () => {
     const response = await axios.get(`/api/pins${params.id}`);
-    setPin(response.data);
+    if (isMounted) {
+      setPin(response.data);
+    }
   }, [params]);
 
   const handleDelete = async () => {
@@ -29,7 +35,9 @@ const PinHistory = () => {
     } catch (error) {
       setAlert(error.response.data, "error");
     }
-    setLoading(false);
+    if (isMounted) {
+      setLoading(false);
+    }
   };
 
   return (

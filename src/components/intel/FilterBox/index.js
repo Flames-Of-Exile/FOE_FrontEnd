@@ -7,8 +7,12 @@ import useFormReducer from "./reducer";
 import { TYPE_OPTIONS, RESOURCE_OPTIONS } from "./constants";
 import LabeledSelect from "components/utilities/LabeledSelect";
 import useStyles, { updateStyle } from "./style";
+import useIsMounted from "hooks/useIsMounted";
 
 const FilterBox = () => {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* STYLING */
   const classes = useStyles();
 
@@ -50,10 +54,12 @@ const FilterBox = () => {
     if (query.amount) {
       amount = query.amount;
     }
-    setType(type);
-    setResource(resource);
-    setRank(rank);
-    setAmount(amount);
+    if (isMounted) {
+      setType(type);
+      setResource(resource);
+      setRank(rank);
+      setAmount(amount);
+    }
   }, [location]);
 
   const handleChange = (event) => {

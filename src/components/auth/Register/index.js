@@ -12,8 +12,12 @@ import useSessionContext from "SessionContext";
 import useFormReducer from "./reducer";
 import useSocketContext from "SocketContext";
 import useAlertBarContext from "AlertBarContext";
+import useIsMounted from "hooks/useIsMounted";
 
 const Register = () => {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* CONTEXT */
   const { setUser, refresh } = useSessionContext();
   const { setAlert } = useAlertBarContext();
@@ -34,8 +38,10 @@ const Register = () => {
   /* FORM HANDLING */
   useEffect(async () => {
     const response = await axios.get("/api/guilds");
-    setGuildList(response.data);
-    setGuildId(response.data[0].id);
+    if (isMounted) {
+      setGuildList(response.data);
+      setGuildId(response.data[0].id);
+    }
   }, []);
 
   const handleChange = (e) => {

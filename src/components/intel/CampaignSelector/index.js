@@ -5,8 +5,12 @@ import { useHistory } from "react-router-dom";
 import { useCampaignContext } from "components/intel/Home";
 import LabeledSelect from "components/utilities/LabeledSelect";
 import useStyles from "./style";
+import useIsMounted from "hooks/useIsMounted";
 
 const CampaignSelector = () => {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* STYLING */
   const classes = useStyles();
 
@@ -22,10 +26,12 @@ const CampaignSelector = () => {
 
   /* FORM STATE */
   useEffect(() => {
-    setIndices({
-      campaign: campaigns.indexOf(activeCampaign),
-      world: activeCampaign.worlds.indexOf(world),
-    });
+    if (isMounted) {
+      setIndices({
+        campaign: campaigns.indexOf(activeCampaign),
+        world: activeCampaign.worlds.indexOf(world),
+      });
+    }
   }, [campaigns, activeCampaign, world]);
 
   const handleCampaignChange = (event) => {

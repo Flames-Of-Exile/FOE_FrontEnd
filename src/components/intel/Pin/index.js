@@ -18,6 +18,7 @@ import tactical_fish from "staticfiles/icons/tactical-fish.png";
 import tactical_house from "staticfiles/icons/tactical-house.png";
 import PinDetails from "components/intel/PinDetails";
 import PinUpdate from "components/intel/PinUpdate";
+import useIsMounted from "hooks/useIsMounted";
 
 function Pin(props) {
   /* PROPS */
@@ -25,6 +26,7 @@ function Pin(props) {
 
   /* REFS */
   const marker = useRef(null);
+  const isMounted = useIsMounted();
 
   /* STATE */
   const [url, setUrl] = useState("http://");
@@ -158,7 +160,9 @@ function Pin(props) {
       strokeWidth: 0.1,
     };
     const newUrl = chooseSVG(iconStyle, borderStyle, cutoutStyle);
-    setUrl(newUrl);
+    if (isMounted) {
+      setUrl(newUrl);
+    }
   }, [pin]);
 
   return (

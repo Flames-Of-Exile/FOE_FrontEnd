@@ -13,8 +13,12 @@ import useFormReducer from "./reducer";
 import { useHistory } from "react-router-dom";
 import { useCampaignContext } from "components/intel/Home";
 import useAlertBarContext from "AlertBarContext";
+import useIsMounted from "hooks/useIsMounted";
 
 function CampaignUpdate() {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* ROUTING */
   const history = useHistory();
 
@@ -35,9 +39,11 @@ function CampaignUpdate() {
 
   /* FORM HANDLING */
   useEffect(() => {
-    setName(campaign.name);
-    setIsDefault(campaign.is_default);
-    setIsArchived(campaign.is_archived);
+    if (isMounted) {
+      setName(campaign.name);
+      setIsDefault(campaign.is_default);
+      setIsArchived(campaign.is_archived);
+    }
   }, [campaign]);
 
   const handleChange = (e) => {

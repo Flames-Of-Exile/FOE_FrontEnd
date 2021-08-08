@@ -8,8 +8,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import useStyles from "./style";
+import useIsMounted from "hooks/useIsMounted";
 
 const Logout = () => {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* STYLING */
   const classes = useStyles();
 
@@ -22,7 +26,9 @@ const Logout = () => {
   /* LOGOUT */
   const logout = useCallback(async () => {
     await axios.get("/api/users/logout");
-    setLoading(false);
+    if (isMounted) {
+      setLoading(false);
+    }
     localStorage.setItem("logout", Date.now());
     syncLogout();
   }, [syncLogout]);

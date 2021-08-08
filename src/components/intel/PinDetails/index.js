@@ -7,8 +7,12 @@ import useSessionContext from "SessionContext";
 import useSocketContext from "SocketContext";
 import useAlertBarContext from "AlertBarContext";
 import { StyledTypography } from "./style";
+import useIsMounted from "hooks/useIsMounted";
 
 const PinDetails = (props) => {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* PROPS */
   const { pin, handleEdit } = props;
 
@@ -22,7 +26,9 @@ const PinDetails = (props) => {
 
   /* FORM HANDLING */
   useEffect(() => {
-    setDetails(createDetailArray(pin));
+    if (isMounted) {
+      setDetails(createDetailArray(pin));
+    }
   }, [pin]);
 
   const handleDelete = async () => {

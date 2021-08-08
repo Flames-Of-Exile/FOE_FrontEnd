@@ -15,8 +15,12 @@ import { useAdminContext } from "components/admin/Home";
 import { useParams } from "react-router-dom";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
+import useIsMounted from "hooks/useIsMounted";
 
 const UpdateUser = () => {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* ROUTING */
   const params = useParams();
 
@@ -40,10 +44,12 @@ const UpdateUser = () => {
   useEffect(async () => {
     try {
       const response = await axios.get(`/api/users/${params.id}`);
-      setUsername(response.data.username);
-      setRole(response.data.role);
-      setIsActive(response.data.is_active);
-      setGuild(response.data.guild.id);
+      if (isMounted) {
+        setUsername(response.data.username);
+        setRole(response.data.role);
+        setIsActive(response.data.is_active);
+        setGuild(response.data.guild.id);
+      }
     } catch (error) {
       setAlert(error.response.data, "error");
     }

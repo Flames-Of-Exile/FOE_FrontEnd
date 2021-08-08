@@ -14,6 +14,7 @@ import { useCampaignContext } from "components/intel/Home";
 import { useHistory } from "react-router-dom";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
+import useIsMounted from "hooks/useIsMounted";
 
 const WorldUpdate = () => {
   /* FORM STATE */
@@ -35,6 +36,7 @@ const WorldUpdate = () => {
 
   /* REFS */
   const overlayRef = useRef(null);
+  const isMounted = useIsMounted();
 
   /* CONTEXT */
   const { campaign, world } = useCampaignContext();
@@ -49,8 +51,10 @@ const WorldUpdate = () => {
     const image = new Image();
     image.src = campaign.image;
     image.onload = () => {
-      setSize({ width: image.naturalWidth, height: image.naturalHeight });
-      setInitialLoading(false);
+      if (isMounted) {
+        setSize({ width: image.naturalWidth, height: image.naturalHeight });
+        setInitialLoading(false);
+      }
     };
   }, [campaign]);
 

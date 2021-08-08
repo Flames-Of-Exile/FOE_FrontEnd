@@ -1,10 +1,12 @@
 import { Button, Grid, Link, TextField, Typography } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import useIsMounted from "hooks/useIsMounted";
 
 const Unconfirmed = () => {
   /* REFS */
   const textArea = useRef(null);
+  const isMounted = useIsMounted();
 
   /* FORM STATE */
   const [token, setToken] = useState("");
@@ -16,7 +18,9 @@ const Unconfirmed = () => {
 
   const generateToken = async () => {
     const response = await axios.get("/api/users/discord-token");
-    setToken(response.data.token);
+    if (isMounted) {
+      setToken(response.data.token);
+    }
   };
 
   const handleCopy = () => {

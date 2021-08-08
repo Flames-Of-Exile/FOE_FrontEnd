@@ -2,10 +2,14 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import useSocketContext from "SocketContext";
 import axios from "axios";
+import useIsMounted from "hooks/useIsMounted";
 
 const CampaignContext = createContext();
 
 export const CampaignContextProvider = (props) => {
+  /* REFS */
+  const isMounted = useIsMounted();
+
   /* ROUTING */
   const params = useParams();
   const location = useLocation();
@@ -43,15 +47,17 @@ export const CampaignContextProvider = (props) => {
   };
 
   const handleCampaignUpdate = (data) => {
-    setCampaigns(data);
-    const activeCamp = getActiveCampaign(data, params.campaign);
-    const activeWorld = getActiveWorld(activeCamp.worlds, params.world);
+    if (isMounted) {
+      setCampaigns(data);
+      const activeCamp = getActiveCampaign(data, params.campaign);
+      const activeWorld = getActiveWorld(activeCamp.worlds, params.world);
 
-    setActiveCampaign(activeCamp);
-    setWorld(activeWorld);
+      setActiveCampaign(activeCamp);
+      setWorld(activeWorld);
 
-    if (activeCamp.name && location.pathname === "/campaigns") {
-      history.push(`/campaigns/${activeCamp.name}`);
+      if (activeCamp.name && location.pathname === "/campaigns") {
+        history.push(`/campaigns/${activeCamp.name}`);
+      }
     }
   };
 

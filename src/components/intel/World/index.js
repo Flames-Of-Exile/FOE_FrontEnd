@@ -11,6 +11,7 @@ import { useCampaignContext } from "components/intel/Home";
 import useSessionContext from "SessionContext";
 import queryString from "query-string";
 import useStyles from "./style";
+import useIsMounted from "hooks/useIsMounted";
 
 const World = () => {
   /* STYLING */
@@ -23,6 +24,7 @@ const World = () => {
 
   /* REFS */
   const overlayRef = useRef(null);
+  const isMounted = useIsMounted();
 
   /* ROUTING */
   const location = useLocation();
@@ -40,14 +42,20 @@ const World = () => {
     const image = new Image();
     image.src = world.image;
     image.onload = () => {
-      setSize({ width: image.naturalWidth, height: image.naturalHeight });
-      setPins(filterPins(queryString.parse(location.search)));
+      if (isMounted) {
+        setSize({ width: image.naturalWidth, height: image.naturalHeight });
+        setPins(filterPins(queryString.parse(location.search)));
+      }
     };
-    setLoading(false);
+    if (isMounted) {
+      setLoading(false);
+    }
   }, [world]);
 
   useEffect(() => {
-    setPins(filterPins(queryString.parse(location.search)));
+    if (isMounted) {
+      setPins(filterPins(queryString.parse(location.search)));
+    }
   }, [location.search, loading]);
 
   const filterPins = (filterOptions) => {
