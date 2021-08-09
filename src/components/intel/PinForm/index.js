@@ -6,10 +6,20 @@ import axios from "axios";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 import { StyledInputBase, StyledTextField } from "./style";
+import { useCampaignContext } from "components/intel/Home";
 
-const PinUpdate = (props) => {
+const PinForm = (props) => {
   /* PROPS */
-  const { pin, handleCancel, marker } = props;
+  const { pin, handleCancel, marker, offset, coords } = props;
+
+  let xPos, yPos;
+  if (coords) {
+    xPos = coords.lng;
+    yPos = coords.lat;
+  } else {
+    xPos = pin.position_x;
+    yPos = pin.position_y;
+  }
 
   useEffect(() => {
     window.setTimeout(() => {
@@ -46,6 +56,7 @@ const PinUpdate = (props) => {
   /* CONTEXT */
   const { setAlert } = useAlertBarContext();
   const { send } = useSocketContext();
+  const { world } = useCampaignContext();
 
   /* FORM HANDLING */
   const handleChange = (e) => {
@@ -81,21 +92,26 @@ const PinUpdate = (props) => {
   };
 
   const handleSubmit = async () => {
+    const payload = {
+      position_x: xPos,
+      position_y: yPos,
+      world_id: world.id,
+      symbol: symbol.value,
+      resource: resource.value,
+      notes: notes.value,
+      name: name.value,
+      rank: rank.value,
+      amount: amount.value,
+      respawn: respawn.value,
+      x_cord: xCoord.value,
+      y_cord: yCoord.value,
+    };
     try {
-      await axios.patch(`/api/pins/${pin.id}`, {
-        position_x: pin.position_x,
-        position_y: pin.position_y,
-        symbol: symbol.value,
-        notes: notes.value,
-        world_id: pin.world_id,
-        name: name.value,
-        rank: rank.value,
-        amount: amount.value,
-        respawn: respawn.value,
-        resource: resource.value,
-        x_cord: xCoord.value,
-        y_cord: yCoord.value,
-      });
+      if (pin) {
+        await axios.patch(`/api/pins/${pin.id}`, payload);
+      } else {
+        await axios.post("/api/pins", payload);
+      }
       send("campaign-update");
       handleCancel();
     } catch (error) {
@@ -196,7 +212,7 @@ const PinUpdate = (props) => {
   return (
     <>
       <Popup
-        offset={[0, -50]}
+        offset={offset}
         onClose={handleClose}
         minWidth={200}
         maxWidth={200}
@@ -286,4 +302,4 @@ const PinUpdate = (props) => {
   );
 };
 
-export default PinUpdate;
+export default PinForm;

@@ -202,9 +202,9 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useUpdatePinFormReducer(pin = {}) {
+export default function useUpdatePinFormReducer(pin = undefined) {
   let initState;
-  if (Object.keys(pin).length === 0) {
+  if (!pin) {
     initState = initialState;
   } else {
     initState = {

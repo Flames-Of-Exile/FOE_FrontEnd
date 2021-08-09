@@ -17,7 +17,7 @@ import tactical_fire from "staticfiles/icons/tactical-fire.png";
 import tactical_fish from "staticfiles/icons/tactical-fish.png";
 import tactical_house from "staticfiles/icons/tactical-house.png";
 import PinDetails from "components/intel/PinDetails";
-import PinUpdate from "components/intel/PinUpdate";
+import PinForm from "components/intel/PinForm";
 import useIsMounted from "hooks/useIsMounted";
 
 function Pin(props) {
@@ -178,10 +178,11 @@ function Pin(props) {
       }
     >
       {editing ? (
-        <PinUpdate
+        <PinForm
           pin={pin}
           handleCancel={() => setEditing(false)}
           marker={marker}
+          offset={[0, -50]}
         />
       ) : (
         <PinDetails pin={pin} handleEdit={() => setEditing(true)} />
