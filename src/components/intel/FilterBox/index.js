@@ -2,7 +2,6 @@ import { Button, Grid, Paper, TextField } from "@material-ui/core";
 import React, { useEffect } from "react";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
-import capitalize from "helpers/Capitalize";
 import useFormReducer from "./reducer";
 import { TYPE_OPTIONS, RESOURCE_OPTIONS } from "./constants";
 import LabeledSelect from "components/utilities/LabeledSelect";
@@ -107,7 +106,7 @@ const FilterBox = () => {
     options: TYPE_OPTIONS.map((option) => {
       return {
         value: option.value,
-        label: capitalize(option.value),
+        label: option.label,
         style: updateStyle(option.value, type),
       };
     }),
@@ -123,7 +122,7 @@ const FilterBox = () => {
     options: resourceOptions.map((option) => {
       return {
         value: option.value,
-        label: capitalize(option.value),
+        label: option.label,
         style: updateStyle(option.value, resource),
       };
     }),

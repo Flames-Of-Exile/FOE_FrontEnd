@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const updateStyle = (value, selectedValues) => {
   return {
-    fontWeight: selectedValues.includes(value) ? "bold" : "standard",
+    backgroundColor: selectedValues.includes(value) ? "#C7C7C7" : "white",
   };
 };
 
