@@ -60,8 +60,9 @@ function CampaignUpdate() {
     }
   };
 
-  const handleSubmit = async () => {
-    if (name.error) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
       return;
     }
     setLoading(true);
@@ -88,8 +89,11 @@ function CampaignUpdate() {
     name: "name",
     id: "name",
     label: "name",
+    required: true,
+    autoFocus: true,
     onChange: handleChange,
     disabled: loading,
+    inputProps: { form: "campaign-update-form" },
     ...name,
   };
 
@@ -125,9 +129,11 @@ function CampaignUpdate() {
         />
       </Grid>
       <Grid item>
-        <Button onClick={handleSubmit} disabled={loading}>
-          Submit{loading && <CircularProgress />}
-        </Button>
+        <form onSubmit={handleSubmit} id="campaign-update-form">
+          <Button onClick={handleSubmit} disabled={loading}>
+            Submit{loading && <CircularProgress />}
+          </Button>
+        </form>
       </Grid>
       <img src={campaign.image} />
     </>

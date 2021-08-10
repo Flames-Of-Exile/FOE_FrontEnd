@@ -90,10 +90,9 @@ const NewWorld = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (name.value === "" || file.value === null) {
-      setName(name.value);
-      setFile(file.value, filename.value);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
       return;
     }
     if (circle.radius === 0) {
@@ -128,8 +127,11 @@ const NewWorld = () => {
     name: "name",
     id: "name",
     label: "Name",
+    required: true,
+    autoFocus: true,
     onChange: handleChange,
     disabled: loading,
+    inputProps: { form: "new-world-form" },
     ...name,
   };
 
@@ -137,8 +139,10 @@ const NewWorld = () => {
     inputProps: {
       name: "file",
       id: "file",
+      required: true,
       accept: "image/*",
       onChange: handleChange,
+      inputProps: { form: "new-world-form" },
     },
     buttonProps: {
       disabled: loading,
@@ -158,10 +162,12 @@ const NewWorld = () => {
         <Upload {...uploadProps} />
       </Grid>
       <Grid item>
-        <Button onClick={handleSubmit} disabled={loading} variant="contained">
-          Submit
-          {loading && <CircularProgress size={25} />}
-        </Button>
+        <form onSubmit={handleSubmit} id="new-world-form">
+          <Button type="submit" disabled={loading} variant="contained">
+            Submit
+            {loading && <CircularProgress size={25} />}
+          </Button>
+        </form>
       </Grid>
       Draw click area below
       {initialLoading ? (

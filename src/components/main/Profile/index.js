@@ -28,13 +28,9 @@ const EditProfile = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (password1.value === "" || password2.value === "") {
-      setPassword1(password1.value);
-      setPassword2(password2.value);
-      return;
-    }
-    if (password1.error || password2.error) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
       return;
     }
     try {
@@ -67,7 +63,10 @@ const EditProfile = () => {
     label: "New Password",
     name: "password1",
     type: "password",
+    required: true,
+    autoFocus: true,
     onChange: handleChange,
+    inputProps: { form: "profile-form" },
     ...password1,
   };
 
@@ -75,7 +74,9 @@ const EditProfile = () => {
     label: "Confirm Password",
     name: "password2",
     type: "password",
+    required: true,
     onChange: handleChange,
+    inputProps: { form: "profile-form" },
     ...password2,
   };
 
@@ -98,9 +99,11 @@ const EditProfile = () => {
         <TextField {...password2Props} />
       </Grid>
       <Grid item>
-        <Button variant="contained" onClick={handleSubmit}>
-          Change Password
-        </Button>
+        <form onSubmit={handleSubmit} id="profile-form">
+          <Button variant="contained" type="submit">
+            Change Password
+          </Button>
+        </form>
       </Grid>
     </>
   );

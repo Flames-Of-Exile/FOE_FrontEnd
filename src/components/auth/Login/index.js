@@ -18,12 +18,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   /* FORM HANDLING */
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleSubmit();
-    }
-  };
-
   const handleChange = (e) => {
     switch (e.target.name) {
       case "username":
@@ -34,15 +28,12 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    setUsername(username.value);
-    setPassword(password.value);
-    if (username.error || password.error) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
       return;
     }
-
     setLoading(true);
-
     try {
       const response = await axios.post("/api/users/login", {
         username: username.value,
@@ -65,9 +56,11 @@ const Login = () => {
     label: "Username",
     name: "username",
     id: "username",
+    required: true,
+    autoFocus: true,
     onChange: handleChange,
-    onKeyDown: handleKeyDown,
     disabled: loading,
+    inputProps: { form: "login-form" },
     ...username,
   };
 
@@ -76,9 +69,10 @@ const Login = () => {
     name: "password",
     type: "password",
     id: "password",
+    required: true,
     onChange: handleChange,
-    onKeyDown: handleKeyDown,
     disabled: loading,
+    inputProps: { form: "login-form" },
     ...password,
   };
 
@@ -91,10 +85,12 @@ const Login = () => {
         <TextField {...passwordFieldProps} />
       </Grid>
       <Grid item>
-        <Button variant="contained" onClick={handleSubmit} disabled={loading}>
-          Submit
-          {loading && <CircularProgress size={25} />}
-        </Button>
+        <form onSubmit={handleSubmit} id="login-form">
+          <Button variant="contained" type="submit" disabled={loading}>
+            Submit
+            {loading && <CircularProgress size={25} />}
+          </Button>
+        </form>
       </Grid>
     </>
   );

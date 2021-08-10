@@ -91,7 +91,11 @@ const PinForm = (props) => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
+      return;
+    }
     const payload = {
       position_x: xPos,
       position_y: yPos,
@@ -138,6 +142,7 @@ const PinForm = (props) => {
     id: "name",
     placeholder: "Name",
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...name,
   };
 
@@ -147,6 +152,7 @@ const PinForm = (props) => {
     id: "rank",
     placeholder: "Rank",
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...rank,
   };
 
@@ -156,6 +162,7 @@ const PinForm = (props) => {
     id: "amount",
     placeholder: "Amount",
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...amount,
   };
 
@@ -165,6 +172,7 @@ const PinForm = (props) => {
     id: "respawn",
     placeholder: "Respawn time",
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...respawn,
   };
 
@@ -173,6 +181,7 @@ const PinForm = (props) => {
     id: "notes",
     placeholder: "Notes",
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...notes,
   };
 
@@ -180,7 +189,9 @@ const PinForm = (props) => {
     name: "xCoord",
     id: "xCoord",
     placeholder: "X Coordinate",
+    autoFocus: true,
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...xCoord,
   };
 
@@ -190,6 +201,7 @@ const PinForm = (props) => {
     id: "yCoord",
     placeholder: "Y Coordinate",
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...yCoord,
   };
 
@@ -198,6 +210,7 @@ const PinForm = (props) => {
     id: "symbol",
     input: <StyledInputBase />,
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...symbol,
   };
 
@@ -206,6 +219,7 @@ const PinForm = (props) => {
     id: "resource",
     input: <StyledInputBase />,
     onChange: handleChange,
+    inputProps: { form: "pin-form" },
     ...resource,
   };
 
@@ -292,9 +306,11 @@ const PinForm = (props) => {
             </Button>
           </Grid>
           <Grid item xs={5}>
-            <Button onClick={handleSubmit} variant="contained">
-              Submit
-            </Button>
+            <form onSubmit={handleSubmit} id="pin-form">
+              <Button type="submit" variant="contained">
+                Submit
+              </Button>
+            </form>
           </Grid>
         </Grid>
       </Popup>

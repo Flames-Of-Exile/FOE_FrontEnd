@@ -61,18 +61,9 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (
-      username.value === "" ||
-      password1.value === "" ||
-      password2.value === ""
-    ) {
-      setUsername(username.value);
-      setPassword1(password1.value);
-      setPassword2(password2.value);
-      return;
-    }
-    if (username.error || password1.error || password2.error) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
       return;
     }
     setLoading(true);
@@ -104,12 +95,15 @@ const Register = () => {
   const baseProps = {
     onChange: handleChange,
     disabled: loading,
+    inputProps: { form: "register-form" },
+    required: true,
   };
 
   const usernameFieldProps = {
     label: "Username",
     name: "username",
-    id: "password",
+    id: "username",
+    autoFocus: true,
     ...baseProps,
     ...username,
   };
@@ -157,10 +151,12 @@ const Register = () => {
         ))}
       </Select>
       <Grid item>
-        <Button variant="contained" onClick={handleSubmit} disabled={loading}>
-          Submit
-          {loading && <CircularProgress size={25} />}
-        </Button>
+        <form onSubmit={handleSubmit} id="register-form">
+          <Button variant="contained" type="submit" disabled={loading}>
+            Submit
+            {loading && <CircularProgress size={25} />}
+          </Button>
+        </form>
       </Grid>
     </>
   );

@@ -36,12 +36,9 @@ const GuildList = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    setGuildName(guildName.value);
-    if (guildName.error) {
-      return;
-    }
-    if (guildName === "") {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
       return;
     }
     setLoading(true);
@@ -70,8 +67,11 @@ const GuildList = () => {
     name: "guildName",
     id: "guildName",
     label: "New Guild Name",
+    required: true,
+    autoFocus: true,
     onChange: handleChange,
     disabled: loading,
+    inputProps: { form: "new-guild-form" },
     ...guildName,
   };
 
@@ -100,10 +100,12 @@ const GuildList = () => {
         <TextField {...guildNameTextFieldProps} />
       </Grid>
       <Grid item>
-        <Button onClick={handleSubmit} disabled={loading} variant="contained">
-          Submit
-          {loading && <CircularProgress size={25} />}
-        </Button>
+        <form onSubmit={handleSubmit} id="new-guild-form">
+          <Button type="submit" disabled={loading} variant="contained">
+            Submit
+            {loading && <CircularProgress size={25} />}
+          </Button>
+        </form>
       </Grid>
     </>
   );

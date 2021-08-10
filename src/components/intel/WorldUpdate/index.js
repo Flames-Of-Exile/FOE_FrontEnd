@@ -1,6 +1,7 @@
 import {
   Button,
   CircularProgress,
+  Grid,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -85,9 +86,9 @@ const WorldUpdate = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (name === "") {
-      setName(name.value);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
       return;
     }
     setLoading(true);
@@ -112,21 +113,32 @@ const WorldUpdate = () => {
     name: "name",
     id: "name",
     label: "name",
+    required: true,
+    autoFocus: true,
     onChange: handleChange,
     disabled: loading,
+    inputProps: { form: "update-world-form" },
     ...name,
   };
 
   return (
     <>
-      <Typography>
-        Update {world.name} of {campaign.name}
-      </Typography>
-      <TextField {...nameTextFieldProps} />
-      <Button onClick={handleSubmit} disabled={loading} variant="contained">
-        Submit
-        {loading && <CircularProgress size={25} />}
-      </Button>
+      <Grid item>
+        <Typography>
+          Update {world.name} of {campaign.name}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <TextField {...nameTextFieldProps} />
+      </Grid>
+      <Grid item>
+        <form onSubmit={handleSubmit} id="update-world-form">
+          <Button type="submit" disabled={loading} variant="contained">
+            Submit
+            {loading && <CircularProgress size={25} />}
+          </Button>
+        </form>
+      </Grid>
       Draw click area below
       {initialLoading ? (
         <CircularProgress />

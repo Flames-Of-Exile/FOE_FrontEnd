@@ -26,10 +26,9 @@ const NewCampaign = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (name.error || name.value === "" || file.value === null) {
-      setName(name.value);
-      setFile(file.value, filename.value);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(formState).find((key) => key.error)) {
       return;
     }
     setLoading(true);
@@ -58,8 +57,11 @@ const NewCampaign = () => {
     name: "name",
     id: "name",
     label: "Name",
+    required: true,
+    autoFocus: true,
     onChange: handleChange,
     disabled: loading,
+    inputProps: { form: "new-campaign-form" },
     ...name,
   };
 
@@ -67,8 +69,10 @@ const NewCampaign = () => {
     inputProps: {
       name: "file",
       id: "file",
+      required: true,
       accept: "image/*",
       onChange: handleChange,
+      inputProps: { form: "new-campaign-form" },
     },
     buttonProps: {
       disabled: loading,
@@ -85,10 +89,12 @@ const NewCampaign = () => {
         <Upload {...uploadProps} />
       </Grid>
       <Grid item>
-        <Button onClick={handleSubmit} disabled={loading} variant="contained">
-          Submit
-          {loading && <CircularProgress size={25} />}
-        </Button>
+        <form onSubmit={handleSubmit} id="new-campaign-form">
+          <Button type="submit" disabled={loading} variant="contained">
+            Submit
+            {loading && <CircularProgress size={25} />}
+          </Button>
+        </form>
       </Grid>
     </>
   );
