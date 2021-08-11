@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import useFormReducer from "./reducer";
 import useSessionContext from "SessionContext";
-import { Button, Grid, MenuItem, Select, TextField } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import useAlertBarContext from "AlertBarContext";
 
 const EditProfile = () => {
@@ -13,10 +20,12 @@ const EditProfile = () => {
   /* FORM STATE */
   const { state: formState, setPassword1, setPassword2 } = useFormReducer();
   const { password1, password2 } = formState;
+  const [loading, setLoading] = useState(false);
 
   /* FORM HANDLING */
-  const handleSelect = async (event) => {
-    user.theme = event.target.value;
+  const handleSelect = async (e) => {
+    setLoading(true);
+    user.theme = e.target.value;
     try {
       const response = await axios.patch(
         `/api/users/${user.id}`,
@@ -26,6 +35,7 @@ const EditProfile = () => {
     } catch (error) {
       setAlert(error.response.data, "error");
     }
+    setLoading(false);
   };
 
   const handleSubmit = async (e) => {
@@ -33,6 +43,7 @@ const EditProfile = () => {
     if (Object.values(formState).find((key) => key.error)) {
       return;
     }
+    setLoading(true);
     try {
       await axios.patch(
         `/api/users/${user.id}`,
@@ -45,15 +56,16 @@ const EditProfile = () => {
     } catch (error) {
       setAlert(error.response.data, "error");
     }
+    setLoading(false);
   };
 
-  const handleChange = async (event) => {
-    switch (event.target.name) {
+  const handleChange = async (e) => {
+    switch (e.target.name) {
       case "password1":
-        setPassword1(event.target.value);
+        setPassword1(e.target.value);
         break;
       case "password2":
-        setPassword2(event.target.value);
+        setPassword2(e.target.value);
         break;
     }
   };
@@ -65,6 +77,7 @@ const EditProfile = () => {
     type: "password",
     required: true,
     autoFocus: true,
+    disabled: loading,
     onChange: handleChange,
     inputProps: { form: "profile-form" },
     ...password1,
@@ -75,6 +88,7 @@ const EditProfile = () => {
     name: "password2",
     type: "password",
     required: true,
+    disabled: loading,
     onChange: handleChange,
     inputProps: { form: "profile-form" },
     ...password2,
@@ -83,7 +97,7 @@ const EditProfile = () => {
   return (
     <>
       <Grid item>
-        <Select onChange={handleSelect} value={user.theme}>
+        <Select onChange={handleSelect} value={user.theme} disabled={loading}>
           <MenuItem value="default">Default</MenuItem>
           <MenuItem value="blue_raspberry">Blue Raspberry</MenuItem>
           <MenuItem value="cartography">Cartography</MenuItem>
@@ -100,8 +114,9 @@ const EditProfile = () => {
       </Grid>
       <Grid item>
         <form onSubmit={handleSubmit} id="profile-form">
-          <Button variant="contained" type="submit">
+          <Button variant="contained" type="submit" disabled={loading}>
             Change Password
+            {loading && <CircularProgress size={25} />}
           </Button>
         </form>
       </Grid>

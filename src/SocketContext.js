@@ -12,8 +12,8 @@ export class Socket {
     this.connection.close();
   }
 
-  send(event) {
-    this.connection.emit(event);
+  send(e) {
+    this.connection.emit(e);
   }
 
   registerListener(name, callback) {
@@ -30,7 +30,7 @@ const SocketContext = createContext();
 export const SocketContextProvider = (props) => {
   const [socket] = useState(new Socket());
   const connect = useCallback(() => socket.connect(), [socket]);
-  const send = useCallback((event) => socket.send(event), [socket]);
+  const send = useCallback((e) => socket.send(e), [socket]);
   const disconnect = useCallback(() => socket.disconnect(), [socket]);
   const registerListener = useCallback(
     (name, callback) => socket.registerListener(name, callback),

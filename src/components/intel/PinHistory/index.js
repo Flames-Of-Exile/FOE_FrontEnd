@@ -22,9 +22,11 @@ const PinHistory = () => {
 
   /* FORM HANDLING */
   useEffect(async () => {
+    setLoading(true);
     const response = await axios.get(`/api/pins${params.id}`);
     if (isMounted) {
       setPin(response.data);
+      setLoading(false);
     }
   }, [params]);
 

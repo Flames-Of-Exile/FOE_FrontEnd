@@ -42,6 +42,7 @@ const UpdateUser = () => {
 
   /* FORM HANDLING */
   useEffect(async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`/api/users/${params.id}`);
       if (isMounted) {
@@ -53,6 +54,7 @@ const UpdateUser = () => {
     } catch (error) {
       setAlert(error.response.data, "error");
     }
+    setLoading(false);
   }, [params]);
 
   const handleChange = (e) => {
@@ -89,8 +91,9 @@ const UpdateUser = () => {
     setLoading(false);
   };
 
-  const handleChangePassword = async () => {
-    if (password.value === "" || password.error) {
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    if (password.error) {
       return;
     }
     try {
@@ -114,8 +117,10 @@ const UpdateUser = () => {
     name: "password",
     id: "password",
     label: "Password",
+    required: true,
     onChange: handleChange,
     disabled: loading,
+    inputProps: { form: "update-user-password" },
     ...password,
   };
 
@@ -146,14 +151,12 @@ const UpdateUser = () => {
         <TextField {...passwordTextFieldProps} />
       </Grid>
       <Grid item>
-        <Button
-          onClick={handleChangePassword}
-          disabled={loading}
-          variant="contained"
-        >
-          Change Password
-          {loading && <CircularProgress size={25} />}
-        </Button>
+        <form onSubmit={handleChangePassword} id="update-user-password">
+          <Button disabled={loading} variant="contained">
+            Change Password
+            {loading && <CircularProgress size={25} />}
+          </Button>
+        </form>
       </Grid>
       <Grid item>
         <FormControlLabel

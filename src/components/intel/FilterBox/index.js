@@ -61,19 +61,19 @@ const FilterBox = () => {
     }
   }, [location]);
 
-  const handleChange = (event) => {
-    switch (event.target.name) {
+  const handleChange = (e) => {
+    switch (e.target.name) {
       case "type":
-        setType(event.target.value);
+        setType(e.target.value);
         break;
       case "resource":
-        setResource(event.target.value);
+        setResource(e.target.value);
         break;
       case "amount":
-        setAmount(event.target.value);
+        setAmount(e.target.value);
         break;
       case "rank":
-        setRank(event.target.value);
+        setRank(e.target.value);
         break;
     }
   };

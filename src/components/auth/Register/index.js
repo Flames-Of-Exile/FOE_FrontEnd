@@ -37,10 +37,12 @@ const Register = () => {
 
   /* FORM HANDLING */
   useEffect(async () => {
+    setLoading(true);
     const response = await axios.get("/api/guilds");
     if (isMounted) {
       setGuildList(response.data);
       setGuildId(response.data[0].id);
+      setLoading(false);
     }
   }, []);
 

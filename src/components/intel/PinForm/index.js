@@ -1,6 +1,6 @@
-import { Button, Grid, MenuItem, Select, Tooltip } from "@material-ui/core";
+import { Button, CircularProgress, Grid, MenuItem, Select, Tooltip } from "@material-ui/core";
 import { Popup } from "react-leaflet";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useSocketContext from "SocketContext";
 import axios from "axios";
 import useFormReducer from "./reducer";
@@ -12,14 +12,7 @@ const PinForm = (props) => {
   /* PROPS */
   const { pin, handleCancel, marker, offset, coords } = props;
 
-  let xPos, yPos;
-  if (coords) {
-    xPos = coords.lng;
-    yPos = coords.lat;
-  } else {
-    xPos = pin.position_x;
-    yPos = pin.position_y;
-  }
+  console.log(props);
 
   useEffect(() => {
     window.setTimeout(() => {
@@ -52,6 +45,7 @@ const PinForm = (props) => {
     resource,
     resourceList,
   } = formState;
+  const [loading, setLoading] = useState(false);
 
   /* CONTEXT */
   const { setAlert } = useAlertBarContext();
@@ -96,9 +90,10 @@ const PinForm = (props) => {
     if (Object.values(formState).find((key) => key.error)) {
       return;
     }
+    setLoading(true);
     const payload = {
-      position_x: xPos,
-      position_y: yPos,
+      position_x: coords ? coords.lng : pin.position_x,
+      position_y: coords ? coords.lat : pin.position_y,
       world_id: world.id,
       symbol: symbol.value,
       resource: resource.value,
@@ -121,19 +116,7 @@ const PinForm = (props) => {
     } catch (error) {
       setAlert(error.response.data, "error");
     }
-  };
-
-  const handleClose = () => {
-    setName("");
-    setRank(0);
-    setAmount(0);
-    setRespawn(0);
-    setXCoord("");
-    setYCoord(0);
-    setNotes("");
-    setSymbol("stone");
-    setResource("granite");
-    handleCancel();
+    setLoading(false);
   };
 
   /* COMPONENT PROPS */
@@ -142,6 +125,7 @@ const PinForm = (props) => {
     id: "name",
     placeholder: "Name",
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...name,
   };
@@ -152,6 +136,7 @@ const PinForm = (props) => {
     id: "rank",
     placeholder: "Rank",
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...rank,
   };
@@ -162,6 +147,7 @@ const PinForm = (props) => {
     id: "amount",
     placeholder: "Amount",
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...amount,
   };
@@ -172,6 +158,7 @@ const PinForm = (props) => {
     id: "respawn",
     placeholder: "Respawn time",
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...respawn,
   };
@@ -180,7 +167,10 @@ const PinForm = (props) => {
     name: "notes",
     id: "notes",
     placeholder: "Notes",
+    multiline: true,
+    minRows: 2,
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...notes,
   };
@@ -191,6 +181,7 @@ const PinForm = (props) => {
     placeholder: "X Coordinate",
     autoFocus: true,
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...xCoord,
   };
@@ -201,6 +192,7 @@ const PinForm = (props) => {
     id: "yCoord",
     placeholder: "Y Coordinate",
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...yCoord,
   };
@@ -210,6 +202,7 @@ const PinForm = (props) => {
     id: "symbol",
     input: <StyledInputBase />,
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...symbol,
   };
@@ -219,6 +212,7 @@ const PinForm = (props) => {
     id: "resource",
     input: <StyledInputBase />,
     onChange: handleChange,
+    disabled: loading,
     inputProps: { form: "pin-form" },
     ...resource,
   };
@@ -227,7 +221,7 @@ const PinForm = (props) => {
     <>
       <Popup
         offset={offset}
-        onClose={handleClose}
+        onClose={handleCancel}
         minWidth={200}
         maxWidth={200}
       >
@@ -301,14 +295,19 @@ const PinForm = (props) => {
           </Grid>
 
           <Grid item xs={5}>
-            <Button onClick={handleClose} variant="contained">
+            <Button
+              onClick={handleCancel}
+              variant="contained"
+              disabled={loading}
+            >
               Cancel
             </Button>
           </Grid>
           <Grid item xs={5}>
             <form onSubmit={handleSubmit} id="pin-form">
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" disabled={loading}>
                 Submit
+                {loading && <CircularProgress size={15} />}
               </Button>
             </form>
           </Grid>

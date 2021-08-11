@@ -34,8 +34,8 @@ const CampaignSelector = () => {
     }
   }, [campaigns, activeCampaign, world]);
 
-  const handleCampaignChange = (event) => {
-    let index = event.target.value;
+  const handleCampaignChange = (e) => {
+    let index = e.target.value;
     if (index == -1) {
       return;
     }
@@ -43,8 +43,8 @@ const CampaignSelector = () => {
     setActiveCampaign(campaigns[index]);
   };
 
-  const handleWorldChange = (event) => {
-    let index = event.target.value;
+  const handleWorldChange = (e) => {
+    let index = e.target.value;
     if (index == -1) {
       returnToCampaign();
     } else {

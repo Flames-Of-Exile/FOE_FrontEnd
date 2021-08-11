@@ -1,4 +1,11 @@
-import { Button, Grid, Link, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import useIsMounted from "hooks/useIsMounted";
@@ -10,6 +17,7 @@ const Unconfirmed = () => {
 
   /* FORM STATE */
   const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(false);
 
   /* FORM HANDLING */
   useEffect(() => {
@@ -17,9 +25,11 @@ const Unconfirmed = () => {
   }, []);
 
   const generateToken = async () => {
+    setLoading(true);
     const response = await axios.get("/api/users/discord-token");
     if (isMounted) {
       setToken(response.data.token);
+      setLoading(false);
     }
   };
 
@@ -53,8 +63,9 @@ const Unconfirmed = () => {
       <Grid>
         <Typography>Follow the instructions given by the bot.</Typography>
       </Grid>
-      <Button onClick={generateToken} variant="contained">
+      <Button onClick={generateToken} variant="contained" disabled={loading}>
         Regenerate Token
+        {loading && <CircularProgress size={25} />}
       </Button>
     </>
   );

@@ -1,4 +1,4 @@
-import { Link } from "@material-ui/core";
+import { CircularProgress, Link } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Popup } from "react-leaflet";
 import capitalize from "helpers/Capitalize";
@@ -18,6 +18,7 @@ const PinDetails = (props) => {
 
   /* FORM STATE */
   const [details, setDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   /* CONTEXT */
   const { setAlert } = useAlertBarContext();
@@ -32,11 +33,15 @@ const PinDetails = (props) => {
   }, [pin]);
 
   const handleDelete = async () => {
+    setLoading(true);
     try {
       await axios.delete(`/api/pins/${pin.id}`);
       send("campaign-update");
     } catch (error) {
       setAlert(error.response.data, "error");
+    }
+    if (isMounted) {
+      setLoading(false);
     }
   };
 
@@ -103,6 +108,7 @@ const PinDetails = (props) => {
         ) : (
           ""
         )}
+        {loading && <CircularProgress size={15} />}
       </Popup>
     </>
   );

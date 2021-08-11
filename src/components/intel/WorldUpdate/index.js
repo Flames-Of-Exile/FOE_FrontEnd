@@ -40,7 +40,7 @@ const WorldUpdate = () => {
   const isMounted = useIsMounted();
 
   /* CONTEXT */
-  const { campaign, world } = useCampaignContext();
+  const { activeCampaign: campaign, world } = useCampaignContext();
   const { setAlert } = useAlertBarContext();
   const { send } = useSocketContext();
 

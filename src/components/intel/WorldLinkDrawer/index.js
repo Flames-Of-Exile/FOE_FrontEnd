@@ -16,7 +16,7 @@ function WorldLinkDrawer(props) {
 
   /* MAP HANDLING */
   useMapEvents({
-    click: (event) => {
+    click: (e) => {
       if (state.settingRadius) {
         setState({
           ...state,
@@ -31,18 +31,18 @@ function WorldLinkDrawer(props) {
         setState({
           ...state,
           newMarker: true,
-          centerLatLng: event.latlng,
-          centerPx: event.containerPoint,
+          centerLatLng: e.latlng,
+          centerPx: e.containerPoint,
           settingRadius: true,
           radius: 0,
         });
       }
     },
-    mousemove: (event) => {
+    mousemove: (e) => {
       if (state.settingRadius) {
         let radius = Math.hypot(
-          event.containerPoint.x - state.centerPx.x,
-          event.containerPoint.y - state.centerPx.y
+          e.containerPoint.x - state.centerPx.x,
+          e.containerPoint.y - state.centerPx.y
         );
         setState({
           ...state,

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { Backdrop, CircularProgress } from "@material-ui/core";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import useSocketContext from "SocketContext";
 import axios from "axios";
@@ -22,6 +23,7 @@ export const CampaignContextProvider = (props) => {
     name: "",
   });
   const [world, setWorld] = useState({ pins: [], name: "" });
+  const [loading, setLoading] = useState(false);
 
   /* OTHER CONTEXT */
   const { registerListener, removeListener } = useSocketContext();
@@ -69,9 +71,19 @@ export const CampaignContextProvider = (props) => {
   }, []);
 
   useEffect(async () => {
+    setLoading(true);
     const response = await axios.get("/api/campaigns");
     handleCampaignUpdate(response.data);
+    setLoading(false);
   }, []);
+
+  if (loading) {
+    return (
+      <Backdrop open>
+        <CircularProgress />
+      </Backdrop>
+    );
+  }
 
   return (
     <CampaignContext.Provider
