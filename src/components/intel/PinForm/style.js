@@ -6,6 +6,12 @@ const style = {
     padding: "0 0 0 5px",
     width: "100%",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+    "& .Mui-error": {
+      color: "#FF0000",
+    },
+    "& .MuiInput-underline.Mui-error:after": {
+      borderColor: "#FF0000",
+    },
   },
 };
 
