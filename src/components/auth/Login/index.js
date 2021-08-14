@@ -41,7 +41,7 @@ const Login = () => {
       });
       axios.defaults.headers.common[
         "Authorization"
-      ] = `Bearer${response.data.token}`;
+      ] = `Bearer ${response.data.token}`;
       connect();
       setUser(response.data.user);
       setTimeout(refresh, 2700);
