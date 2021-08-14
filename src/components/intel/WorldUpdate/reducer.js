@@ -36,7 +36,9 @@ const reducer = (state, action) => {
   }
 };
 
-export default function useNewWorldFormReducer(initState = initialState) {
+export default function useNewWorldFormReducer(name = "") {
+  let initState = initialState;
+  initState.name.value = name;
   const [state, dispatch] = useReducer(reducer, initState);
   return {
     state,

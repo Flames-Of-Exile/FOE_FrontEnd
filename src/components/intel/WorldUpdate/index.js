@@ -16,18 +16,27 @@ import { useHistory } from "react-router-dom";
 import useFormReducer from "./reducer";
 import useAlertBarContext from "AlertBarContext";
 import useIsMounted from "hooks/useIsMounted";
+import useStyles from "./style";
 
 const WorldUpdate = () => {
+  /* STYLING */
+  const classes = useStyles();
+
+  /* CONTEXT */
+  const { activeCampaign: campaign, world } = useCampaignContext();
+  const { setAlert } = useAlertBarContext();
+  const { send } = useSocketContext();
+
   /* FORM STATE */
-  const { state: formState, setName } = useFormReducer();
+  const { state: formState, setName } = useFormReducer(world.name);
   const { name } = formState;
   const [loading, setLoading] = useState(false);
 
   /* MAP STATE */
   const [circle, setCircle] = useState({
-    centerLat: 0,
-    centerLng: 0,
-    radius: 0,
+    centerLat: world.center_lat,
+    centerLng: world.center_lng,
+    radius: world.radius,
   });
   const [initialLoading, setInitialLoading] = useState(true);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -38,11 +47,6 @@ const WorldUpdate = () => {
   /* REFS */
   const overlayRef = useRef(null);
   const isMounted = useIsMounted();
-
-  /* CONTEXT */
-  const { activeCampaign: campaign, world } = useCampaignContext();
-  const { setAlert } = useAlertBarContext();
-  const { send } = useSocketContext();
 
   /* MAP HANDLING */
   useEffect(() => {
@@ -151,6 +155,7 @@ const WorldUpdate = () => {
           crs={CRS.Simple}
           minZoom={-5}
           maxZoom={5}
+          className={classes.map}
         >
           <WorldLinkDrawer setCircle={setCircle} />
           <ImageOverlay
