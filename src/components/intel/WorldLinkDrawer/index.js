@@ -1,62 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import { Circle, useMapEvents } from "react-leaflet";
+import useMapReducer from "./reducer";
 
 function WorldLinkDrawer(props) {
   /* PROPS */
   const { setCircle } = props;
 
   /* MAP STATE */
-  const [state, setState] = useState({
-    newMarker: false,
-    centerLatLng: [0, 0],
-    centerPx: [0, 0],
-    radius: 0,
-    settingRadius: false,
-  });
+  const { state, setCenter, setDrawing, setRadius } = useMapReducer();
+  const { drawing, centerCoords, radius } = state;
 
   /* MAP HANDLING */
   useMapEvents({
     click: (e) => {
-      if (state.settingRadius) {
-        setState({
-          ...state,
-          settingRadius: false,
-        });
+      if (drawing) {
+        setDrawing(false);
         setCircle({
-          centerLat: state.centerLatLng.lat,
-          centerLng: state.centerLatLng.lng,
-          radius: state.radius,
+          centerLat: centerCoords.latlng.lat,
+          centerLng: centerCoords.latlng.lng,
+          radius,
         });
       } else {
-        setState({
-          ...state,
-          newMarker: true,
-          centerLatLng: e.latlng,
-          centerPx: e.containerPoint,
-          settingRadius: true,
-          radius: 0,
-        });
+        setCenter({ latlng: e.latlng, xy: e.containerPoint });
       }
     },
     mousemove: (e) => {
-      if (state.settingRadius) {
+      if (drawing) {
         let radius = Math.hypot(
-          e.containerPoint.x - state.centerPx.x,
-          e.containerPoint.y - state.centerPx.y
+          e.containerPoint.x - centerCoords.xy.x,
+          e.containerPoint.y - centerCoords.xy.y
         );
-        setState({
-          ...state,
-          radius: radius,
-        });
+        setRadius(radius);
       }
     },
   });
 
-  if (state.newMarker === false) {
+  if (radius === 0) {
     return null;
   }
 
-  return <Circle center={state.centerLatLng} radius={state.radius} />;
+  return <Circle center={centerCoords.latlng} radius={radius} />;
 }
 
 export default WorldLinkDrawer;
