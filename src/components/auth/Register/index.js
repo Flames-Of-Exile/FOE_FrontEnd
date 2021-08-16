@@ -74,11 +74,12 @@ const Register = () => {
         username: username.value,
         password: password1.value,
         guild_id: guildId.value,
+        currentMember: true,
       });
 
       axios.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${response.data.accessToken}`;
+      ] = `Bearer ${response.data.token}`;
 
       connect();
       setUser(response.data.user);
