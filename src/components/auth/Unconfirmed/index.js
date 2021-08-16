@@ -6,13 +6,12 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useIsMounted from "hooks/useIsMounted";
 
 const Unconfirmed = () => {
   /* REFS */
-  const textArea = useRef(null);
   const isMounted = useIsMounted();
 
   /* FORM STATE */
@@ -34,8 +33,7 @@ const Unconfirmed = () => {
   };
 
   const handleCopy = () => {
-    textArea.current.select();
-    document.execCommand("copy");
+    navigator.clipboard.writeText(token);
   };
 
   return (
