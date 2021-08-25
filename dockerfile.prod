@@ -6,8 +6,7 @@ RUN npm install --silent
 COPY . ./
 
 ARG REACT_APP_BACKEND
-RUN npm run collectstatic2
-RUN npm run sass
+
 RUN REACT_APP_BACKEND=$REACT_APP_BACKEND SKIP_PREFLIGHT_CHECK=true npm run build
 
 # Stage 2
