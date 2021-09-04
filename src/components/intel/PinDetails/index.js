@@ -23,7 +23,7 @@ const PinDetails = (props) => {
   /* CONTEXT */
   const { setAlert } = useAlertBarContext();
   const { user } = useSessionContext();
-  const { send } = useSocketContext();
+  const { send, registerListener } = useSocketContext();
 
   /* FORM HANDLING */
   useEffect(() => {
@@ -36,11 +36,12 @@ const PinDetails = (props) => {
     setLoading(true);
     try {
       await axios.delete(`/api/pins/${pin.id}`);
+      registerListener("campaign-update", () => setLoading(false), {
+        once: true,
+      });
       send("campaign-update");
     } catch (error) {
       setAlert(error.response.data, "error");
-    }
-    if (isMounted) {
       setLoading(false);
     }
   };
