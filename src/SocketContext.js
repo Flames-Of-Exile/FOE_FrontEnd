@@ -3,9 +3,11 @@ import React, { createContext, useCallback, useContext, useState } from "react";
 
 export class Socket {
   connect() {
-    this.connection = io.connect(`${window.location.hostname}`, {
-      reconnection: true,
-    });
+    if (this.connection === undefined || !this.connection.connected) {
+      this.connection = io.connect(`${window.location.hostname}`, {
+        reconnection: true,
+      });
+    }
   }
 
   disconnect() {
