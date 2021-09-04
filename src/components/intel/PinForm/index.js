@@ -1,4 +1,11 @@
-import { Button, CircularProgress, Grid, MenuItem, Select, Tooltip } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  MenuItem,
+  Select,
+  Tooltip,
+} from "@material-ui/core";
 import { Popup } from "react-leaflet";
 import React, { useEffect, useState } from "react";
 import useSocketContext from "SocketContext";
@@ -11,8 +18,6 @@ import { useCampaignContext } from "components/intel/Home";
 const PinForm = (props) => {
   /* PROPS */
   const { pin, handleCancel, marker, offset, coords } = props;
-
-  console.log(props);
 
   useEffect(() => {
     window.setTimeout(() => {
@@ -49,7 +54,7 @@ const PinForm = (props) => {
 
   /* CONTEXT */
   const { setAlert } = useAlertBarContext();
-  const { send } = useSocketContext();
+  const { send, registerListener } = useSocketContext();
   const { world } = useCampaignContext();
 
   /* FORM HANDLING */
@@ -111,12 +116,19 @@ const PinForm = (props) => {
       } else {
         await axios.post("/api/pins", payload);
       }
+      registerListener(
+        "campaign-update",
+        () => {
+          setLoading(false);
+          handleCancel();
+        },
+        { once: true }
+      );
       send("campaign-update");
-      handleCancel();
     } catch (error) {
       setAlert(error.response.data, "error");
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   /* COMPONENT PROPS */

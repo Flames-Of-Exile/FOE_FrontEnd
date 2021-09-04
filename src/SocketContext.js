@@ -18,12 +18,20 @@ export class Socket {
     this.connection.emit(e);
   }
 
-  registerListener(name, callback) {
-    this.connection.on(name, callback);
+  registerListener(name, callback, options) {
+    if (options.once) {
+      this.connection.once(name, callback);
+    } else {
+      this.connection.on(name, callback);
+    }
   }
 
-  removeListener(name) {
-    this.connection.removeListener(name);
+  removeListener(name, options) {
+    if (options.callback) {
+      this.connection.off(name, options.callback);
+    } else {
+      this.connection.removeListener(name);
+    }
   }
 }
 
@@ -35,11 +43,12 @@ export const SocketContextProvider = (props) => {
   const send = useCallback((e) => socket.send(e), [socket]);
   const disconnect = useCallback(() => socket.disconnect(), [socket]);
   const registerListener = useCallback(
-    (name, callback) => socket.registerListener(name, callback),
+    (name, callback, options = {}) =>
+      socket.registerListener(name, callback, options),
     [socket]
   );
   const removeListener = useCallback(
-    (name) => socket.removeListener(name),
+    (name, options = {}) => socket.removeListener(name, options),
     [socket]
   );
 
